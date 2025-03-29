@@ -5,7 +5,6 @@ import Shiki from '@shikijs/markdown-it'
 import { ElMessage } from 'element-plus'
 import MarkdownIt from 'markdown-it'
 import { onBeforeUnmount, ref, watch } from 'vue'
-import '../assets/style/shiki.css'
 
 // #region 类型定义
 

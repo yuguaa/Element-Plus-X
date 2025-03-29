@@ -12,6 +12,7 @@ import MarkdownIt from 'markdown-it'
 import Prism from 'prismjs'
 import 'github-markdown-css'
 import 'prismjs/themes/prism.css'
+import '../../assets/style/shiki/shiki.scss'
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   isMarkdown: false,

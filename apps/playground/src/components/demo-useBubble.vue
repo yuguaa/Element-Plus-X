@@ -11,8 +11,10 @@ const content = ref('')
 const switchHighlight = ref(false)
 
 onMounted(() => {
-  content.value = demoStr.trim()
-  loading.value = false
+  setTimeout(() => {
+    content.value = demoStr.trim()
+    loading.value = false
+  }, 1500)
 })
 </script>
 
