@@ -1,6 +1,7 @@
 <!-- home 首页-使用 Bubble 组件 -->
 <script setup lang="ts">
-import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue'
+import type { ThinkingItem } from 'vue-element-plus-x/types/components/Thinking/types'
+import { Check, DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue'
 
 const avatar = ref(
   'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
@@ -8,9 +9,43 @@ const avatar = ref(
 const loading = ref(true)
 const content = ref('')
 
+const thinkingItems = ref<ThinkingItem[]>([
+  {
+    id: '1',
+    content: '收到问题',
+    title: '进行搜索文字',
+    type: 'success',
+    dotIcon: markRaw(Check),
+    isCanExpand: true,
+    isDefaultExpand: true,
+    isLoading: true,
+    expandContent: '进行搜索文字',
+  },
+])
+
 onMounted(() => {
   setTimeout(() => {
-    content.value = `
+    thinkingItems.value[0] = {
+      ...thinkingItems.value[0],
+      isLoading: false,
+      type: 'success',
+    }
+    thinkingItems.value.push({
+      id: '2',
+      content: '解决问题',
+      title: '进行搜索文字',
+      hideTitle: true,
+      type: 'primary',
+      dotIcon: Check,
+      isLoading: false,
+      isCanExpand: true,
+      isDefaultExpand: true,
+      expandContent: '进行搜索文字',
+    })
+
+    // 模拟思考结束
+    setTimeout(() => {
+      content.value = `
 # 标题
 这是一个 Markdown 示例。
 - 列表项 1
@@ -20,7 +55,8 @@ onMounted(() => {
 console.log('Hello, world!');
 \`\`\`
 `.trim()
-    loading.value = false
+      loading.value = false
+    }, 500)
   }, 2000)
 })
 </script>
@@ -46,7 +82,7 @@ console.log('Hello, world!');
 
         <template #header>
           <div class="header-container">
-            我是头部内容
+            <Thinking :thinking-items="thinkingItems" @handle-expand="(id: string[]) => console.log(id)" />
           </div>
         </template>
 
