@@ -9,6 +9,7 @@ import 'github-markdown-css'
 import 'prismjs/themes/prism.css'
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
+  content: '',
   isMarkdown: false,
   typing: false,
 })
@@ -45,6 +46,7 @@ const md = new MarkdownIt({
 const typingIndex = ref(0)
 const isTyping = ref(false)
 let timer: ReturnType<typeof setTimeout> | null = null
+const contentCache = ref('') // 添加缓存变量
 
 // 配置合并逻辑修改
 const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
@@ -85,14 +87,14 @@ const processedContent = computed(() => {
   }
 
   // 打字模式处理截断内容
-  const displayed = props.content.slice(0, typingIndex.value)
+  const displayed = contentCache.value.slice(0, typingIndex.value)
   return displayed
 })
 
 // 计算属性
 const typingProgress = computed(() => {
-  return props.content
-    ? Math.min((typingIndex.value / props.content.length) * 100, 100)
+  return contentCache.value
+    ? Math.min((typingIndex.value / contentCache.value.length) * 100, 100)
     : 0
 })
 
@@ -126,21 +128,30 @@ watch(
     if (!props.typing) {
       typingIndex.value = newVal?.length || 0
       isTyping.value = false
+      contentCache.value = newVal || ''
       return
     }
 
     const shouldReset = !oldVal || !newVal?.startsWith(oldVal)
-    if (shouldReset)
-      typingIndex.value = 0
 
-    nextTick(() => startTyping())
+    if (shouldReset) {
+      typingIndex.value = 0
+      contentCache.value = newVal || ''
+    }
+    else {
+      contentCache.value = newVal || ''
+    }
+
+    if (!isTyping.value) {
+      startTyping()
+    }
   },
   { immediate: true },
 )
 
 function startTyping() {
   clearTimeout(timer!)
-  if (!props.typing || !props.content)
+  if (!props.typing || !contentCache.value)
     return
 
   isTyping.value = true
@@ -150,7 +161,7 @@ function startTyping() {
     typingIndex.value += mergedConfig.value.step!
     emit('writing', instance)
 
-    if (typingIndex.value >= props.content!.length) {
+    if (typingIndex.value >= contentCache.value.length) {
       finishTyping()
       return
     }
@@ -163,7 +174,7 @@ function startTyping() {
 
 function finishTyping() {
   isTyping.value = false
-  typingIndex.value = props.content?.length || 0
+  typingIndex.value = contentCache.value.length
   emit('finish', instance)
 }
 
@@ -174,7 +185,7 @@ function interrupt() {
 }
 
 function continueTyping() {
-  if (typingIndex.value < (props.content?.length || 0)) {
+  if (typingIndex.value < contentCache.value.length) {
     startTyping()
   }
 }

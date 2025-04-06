@@ -7,6 +7,7 @@ import Typewriter from '../Typewriter/index.vue'
 
 const props = withDefaults(defineProps<BubbleProps>(), {
   content: '',
+  reasoning_content: '',
   avatar: '',
   placement: 'start',
   variant: 'filled',
@@ -71,7 +72,10 @@ const _interval: ComputedRef<number> = computed(() => {
 })
 
 const _typing = computed(() => {
-  if (typeof props.typing === 'boolean') {
+  if (typeof props.typing === 'undefined') {
+    return false
+  }
+  else if (typeof props.typing === 'boolean') {
     return props.typing
   }
   else {
@@ -279,7 +283,6 @@ defineExpose(instance)
     background-color: var(--el-fill-color);
     padding: var(--el-padding-sm) calc(var(--el-padding-sm) + 4px);
     border-radius: calc(var(--el-border-radius-base) + 4px);
-
     position: relative;
     box-sizing: border-box;
     min-width: 0;

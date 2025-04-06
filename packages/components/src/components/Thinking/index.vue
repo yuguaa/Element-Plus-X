@@ -1,311 +1,279 @@
-<script lang='ts' setup generic="T = ThinkingItemBase">
-import type { ElTimeline } from 'element-plus'
-import type { ThinkingInstance, ThinkingItemBase, ThinkingProps, ThinkType } from './types'
-import { Loading, Check, Close } from '@element-plus/icons-vue'
-import { computed, ref, watch } from 'vue'
-import { Typewriter } from '../../components'
-import { get } from 'radash';
+<script setup lang="ts">
+import type { ThinkingStatus, ThoughtProps } from './types.ts'
+import { ArrowUpBold, CircleCloseFilled, Loading, Opportunity, SuccessFilled } from '@element-plus/icons-vue'
 
-const props = withDefaults(defineProps<ThinkingProps<T>>(), {
-  thinkingItems: () => [],
-  dotSize: 'default',
-  maxWidth: '600px',
-  lineGradient: false,
-  rowKey: 'id',
-  statusKey: 'status',
-  statusEnum: () => ({
-    loading: {
-      value: 'loading',
-      type: 'warning',
-    },
-    error: {
-      value: 'error',
-      type: 'danger',
-    },
-    success: {
-      value: 'success',
-      type: 'success',
-    },
-  }),
-  titleKey: 'title',
-  thinkTitleKey: 'thinkTitle',
-  thinkContentKey: 'thinkContent'
+const props = withDefaults(defineProps<ThoughtProps>(), {
+  content: '',
+  modelValue: true,
+  status: 'start' as ThinkingStatus,
+  disabled: false,
+  autoCollapse: false,
+  buttonWidth: '160px',
+  duration: '0.2s',
+  maxWidth: '500px',
+  backgroundColor: '#fcfcfc',
+  color: 'var(--el-color-info)',
 })
 
-const emits = defineEmits<{
-  handleExpand: [value: ThinkingInstance['expandKeys']]
+// 定义组件 Emits
+const emit = defineEmits<{
+  (e: 'change', value: { value: boolean, status: ThinkingStatus }): void
+  (e: 'update:expanded', value: boolean): void
 }>()
 
-const dotMargin = computed(() => {
-  switch (props.dotSize) {
-    case 'small':
-      return '-4px 0 0 -7px'
-    case 'large':
-      return '-11px 0 0 -15px'
-    default:
-      return '-8px 0 0 -11px'
+const isExpanded = ref(props.modelValue)
+
+// 监听 modelValue 变化
+watch(() => props.modelValue, (newVal) => {
+  isExpanded.value = newVal
+})
+
+// 处理展开/收起
+function changeExpand() {
+  if (props.disabled)
+    return
+  isExpanded.value = !isExpanded.value
+  emit('change', { value: isExpanded.value, status: props.status })
+  emit('update:expanded', isExpanded.value)
+}
+
+// 显示内容（带错误状态处理）
+const displayedContent = computed(() => {
+  return props.status === 'error'
+    ? '思考过程中出现错误'
+    : props.content
+})
+
+// 自动收起逻辑
+watch(() => props.status, (newVal) => {
+  if (newVal === 'end' && props.autoCollapse) {
+    isExpanded.value = false
   }
-})
-
-const colorArr: Record<ThinkType, string> = {
-  info: 'var(--el-color-primary)',
-  success: 'var(--el-color-success)',
-  warning: 'var(--el-color-warning)',
-  danger: 'var(--el-color-danger)',
-  primary: 'var(--el-color-primary)',
-}
-
-const timelineRef = ref<InstanceType<typeof ElTimeline>>()
-
-const getLineColor = computed(() => {
-  if (props.thinkingItems.length && props.thinkingItems.length) {
-    const arr = props.thinkingItems.map((item) => {
-      const _type_ = getType(item)
-      if (_type_) {
-        return colorArr[_type_]
-      }
-      return ''
-    })
-
-    return arr
-  }
-  return []
-})
-
-// 计算默认展开项
-const activeNamesComputed = computed(() =>
-  props.thinkingItems
-    .filter(item => item.isCanExpand && item.isDefaultExpand)
-    .map(item => String(getId(item))),
-)
-
-const defaultActiveNodes = ref<string[]>([...activeNamesComputed.value])
-
-function handleExpand(activeNames: string[]) {
-  emits('handleExpand', activeNames)
-}
-
-function setRadialGradient(colors: typeof getLineColor.value, ele: HTMLElement[]) {
-  const length = ele.length
-  Array.from(ele).forEach((item, index) => {
-    const line = item.children[0]
-    if (line) {
-      line.setAttribute('style', `
-      border: none;
-      width:2px;
-      background: linear-gradient(to bottom, ${colors[index]} 0% , ${colors[index < length ? index + 1 : index]} 100%);
-    `)
-    }
-  })
-}
-
-function getEle() {
-  if (getLineColor.value && timelineRef.value && props.lineGradient) {
-    const ele = timelineRef.value.$el.children[0].children
-    setRadialGradient(getLineColor.value, ele)
-  }
-}
-
-function isLoading(item: T): boolean {
-  const status = getStatus(item)
-  return status === props.statusEnum.loading.value
-}
-
-function isError(item: T): boolean {
-  const status = getStatus(item)
-  return status === props.statusEnum.error.value
-}
-
-function getId(item: T) {
-  return get(item, props.rowKey)
-}
-
-function getType(item: T): ThinkType {
-  const status = getStatus(item)
-  return props.statusEnum[status as keyof typeof props.statusEnum]?.type ?? 'success'
-}
-
-function getTitle(item: T) {
-  return get(item, props.titleKey) as string ?? ''
-}
-
-function getThinkTitle(item: T) {
-  return get(item, props.thinkTitleKey) as string ?? ''
-}
-function getThinkContent(item: T) {
-  return get(item, props.thinkContentKey) as string ?? ''
-}
-
-function getStatus(item: T) {
-  return get(item, props.statusKey)
-}
-
-
-watch(() => activeNamesComputed.value, (v) => {
-  defaultActiveNodes.value = [...v]
-})
-
-watch(() => getLineColor.value, () => {
-  getEle()
-})
-
-onMounted(() => {
-  getEle()
 })
 </script>
 
 <template>
-  <div class="el-thinking">
-    <el-timeline ref="timelineRef" :style="{
-      maxWidth: `${maxWidth}`,
-    }">
-      <TransitionGroup name="thinking" tag="el-timeline-item">
-        <el-timeline-item v-for="item in props.thinkingItems" :key="getId(item)" :type="getType(item)"
-          :timestamp="getTitle(item)" :hide-timestamp="item.hideTitle" :placement="item.placement ?? 'top'">
-          <div v-if="!item.isCanExpand">
-            <Typewriter :content="getThinkTitle(item)" :is-markdown="item.isMarkdown" :typing="item.typing" />
-          </div>
-          <el-collapse v-else-if="!item.isDefaultExpand" @change="handleExpand">
-            <el-collapse-item :title="getThinkTitle(item)">
-              <Typewriter :content="getThinkContent(item)" :is-markdown="item.isMarkdown" :typing="item.typing" />
-            </el-collapse-item>
-          </el-collapse>
-          <el-collapse v-else-if="item.isDefaultExpand" v-model="defaultActiveNodes" @change="handleExpand">
-            <el-collapse-item :title="getThinkTitle(item)" :name="String(getId(item))">
-              <Typewriter :content="getThinkContent(item)" :is-markdown="item.isMarkdown" :typing="item.typing" />
-            </el-collapse-item>
-          </el-collapse>
+  <div
+    class="el-thought-chain" :style="{
+      '--el-thought-chaian-button-width': props.buttonWidth,
+      '--el-thought-chaian-animation-duration': props.duration,
+      '--el-thought-chaian-content-wrapper-width': props.maxWidth,
+      '--el-thought-chaian-content-wrapper-background-color': props.backgroundColor,
+      '--el-thought-chaian-content-wrapper-color': props.color,
+    }"
+  >
+    <!-- 触发按钮 -->
+    <button
+      class="trigger"
+      :class="[status, { disabled: !props.disabled }]"
+      :disabled="props.disabled"
+      @click="changeExpand"
+    >
+      <span class="status-icon">
+        <slot name="status-icon" :status="props.status">
+          <el-icon
+            v-if="status === 'thinking'"
+            class="is-loading el-icon-center"
+          >
+            <Loading />
+          </el-icon>
 
-          <template #dot>
-            <div class="el-thinking-item-dot">
-              <!-- <el-button
-                v-if="!$slots.customDot"
-                :size="props.dotSize" :type="item.type" :icon="item.dotIcon" :loading="item.isLoading"
-                :loading-icon="item.loadingIcon" circle
-              />
-              <slot v-else name="customDot" :item="{ ...item }" :parent-props="{ ...props }" /> -->
-              <slot name="icon">
-                <el-button circle :type="getType(item)" :loading="isLoading(item)">
-                  <template #loading>
-                    <el-icon class="thinking-loading">
-                      <slot name="loading-icon">
-                        <Loading />
-                      </slot>
-                    </el-icon>
-                  </template>
-                  <template #icon>
-                    <el-icon v-if="!isLoading(item)">
-                      <slot name="error-icon" v-if="isError(item)">
-                        <Close />
-                      </slot>
-                      <slot name="error-icon" v-else>
-                        <Check />
-                      </slot>
-                    </el-icon>
-                  </template>
-                </el-button>
-              </slot>
+          <el-icon v-if="status === 'start'" class="el-icon-center start-color">
+            <Opportunity />
+          </el-icon>
+
+          <el-icon v-if="status === 'end'" class="el-icon-center end-color">
+            <SuccessFilled />
+          </el-icon>
+
+          <el-icon v-if="status === 'error'" class="el-icon-center error-color">
+            <CircleCloseFilled />
+          </el-icon>
+
+        </slot>
+      </span>
+
+      <span class="label">
+        <slot name="label" :status="props.status">
+          {{
+            status === 'thinking' ? '思考中...'
+            : status === 'error' ? '思考遇到问题'
+              : status === 'end' ? '思考完成' : '开始思考'
+          }}
+        </slot>
+      </span>
+
+      <transition name="rotate">
+        <span v-if="!props.disabled" class="arrow el-icon-center" :class="{ expanded: isExpanded }">
+          <slot name="arrow">
+            <el-icon class="el-icon-center">
+              <ArrowUpBold />
+            </el-icon>
+          </slot>
+        </span>
+      </transition>
+    </button>
+
+    <!-- 内容区域 -->
+    <Transition name="slide">
+      <div
+        v-show="isExpanded"
+        v-if="displayedContent"
+        class="content-wrapper"
+        :class="{ 'error-state': status === 'error' }"
+      >
+        <div class="content">
+          <slot v-if="status !== 'error'" name="content" :content="displayedContent">
+            <pre>{{ displayedContent }}</pre>
+          </slot>
+
+          <slot v-else name="error" :error-content="displayedContent">
+            <div class="error-message">
+              {{ displayedContent }}
             </div>
-          </template>
-        </el-timeline-item>
-      </TransitionGroup>
-    </el-timeline>
+          </slot>
+        </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.el-thinking {
-  width: 100%;
-  margin: 0 0 0 7px;
+<style scoped>
+.el-thought-chain {
+  font-family: system-ui, sans-serif;
+  margin: 0 auto;
+}
 
-  &-item-dot {
-    width: 100%;
+.trigger {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: var(--el-thought-chaian-button-width);
+  gap: 8px;
+  padding: var(--el-padding-sm) calc(var(--el-padding-sm) + 4px);
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  /* 居中 */
+  .el-icon-center {
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin: v-bind(dotMargin)
   }
 
-  :deep(.el-collapse) {
-    border: none;
-
-    .el-collapse-item__header {
-      height: 20px;
-      font-weight: normal;
-    }
-
-    .el-collapse-item__arrow {
-      margin: 0 0 0 8px;
-    }
-
-    .el-collapse-item__header {
-      margin-bottom: 5px;
-    }
-
-    .el-collapse-item__header,
-    .el-collapse-item__wrap {
-      border: none;
-    }
-
-    .el-collapse-item__content {
-      color: var(--el-text-color-secondary);
-      padding: 0;
-    }
+  /* 开始颜色 */
+  .start-color {
+    color: var(--el-color-warning);
   }
 
-  :deep(.el-timeline) {
-    padding: 10px 0 0 5px;
+  /* 完成颜色 */
+  .end-color {
+    color: var(--el-color-success);
   }
 
-  :deep(.el-timeline-item__timestamp) {
-    color: var(--el-text-color-primary);
+  /* 思考中颜色 */
+  .is-loading {
+    color: var(--el-color-primary);
   }
 
-  :deep(.el-timeline-item__content) {
-    color: var(--el-text-color-secondary);
+  /* 思考失败颜色 */
+  .error-color {
+    color: var(--el-color-danger);
   }
 }
 
-.thinking-move,
-.thinking-enter-active,
-.thinking-leave-active {
-  transition: all 0.5s ease;
+.trigger:hover {
+  background: #f8f8f8;
 }
 
-.thinking-enter-from,
-.thinking-leave-to {
+.trigger.disabled {
+  cursor: pointer;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.status-icon {
+  font-size: 1.2em;
+}
+
+.arrow {
+  margin-left: auto;
+  transition: transform var(--el-thought-chaian-animation-duration);
+}
+
+.arrow.expanded {
+  transform: rotate(180deg);
+}
+
+/* 滑动动画 */
+.slide-enter-active,
+.slide-leave-active {
+  height: calc-size(max-content, size);
+  transition:
+    height var(--el-thought-chaian-animation-duration) ease-in-out,
+    opacity var(--el-thought-chaian-animation-duration) ease-in-out;
+  overflow: hidden;
+}
+
+.slide-enter-from,
+.slide-leave-to {
+  height: 0 !important;
   opacity: 0;
-  transform: translateY(10px) scaleY(0.9);
 }
 
-.thinking-leave-active {
-  position: absolute;
+/* 内容区域样式 */
+.content-wrapper {
+  margin-top: 8px;
+  border: 1px solid #eee;
+  background: var(--el-thought-chaian-content-wrapper-background-color);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--el-padding-sm) calc(var(--el-padding-sm) + 4px);
+  border-radius: calc(var(--el-border-radius-base) + 4px);
+  max-width: var(--el-thought-chaian-content-wrapper-width);
 }
 
-.thinking-loading{
-  animation: rotating 1.5s linear infinite;
-  transform-origin: center center;
-  will-change: transform;
-  backface-visibility: hidden;
-  -webkit-font-smoothing: antialiased;
+.content pre {
+  font-size: 14px;
+  color: var(--el-thought-chaian-content-wrapper-color);
+  white-space: pre-wrap;
+  font-family: DeepSeek-CJK-patch,Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Cantarell,Helvetica Neue,Oxygen,Open Sans,sans-serif;
+  margin: 0;
+  line-height: var(--el-font-line-height-primary);
 }
 
-@keyframes rotating {
-  0% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(90deg);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  75% {
-    transform: rotate(270deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.error-state {
+  border-color: #ffd0d0;
+  background: #fff0f0;
+}
+
+.error-message {
+  color: #dc3545;
+  height: fit-content;
+  padding: 8px;
+  background: #ffeef0;
+  border-radius: 4px;
+}
+
+/* 加载动画 */
+@keyframes dot-pulse {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.loading-dot {
+  animation: dot-pulse 1.4s infinite;
+}
+.loading-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.loading-dot:nth-child(3) {
+  animation-delay: 0.4s;
 }
 </style>

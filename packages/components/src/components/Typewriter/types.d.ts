@@ -14,7 +14,7 @@ export interface TypingConfig {
 /** 组件 Props 类型 */
 export interface TypewriterProps {
   /** 要显示的内容 */
-  content: string
+  content?: string
   /** 是否解析为 Markdown */
   isMarkdown?: boolean
   /** 打字效果配置（布尔值启用默认配置） */

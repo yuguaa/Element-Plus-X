@@ -29,25 +29,11 @@ const internalValue = computed({
     return props.modelValue
   },
   set(val) {
-    if(props.readOnly || props.disabled) return;
+    if (props.readOnly || props.disabled)
+      return
     emits('update:modelValue', val)
   },
 })
-// 内部状态管理
-// const internalValue = ref(props.value)
-
-// 监听父组件value变化
-// watch(() => props.value, (newVal) => {
-//   if (props.readOnly || props.disabled)
-//     return
-//   internalValue.value = newVal
-// }, { deep: true })
-
-// watch(() => internalValue.value, () => {
-//   if (props.readOnly || props.disabled) {
-//     internalValue.value = props.value
-//   }
-// }, { deep: true })
 
 // 获取当前组件实例
 const instance = getCurrentInstance()
@@ -112,7 +98,6 @@ function startRecognition() {
       }
       if (!props.readOnly) {
         internalValue.value = results
-        // emits('update:value', results)
       }
     }
     recognition.value.onstart = () => {
@@ -120,7 +105,6 @@ function startRecognition() {
     }
     recognition.value.onend = () => {
       speechLoading.value = false
-      // console.log("语音识别结束");
     }
     recognition.value.onerror = (event: SpeechRecognitionError) => {
       console.error('语音识别出错:', event.error)
@@ -151,14 +135,12 @@ function stopRecognition() {
 function submit() {
   if (props.readOnly || props.loading || props.disabled)
     return
-  // emits('update:value', internalValue.value)
   emits('submit', internalValue.value)
 }
 // 取消按钮
 function cancel() {
   if (props.readOnly)
     return
-  // emits('update:value', internalValue.value)
   emits('cancel', internalValue.value)
 }
 
@@ -167,7 +149,6 @@ function clear() {
     return // 直接返回，不执行后续逻辑
   inputRef.value.clear()
   internalValue.value = ''
-  // emits('update:value', '')
 }
 
 // 在这判断组合键的回车键 (目前支持两种模式)
@@ -182,7 +163,6 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
       const textBeforeCursor = internalValue.value.slice(0, cursorPosition) // 光标前的文本
       const textAfterCursor = internalValue.value.slice(cursorPosition) // 光标后的文本
       internalValue.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
-      // emits('update:value', internalValue.value)
       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1) // 更新光标位置
     }
     else if (e.keyCode === 13 && !e.shiftKey) {
@@ -206,7 +186,6 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
       const textBeforeCursor = internalValue.value.slice(0, cursorPosition) // 光标前的文本
       const textAfterCursor = internalValue.value.slice(cursorPosition) // 光标后的文本
       internalValue.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
-      // emits('update:value', internalValue.value)
       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1) // 更新光标位置
     }
   }

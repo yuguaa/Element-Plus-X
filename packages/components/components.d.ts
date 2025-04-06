@@ -16,6 +16,7 @@ declare module 'vue' {
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
     ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
@@ -26,6 +27,8 @@ declare module 'vue' {
     SpeechButton: typeof import('./src/components/Sender/components/SpeechButton/index.vue')['default']
     SpeechLoadingButton: typeof import('./src/components/Sender/components/SpeechLoadingButton/index.vue')['default']
     Thinking: typeof import('./src/components/Thinking/index.vue')['default']
+    ThoughtChain: typeof import('./src/components/ThoughtChain/index.vue')['default']
     Typewriter: typeof import('./src/components/Typewriter/index.vue')['default']
+    Welcome: typeof import('./src/components/Welcome/index.vue')['default']
   }
 }
