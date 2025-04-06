@@ -163,7 +163,7 @@ function getHeaderEle(options: InitShikiOptions, node: Element, codeText: string
     destroy,
   }
  */
-export default function useShikiRender(): ShikiRenderRes {
+export function useShikiRender(): ShikiRenderRes {
   const shikiMd = ref<MarkdownIt | null>(null)
   const isReady = ref<boolean>(false)
 

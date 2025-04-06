@@ -13,16 +13,7 @@ const switchHighlight = ref(false)
 onMounted(() => {
   setTimeout(() => {
     setTimeout(() => {
-      content.value = `
-# 标题
-这是一个 Markdown 示例。
-- 列表项 1
-- 列表项 2
-**粗体文本** 和 *斜体文本*
-\`\`\`javascript
-console.log('Hello, world!');
-\`\`\`
-`.trim()
+      content.value = demoStr.trim()
       loading.value = false
     }, 500)
   }, 2000)
