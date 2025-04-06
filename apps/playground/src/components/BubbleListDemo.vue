@@ -28,6 +28,7 @@ function addMessage() {
     },
   }
   bubbleItems.value.push(obj as MessageItem)
+  bubbleListRef.value.scrollToBottom()
 }
 
 function onCompleteFunc(_self: unknown) {

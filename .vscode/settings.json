@@ -14,7 +14,8 @@
     // 来源导入我们不需要给关闭掉
     "source.organizeImports": "never",
     // 使用 stylelint 来修复样式问题
-    "source.fixAll.stylelint": "explicit"
+    "source.fixAll.stylelint": "explicit",
+    "source.fixAll.oxc": "always"
   },
 
   // 静默样式规则自动修复
@@ -54,5 +55,11 @@
     "pcss",
     "postcss"
   ],
-  "oxc.enable": true
+  "oxc.enable": true,
+  "cSpell.words": [
+    "aeac",
+    "esno",
+    "radash",
+    "unplugin"
+  ]
 }

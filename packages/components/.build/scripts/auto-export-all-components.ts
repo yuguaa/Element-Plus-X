@@ -10,8 +10,7 @@ interface ComponentInfo {
 
 async function generateAutoEntry() {
   const componentsDir = path.resolve(cwd(), 'src/components')
-  const components: ComponentInfo[] = [];
-
+  const components: ComponentInfo[] = []
 
   // 扫描组件目录
   if (await fs.exists(componentsDir)) {

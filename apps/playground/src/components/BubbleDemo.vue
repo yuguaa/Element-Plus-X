@@ -12,9 +12,20 @@ const switchHighlight = ref(false)
 
 onMounted(() => {
   setTimeout(() => {
-    content.value = demoStr.trim()
-    loading.value = false
-  }, 1500)
+    setTimeout(() => {
+      content.value = `
+# 标题
+这是一个 Markdown 示例。
+- 列表项 1
+- 列表项 2
+**粗体文本** 和 *斜体文本*
+\`\`\`javascript
+console.log('Hello, world!');
+\`\`\`
+`.trim()
+      loading.value = false
+    }, 500)
+  }, 2000)
 })
 </script>
 
@@ -44,12 +55,6 @@ onMounted(() => {
       >
         <template #avatar>
           <el-avatar :size="32" :src="avatar" />
-        </template>
-
-        <template #header>
-          <div class="header-container">
-            我是头部内容
-          </div>
         </template>
 
         <!-- <template #content>

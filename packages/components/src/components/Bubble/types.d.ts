@@ -2,6 +2,7 @@ import type { CodeHighLightEngine } from '../Typewriter/types'
 
 export interface BubbleProps {
   content?: string
+  reasoning_content?: string
   placement?: 'start' | 'end'
   avatar?: string
   loading?: boolean

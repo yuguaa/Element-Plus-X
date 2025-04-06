@@ -1,4 +1,3 @@
-<!-- Sender 输入框组件 -->
 <script setup lang="ts">
 import type { SenderProps } from './types.d.ts'
 import {
@@ -18,11 +17,23 @@ const props = withDefaults(defineProps<SenderProps>(), {
   submitType: 'enter',
   headerAnimationTimer: 300,
   inputWidth: '100%',
+  modelValue: '', // 显式定义value的默认值
 })
 
-const emits = defineEmits(['submit', 'cancel', 'recordingChange'])
+const emits = defineEmits(['update:modelValue', 'submit', 'cancel', 'recordingChange'])
 
 const slots = defineSlots()
+
+const internalValue = computed({
+  get() {
+    return props.modelValue
+  },
+  set(val) {
+    if (props.readOnly || props.disabled)
+      return
+    emits('update:modelValue', val)
+  },
+})
 
 // 获取当前组件实例
 const instance = getCurrentInstance()
@@ -30,8 +41,6 @@ const instance = getCurrentInstance()
 const hasOnRecordingChangeListener = computed(() => {
   return !!instance?.vnode.props?.onRecordingChange
 })
-// vue 3.4 新增的 defineModel 语法糖，用于定义 props 和 v-model 的双向绑定
-const value = defineModel('value', { type: String, default: '' })
 const senderRef = ref()
 const inputRef = ref()
 
@@ -48,21 +57,19 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false)
 function openHeader() {
-  if (!slots.header) {
+  if (!slots.header)
     return false
-  }
-  if (props.readOnly) {
+
+  if (props.readOnly)
     return false
-  }
+
   visiableHeader.value = true
 }
 function closeHeader() {
-  if (!slots.header) {
-    return false
-  }
-  if (props.readOnly) {
-    return false
-  }
+  if (!slots.header)
+    return
+  if (props.readOnly)
+    return
   visiableHeader.value = false
 }
 /* 头部显示隐藏 结束 */
@@ -72,9 +79,8 @@ const recognition = ref<SpeechRecognition | null>(null)
 const speechLoading = ref<boolean>(false)
 
 function startRecognition() {
-  if (props.readOnly) {
-    return false
-  }
+  if (props.readOnly)
+    return // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true
     emits('recordingChange', true)
@@ -90,14 +96,15 @@ function startRecognition() {
       for (let i = 0; i <= event.resultIndex; i++) {
         results += event.results[i][0].transcript
       }
-      value.value = results
+      if (!props.readOnly) {
+        internalValue.value = results
+      }
     }
     recognition.value.onstart = () => {
       speechLoading.value = true
     }
     recognition.value.onend = () => {
       speechLoading.value = false
-      // console.log("语音识别结束");
     }
     recognition.value.onerror = (event: SpeechRecognitionError) => {
       console.error('语音识别出错:', event.error)
@@ -126,38 +133,36 @@ function stopRecognition() {
 
 /* 输入框事件 开始 */
 function submit() {
-  if (props.readOnly) {
-    return false
-  }
-  emits('submit', value.value)
+  if (props.readOnly || props.loading || props.disabled)
+    return
+  emits('submit', internalValue.value)
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly) {
-    return false
-  }
-  emits('cancel', value.value)
+  if (props.readOnly)
+    return
+  emits('cancel', internalValue.value)
 }
 
 function clear() {
-  if (props.readOnly) {
-    return false
-  }
+  if (props.readOnly)
+    return // 直接返回，不执行后续逻辑
   inputRef.value.clear()
+  internalValue.value = ''
 }
+
 // 在这判断组合键的回车键 (目前支持两种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly) {
-    return false
-  }
+  if (props.readOnly)
+    return // 直接返回，不执行后续逻辑
   if (props.submitType === 'enter') {
     // 判断是否按下了 Shift + 回车键
     if (e.shiftKey && e.keyCode === 13) {
       e.preventDefault()
       const cursorPosition = e.target.selectionStart // 获取光标位置
-      const textBeforeCursor = value.value.slice(0, cursorPosition) // 光标前的文本
-      const textAfterCursor = value.value.slice(cursorPosition) // 光标后的文本
-      value.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
+      const textBeforeCursor = internalValue.value.slice(0, cursorPosition) // 光标前的文本
+      const textAfterCursor = internalValue.value.slice(cursorPosition) // 光标后的文本
+      internalValue.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1) // 更新光标位置
     }
     else if (e.keyCode === 13 && !e.shiftKey) {
@@ -178,9 +183,9 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
     else if (e.keyCode === 13 && !e.shiftKey) {
       e.preventDefault()
       const cursorPosition = e.target.selectionStart // 获取光标位置
-      const textBeforeCursor = value.value.slice(0, cursorPosition) // 光标前的文本
-      const textAfterCursor = value.value.slice(cursorPosition) // 光标后的文本
-      value.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
+      const textBeforeCursor = internalValue.value.slice(0, cursorPosition) // 光标前的文本
+      const textAfterCursor = internalValue.value.slice(cursorPosition) // 光标后的文本
+      internalValue.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1) // 更新光标位置
     }
   }
@@ -229,7 +234,7 @@ function focusToEnd() {
     const textarea = inputRef.value.$el.querySelector('textarea')
     if (textarea) {
       textarea.focus() // 聚焦到输入框
-      textarea.setSelectionRange(value.value.length, value.value.length) // 设置光标到最后方
+      textarea.setSelectionRange(internalValue.value.length, internalValue.value.length) // 设置光标到最后方
     }
   }
 }
@@ -287,7 +292,7 @@ defineExpose({
         <!-- 输入框 -->
         <el-input
           ref="inputRef"
-          v-model="value"
+          v-model="internalValue"
           class="el-sender-input"
           :input-style="{
             'resize': 'none',
@@ -299,7 +304,7 @@ defineExpose({
           type="textarea"
           :validate-event="false"
           :placeholder="placeholder"
-          :read-only="readOnly"
+          :read-only="readOnly || disabled"
           :disabled="disabled"
           @keydown.stop="handleKeyDown"
         />

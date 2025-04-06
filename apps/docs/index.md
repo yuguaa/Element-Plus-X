@@ -3,16 +3,22 @@
 layout: home
 
 hero:
-  name: "🚀Element Plus X🚀"
-  text: "AI体验新秩序"
-  tagline: 开源团队匠心呈现 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。
+  name: "Element Plus X"
+  text: "🚀AI体验新秩序🚀"
+  tagline: 用 vue3插槽 对 ant-design-x 的复刻。开源团队匠心呈现 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。❤️ 将开源进行到底 ❤️
+  image:
+    src: /logo.png
+    alt: Element Plus X
   actions:
     - theme: brand
-      text: 开始使用
-      link: /components/Bubble
+      text: ✨开始使用
+      link: /components/typewriter/
     - theme: alt
-      text: 在线预览
+      text: 👉在线预览
       link: https://v.element-plus-x.com
+    - theme: alt
+      text: ⭐star支持
+      link: https://github.com/HeJiaYue520/Element-Plus-X.git
 
 features:
   - title: 😄复刻经典 推陈出新

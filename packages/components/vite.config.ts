@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import plugins from './.build/plugins';
 import buildConfig from './.build/build';

@@ -8,3 +8,11 @@ export interface BubbleListProps<T extends BubbleListItemProps = BubbleListItemP
   maxHeight?: string
   triggerIndices?: 'only-last' | 'all' | number[]
 }
+
+// 定义组件实例类型
+// 定义组件实例类型
+export interface BubbleListInstance {
+  scrollToTop: () => void
+  scrollToBottom: () => void
+  scrollToBubble: (index: number) => void
+}

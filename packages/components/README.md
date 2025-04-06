@@ -109,6 +109,6 @@ app.mount('#app')
 
 ## 👥 社区支持
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-3-30.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
 </div>

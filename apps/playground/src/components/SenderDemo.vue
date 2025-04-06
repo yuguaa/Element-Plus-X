@@ -92,7 +92,7 @@ function focus(type = 'all') {
     <div class="component-1">
       <Sender
         ref="senderRef"
-        v-model:value="value"
+        v-model="value"
         allow-speech
         clearable
         submit-type="shiftEnter"
