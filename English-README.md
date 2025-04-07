@@ -12,6 +12,8 @@
 
 <div align="center">
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
+<img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
+<img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;
 </div>
 
 <div align="center">
@@ -31,6 +33,7 @@
 | **Code Repository**   | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X)           |
 | **NPM Package**       | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)           |
 | **Issue Feedback**    | [🐛 Submit a Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)  |
+| **Community**      | [🐒 Discussion Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)  |
 
 ## 🛠️ Core Features
 - ✨ **Enterprise-level AI Components**: Pre-built scenario-based components such as chatbots and voice interaction.
@@ -87,14 +90,27 @@ app.use(ElementPlusX)
 app.mount('#app')
 ```
 
-## 🌟 Implemented Components
+3. **CDN Import**
+```html
+<!-- This method is still under testing -->
+<!-- CDN Import -->
+<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+```
 
-| Component Name | Description | Documentation Link |
-|----------------|-------------|--------------------|
-| `Typewriter` | Typewriter animation component | [📄 Documentation](https://element-plus-x.com/components/typewriter/) |
-| `Bubble` | Bubble message component | [📄 Documentation](https://element-plus-x.com/components/bubble/) |
-| `BubbleList` | Bubble message list | [📄 Documentation](https://element-plus-x.com/components/bubbleList/) |
-| `Sender` | Intelligent input box (with voice interaction) | [📄 Documentation](https://element-plus-x.com/components/sender/) |
+## 🌟 Implemented Components and Hooks
+
+| Component Name | Description                     | Documentation Link           |
+|----------------|-------------------------------|-----------------------------|
+| `Typewriter`   | Typing animation component    | [📄 Docs](https://element-plus-x.com/components/typewriter/) |
+| `Bubble`       | Bubble message component        | [📄 Docs](https://element-plus-x.com/components/bubble/) |
+| `BubbleList`   | Bubble message list             | [📄 Docs](https://element-plus-x.com/components/bubbleList/) |
+| `Welcome`      | Welcome component               | [📄 Docs](https://element-plus-x.com/components/welcome/) |
+| `Sender`       | Smart input (with voice interaction) | [📄 Docs](https://element-plus-x.com/components/sender/) |
+| `Thinking`     | Thinking state component (extended) | [📄 Docs](https://element-plus-x.com/components/thinking/) |
+| `ThoughtChain` | Thought chain component         | [📄 Docs](https://element-plus-x.com/components/thoughtChain/) |
+| `useRecord`    | Browser built-in speech recognition hooks | [📄 Docs](https://element-plus-x.com/components/useRecord/) |
+| `useXStream`   | Streaming API hooks             | [📄 Docs](https://element-plus-x.com/components/useXStream/) |
+| `useSend & XRequest` | Split streaming hooks (extended) | [📄 Docs](https://element-plus-x.com/components/useSend/) |
 
 ## 🤝 Contribute
 
@@ -109,6 +125,9 @@ We welcome:
 
 ## 👥 Community Support
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-3-30.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-4-6.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
 <p>Join the WeChat communication group to get the latest news and technical support</p>
+
+<p>If the group link expires, scan the author's QR code:</p>
+<img src="https://cdn.element-plus-x.com/element-plus-x-author-vx.png" alt="Author's WeChat" width="180" style="margin: 20px;" />
 </div>

@@ -1,6 +1,6 @@
 <script lang='ts' setup generic="T = DefaultThoughtChainItemProps">
 import type { ElTimeline } from 'element-plus'
-import type { DefaultThoughtChainItemProps, ThinkingInstance, ThoughtChainProps, ThoughtChainType } from './types'
+import type { DefaultThoughtChainItemProps, ThinkingInstance, ThoughtChainProps, ThoughtChainType } from './types.d.ts'
 import { Check, Close, Loading } from '@element-plus/icons-vue'
 import { get } from 'radash'
 import { computed, ref, watch } from 'vue'
@@ -58,7 +58,7 @@ const colorArr: Record<ThoughtChainType, string> = {
 const timelineRef = ref<InstanceType<typeof ElTimeline>>()
 
 const getLineColor = computed(() => {
-  if (props.thinkingItems.length && props.thinkingItems.length) {
+  if (props.thinkingItems.length) {
     const arr = props.thinkingItems.map((item) => {
       const _type_ = getType(item)
       if (_type_) {
@@ -81,8 +81,8 @@ const activeNamesComputed = computed(() =>
 
 const defaultActiveNodes = ref<string[]>([...activeNamesComputed.value])
 
-function handleExpand(activeNames: string[]) {
-  emits('handleExpand', activeNames)
+function handleExpand(item: any) {
+  emits('handleExpand', item)
 }
 
 function setRadialGradient(colors: typeof getLineColor.value, ele: HTMLElement[]) {
@@ -168,12 +168,12 @@ onMounted(() => {
           <div v-if="!item.isCanExpand">
             <Typewriter :content="getThinkTitle(item)" :is-markdown="item.isMarkdown" :typing="item.typing" />
           </div>
-          <el-collapse v-else-if="!item.isDefaultExpand" @change="handleExpand">
+          <el-collapse v-else-if="!item.isDefaultExpand" @change="handleExpand(item)">
             <el-collapse-item :title="getThinkTitle(item)">
               <Typewriter :content="getThinkContent(item)" :is-markdown="item.isMarkdown" :typing="item.typing" />
             </el-collapse-item>
           </el-collapse>
-          <el-collapse v-else-if="item.isDefaultExpand" v-model="defaultActiveNodes" @change="handleExpand">
+          <el-collapse v-else-if="item.isDefaultExpand" v-model="defaultActiveNodes" @change="handleExpand(item)">
             <el-collapse-item :title="getThinkTitle(item)" :name="String(getId(item))">
               <Typewriter :content="getThinkContent(item)" :is-markdown="item.isMarkdown" :typing="item.typing" />
             </el-collapse-item>
@@ -182,7 +182,7 @@ onMounted(() => {
           <template #dot>
             <div class="el-thought-chain-item-dot">
               <slot name="icon" :item="item">
-                <el-button circle :type="getType(item)" :loading="isLoading(item)">
+                <el-button circle :type="getType(item)" :loading="isLoading(item)" :size="dotSize">
                   <template #loading>
                     <el-icon class="thought-chain-loading">
                       <Loading />
@@ -205,7 +205,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .el-thought-chain {
 
   &-item-dot {
