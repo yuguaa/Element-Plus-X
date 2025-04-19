@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import UseBubble from './components/BubbleDemo.vue'
 import UseBubbleList from './components/BubbleListDemo.vue'
+import UseConversations from './components/demo-useConversations.vue'
 import UseMentionSender from './components/MentionSenderDemo.vue'
 import UseSender from './components/SenderDemo.vue'
 import UseThinking from './components/ThinkingDemo.vue'
@@ -67,6 +68,10 @@ import UseWelcome from './components/WelcomeDemo.vue'
 
       <el-tab-pane label="useXStream-SIP">
         <useXStreamSIP />
+      </el-tab-pane>
+
+      <el-tab-pane label="Conversations">
+        <UseConversations />
       </el-tab-pane>
     </el-tabs>
   </div>
