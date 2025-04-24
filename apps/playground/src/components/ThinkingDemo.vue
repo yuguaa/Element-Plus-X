@@ -119,7 +119,8 @@ function addMessage(message: string, isUser: boolean) {
     variant: 'shadow',
     shape: 'corner',
     // maxWidth: '500px',
-    // typing: isUser ? false : { step: 2, suffix: '❤️‍🔥', interval: 30 },
+    typing: isUser ? false : { step: 2, suffix: '❤️‍🔥', interval: 80 },
+    isFog: isUser ? false : { bgColor: '#FFFFFF' },
     loading: !isUser,
     content: message || '',
     reasoning_content: '',
@@ -138,6 +139,7 @@ function handleChange(payload: { value: boolean, status: ThinkingStatus }) {
   <div class="component-container">
     <div class="header-wrap">
       此处是拿硅基流动中的免费模型进行测试，仅供预览使用
+      <p>和 BubbleList 组合使用，支持放在 气泡头部，或者 气泡自定义内容中</p>
     </div>
 
     <div class="chat-warp">
@@ -188,7 +190,7 @@ function handleChange(payload: { value: boolean, status: ThinkingStatus }) {
             </template>
           </Thinking>
 
-          <Typewriter :content="item.content" :loading="item.loading" :typing="item.typing" :is-markdown="item.isMarkdown" />
+          <Typewriter :content="item.content" :loading="item.loading" :typing="item.typing" :is-markdown="item.isMarkdown" :is-fog="item.isFog" />
         </template>
       </BubbleList>
       <Sender ref="senderRef" v-model="inputValue" @submit="startSSE">
@@ -219,7 +221,7 @@ function handleChange(payload: { value: boolean, status: ThinkingStatus }) {
     padding: 12px;
   }
   .chat-warp {
-    height: calc(100vh - 265px);
+    height: calc(100vh - 365px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

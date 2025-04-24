@@ -102,19 +102,26 @@ app.mount('#app')
 | Component Name | Description                     | Documentation Link           |
 |----------------|-------------------------------|-----------------------------|
 | `Typewriter`   | Typing animation component    | [📄 Docs](https://element-plus-x.com/components/typewriter/) |
-| `Bubble`       | Bubble message component        | [📄 Docs](https://element-plus-x.com/components/bubble/) |
-| `BubbleList`   | Bubble message list             | [📄 Docs](https://element-plus-x.com/components/bubbleList/) |
+| `Bubble`       | Bubble message component (extended)       | [📄 Docs](https://element-plus-x.com/components/bubble/) |
+| `BubbleList`   | Bubble message list (extended)            | [📄 Docs](https://element-plus-x.com/components/bubbleList/) |
 | `Welcome`      | Welcome component               | [📄 Docs](https://element-plus-x.com/components/welcome/) |
-| `Sender`       | Smart input (with voice interaction) | [📄 Docs](https://element-plus-x.com/components/sender/) |
+| `Sender`       | Smart input (with voice interaction、Built in instruction operation) | [📄 Docs](https://element-plus-x.com/components/sender/) |
+| `MentionSender` | Instruction input box (mention list) |[📄 Docs](https://element-plus-x.com/components/MentionSender/)|
 | `Thinking`     | Thinking state component (extended) | [📄 Docs](https://element-plus-x.com/components/thinking/) |
 | `ThoughtChain` | Thought chain component         | [📄 Docs](https://element-plus-x.com/components/thoughtChain/) |
 | `useRecord`    | Browser built-in speech recognition hooks | [📄 Docs](https://element-plus-x.com/components/useRecord/) |
 | `useXStream`   | Streaming API hooks             | [📄 Docs](https://element-plus-x.com/components/useXStream/) |
 | `useSend & XRequest` | Split streaming hooks (extended) | [📄 Docs](https://element-plus-x.com/components/useSend/) |
 
+## 🎯 Development Plan (Updated Weekly)
+
+🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan]( https://element-plus-x.com/roadmap.html)**
+
 ## 🤝 Contribute
 
 1. **Fork the repository** → 2. **Create a Feature branch** → 3. **Submit a Pull Request**
+
+Details can be moved 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)**
 
 We welcome:
 
@@ -125,7 +132,7 @@ We welcome:
 
 ## 👥 Community Support
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-4-6.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-04-24.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
 <p>Join the WeChat communication group to get the latest news and technical support</p>
 
 <p>If the group link expires, scan the author's QR code:</p>

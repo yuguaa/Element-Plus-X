@@ -86,6 +86,7 @@ const _typing = computed(() => {
     }
   }
 }) as boolean | TypingConfig
+
 function onStart(instance: TypewriterInstance) {
   emits('start', instance)
 }
@@ -139,8 +140,6 @@ defineExpose(instance)
       'el-bubble-no-style': noStyle,
       'el-bubble-is-typing': isTypingClass, // 新增动态类名
     }" :style="{
-      '--el-padding-sm': '12px',
-      '--el-padding-xxs': '4px',
       '--el-box-shadow-tertiary': `0 1px 2px 0 rgba(0, 0, 0, 0.03),
       0 1px 6px -1px rgba(0, 0, 0, 0.02),
       0 2px 4px 0 rgba(0, 0, 0, 0.02)`,
@@ -186,7 +185,7 @@ defineExpose(instance)
           }"
         >
           <Typewriter
-            v-if="!$slots.content && content" ref="typewriterRef" :typing="_typing" :content="content" :is-markdown="isMarkdown" @start="onStart" @writing="onWriting" @finish="onFinish"
+            v-if="!$slots.content && content" ref="typewriterRef" :typing="_typing" :content="content" :is-markdown="isMarkdown" :is-fog="props.isFog" @start="onStart" @writing="onWriting" @finish="onFinish"
           />
         </div>
 
@@ -281,7 +280,7 @@ defineExpose(instance)
 
   .el-bubble-content {
     background-color: var(--el-fill-color);
-    padding: var(--el-padding-sm) calc(var(--el-padding-sm) + 4px);
+    padding: var(--el-padding-sm, 12px) calc(var(--el-padding-sm, 12px) + 4px);
     border-radius: calc(var(--el-border-radius-base) + 4px);
     position: relative;
     box-sizing: border-box;
@@ -290,7 +289,7 @@ defineExpose(instance)
     color: var(--el-text-color-primary);
     font-size: var(--el-font-size-base);
     line-height: var(--el-font-line-height-primary);
-    min-height: calc(var(--el-padding-sm) * 2 + var(--el-font-line-height-primary) * var(--el-font-size-base));
+    min-height: calc(var(--el-padding-sm, 12px) * 2 + var(--el-font-line-height-primary) * var(--el-font-size-base));
     word-break: break-word;
 
     // 打字器没有内容时候展示高度
@@ -327,6 +326,7 @@ defineExpose(instance)
   }
 
   .el-bubble-content-loading {
+    width: fit-content;
     .el-bubble-loading-wrap {
       display: flex;
       justify-content: center;
@@ -363,7 +363,7 @@ defineExpose(instance)
   }
 
   .el-bubble-footer {
-    margin-top: var(--el-padding-sm);
+    margin-top: var(--el-padding-sm, 12px);
   }
 }
 </style>

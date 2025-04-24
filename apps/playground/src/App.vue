@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import UseBubble from './components/BubbleDemo.vue'
 import UseBubbleList from './components/BubbleListDemo.vue'
+import UseMentionSender from './components/MentionSenderDemo.vue'
 import UseSender from './components/SenderDemo.vue'
 import UseThinking from './components/ThinkingDemo.vue'
 import UseThoughtChain from './components/ThoughtChainDemo.vue'
@@ -34,6 +35,10 @@ import UseWelcome from './components/WelcomeDemo.vue'
 
       <el-tab-pane label="Sender">
         <UseSender />
+      </el-tab-pane>
+
+      <el-tab-pane label="MentionSender">
+        <UseMentionSender />
       </el-tab-pane>
 
       <el-tab-pane label="Welcome">

@@ -13,4 +13,26 @@ export interface SenderProps {
   submitType?: 'enter' | 'shiftEnter'
   headerAnimationTimer?: number
   inputWidth?: string
+
+  // 变体属性
+  variant?: 'default' | 'updown'
+  showUpdown?: boolean
+  submitBtnDisabled?: boolean
+
+  // 新增 el-input 样式透传
+  inputStyle?: string | CSSProperties | CSSProperties[] | string[]
+
+  // 新增 el-popover 样式透传
+  triggerStrings?: string[]
+  triggerPopoverVisible?: boolean // 指令提示框是否可见
+  triggerPopoverWidth?: string
+  triggerPopoverLeft?: string
+  triggerPopoverOffset?: number
+  triggerPopoverPlacement?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end'
+}
+
+export interface TriggerEvent {
+  oldValue: string // 明确触发的字符
+  newValue: string // 当前输入框的值
+  isOpen: boolean // 弹窗状态
 }

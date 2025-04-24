@@ -8,6 +8,7 @@ export interface BubbleProps {
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow'
   isMarkdown?: boolean
   typing?: boolean | { step?: number, suffix?: string, interval?: number }
+  isFog?: boolean | { bgColor?: string, width?: string }
   maxWidth?: string
   avatarSize?: string
   avatarGap?: string

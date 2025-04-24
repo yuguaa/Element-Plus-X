@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { ThinkingStatus, ThoughtProps } from './types.d.ts'
+import type { ThinkingProps, ThinkingStatus } from './types.d.ts'
 import { ArrowUpBold, CircleCloseFilled, Loading, Opportunity, SuccessFilled } from '@element-plus/icons-vue'
 
-const props = withDefaults(defineProps<ThoughtProps>(), {
+const props = withDefaults(defineProps<ThinkingProps>(), {
   content: '',
   modelValue: true,
   status: 'start' as ThinkingStatus,
@@ -54,12 +54,12 @@ watch(() => props.status, (newVal) => {
 
 <template>
   <div
-    class="el-thought-chain" :style="{
-      '--el-thought-chaian-button-width': props.buttonWidth,
-      '--el-thought-chaian-animation-duration': props.duration,
-      '--el-thought-chaian-content-wrapper-width': props.maxWidth,
-      '--el-thought-chaian-content-wrapper-background-color': props.backgroundColor,
-      '--el-thought-chaian-content-wrapper-color': props.color,
+    class="el-thinking" :style="{
+      '--el-thinking-button-width': props.buttonWidth,
+      '--el-thinking-animation-duration': props.duration,
+      '--el-thinking-content-wrapper-width': props.maxWidth,
+      '--el-thinking-content-wrapper-background-color': props.backgroundColor,
+      '--el-thinking-content-wrapper-color': props.color,
     }"
   >
     <!-- 触发按钮 -->
@@ -138,8 +138,8 @@ watch(() => props.status, (newVal) => {
   </div>
 </template>
 
-<style scoped>
-.el-thought-chain {
+<style scoped lang="scss">
+.el-thinking {
   font-family: system-ui, sans-serif;
   margin: 0 auto;
 }
@@ -148,14 +148,14 @@ watch(() => props.status, (newVal) => {
   display: flex;
   align-items: center;
   height: 100%;
-  width: var(--el-thought-chaian-button-width);
+  width: var(--el-thinking-button-width);
   gap: 8px;
-  padding: var(--el-padding-sm) calc(var(--el-padding-sm) + 4px);
+  padding: var(--el-padding-sm, 12px) calc(var(--el-padding-sm, 12px) + 4px);
   border: 1px solid #e4e4e4;
   border-radius: 8px;
   background: white;
   cursor: pointer;
-  transition: all 0.2s;
+  margin-bottom: 8px;
 
   /* 居中 */
   .el-icon-center {
@@ -204,7 +204,7 @@ watch(() => props.status, (newVal) => {
 
 .arrow {
   margin-left: auto;
-  transition: transform var(--el-thought-chaian-animation-duration);
+  transition: transform var(--el-thinking-animation-duration);
 }
 
 .arrow.expanded {
@@ -216,8 +216,8 @@ watch(() => props.status, (newVal) => {
 .slide-leave-active {
   height: calc-size(max-content, size);
   transition:
-    height var(--el-thought-chaian-animation-duration) ease-in-out,
-    opacity var(--el-thought-chaian-animation-duration) ease-in-out;
+    height var(--el-thinking-animation-duration) ease-in-out,
+    opacity var(--el-thinking-animation-duration) ease-in-out;
   overflow: hidden;
 }
 
@@ -229,19 +229,18 @@ watch(() => props.status, (newVal) => {
 
 /* 内容区域样式 */
 .content-wrapper {
-  margin-top: 8px;
-  border: 1px solid #eee;
-  background: var(--el-thought-chaian-content-wrapper-background-color);
   box-sizing: border-box;
   min-width: 0;
-  padding: var(--el-padding-sm) calc(var(--el-padding-sm) + 4px);
-  border-radius: calc(var(--el-border-radius-base) + 4px);
-  max-width: var(--el-thought-chaian-content-wrapper-width);
 }
 
 .content pre {
+  border: 1px solid #eee;
+  background: var(--el-thinking-content-wrapper-background-color);
+  padding: var(--el-padding-sm, 12px) calc(var(--el-padding-sm, 12px) + 4px);
+  border-radius: calc(var(--el-border-radius-base) + 4px);
+  max-width: var(--el-thinking-content-wrapper-width);
   font-size: 14px;
-  color: var(--el-thought-chaian-content-wrapper-color);
+  color: var(--el-thinking-content-wrapper-color);
   white-space: pre-wrap;
   font-family: DeepSeek-CJK-patch,Inter,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Noto Sans,Ubuntu,Cantarell,Helvetica Neue,Oxygen,Open Sans,sans-serif;
   margin: 0;
@@ -259,21 +258,5 @@ watch(() => props.status, (newVal) => {
   padding: 8px;
   background: #ffeef0;
   border-radius: 4px;
-}
-
-/* 加载动画 */
-@keyframes dot-pulse {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
-}
-
-.loading-dot {
-  animation: dot-pulse 1.4s infinite;
-}
-.loading-dot:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.loading-dot:nth-child(3) {
-  animation-delay: 0.4s;
 }
 </style>

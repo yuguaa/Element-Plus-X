@@ -22,6 +22,7 @@ function addMessage() {
     content,
     placement,
     typing,
+    isFog: true,
   }
   bubbleItems.value.push(obj as MessageItem)
   bubbleListRef.value.scrollToBottom()
@@ -51,6 +52,8 @@ onMounted(() => {
 
 <template>
   <div class="component-container">
+    <p>1. 气泡列表组件，同样继承 雾化效果，点击添加对话预览 </p>
+    <p>2. 新版本 支持回到底部按钮，支持 鼠标悬停出现滚动条增强 交互体验 </p>
     <div class="top-wrap">
       <div class="btn-list">
         <el-button type="primary" plain @click="addMessage">
@@ -67,7 +70,11 @@ onMounted(() => {
     </div>
 
     <div class="component-1">
-      <BubbleList ref="bubbleListRef" :list="bubbleItems" @on-complete="onCompleteFunc">
+      <BubbleList
+        ref="bubbleListRef"
+        :list="bubbleItems"
+        @on-complete="onCompleteFunc"
+      >
         <template #avatar="{ item }">
           <el-avatar :size="32" :src="item.avatar" />
         </template>
@@ -102,6 +109,12 @@ onMounted(() => {
             }}
           </div>
         </template>
+
+        <!-- <template #backToBottom>
+          <el-button circle style="padding: 23px; font-size: 20px;">
+            💖
+          </el-button>
+        </template> -->
       </BubbleList>
     </div>
   </div>

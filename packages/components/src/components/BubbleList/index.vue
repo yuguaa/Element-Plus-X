@@ -2,20 +2,32 @@
 import type { BubbleProps } from '../Bubble/types'
 import type { TypewriterInstance } from '../Typewriter/types.d.ts'
 import type { BubbleListProps } from './types.d.ts'
-
+import { ArrowDownBold } from '@element-plus/icons-vue'
+import useScrollDetector from '../../utils/useScrollDetector.ts'
 import Bubble from '../Bubble/index.vue'
+import loadingBg from './loading.vue'
 
 const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   list: () => [] as T[],
   maxHeight: '500px',
   triggerIndices: 'only-last',
+  alwaysShowScrollbar: false,
+  backButtonThreshold: 80,
+  showBackButton: true,
+  backButtonPosition: () => {
+    return { bottom: '20px', left: 'calc(50% - 19px)' }
+  },
+  btnLoading: true,
+  btnColor: '#409EFF',
+  btnIconSize: 24,
 })
 
 const emits = defineEmits(['complete'])
 
 /* 在底部时候自动滚动 开始 */
 // 滚动容器的引用
-const scrollContainer = ref<HTMLDivElement | null>(null)
+const scrollContainer = ref<HTMLElement | null>(null)
+const { hasVertical } = useScrollDetector(scrollContainer)
 // 是否停止自动滚动
 const stopAutoScrollToBottom = ref(false)
 // 上次滚动位置
@@ -24,8 +36,8 @@ const lastScrollTop = ref(0)
 const accumulatedScrollUpDistance = ref(0)
 // 阈值（像素）
 const threshold = 20
-
 const resizeObserver = ref<ResizeObserver | null>(null)
+const showBackToBottom = ref(false) // 控制按钮显示
 
 /* 计算有效的触发索引数组 */
 const effectiveTriggerIndices = computed(() => {
@@ -91,6 +103,8 @@ function scrollToBottom() {
     if (scrollContainer.value && scrollContainer.value.scrollHeight) {
       nextTick(() => {
         scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight
+        // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
+        stopAutoScrollToBottom.value = false 
       })
     }
   }
@@ -155,6 +169,11 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
 function handleScroll() {
   if (scrollContainer.value) {
     const { scrollTop, scrollHeight, clientHeight } = scrollContainer.value
+
+    // 计算是否超过安全距离
+    const distanceToBottom = scrollHeight - (scrollTop + clientHeight)
+    showBackToBottom.value = props.showBackButton && distanceToBottom > props.backButtonThreshold
+
     // 判断是否距离底部小于阈值 (这里吸附值大一些会体验更好)
     const isCloseToBottom = scrollTop + clientHeight >= scrollHeight - 30
     // 判断用户是否向上滚动
@@ -206,9 +225,11 @@ defineExpose({
 <template>
   <div
     ref="scrollContainer"
-    class="el-bubble-list scroll-container"
+    class="el-bubble-list"
+    :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
     :style="{
       '--el-bubble-list-max-height': `${maxHeight}`,
+      '--el-bubble-list-btn-size': `${props.btnIconSize}px`,
     }"
     @scroll="handleScroll"
   >
@@ -221,6 +242,7 @@ defineExpose({
       :shape="item.shape"
       :variant="item.variant"
       :is-markdown="item.isMarkdown"
+      :is-fog="item.isFog"
       :typing="item.typing"
       :max-width="item.maxWidth"
       :avatar="item.avatar"
@@ -250,17 +272,164 @@ defineExpose({
         <slot name="loading" :item="item" />
       </template>
     </Bubble>
+
+    <!-- 自定义按钮插槽 默认返回按钮 -->
+
+    <div
+      v-if="showBackToBottom && hasVertical"
+      class="el-bubble-list-default-back-button"
+      :class="{
+        'el-bubble-list-back-to-bottom-solt': $slots.backToBottom,
+      }"
+      :style="{
+        bottom: backButtonPosition.bottom,
+        left: backButtonPosition.left,
+      }"
+      @click="scrollToBottom"
+    >
+      <slot name="backToBottom">
+        <el-icon
+          class="el-bubble-list-back-to-bottom-icon"
+          :style="{ color: props.btnColor }"
+        >
+          <ArrowDownBold />
+          <loadingBg v-if="props.btnLoading" class="back-to-bottom-loading-svg-bg" />
+        </el-icon>
+      </slot>
+    </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .el-bubble-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
   min-height: 0;
   max-height: var(--el-bubble-list-max-height);
-  overflow-y: auto;
+  overflow: auto;
   scroll-behavior: smooth;
+
+  position: relative;
+  /* 默认滚动条样式（透明） */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    background-color: #0003;
+    border-radius: 10px;
+    transition: background-color .2s ease-in-out;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  /* 悬停时显示滚动条 */
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+  }
+
+  /* 始终显示滚动条模式 */
+  &.always-scrollbar {
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: #a8a8a8;
+    }
+  }
+
+}
+
+/* 火狐浏览器滚动条样式 */
+@supports (scrollbar-color: auto) {
+  .el-bubble-list {
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+
+    &:hover {
+      scrollbar-color: #c1c1c1 transparent;
+    }
+
+    &.always-scrollbar {
+      scrollbar-color: #c1c1c1 transparent;
+    }
+  }
+}
+
+.el-bubble-list-default-back-button {
+  position: sticky;
+  user-select: none;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  // background-color: aquamarine;
+  border-radius: 50%;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .02), 0 6px 10px 0 rgba(47, 53, 64, .1);
+  transition: all 0.3s ease;
+  z-index: 100;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .el-bubble-list-back-to-bottom-icon {
+    font-size: var(--el-bubble-list-btn-size);
+    position: relative;
+
+    .back-to-bottom-loading-svg-bg {
+      position: absolute;
+      font-size: calc(var(--el-bubble-list-btn-size) + 26px);
+      animation: is-loading 1s infinite linear;
+    }
+
+    @keyframes is-loading {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+// 如果是有自定义插槽，则初始化默认样式
+.el-bubble-list-back-to-bottom-solt {
+  position: sticky;
+  user-select: none;
+  cursor: initial;
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: initial;
+
+  &:hover {
+    transform: translateY(0px);
+    box-shadow: initial;
+  }
 }
 </style>
