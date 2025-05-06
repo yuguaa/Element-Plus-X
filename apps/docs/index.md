@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: "Element Plus X"
-  text: "🚀AI体验新秩序🚀"
-  tagline: 用 vue3插槽 对 ant-design-x 的复刻。开源团队匠心呈现 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。❤️ 将开源进行到底 ❤️
+  text: "🚀AI体验新秩序"
+  tagline: ❤️‍🔥开箱即用的企业级 AI 交互组件库，让构建智能界面像搭积木一样简单。 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。❤️‍🔥
   image:
     src: /logo.png
     alt: Element Plus X
@@ -26,5 +26,5 @@ features:
   - title: 🔥高性能 灵活性兼备
     details: 精心优化的代码结构，保证组件高性能运行，同时支持高度自定义，适配各种复杂业务逻辑。
   - title: 💖可视化交互 体验升级
-    details: 打字动画、加载效果等细节满满，为用户带来生动的可视化体验，增强应用交互性和吸引力。
+    details: 打字器雾化动画、自动滚动、加载效果、等细节满满，为用户带来生动的可视化体验，增强应用交互性和吸引力。
 ---

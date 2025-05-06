@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useXStream } from 'vue-element-plus-x/src/hooks/useXStream'
+import { useXStream } from 'vue-element-plus-x'
 
 const { startStream, cancel, data, error, isLoading } = useXStream()
 

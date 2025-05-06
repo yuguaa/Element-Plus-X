@@ -1,4 +1,3 @@
-<!-- home 首页 - 使用 BubbleList 组件 -->
 <script setup lang="ts">
 import type { MessageItem } from '@/assets/mock'
 import { messageArr } from '@/assets/mock'

@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
 import autoImportPlugin from './autoImport'
 import dtsPlugin from './dts'
-import prismjsPlugin from './prismjs'
+// import prismjsPlugin from './prismjs'
 
 const plugins: PluginOption[] = [
   vue({
@@ -11,7 +11,7 @@ const plugins: PluginOption[] = [
       propsDestructure: true,
     },
   }),
-  prismjsPlugin,
+  // prismjsPlugin,
   ...autoImportPlugin,
   dtsPlugin,
   libInjectCss(),

@@ -10,6 +10,7 @@ const time = ref<null | number>(null)
 
 onMounted(() => {
   if (senderRef.value) {
+    console.log('senderRef', senderRef.value)
     senderRef.value.openHeader()
   }
 })

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { MessageItem } from '@/assets/mock'
-import type { BubbleListInstance } from 'vue-element-plus-x/types/components/BubbleList/types'
-import type { ThinkingStatus } from 'vue-element-plus-x/types/components/Thinking/types'
+import type { BubbleListInstance } from 'vue-element-plus-x/types/BubbleList'
+import type { ThinkingStatus } from 'vue-element-plus-x/types/Thinking'
 import { Loading, Position } from '@element-plus/icons-vue'
 import { useXStream } from 'vue-element-plus-x'
 
@@ -89,7 +89,7 @@ async function startSSE() {
       },
       body: JSON.stringify({
         model: MODEL,
-        messages: bubbleItems.value.filter(item => item.role === 'user').map(item => ({
+        messages: bubbleItems.value.filter((item: any) => item.role === 'user').map((item: any) => ({
           role: item.role,
           content: item.content,
         })),

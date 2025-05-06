@@ -20,6 +20,8 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   btnLoading: true,
   btnColor: '#409EFF',
   btnIconSize: 24,
+  highlight: undefined,
+  mdPlugins: undefined,
 })
 
 const emits = defineEmits(['complete'])
@@ -104,7 +106,7 @@ function scrollToBottom() {
       nextTick(() => {
         scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight
         // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
-        stopAutoScrollToBottom.value = false 
+        stopAutoScrollToBottom.value = false
       })
     }
   }
@@ -233,6 +235,8 @@ defineExpose({
     }"
     @scroll="handleScroll"
   >
+    <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->
+    <!-- 否则，则按照 BubbleList 的 md 配置渲染 -->
     <Bubble
       v-for="(item, index) in list"
       :key="index"
@@ -254,6 +258,8 @@ defineExpose({
       :avatar-alt="item.avatarAlt"
       :avatar-fit="item.avatarFit"
       :no-style="item.noStyle"
+      :highlight="item.highlight ? item.highlight : props.highlight"
+      :md-plugins="item.mdPlugins ? item.mdPlugins : props.mdPlugins"
       @finish="(instance) => handleBubbleComplete(index, instance)"
     >
       <template v-if="$slots.avatar" #avatar>
