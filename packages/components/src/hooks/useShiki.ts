@@ -1,6 +1,7 @@
 import type { Element, ElementContent } from 'hast'
 import type { BundledLanguage, BundledTheme, LanguageInput, StringLiteralUnion, ThemeRegistrationAny } from 'shiki'
 import type { Ref } from 'vue'
+import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid'
 import Shiki from '@shikijs/markdown-it'
 import { ElMessage } from 'element-plus'
 import MarkdownIt from 'markdown-it'
@@ -187,6 +188,7 @@ export function useShikiRender(): ShikiRenderRes {
     })
 
     try {
+      shikiMd.value.use(markdownItMermaid({ delay: 100, forceLegacyMathML: true }))
       shikiMd.value.use(
         await Shiki({
           langs: options.langs ? [...options.langs] : [],

@@ -44,24 +44,6 @@ onMounted(() => {
 })
 
 const isReady = inject<Ref<boolean>>('isReady')
-  const shikiMd = inject<Ref<MarkdownIt | null>>('shikiMd')
-
-const highlight = computed(() => {
-  if (!props.highlight) {
-    return usePrism()
-  }
-  return props.highlight
-})
-
-const markdownContentRef = ref<HTMLElement | null>(null)
-const typeWriterRef = ref<HTMLElement | null>(null)
-
-onMounted(() => {
-  // 初始化雾化背景色
-  updateFogColor()
-})
-
-const isReady = inject<Ref<boolean>>('isReady')
 const shikiMd = inject<Ref<MarkdownIt | null>>('shikiMd')
 
 // Prism方式渲染

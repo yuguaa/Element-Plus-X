@@ -27,13 +27,13 @@ onMounted(() => {
   try {
     console.time('onMountedInitMarkdownIt')
     initMarkdownIt({
-      langs: ['typescript', 'javascript', 'java', 'html', 'css', 'bash', 'vue'],
+      langs: ['typescript', 'javascript', 'java', 'html', 'css', 'bash', 'vue', 'mmd'],
       themes: {
         light: 'vitesse-light',
         dark: 'vitesse-dark',
       },
       showLanguageHeader: true,
-      copyButtonText: '我要复制代码',
+      copyButtonText: '复制',
     })
   }
   catch (error) {

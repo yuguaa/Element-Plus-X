@@ -59,7 +59,6 @@ body {
             align-items: center;
             padding: 5px 5px 5px 8px;
             border-radius: var(--shiki-custom-brr);
-            background-color: rgba(101, 101, 101, 0.084);
             -webkit-backdrop-filter: blur(var(--shiki-custom-blur));
             backdrop-filter: blur(var(--shiki-custom-blur));
             margin: 0 0 10px 0;
@@ -88,6 +87,8 @@ body {
         }
 
         code {
+            box-sizing: border-box;
+            padding: 8px;
             display: block;
             width: 100%;
             overflow: auto;
