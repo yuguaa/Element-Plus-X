@@ -25,15 +25,29 @@
 
 `BubbleList` 依赖于 `Bubble` 组件，用于展示一组对话气泡列表。该组件支持设置 `列表最大高度`，具备 `自动滚动` 功能。同时，它还提供了多种 `控制滚动` 的方法，`使用者` 可以轻松调用，性能强大，无需任何开发心理负担。
 
-## 代码使用
+## 代码演示
+
+### 基本使用
 
 <demo src="./demos/list.vue"></demo>
 
+### 自定义列表
+
 <demo src="./demos/customized.vue"></demo>
+
+### 自动滚动、指定滚动位置
 
 <demo src="./demos/scroll-to.vue"></demo>
 
+### 返回顶部按钮
+
 <demo src="./demos/back-button.vue"></demo>
+
+### 滚动完成事件
+
+::: warning
+极特殊情况才用的到，在流式输出中不适用，会快速触发打字结束事件。
+:::
 
 <demo src="./demos/on-complete.vue"></demo>
 

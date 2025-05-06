@@ -10,25 +10,49 @@
 
 `Bubble` 是一个对话气泡组件，常用于聊天的时候。它可以展示对话内容，支持自定义头像、头部、内容、底部，并且具备打字效果和加载状态展示。该组件内置 `Typewriter` 打字器组件，能够实现文本的打字动画效果。
 
-## 代码使用
+## 代码演示
+
+### 基本使用
 
 <demo src="./demos/content.vue"></demo>
 
+### 头像、位置
+
 <demo src="./demos/avatar-and-placement.vue"></demo>
+
+### 头部、底部
 
 <demo src="./demos/header-and-footer.vue"></demo>
 
+### 加载状态
+
 <demo src="./demos/loading.vue"></demo>
+
+### 打字器配置
 
 <demo src="./demos/typing.vue"></demo>
 
+###  开启Markdown渲染
+
 <demo src="./demos/is-markdown.vue"></demo>
+
+###  继承打字器的图表和md样式
+
+<demo src="./demos/cssAndMermaid.vue"></demo>
+
+### 雾化效果
 
 <demo src="./demos/is-fog.vue"></demo>
 
+### 自定义内容
+
 <demo src="./demos/content-customize.vue"></demo>
 
+### 变体和形状
+
 <demo src="./demos/variant-and-shape.vue"></demo>
+
+### 控制打字
 
 <demo src="./demos/customized.vue"></demo>
 
@@ -44,7 +68,7 @@
 | `variant`     | String            | 'filled' | 气泡的样式变体，可选值为 `'filled'`（填充）、`'borderless'`（无边框）、`'outlined'`（轮廓）、`'shadow'`（阴影）。 |
 | `noStyle` | Boolean           | false    | 是否去除样式，为 `true` 时，将去除气泡内置 `padding` 和 `背景色`                        |
 | `isMarkdown`  | Boolean           | false    | 是否将 `content` 内容作为 Markdown 格式处理。                |
-| `typing`      | Boolean \| Object | false    | 是否开启打字效果。若为对象，可设置 `setp`（每次渲染的字符数）和 `suffix`（打字光标后缀内容）。`interval` 表示打字间隔时间，单位为 `ms`。 |
+| `typing`      | Boolean \| Object | false    | 是否开启打字效果。若为对象，可设置 `step`（每次渲染的字符数）和 `suffix`（打字光标后缀内容）。`interval` 表示打字间隔时间，单位为 `ms`。 |
 | `maxWidth`    | String            | '500px'  | 气泡内容的最大宽度。                                         |
 | `avatar-size` | String            | ''    | 设置头像占位大小                                             |
 | `avatar-gap`  | String            | '12px'   | 设置头像和气泡之间的 `gap`  值                               |

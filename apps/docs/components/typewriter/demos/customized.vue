@@ -71,39 +71,41 @@ function onDestroy() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex;">
-      <el-button v-if="isTypingValue" type="warning" style="width: fit-content;" @click="onInterrupt">
-        <el-icon :size="18">
-          <VideoPause />
-        </el-icon>
-        <span>暂停</span>
-      </el-button>
-      <el-button v-if="!isTypingValue && (progressValue !== 0 && progressValue !== 100)" type="success" style="width: fit-content;" @click="typerRef?.continue()">
-        <el-icon :size="18">
-          <VideoPlay />
-        </el-icon>
-        <span>继续</span>
-      </el-button>
-      <el-button v-if="!isTypingValue && (progressValue === 0 || progressValue === 100)" type="primary" style="width: fit-content;" @click="typerRef?.restart()">
-        <el-icon :size="18">
-          <RefreshLeft />
-        </el-icon>
-        <span>重播</span>
-      </el-button>
-      <el-button type="danger" style="width: fit-content;" @click="onDestroy">
-        <el-icon><Delete /></el-icon>
-        <span>销毁</span>
-      </el-button>
+  <ClientOnly>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex;">
+        <el-button v-if="isTypingValue" type="warning" style="width: fit-content;" @click="onInterrupt">
+          <el-icon :size="18">
+            <VideoPause />
+          </el-icon>
+          <span>暂停</span>
+        </el-button>
+        <el-button v-if="!isTypingValue && (progressValue !== 0 && progressValue !== 100)" type="success" style="width: fit-content;" @click="typerRef?.continue()">
+          <el-icon :size="18">
+            <VideoPlay />
+          </el-icon>
+          <span>继续</span>
+        </el-button>
+        <el-button v-if="!isTypingValue && (progressValue === 0 || progressValue === 100)" type="primary" style="width: fit-content;" @click="typerRef?.restart()">
+          <el-icon :size="18">
+            <RefreshLeft />
+          </el-icon>
+          <span>重播</span>
+        </el-button>
+        <el-button type="danger" style="width: fit-content;" @click="onDestroy">
+          <el-icon><Delete /></el-icon>
+          <span>销毁</span>
+        </el-button>
+      </div>
+
+      <el-progress v-if="progressValue > 0 && progressValue !== 100" :duration="0" :percentage="progressValue" />
+      <el-progress v-if=" progressValue === 100" :percentage="100" status="success" />
+
+      <!-- 这里展示了如果是 markdown 的话，typing.suffix 会被忽略 -->
+      <Typewriter
+        ref="typerRef" :content="markdownContent" :typing="{ suffix: '💩', interval: 40 }" :is-markdown="true"
+        @start="onStart" @writing="onWriting" @finish="onFinish"
+      />
     </div>
-
-    <el-progress v-if="progressValue > 0 && progressValue !== 100" :duration="0" :percentage="progressValue" />
-    <el-progress v-if=" progressValue === 100" :percentage="100" status="success" />
-
-    <!-- 这里展示了如果是 markdown 的话，typing.suffix 会被忽略 -->
-    <Typewriter
-      ref="typerRef" :content="markdownContent" :typing="{ suffix: '💩', interval: 40 }" :is-markdown="true"
-      @start="onStart" @writing="onWriting" @finish="onFinish"
-    />
-  </div>
+  </ClientOnly>
 </template>

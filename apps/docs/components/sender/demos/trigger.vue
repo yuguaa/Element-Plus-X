@@ -26,7 +26,7 @@ title: 指令
 </docs>
 
 <script setup lang="ts">
-import type { TriggerEvent } from '../types'
+import type { TriggerEvent } from 'vue-element-plus-x/types/Sender'
 
 const senderValue = ref('')
 const senderValue1 = ref('')

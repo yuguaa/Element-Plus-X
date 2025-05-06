@@ -20,10 +20,12 @@ function setContents() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 10px;">
-    <el-button style="width: fit-content;" @click="setContents">
-      设置 content
-    </el-button>
-    <Typewriter typing :content="content" />
-  </div>
+  <ClientOnly>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <el-button style="width: fit-content;" @click="setContents">
+        设置 content
+      </el-button>
+      <Typewriter typing :content="content" />
+    </div>
+  </ClientOnly>
 </template>

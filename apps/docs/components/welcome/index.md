@@ -1,18 +1,28 @@
-# Welcome 欢迎组件 🌹
+# Welcome 欢迎 🌹
 
 ## 介绍
 
 `Welcome` 这个组件可以清晰传达给用户可实现的意图范围和预期功能。使用合适的欢迎推荐组件，可以有效降低用户学习成本，让用户快速了解并顺利开始。
 
-## 代码使用
+## 代码演示
+
+### 基本使用
 
 <demo src="./demos/base.vue"></demo>
 
+### 样式变体
+
 <demo src="./demos/variant.vue"></demo>
+
+### 背景颜色
 
 <demo src="./demos/bg.vue"></demo>
 
+### 自定义图片
+
 <demo src="./demos/image.vue"></demo>
+
+### 自定义副标题
 
 <demo src="./demos/extra.vue"></demo>
 

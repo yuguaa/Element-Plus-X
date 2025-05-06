@@ -12,7 +12,7 @@ title: solts 各种插槽
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from '../types'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
 import { Loading } from '@element-plus/icons-vue'
 
 const senderValue1 = ref('')

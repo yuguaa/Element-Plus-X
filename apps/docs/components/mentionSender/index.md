@@ -16,37 +16,73 @@
 <img src="./image1.png" width="100%">
 :::
 
-## 代码使用
+## 代码演示
+
+### 基础用法
 
 <demo src="./demos/basic.vue"></demo>
 
+### 提示语
+
 <demo src="./demos/placeholder.vue"></demo>
+
+### 双向绑定（未绑定，值不会变）
 
 <demo src="./demos/v-model.vue"></demo>
 
+### 提交按钮禁用状态
+
 <demo src="./demos/submit-btn-disabled.vue"></demo>
+
+### 自定义最大行数和最小行数
 
 <demo src="./demos/autosize.vue"></demo>
 
+### 输入框组件各种状态
+
 <demo src="./demos/state.vue"></demo>
+
+### 提交方式
 
 <demo src="./demos/submit-type.vue"></demo>
 
+### 语音识别
+
+::: warning
+浏览器内置语音识别 API，可以使用组件库内置的  [`useRecord`](https://element-plus-x.com/components/useRecord/) **hooks** 更方便内置语音识别集成和控制
+:::
+
 <demo src="./demos/allow-speech.vue"></demo>
 
-<demo src="./demos/action-list.vue"></demo>
-
-<demo src="./demos/prefix.vue"></demo>
-
-<demo src="./demos/header.vue"></demo>
-
-<demo src="./demos/focus.vue"></demo>
+### 变体-垂直样式
 
 <demo src="./demos/variant.vue"></demo>
 
+### 自定义操作列表
+
+<demo src="./demos/action-list.vue"></demo>
+
+### 自定义前缀
+
+<demo src="./demos/prefix.vue"></demo>
+
+### 自定义头部
+
+<demo src="./demos/header.vue"></demo>
+
+### 自定义底部
+
 <demo src="./demos/footer.vue"></demo>
 
+### 自定义输入框样式
+
 <demo src="./demos/input-style.vue"></demo>
+
+### 输入框聚焦控制
+
+<demo src="./demos/focus.vue"></demo>
+
+## 提及指令使用介绍（区别Sender组件）
 
 ::: warning
 下面展示和 `Sender` 组件 **不一样** 的指令相关 **属性方法**。使用时请注意 **使用区别**
@@ -54,25 +90,47 @@
 此温馨提示更新时间：`2025-04-16`
 :::
 
+### 触发指令自定义数组
+
 <demo src="./demos/options.vue"></demo>
+
+### 自定义触发指令字符串
 
 <demo src="./demos/trigger-strings.vue"></demo>
 
+### 自定义触发指令分隔符
+
 <demo src="./demos/trigger-split.vue"></demo>
+
+### 触发指令加载中
 
 <demo src="./demos/trigger-loading.vue"></demo>
 
+### 自定义触发指令过滤
+
 <demo src="./demos/filter-option.vue"></demo>
+
+### 整体删除
 
 <demo src="./demos/whole.vue"></demo>
 
+### 触发指令弹框位置
+
 <demo src="./demos/trigger-popover-placement.vue"></demo>
+
+### 触发指令弹框偏移
 
 <demo src="./demos/trigger-popover-offset.vue"></demo>
 
+### 指令弹框各种插槽
+
 <demo src="./demos/solts.vue"></demo>
 
+### 搜索事件
+
 <demo src="./demos/search.vue"></demo>
+
+### 选择事件
 
 <demo src="./demos/select.vue"></demo>
 
@@ -85,22 +143,22 @@
 | `auto-size` | Object | 否 | \{ minRows:1, maxRows:6 \}    |设置输入框的最小展示行数和最大展示行数。      |
 | `read-only` | Boolean | 否 |  false        | 输入框是否为只读状态。                                             |
 | `disabled`    | Boolean | 否 | false        | 输入框是否为禁用状态。                                             |
-| `submitBtnDisabled` v1.1.6版本新增    | Boolean \| undefined | 否 | undefined        | 内置发送按钮禁用状态。(注意使用场景)     |
+| `submitBtnDisabled`     | Boolean \| undefined | 否 | undefined        | 内置发送按钮禁用状态。(注意使用场景)     |
 | `loading`     | Boolean | 否 | false        | 是否显示加载状态。为 `true` 时，输入框会显示加载动画。           |
 | `clearable`   | Boolean | 否 | false        | 输入框是否可清空内容。展示默认清空按钮          |
 | `allowSpeech` | Boolean | 否 | false        | 是否允许语音输入。默认展示内置语音识别按钮,内置浏览器内置语音识别 API      |
 | `submitType`  | String  | 否 | 'enter' | 提交方式，支持 `'shiftEnter'`（按 `Shift + Enter` 提交）。 |
 | `headerAnimationTimer` | Number | 否 | 300 | 输入框的自定义头部显示时长，单位为 `ms`。 |
 | `inputWidth` | String |否 | '100%' | 输入框的宽度。 |
-| `variant` v1.1.6版本新增 | String | 否 | 'default' | 输入框的变体类型，支持 `'default'`、`'updown'`。 |
-| `showUpdown` v1.1.6版本新增 | Boolean | 否 | true | 当变体为 `updown` 时，是否展示内置样式。 |
-| `inputStyle` v1.1.6版本新增 | Object | 否 | \{} | 输入框的样式。 |
-| `triggerStrings` v1.1.6版本新增 | string[] | 否 | [] | 触发指令的 `字符串数组`。 |
-| `triggerPopoverVisible` v1.1.6版本新增 | Boolean | 否 | false | 触发指令的 `弹框` 是否可见。需要使用  `v-model:triggerPopoverVisible` 进行控制。 |
-| `triggerPopoverWidth v1.1.6版本新增` | String | 否 | 'fit-content' | 触发指令的 `弹框` 的宽度。可使用百分比等css单位。 |
-| `triggerPopoverLeft` v1.1.6版本新增 | String | 否 | '0px' | 触发指令的 `弹框` 的左边距。可使用百分比等css单位。 |
-| `triggerPopoverOffset` v1.1.6版本新增 | Number | 否 | 8 | 触发指令的 `弹框` 的左边距。只能是数字类型，单位px |
-| `triggerPopoverPlacement` v1.1.6版本新增 | String | 否 | 'top-start' | 触发指令的 `弹框` 的位置。取值：`'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
+| `variant`  | String | 否 | 'default' | 输入框的变体类型，支持 `'default'`、`'updown'`。 |
+| `showUpdown`  | Boolean | 否 | true | 当变体为 `updown` 时，是否展示内置样式。 |
+| `inputStyle`  | Object | 否 | \{} | 输入框的样式。 |
+| `triggerStrings`  | string[] | 否 | [] | 触发指令的 `字符串数组`。 |
+| `triggerPopoverVisible`  | Boolean | 否 | false | 触发指令的 `弹框` 是否可见。需要使用  `v-model:triggerPopoverVisible` 进行控制。 |
+| `triggerPopoverWidth ` | String | 否 | 'fit-content' | 触发指令的 `弹框` 的宽度。可使用百分比等css单位。 |
+| `triggerPopoverLeft`  | String | 否 | '0px' | 触发指令的 `弹框` 的左边距。可使用百分比等css单位。 |
+| `triggerPopoverOffset`  | Number | 否 | 8 | 触发指令的 `弹框` 的左边距。只能是数字类型，单位px |
+| `triggerPopoverPlacement`  | String | 否 | 'top-start' | 触发指令的 `弹框` 的位置。取值：`'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
 
 ## 事件
 
@@ -109,7 +167,7 @@
 | `submit` | 内置 `提交按钮` 提交时触发的事件。 | 无       |
 | `cancel` | 内置 `loading按钮` 点击时触发的事件。 | 无       |
 | `recordingChange` | 内置语音识别状态变化时触发的事件。 | 无       |
-| `trigger` v1.1.6版本新增 | 指令弹框发生变化时触发的事件。 | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }`       |
+| `trigger`  | 指令弹框发生变化时触发的事件。 | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }`       |
 
 ## Ref 实例方法
 
@@ -132,7 +190,7 @@
 | `#header` | - | Slot | 用于自定义输入框的头部内容。 |
 | `#prefix` | - | Slot | 用于自定义输入框的前缀内容。 |
 | `#action-list` | - | Slot | 用于自定义输入框的操作列表内容。 |
-| `#footer` v1.1.6版本新增 | - | Slot | 用于自定义输入框的尾部内容。 |
+| `#footer`  | - | Slot | 用于自定义输入框的尾部内容。 |
 
 ## 功能特性
 

@@ -41,6 +41,9 @@ importers:
 
   apps/docs:
     dependencies:
+      vitepress-plugin-group-icons:
+        specifier: ^1.5.2
+        version: 1.5.2
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.2)
@@ -81,6 +84,9 @@ importers:
       vitepress:
         specifier: ^1.6.3
         version: 1.6.3(@algolia/client-search@5.24.0)(@types/node@22.15.3)(async-validator@4.2.5)(axios@1.9.0)(less@4.3.0)(postcss@8.5.3)(sass@1.87.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2)
+      vitepress-demo-plugin:
+        specifier: ^1.4.1
+        version: 1.4.1(shiki@2.5.0)(vitepress@1.6.3(@algolia/client-search@5.24.0)(@types/node@22.15.3)(async-validator@4.2.5)(axios@1.9.0)(less@4.3.0)(postcss@8.5.3)(sass@1.87.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2))(vue@3.5.13(typescript@5.8.2))
 
   apps/playground:
     dependencies:
@@ -134,8 +140,8 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1(vue@3.5.13(typescript@5.8.2))
       '@jsonlee_12138/markdown-it-mermaid':
-        specifier: 0.0.6-beta
-        version: 0.0.6-beta(markdown-it@14.1.0)(mermaid@11.6.0)
+        specifier: 0.0.6
+        version: 0.0.6(markdown-it@14.1.0)(mermaid@11.6.0)
       '@vueuse/core':
         specifier: ^13.1.0
         version: 13.1.0(vue@3.5.13(typescript@5.8.2))
@@ -1061,8 +1067,14 @@ packages:
     resolution: {integrity: sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==}
     engines: {node: '>=18.18'}
 
+  '@iconify-json/logos@1.2.4':
+    resolution: {integrity: sha512-XC4If5D/hbaZvUkTV8iaZuGlQCyG6CNOlaAaJaGa13V5QMYwYjgtKk3vPP8wz3wtTVNVEVk3LRx1fOJz+YnSMw==}
+
   '@iconify-json/simple-icons@1.2.33':
     resolution: {integrity: sha512-nL5/UmI9x5PQ/AHv6bOaL2pH6twEdEz4pI89efB/K7HFn5etQnxMtGx9DFlOg/sRA2/yFpX8KXvc95CSDv5bJA==}
+
+  '@iconify-json/vscode-icons@1.2.20':
+    resolution: {integrity: sha512-xuWqr/SrckUoFi6kpSH/NrNGK+CuZ8LNnBY8qkRdkQvHmhirXvwsLfTKHoFndTsOlxfsHahlOLVCCb523kdqMA==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1098,8 +1110,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@jsonlee_12138/markdown-it-mermaid@0.0.6-beta':
-    resolution: {integrity: sha512-JJylQ4zjBJDBuY6cv71uD95PUosNq5ThEs6Poq+NA+kr76JsPxwTMQZG4KbHfvBY5sUs8SYFdsffdVpQXZAeDg==}
+  '@jsonlee_12138/markdown-it-mermaid@0.0.6':
+    resolution: {integrity: sha512-izKZ60XztLTC2IL7dIimU21WwkAHNA7YAa+2e+WdtJpYpPMF47r6RyjAN/xoDJstMudZJ2Pp9M8fvirdFLqW7w==}
     peerDependencies:
       markdown-it: ^14.1.0
       mermaid: ^11.6.0
@@ -4680,6 +4692,16 @@ packages:
       yaml:
         optional: true
 
+  vitepress-demo-plugin@1.4.1:
+    resolution: {integrity: sha512-JKz3+HOWLzjdLfuBoFtT11N9WGOEicX+9VwxzTSupj/6hgDlmNqRAJO+sKMOXuMaANGxQtEsGE1EWNBBaTJjPg==}
+    peerDependencies:
+      shiki: '*'
+      vitepress: '*'
+      vue: ^3.2.0
+
+  vitepress-plugin-group-icons@1.5.2:
+    resolution: {integrity: sha512-zen07KxZ83y3eecou4EraaEgwIriwHaB5Q0cHAmS4yO1UZEQvbljTylHPqiJ7LNkV39U8VehfcyquAJXg/26LA==}
+
   vitepress@1.6.3:
     resolution: {integrity: sha512-fCkfdOk8yRZT8GD9BFqusW3+GggWYZ/rYncOfmgcDtP3ualNHCAg+Robxp2/6xfH1WwPHtGpPwv7mbA3qomtBw==}
     hasBin: true
@@ -5683,7 +5705,15 @@ snapshots:
 
   '@humanwhocodes/retry@0.4.2': {}
 
+  '@iconify-json/logos@1.2.4':
+    dependencies:
+      '@iconify/types': 2.0.0
+
   '@iconify-json/simple-icons@1.2.33':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/vscode-icons@1.2.20':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -5738,7 +5768,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@jsonlee_12138/markdown-it-mermaid@0.0.6-beta(markdown-it@14.1.0)(mermaid@11.6.0)':
+  '@jsonlee_12138/markdown-it-mermaid@0.0.6(markdown-it@14.1.0)(mermaid@11.6.0)':
     dependencies:
       markdown-it: 14.1.0
       mermaid: 11.6.0
@@ -9823,6 +9853,20 @@ snapshots:
       terser: 5.39.0
       tsx: 4.19.4
       yaml: 2.7.1
+
+  vitepress-demo-plugin@1.4.1(shiki@2.5.0)(vitepress@1.6.3(@algolia/client-search@5.24.0)(@types/node@22.15.3)(async-validator@4.2.5)(axios@1.9.0)(less@4.3.0)(postcss@8.5.3)(sass@1.87.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2))(vue@3.5.13(typescript@5.8.2)):
+    dependencies:
+      shiki: 2.5.0
+      vitepress: 1.6.3(@algolia/client-search@5.24.0)(@types/node@22.15.3)(async-validator@4.2.5)(axios@1.9.0)(less@4.3.0)(postcss@8.5.3)(sass@1.87.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2)
+      vue: 3.5.13(typescript@5.8.2)
+
+  vitepress-plugin-group-icons@1.5.2:
+    dependencies:
+      '@iconify-json/logos': 1.2.4
+      '@iconify-json/vscode-icons': 1.2.20
+      '@iconify/utils': 2.3.0
+    transitivePeerDependencies:
+      - supports-color
 
   vitepress@1.6.3(@algolia/client-search@5.24.0)(@types/node@22.15.3)(async-validator@4.2.5)(axios@1.9.0)(less@4.3.0)(postcss@8.5.3)(sass@1.87.0)(search-insights@2.17.3)(terser@5.39.0)(typescript@5.8.2):
     dependencies:

@@ -7,7 +7,7 @@ title: trigger-popover-offset 弹出距离窗口偏移
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from '../types'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
 
 const senderValue1 = ref('')
 

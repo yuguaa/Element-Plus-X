@@ -5,7 +5,7 @@ title: 雾化效果
 
 开启打字器时，继承打字器雾化属性。通过设置 `is-fog` 属性，开启雾化打字器渲染模式。 兼容 Markdown 样式。注意，开启雾化后，`typing` 的后缀 `suffix` 属性将会失效。
 
-`is-fog` 默认为 false，可以设置为  `true` 或者 `{ bgColor: '#f5f5f5', width: '80px' }`。
+`is-fog` 默认为 false，可以设置为  `true` 或者 `{ bgColor: '#f5f5f5', width: '80px' }`。设置雾化背景颜色，可以更好的匹配自定义的样式。
 </docs>
 
 <script setup lang="ts">

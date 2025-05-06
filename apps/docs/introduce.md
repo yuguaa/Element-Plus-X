@@ -14,12 +14,7 @@
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;
-</div>
-
-<div align="center">
-
-  [English](./introduce-En.md) | 简体中文
-
+<img src="https://cdn.element-plus-x.com/demo4.webp" calss="element-plus-x-bubble" />&emsp;
 </div>
 
 # 🚀 Element-Plus-X
@@ -41,17 +36,19 @@
 - 📦 **按需加载**：提供 Tree Shaking 优化
 
 ## 📦 安装
-```bash
-# NPM
-npm install vue-element-plus-x
-
-# PNPM（推荐）
-pnpm install vue-element-plus-x
-
-# Yarn
-yarn install vue-element-plus-x
-
+::: code-group
+```sh [npm]
+npm install vue-element-plus-x --save
 ```
+
+```sh [pnpm]
+pnpm add vue-element-plus-x --save
+```
+
+```sh [yarn]
+yarn add vue-element-plus-x --save
+```
+:::
 
 ## 📚 使用案例
 
@@ -104,9 +101,13 @@ app.mount('#app')
 | `Typewriter` | 打字动画组件             | [📄 文档](https://element-plus-x.com/components/typewriter/) |
 | `Bubble`     | 气泡消息组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubble/) |
 | `BubbleList` | 气泡消息列表 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubbleList/) |
+| `Conversations` | 会话管理组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/conversations/) |
 | `Welcome`    | 欢迎组件           | [📄 文档](https://element-plus-x.com/components/welcome/) |
+| `Prompts `    | 提示集组件           | [📄 文档](https://element-plus-x.com/components/prompts /) |
+| `FilesCard`       |  文件卡片组件          | [📄 文档](https://element-plus-x.com/components/filesCard/) |
+| `Attachments`       |  上传附件组件          | [📄 文档](https://element-plus-x.com/components/attachments/) |
 | `Sender`     | 智能输入框（含语音交互、内置指令操作） | [📄 文档](https://element-plus-x.com/components/sender/) |
-| `MentionSender`     | 指令输入框 （提及列表） | [📄 文档](https://element-plus-x.com/components/MentionSender/) |
+| `MentionSender`     | 指令输入框 （提及列表） | [📄 文档](https://element-plus-x.com/components/mentionSender/) |
 | `Thinking`      | 思考中组件 （拓展）  | [📄 文档](https://element-plus-x.com/components/thinking/) |
 | `ThoughtChain` | 思考链组件             | [📄 文档](https://element-plus-x.com/components/thoughtChain/) |
 | `useRecord` | 浏览器内置语音识别 API Hooks   | [📄 文档](https://element-plus-x.com/components/useRecord/) |
@@ -132,7 +133,7 @@ app.mount('#app')
 
 ## 👥 社区支持
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-04-24.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vw-2025-05-06.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
 
 <p>交流群如果过期或者失效，可以添加作者 vx</p>

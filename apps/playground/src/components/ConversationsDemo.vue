@@ -3,7 +3,7 @@ import type { ConversationItem, ConversationMenuCommand, GroupableOptions } from
 import { ChatDotRound, ChatLineRound, Delete, Edit, EditPen, Share } from '@element-plus/icons-vue'
 import Conversations from 'vue-element-plus-x/src/components/Conversations/index.vue'
 
-const timeBasedItems = ref<ConversationItem<{id: string, label: string}>[]>([
+const timeBasedItems = ref<ConversationItem<{ id: string, label: string }>[]>([
   {
     id: '1',
     label: '今天的会话111111111111111111111111111',

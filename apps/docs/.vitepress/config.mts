@@ -1,6 +1,9 @@
-// import type { Plugin } from 'vitepress'
+import type { Plugin } from 'vitepress'
 // import { prismjsPlugin } from 'vite-plugin-prismjs'
 import { defineConfig } from 'vitepress'
+// 另一种 demo 插件
+// import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -78,20 +81,24 @@ export default defineConfig({
           text: '通用',
           items: [
             // 自定义组件
-            { text: 'Typewriter 打字器 🆕', link: '/components/typewriter/' },
+            { text: 'Typewriter 打字器 ✍', link: '/components/typewriter/' },
             { text: 'Bubble 对话气泡 🔥', link: '/components/bubble/' },
             { text: 'BubbleList 气泡列表 🍅', link: '/components/bubbleList/' },
+            { text: 'Conversations 会话管理 📱', link: '/components/conversations/' },
           ],
         },
         {
           text: '唤醒',
           items: [
             { text: 'Welcome 欢迎 🌹', link: '/components/welcome/' },
+            { text: 'Prompts 提示集 🎁', link: '/components/prompts/' },
           ],
         },
         {
           text: '表达',
           items: [
+            { text: 'FilesCard 文件卡片 📇', link: '/components/filesCard/' },
+            { text: 'Attachments 输入附件 📪️', link: '/components/attachments/' },
             { text: 'Sender 输入框 💭', link: '/components/sender/' },
             { text: 'MentionSender 提及输入框 🦥', link: '/components/mentionSender/' },
           ],
@@ -179,9 +186,10 @@ export default defineConfig({
       infoLabel: '💌 消息',
       detailsLabel: '🎨 展开',
     },
-    // config(md) {
-    //   md.use(vitepressDemoPlugin)
-    // },
+    config(md) {
+      // md.use(vitepressDemoPlugin)
+      md.use(groupIconMdPlugin)
+    },
   },
   vite: {
     plugins: [
@@ -195,6 +203,10 @@ export default defineConfig({
       //   languages: 'all', // 语言
       //   theme: 'default', // 主题
       // }) as Plugin,
+      groupIconVitePlugin() as Plugin,
     ],
+    ssr: {
+      noExternal: ['element-plus']
+    }
   },
 })

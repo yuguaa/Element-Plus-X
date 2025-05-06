@@ -14,6 +14,7 @@
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;
+<img src="https://cdn.element-plus-x.com/demo4.webp" calss="element-plus-x-bubble" />&emsp;
 </div>
 
 <div align="center">
@@ -99,19 +100,23 @@ app.mount('#app')
 
 ## 🌟 Implemented Components and Hooks
 
-| Component Name | Description                     | Documentation Link           |
-|----------------|-------------------------------|-----------------------------|
-| `Typewriter`   | Typing animation component    | [📄 Docs](https://element-plus-x.com/components/typewriter/) |
-| `Bubble`       | Bubble message component (extended)       | [📄 Docs](https://element-plus-x.com/components/bubble/) |
-| `BubbleList`   | Bubble message list (extended)            | [📄 Docs](https://element-plus-x.com/components/bubbleList/) |
-| `Welcome`      | Welcome component               | [📄 Docs](https://element-plus-x.com/components/welcome/) |
-| `Sender`       | Smart input (with voice interaction、Built in instruction operation) | [📄 Docs](https://element-plus-x.com/components/sender/) |
-| `MentionSender` | Instruction input box (mention list) |[📄 Docs](https://element-plus-x.com/components/MentionSender/)|
-| `Thinking`     | Thinking state component (extended) | [📄 Docs](https://element-plus-x.com/components/thinking/) |
-| `ThoughtChain` | Thought chain component         | [📄 Docs](https://element-plus-x.com/components/thoughtChain/) |
-| `useRecord`    | Browser built-in speech recognition hooks | [📄 Docs](https://element-plus-x.com/components/useRecord/) |
-| `useXStream`   | Streaming API hooks             | [📄 Docs](https://element-plus-x.com/components/useXStream/) |
-| `useSend & XRequest` | Split streaming hooks (extended) | [📄 Docs](https://element-plus-x.com/components/useSend/) |
+| Component Name       | Description                     | Documentation Link               |
+| ------------ | ------------------------ | ---------------------- |
+| `Typewriter` | Typewriter animation component             | [📄 Documentation](https://element-plus-x.com/components/typewriter/) |
+| `Bubble`     | Extended bubble message component        | [📄 Documentation](https://element-plus-x.com/components/bubble/) |
+| `BubbleList` | Extended bubble message list component        | [📄 Documentation](https://element-plus-x.com/components/bubbleList/) |
+| `Conversations` | Extended conversation management component        | [📄 Documentation](https://element-plus-x.com/components/conversations/) |
+| `Welcome`    | Welcome component           | [📄 Documentation](https://element-plus-x.com/components/welcome/) |
+| `Prompts`    | Prompt set component           | [📄 Documentation](https://element-plus-x.com/components/prompts/) |  <!-- 修正了原表格中Prompts后的多余空格 -->
+| `FilesCard`       | File card component          | [📄 Documentation](https://element-plus-x.com/components/filesCard/) |
+| `Attachments`       | File attachment upload component          | [📄 Documentation](https://element-plus-x.com/components/attachments/) |
+| `Sender`     | Intelligent input box (with voice interaction and built-in command operations) | [📄 Documentation](https://element-plus-x.com/components/sender/) |
+| `MentionSender`     | Command input box (with mention list) | [📄 Documentation](https://element-plus-x.com/components/mentionSender/) |
+| `Thinking`      | Extended "Thinking..." component  | [📄 Documentation](https://element-plus-x.com/components/thinking/) |
+| `ThoughtChain` | Thought chain component             | [📄 Documentation](https://element-plus-x.com/components/thoughtChain/) |
+| `useRecord` | Browser-built voice recognition API Hooks   | [📄 Documentation](https://element-plus-x.com/components/useRecord/) |
+| `useXStream` | Stream mode interface Hooks | [📄 Documentation](https://element-plus-x.com/components/useXStream/) |
+| `useSend & XRequest` | Split version of stream mode Hooks (extended)  | [📄 Documentation](https://element-plus-x.com/components/useSend/) |
 
 ## 🎯 Development Plan (Updated Weekly)
 
@@ -132,7 +137,7 @@ We welcome:
 
 ## 👥 Community Support
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-04-24.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vw-2025-05-06.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
 <p>Join the WeChat communication group to get the latest news and technical support</p>
 
 <p>If the group link expires, scan the author's QR code:</p>

@@ -1,10 +1,8 @@
 <script lang='ts' setup generic="T = DefaultThoughtChainItemProps">
 import type { ElTimeline } from 'element-plus'
-import type { DefaultThoughtChainItemProps, ThinkingInstance, ThoughtChainProps, ThoughtChainType } from './types'
+import type { DefaultThoughtChainItemProps, ThinkingInstance, ThoughtChainProps, ThoughtChainType } from 'vue-element-plus-x/types/ThoughtChain'
 import { Check, Close, Loading } from '@element-plus/icons-vue'
 import { get } from 'radash'
-import { computed, ref, watch } from 'vue'
-import Typewriter from '../typewriter/typewriter.vue'
 
 const props = withDefaults(defineProps<ThoughtChainProps<T>>(), {
   thinkingItems: () => [],

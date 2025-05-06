@@ -13,7 +13,8 @@ title: 自动滚动 + 滚动到指定索引
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/bubbleList/types'
+import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
+import type { TypewriterProps } from 'vue-element-plus-x/types/Typewriter'
 
 type listType = BubbleListItemProps & {
   key: number
@@ -21,7 +22,7 @@ type listType = BubbleListItemProps & {
 }
 
 // 示例调用
-const bubbleItems = ref<BubbleListProps<listType>['list']>(generateFakeItems(8))
+const bubbleItems = ref<BubbleListProps<listType>['list']>(generateFakeItems(2))
 
 function generateFakeItems(count: number): listType[] {
   const messages: listType[] = []
@@ -66,11 +67,11 @@ function addMessage() {
   const isUser = !!(i % 2)
   const content = isUser
     ? '哈哈哈，让我试试'
-    : '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(10)
+    : '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(5)
   const shape = 'corner'
   const variant = !isUser ? 'filled' : 'outlined'
   const placement = isUser ? 'end' : 'start'
-  const typing = isUser ? false : { step: 2, suffix: '🍆' }
+  const typing: TypewriterProps['typing'] = isUser ? false : { step: 5, suffix: '🍆', interval: 35 }
   const avatar = isUser
     ? 'https://avatars.githubusercontent.com/u/76239030?v=4'
     : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
@@ -89,6 +90,10 @@ function addMessage() {
   bubbleItems.value.push(obj as listType)
   // 每次添加 调用 滚动到底部 触发 自动滚动
   scrollBottom()
+}
+
+function clearMessage() {
+  bubbleItems.value = []
 }
 
 function scrollToTop() {
@@ -119,6 +124,9 @@ onMounted(() => {
       <div class="btn-list">
         <el-button type="primary" plain @click="addMessage">
           添加对话
+        </el-button>
+        <el-button type="danger" plain @click="clearMessage">
+          清空对话列表
         </el-button>
         <el-button type="primary" plain @click="scrollToTop">
           滚动到顶部
