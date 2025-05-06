@@ -12,11 +12,15 @@
 
 <div align="center">
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
+<img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
+<img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;
+<img src="https://cdn.element-plus-x.com/demo4.webp" calss="element-plus-x-bubble" />&emsp;
+
 </div>
 
 <div align="center">
 
-[English](./English-README.md) | **简体中文**
+ [English](./README.en.md) | **简体中文**
 
 </div>&emsp;
 
@@ -24,20 +28,21 @@
 **开箱即用的企业级 AI 组件库（基于 Vue 3 + Element-Plus）**
 
 ## 📢 快速链接
-| 资源类型         | <div style="width: 300px;" >链接</div>   |
-|------------------|-----------------------------------------------|
-| **文档**         | [📖 开发文档](https://element-plus-x.com)       |
+| 资源类型         | <div style="width: 300px;" >链接</div>                                                                 |
+|------------------|----------------------------------------------------------------------|
+| **文档**         | [📖 开发文档](https://element-plus-x.com)                             |
 | **在线演示**     | [👁️ 在线预览](https://v.element-plus-x.com)                         |
 | **代码仓库**     | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X)           |
 | **NPM 包**       | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)           |
 | **问题反馈**     | [🐛 提交 Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)  |
+| **交流讨论**     | [🐒 交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)  |
 
 ## 🛠️ 核心特性
 - ✨ **企业级 AI 组件**：内置聊天机器人、语音交互等场景化组件
 - 🚀 **零配置集成**：基于 Element-Plus 设计体系，开箱即用
 - 📦 **按需加载**：提供 Tree Shaking 优化
 
-## 🔎  安装
+## 📦 安装
 ```bash
 # NPM
 npm install vue-element-plus-x
@@ -87,18 +92,42 @@ app.use(ElementPlusX)
 app.mount('#app')
 ```
 
-## 🌟 已实现组件
+3. **CDN 引入**
+```html
+<!-- 该方法 有待测试 -->
+<!-- CDN 引入 -->
+<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+```
+
+## 🌟 已实现 组件 和 Hooks
 
 | 组件名       | 描述                     | 文档链接               |
 | ------------ | ------------------------ | ---------------------- |
 | `Typewriter` | 打字动画组件             | [📄 文档](https://element-plus-x.com/components/typewriter/) |
-| `Bubble`     | 气泡消息组件             | [📄 文档](https://element-plus-x.com/components/bubble/) |
-| `BubbleList` | 气泡消息列表             | [📄 文档](https://element-plus-x.com/components/bubbleList/) |
-| `Sender`     | 智能输入框（含语音交互） | [📄 文档](https://element-plus-x.com/components/sender/) |
+| `Bubble`     | 气泡消息组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubble/) |
+| `BubbleList` | 气泡消息列表 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubbleList/) |
+| `Conversations` | 会话管理组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/conversations/) |
+| `Welcome`    | 欢迎组件           | [📄 文档](https://element-plus-x.com/components/welcome/) |
+| `Prompts `    | 提示集组件           | [📄 文档](https://element-plus-x.com/components/prompts /) |
+| `FilesCard`       |  文件卡片组件          | [📄 文档](https://element-plus-x.com/components/filesCard/) |
+| `Attachments`       |  上传附件组件          | [📄 文档](https://element-plus-x.com/components/attachments/) |
+| `Sender`     | 智能输入框（含语音交互、内置指令操作） | [📄 文档](https://element-plus-x.com/components/sender/) |
+| `MentionSender`     | 指令输入框 （提及列表） | [📄 文档](https://element-plus-x.com/components/mentionSender/) |
+| `Thinking`      | 思考中组件 （拓展）  | [📄 文档](https://element-plus-x.com/components/thinking/) |
+| `ThoughtChain` | 思考链组件             | [📄 文档](https://element-plus-x.com/components/thoughtChain/) |
+| `useRecord` | 浏览器内置语音识别 API Hooks   | [📄 文档](https://element-plus-x.com/components/useRecord/) |
+| `useXStream` | 流模式接口 Hooks | [📄 文档](https://element-plus-x.com/components/useXStream/) |
+| `useSend & XRequest` | 流模式 hooks 的拆分 （拓展）  | [📄 文档](https://element-plus-x.com/components/useSend/) |
+
+## 🎯开发计划 (每周更新)
+
+🎀我们会在 issue 、交流群 等多方面收集大家的遇到的问题，和需求场景，制定短期和长期的开发计划，查看详情请移步👉 **[开发计划](https://element-plus-x.com/roadmap.html)**
 
 ## 🤝 参与贡献
 
 1. **Fork 仓库** → 2. **创建 Feature 分支** → 3. **提交 Pull Request**
+
+详情可以移步👉 **[开发指南](https://element-plus-x.com/guide/develop.html)**
 
 我们欢迎：
 
@@ -109,6 +138,9 @@ app.mount('#app')
 
 ## 👥 社区支持
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-3-30.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vw-2025-05-06.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
+
+<p>交流群如果过期或者失效，可以添加作者 vx</p>
+<img src="https://cdn.element-plus-x.com/element-plus-x-author-vx.png" alt="作者vx" width="180" style="margin: 20px;" />
 </div>

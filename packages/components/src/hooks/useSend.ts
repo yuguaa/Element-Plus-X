@@ -7,10 +7,8 @@ export interface UseSendProps {
 
 type OnError = (eventSource: EventSource, event: Event) => void
 
-type BaseHeaders = Omit<HeadersInit, 'Content-Type'>
-
 type BaseFetchOptions = Omit<RequestInit, 'headers' | 'signal'> & {
-  headers?: BaseHeaders
+  headers?: HeadersInit | Headers
 }
 
 type Transformer<T> = (message: string) => T

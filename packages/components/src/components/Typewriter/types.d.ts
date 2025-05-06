@@ -1,3 +1,4 @@
+import type MarkdownIt from 'markdown-it'
 // types.ts
 import type { ComputedRef, Ref } from 'vue'
 
@@ -11,6 +12,16 @@ export interface TypingConfig {
   suffix?: string
 }
 
+/* 打字雾化效果配置 */
+export interface TypingFogfig {
+  /** 雾化背景色 */
+  bgColor?: string
+  /* 雾化宽度 */
+  width?: string
+}
+
+type MarkdownItPlugin = (md: MarkdownIt) => void
+
 /** 组件 Props 类型 */
 export interface TypewriterProps {
   /** 要显示的内容 */
@@ -21,6 +32,10 @@ export interface TypewriterProps {
   codeHighLightOptions?: CodeHighLightEngine
   /** 打字效果配置（布尔值启用默认配置） */
   typing?: boolean | TypingConfig
+  /* 是否开启打字器雾化效果 */
+  isFog?: boolean | TypingFogfig
+  highlight?: (code: string, language: string) => string
+  mdPlugins?: MarkdownItPlugin[]
 }
 
 /** 组件实例类型 */

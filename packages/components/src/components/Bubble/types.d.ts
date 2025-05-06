@@ -1,3 +1,5 @@
+import type { TypewriterProps } from '../Typewriter/types'
+
 import type { CodeHighLightEngine } from '../Typewriter/types'
 
 export interface BubbleProps {
@@ -11,6 +13,7 @@ export interface BubbleProps {
   isMarkdown?: boolean
   codeHighLightOptions?: CodeHighLightEngine
   typing?: boolean | { step?: number, suffix?: string, interval?: number }
+  isFog?: boolean | { bgColor?: string, width?: string }
   maxWidth?: string
   avatarSize?: string
   avatarGap?: string
@@ -20,4 +23,6 @@ export interface BubbleProps {
   avatarAlt?: string
   avatarFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
   noStyle?: boolean
+  highlight?: TypewriterProps['highlight']
+  mdPlugins?: TypewriterProps['mdPlugins']
 }

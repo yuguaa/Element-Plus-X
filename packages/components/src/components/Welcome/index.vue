@@ -98,7 +98,7 @@ const descriptionClass = computed(getDescriptionClass)
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .welcome-container {
   --border-radius: 8px;
   --icon-size: 64px;

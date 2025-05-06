@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { MoreFilled, Share } from '@element-plus/icons-vue'
-import Welcome from 'vue-element-plus-x/src/components/Welcome/index.vue'
 </script>
 
 <template>

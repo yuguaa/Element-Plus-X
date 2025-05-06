@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/components/ThoughtChain/types'
+import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain'
 import { CircleCloseFilled, Loading, SuccessFilled } from '@element-plus/icons-vue'
 
 const thinkings = ref<ThoughtChainItemProps[]>([{

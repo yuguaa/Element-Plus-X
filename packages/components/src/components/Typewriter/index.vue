@@ -6,20 +6,20 @@ import type {
   TypewriterProps,
   TypingConfig,
 } from './types.d.ts'
+import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid'
 import DOMPurify from 'dompurify' // 新增安全过滤
 import MarkdownIt from 'markdown-it'
-// 在组件中初始化时
-import Prism from 'prismjs'
-import 'github-markdown-css'
-import 'prismjs/themes/prism.css'
+import { usePrism } from '../../hooks/usePrism'
 import '../../assets/style/shiki/shiki.scss'
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   content: '',
   isMarkdown: false,
   typing: false,
+  isFog: false,
 })
-const emit = defineEmits<{
+
+const emits = defineEmits<{
   /** 开始打字时触发 */
   start: [instance: TypewriterInstance]
   /** 打字过程中触发（携带进度百分比） */
@@ -27,6 +27,39 @@ const emit = defineEmits<{
   /** 打字结束时触发 */
   finish: [instance: TypewriterInstance]
 }>()
+
+const highlight = computed(() => {
+  if (!props.highlight) {
+    return usePrism()
+  }
+  return props.highlight
+})
+
+const markdownContentRef = ref<HTMLElement | null>(null)
+const typeWriterRef = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  // 初始化雾化背景色
+  updateFogColor()
+})
+
+const isReady = inject<Ref<boolean>>('isReady')
+  const shikiMd = inject<Ref<MarkdownIt | null>>('shikiMd')
+
+const highlight = computed(() => {
+  if (!props.highlight) {
+    return usePrism()
+  }
+  return props.highlight
+})
+
+const markdownContentRef = ref<HTMLElement | null>(null)
+const typeWriterRef = ref<HTMLElement | null>(null)
+
+onMounted(() => {
+  // 初始化雾化背景色
+  updateFogColor()
+})
 
 const isReady = inject<Ref<boolean>>('isReady')
 const shikiMd = inject<Ref<MarkdownIt | null>>('shikiMd')
@@ -38,21 +71,22 @@ const md = new MarkdownIt({
   typographer: true,
   breaks: true,
   highlight: (code, language) => {
-    try {
-      // 检查并修正可能的拼写错误
-      if (Prism.languages[language]) {
-        return Prism.highlight(code, Prism.languages[language], language)
-      }
-      else {
-        return code // 返回原始代码，避免抛出异常
-      }
-    }
-    catch (error) {
-      console.error('Error during code highlighting:', error)
-      return code // 返回原始代码，避免抛出异常
-    }
+    return highlight.value?.(code, language)
   },
 })
+
+md.use(markdownItMermaid({ delay: 100, forceLegacyMathML: true }))
+
+function initMarkdownPlugins() {
+  if (props.mdPlugins && props.mdPlugins.length) {
+    props.mdPlugins.forEach((plugin) => {
+      md.use(plugin)
+    })
+  }
+}
+
+initMarkdownPlugins()
+
 
 const MarkdownShikiRenderer: MarkdownShikiRendererFun = ({ content }) => {
   if (!isReady || !shikiMd || !isReady.value || !shikiMd.value)
@@ -68,10 +102,10 @@ const contentCache = ref('') // 添加缓存变量
 // 配置合并逻辑修改
 const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
   const defaultConfig: TypingConfig = {
-    step: typeof props.typing == 'object' ? props.typing.step ? props.typing.step : 2 : 2,
-    interval: typeof props.typing == 'object' ? props.typing.interval ? props.typing.interval : 50 : 50,
+    step: typeof props.typing === 'object' ? props.typing.step ?? 2 : 2,
+    interval: typeof props.typing === 'object' ? props.typing.interval ?? 50 : 50,
     // 根据条件动态设置后缀
-    suffix: props.isMarkdown ? '' : typeof props.typing == 'object' ? props.typing.suffix ? props.typing.suffix : '|' : '|',
+    suffix: props.isMarkdown ? '' : typeof props.typing === 'object' ? props.typing.suffix ?? '|' : '|',
   }
 
   // 处理打字配置
@@ -86,7 +120,7 @@ const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
       ...defaultConfig,
       ...props.typing,
       // 强制覆盖后缀设置
-      suffix: props.isMarkdown ? '' : props.typing.suffix,
+      suffix: props.isMarkdown ? '' : props.typing.suffix ?? '|',
     }
   }
 
@@ -131,7 +165,6 @@ const renderedContent = computed(() => {
       })
     }
   }
-
   // Markdown模式添加安全过滤和样式类
   return DOMPurify.sanitize(md.render(processedContent.value))
 })
@@ -180,11 +213,11 @@ function startTyping() {
     return
 
   isTyping.value = true
-  emit('start', instance)
+  emits('start', instance)
 
   const typeNext = () => {
     typingIndex.value += mergedConfig.value.step!
-    emit('writing', instance)
+    emits('writing', instance)
 
     if (typingIndex.value >= contentCache.value.length) {
       finishTyping()
@@ -200,7 +233,7 @@ function startTyping() {
 function finishTyping() {
   isTyping.value = false
   typingIndex.value = contentCache.value.length
-  emit('finish', instance)
+  emits('finish', instance)
 }
 
 // 公共方法
@@ -227,6 +260,36 @@ function destroy() {
   isTyping.value = false
 }
 
+// 辅助函数：获取元素背景色并检查是否透明
+function getBackgroundColor(element: HTMLElement | null) {
+  if (!element)
+    return null
+  const color = getComputedStyle(element).backgroundColor
+  const isTransparent = color === 'rgba(0, 0, 0, 0)' || color === 'transparent' || color === 'initial'
+  return isTransparent ? null : color
+}
+
+// 雾化颜色跟随背景色
+function updateFogColor() {
+  if (markdownContentRef.value) {
+    let bgColor = getBackgroundColor(markdownContentRef.value)
+    if (!bgColor) {
+      bgColor = getBackgroundColor(typeWriterRef.value)
+      if (!bgColor) {
+        const bubbleContent = document.querySelector('.el-bubble-content') as HTMLElement | null
+        bgColor = getBackgroundColor(bubbleContent)
+        if (!bgColor) {
+          const bubble = document.querySelector('.el-bubble') as HTMLElement | null
+          bgColor = getBackgroundColor(bubble)
+        }
+      }
+    }
+    if (bgColor) {
+      markdownContentRef.value.style.setProperty('--el-fill-color', bgColor)
+    }
+  }
+}
+
 // 生命周期
 onUnmounted(destroy)
 
@@ -235,31 +298,24 @@ defineExpose(instance)
 </script>
 
 <template>
-  <div class="typer-container">
+  <div ref="typeWriterRef" class="typer-container">
     <div
-      class="typer-content"
-      :class="[
+      ref="markdownContentRef" class="typer-content" :class="[
         {
           'markdown-content': isMarkdown,
           'typing-cursor': typing && mergedConfig.suffix && isTyping,
+          'typing-cursor-foggy': props.isFog && typing && mergedConfig.suffix && isTyping,
+          'typing-markdown-cursor-foggy': isMarkdown && props.isFog && typing && isTyping,
         },
         isMarkdown ? 'markdown-body' : '',
-      ]"
-      :style="{ '--cursor-char': `'${mergedConfig.suffix}'` }"
-      v-html="renderedContent"
+      ]" :style="{
+        '--cursor-char': `'${mergedConfig.suffix}'`,
+        '--cursor-fog-bg-color': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.bgColor ?? 'var(--el-fill-color)' : 'var(--el-fill-color)') : '',
+        '--cursor-fog-width': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.width ?? '80px' : '80px') : '',
+      }" v-html="renderedContent"
     />
   </div>
 </template>
 
-<style scoped lang="scss">
-/* 修改光标样式 */
-.typer-content.typing-cursor::after {
-  content: var(--cursor-char);
-  animation: blink 1s step-end infinite;
-  margin-left: 2px;
-  display: inline-block; /* 确保光标对齐 */
-}
-
-/* Markdown基础样式 */
-.markdown-content :deep(ul) { list-style-type: disc; }
-</style>
+<!-- 样式转移-暂定方案-为后续主题做准备 -->
+<style scoped lang="scss" src="./style.scss"></style>

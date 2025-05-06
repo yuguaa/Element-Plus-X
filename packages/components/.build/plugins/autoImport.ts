@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 const plugins: PluginOption[] = [
   AutoImport({
     imports: ['vue'],
+    ignore: ['h'],
     resolvers: [ElementPlusResolver()],
     dts: 'src/auto-import.d.ts',
   }),

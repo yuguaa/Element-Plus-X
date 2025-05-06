@@ -1,8 +1,8 @@
 // 定义组件状态类型
 export type ThinkingStatus = 'start' | 'thinking' | 'end' | 'error'
 
-// 定义组件 ThoughtProps
-export interface ThoughtProps {
+// 定义组件 ThinkingProps
+export interface ThinkingProps {
   /** 初始展开状态 */
   modelValue?: boolean
   /** 思维链内容（字符串格式） */

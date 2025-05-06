@@ -18,12 +18,44 @@ const props = withDefaults(defineProps<SenderProps>(), {
   headerAnimationTimer: 300,
   inputWidth: '100%',
   modelValue: '', // 显式定义value的默认值
+
+  variant: 'default',
+  showUpdown: true,
+  submitBtnDisabled: undefined,
+
+  // el-input 属性透传
+  inputStyle: () => {},
+
+  triggerStrings: () => [], // 指令字符数组，默认空数组
+  triggerPopoverVisible: false,
+  triggerPopoverWidth: 'fit-content',
+  triggerPopoverLeft: '0px',
+  triggerPopoverOffset: 8,
+  triggerPopoverPlacement: 'top-start',
 })
 
-const emits = defineEmits(['update:modelValue', 'submit', 'cancel', 'recordingChange'])
+const emits = defineEmits([
+  'update:modelValue',
+
+  'update:triggerPopoverVisible',
+
+  'submit',
+  'cancel',
+  'recordingChange',
+
+  'trigger',
+])
 
 const slots = defineSlots()
 
+// 获取当前组件实例
+const instance = getCurrentInstance()
+// 判断是否存在 submit 监听器
+const hasOnRecordingChangeListener = computed(() => {
+  return !!instance?.vnode.props?.onRecordingChange
+})
+const senderRef = ref()
+const inputRef = ref()
 const internalValue = computed({
   get() {
     return props.modelValue
@@ -35,14 +67,101 @@ const internalValue = computed({
   },
 })
 
-// 获取当前组件实例
-const instance = getCurrentInstance()
-// 判断是否存在 submit 监听器
-const hasOnRecordingChangeListener = computed(() => {
-  return !!instance?.vnode.props?.onRecordingChange
+// 处理输入法组合状态
+const isComposing = ref(false)
+const popoverRef = ref()
+// 判断是否存在 trigger 监听器
+const hasOnTriggerListener = computed(() => {
+  return !!instance?.vnode.props?.onTrigger
 })
-const senderRef = ref()
-const inputRef = ref()
+
+// 计算提交按钮禁用状态
+const isSubmitDisabled = computed(() => {
+  // 用户显式设置了 submitBtnDisabled 时优先使用
+  if (typeof props.submitBtnDisabled === 'boolean') {
+    return props.submitBtnDisabled
+  }
+  // 否则保持默认逻辑：无内容时禁用
+  return !internalValue.value
+})
+
+const popoverVisible = computed({
+  get() {
+    return props.triggerPopoverVisible
+  },
+  set(value) {
+    if (props.readOnly || props.disabled)
+      return
+    emits('update:triggerPopoverVisible', value)
+  },
+})
+
+// 当前触发 指令的 字符
+const triggerString = ref('')
+
+// 监听输入值变化
+watch(
+  () => internalValue.value,
+  (newVal, oldVal) => {
+    if (isComposing.value)
+      return
+    // 触发逻辑：当输入值等于数组中的任意一个指令字符时触发
+    // 确保 oldVal 是字符串类型
+    const triggerStrings = props.triggerStrings || [] // 如果为 undefined，就使用空数组
+    const validOldVal = typeof oldVal === 'string' ? oldVal : ''
+    const wasOldValTrigger = triggerStrings.includes(validOldVal)
+    const isNewValTrigger = triggerStrings.includes(newVal)
+
+    // 触发显示：从空变为触发字符
+    if (oldVal === '' && isNewValTrigger) {
+      triggerString.value = newVal
+      if (hasOnTriggerListener.value) {
+        emits('trigger', {
+          oldValue: oldVal, // 关闭时返回之前触发的字符
+          newValue: newVal,
+          triggerString: newVal,
+          isOpen: true,
+        })
+        popoverVisible.value = true
+      }
+      else {
+        popoverVisible.value = true
+      }
+    }
+    // 关闭：从触发字符变为非触发字符
+    else if (!isNewValTrigger && wasOldValTrigger) {
+      if (hasOnTriggerListener.value) {
+        emits('trigger', {
+          oldValue: oldVal, // 关闭时返回之前触发的字符
+          newValue: newVal,
+          triggerString: undefined,
+          isOpen: false,
+        })
+        popoverVisible.value = false
+      }
+      else {
+        popoverVisible.value = false
+      }
+    }
+    // 触发显示：从非空且非触发字符变为触发字符
+    else if (oldVal !== '' && isNewValTrigger && !wasOldValTrigger) {
+      triggerString.value = newVal
+      if (hasOnTriggerListener.value) {
+        emits('trigger', {
+          oldValue: oldVal, // 关闭时返回之前触发的字符
+          newValue: newVal,
+          triggerString: newVal,
+          isOpen: true,
+        })
+        popoverVisible.value = true
+      }
+      else {
+        popoverVisible.value = true
+      }
+    }
+  },
+  { deep: true, immediate: true },
+)
 
 /* 内容容器聚焦 开始 */
 function onContentMouseDown(e: MouseEvent) {
@@ -133,7 +252,7 @@ function stopRecognition() {
 
 /* 输入框事件 开始 */
 function submit() {
-  if (props.readOnly || props.loading || props.disabled)
+  if (props.readOnly || props.loading || props.disabled || isSubmitDisabled.value)
     return
   emits('submit', internalValue.value)
 }
@@ -240,6 +359,15 @@ function focusToEnd() {
 }
 /* 焦点 事件 结束 */
 
+// 处理输入法开始/结束 (此方法是拼音输入法的时候用)
+function handleCompositionStart() {
+  isComposing.value = true
+}
+
+function handleCompositionEnd() {
+  isComposing.value = false
+}
+
 defineExpose({
   openHeader, // 打开头部
   closeHeader, // 关闭头部
@@ -257,15 +385,16 @@ defineExpose({
 <template>
   <div
     class="el-sender-wrap"
-    :style="{ cursor: disabled ? 'not-allowed' : 'default' }"
+    :style="{
+      'cursor': disabled ? 'not-allowed' : 'default',
+      '--el-sender-trigger-popover-width': props.triggerPopoverWidth,
+      '--el-sender-trigger-popover-left': props.triggerPopoverLeft,
+    }"
   >
     <div
       ref="senderRef"
       class="el-sender"
       :style="{
-        '--el-padding-xs': '8px',
-        '--el-padding-sm': '12px',
-        '--el-padding': '16px',
         '--el-box-shadow-tertiary':
           '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
         '--el-sender-input-input-font-size': '14px',
@@ -283,10 +412,14 @@ defineExpose({
           </div>
         </div>
       </Transition>
-      <!-- 内容容器 -->
-      <div class="el-sender-content" @mousedown="onContentMouseDown">
+      <!-- 内容容器 内置变体逻辑 -->
+      <div
+        class="el-sender-content"
+        :class="{ 'content-variant-updown': props.variant === 'updown' }"
+        @mousedown="onContentMouseDown"
+      >
         <!-- Prefix 前缀 -->
-        <div v-if="$slots.prefix" class="el-sender-prefix">
+        <div v-if="$slots.prefix && props.variant === 'default'" class="el-sender-prefix">
           <slot name="prefix" />
         </div>
         <!-- 输入框 -->
@@ -294,7 +427,7 @@ defineExpose({
           ref="inputRef"
           v-model="internalValue"
           class="el-sender-input"
-          :input-style="{
+          :input-style="props.inputStyle || {
             'resize': 'none',
             'max-height': '176px',
             'max-width': inputWidth,
@@ -307,14 +440,16 @@ defineExpose({
           :read-only="readOnly || disabled"
           :disabled="disabled"
           @keydown.stop="handleKeyDown"
+          @compositionstart="handleCompositionStart"
+          @compositionend="handleCompositionEnd"
         />
         <!-- 操作列表 -->
-        <div class="el-sender-action-list">
+        <div v-if="props.variant === 'default'" class="el-sender-action-list">
           <slot name="action-list">
             <div
               class="el-sender-action-list-presets"
             >
-              <SendButton v-if="!loading" @submit="submit" />
+              <SendButton v-if="!loading" :disabled="isSubmitDisabled" @submit="submit" />
 
               <LoadingButton v-if="loading" @cancel="cancel" />
 
@@ -332,8 +467,66 @@ defineExpose({
             </div>
           </slot>
         </div>
+
+        <!-- 变体样式 -->
+        <div v-if="props.variant === 'updown' && props.showUpdown" class="el-sender-updown-wrap">
+          <!-- 变体 updown： Prefix 前缀 -->
+          <div v-if="$slots.prefix" class="el-sender-prefix">
+            <slot name="prefix" />
+          </div>
+
+          <!-- 变体 updown：操作列表 -->
+          <div class="el-sender-action-list">
+            <slot name="action-list">
+              <div
+                class="el-sender-action-list-presets"
+              >
+                <SendButton v-if="!loading" :disabled="isSubmitDisabled" @submit="submit" />
+
+                <LoadingButton v-if="loading" @cancel="cancel" />
+
+                <SpeechButton
+                  v-if="!speechLoading && allowSpeech"
+                  @click="startRecognition"
+                />
+
+                <SpeechLoadingButton
+                  v-if="speechLoading && allowSpeech"
+                  @click="stopRecognition"
+                />
+
+                <ClearButton v-if="clearable" @clear="clear" />
+              </div>
+            </slot>
+          </div>
+        </div>
       </div>
+
+      <!-- 底部容器 -->
+      <Transition name="slide">
+        <div v-if="$slots.footer" class="el-sender-footer">
+          <slot name="footer" />
+        </div>
+      </Transition>
     </div>
+
+    <!-- 虚拟触发 popover -->
+    <el-popover
+      ref="popoverRef"
+      :virtual-ref="senderRef"
+      virtual-triggering
+      :visible="popoverVisible"
+      :disabled="props.disabled"
+      :show-arrow="false"
+      :placement="props.triggerPopoverPlacement"
+      :offset="props.triggerPopoverOffset"
+      popper-class="el-sender-trigger-popover"
+      :teleported="false"
+    >
+      <slot name="trigger-popover" :trigger-string="triggerString" :readonly="props.readOnly">
+        当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
+      </slot>
+    </el-popover>
   </div>
 </template>
 
@@ -375,7 +568,7 @@ defineExpose({
   .el-sender-header-wrap {
     display: flex;
     flex-direction: column;
-    gap: var(--el-padding-xs);
+    gap: var(--el-padding-xs, 8px);
     width: 100%;
     margin: 0;
     padding: 0;
@@ -397,7 +590,7 @@ defineExpose({
   .slide-enter-from,
   .slide-leave-to {
     height: 0;
-    opacity: 0;
+    opacity: 0 !important;
   }
 
   .el-sender-header {
@@ -408,11 +601,11 @@ defineExpose({
 
   .el-sender-content {
     display: flex;
-    gap: var(--el-padding-xs);
+    gap: var(--el-padding-xs, 8px);
     width: 100%;
-    padding-block: var(--el-padding-sm);
-    padding-inline-start: var(--el-padding);
-    padding-inline-end: var(--el-padding-sm);
+    padding-block: var(--el-padding-sm, 12px);
+    padding-inline-start: var(--el-padding, 16px);
+    padding-inline-end: var(--el-padding-sm, 12px);
     box-sizing: border-box;
     align-items: flex-end;
     // 前缀
@@ -457,14 +650,47 @@ defineExpose({
     // 操作列表
     .el-sender-action-list-presets {
       display: flex;
-      gap: var(--el-padding-xs);
+      gap: var(--el-padding-xs, 8px);
       flex-direction: row-reverse;
     }
+  }
+
+  // 变体样式 --variant
+  .content-variant-updown {
+    display: flex;
+    flex-direction: column;
+    align-items: initial;
+    .el-sender-updown-wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      // 前缀
+      .el-sender-prefix {
+        flex: initial;
+      }
+
+      .el-sender-action-list {
+        margin-left: auto;
+      }
+    }
+  }
+
+  // 底部容器
+  .el-sender-footer {
+    border-top-width: var(--el-border-width);
+    border-top-style: solid;
+    border-top-color: var(--el-border-color);
   }
 }
 
 .el-sender-disabled {
   background-color: var(--el-fill-color);
   pointer-events: none;
+}
+
+:deep(.el-sender-trigger-popover) {
+  width: var(--el-sender-trigger-popover-width) !important;
+  max-width: calc(100% - 54px) !important;
+  margin-left: var(--el-sender-trigger-popover-left) !important;
 }
 </style>

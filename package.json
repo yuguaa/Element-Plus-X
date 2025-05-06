@@ -10,6 +10,7 @@
     "build:components": "turbo run build --filter=vue-element-plus-x",
     "dev:playground": "turbo run dev --filter=playground",
     "dev:docs": "turbo run dev --filter=docs",
+    "build:docs": "turbo run build --filter=docs",
     "ci:publish": "pnpm changeset publish -r --filter=vue-element-plus-x",
     "dev": "npm run dev:playground",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
