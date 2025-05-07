@@ -22,6 +22,10 @@ function addMessage() {
     placement,
     typing,
     isFog: true,
+    isMarkdown: true,
+    codeHighLightOptions: {
+      type: 'Shiki',
+    },
   }
   bubbleItems.value.push(obj as MessageItem)
   bubbleListRef.value.scrollToBottom()

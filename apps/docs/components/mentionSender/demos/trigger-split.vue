@@ -7,7 +7,7 @@ title: trigger-split 指令分割符
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from '../types'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
 
 const senderValue1 = ref('')
 const options = ref<MentionOption[]>([

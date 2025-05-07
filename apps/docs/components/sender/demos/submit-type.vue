@@ -12,7 +12,9 @@ title: 提交模式
 </docs>
 
 <script setup lang="ts">
-const activeName = ref('enter')
+import type { SenderProps } from 'vue-element-plus-x/types/Sender'
+
+const activeName = ref<SenderProps['submitType']>('enter')
 const senderValue = ref('')
 const senderLoading = ref(false)
 function handleSubmit(value: string) {

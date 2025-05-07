@@ -15,7 +15,7 @@ title: 🐵 支持控制 Bubble 组件 播放、中断/继续、 销毁。支持
 </docs>
 
 <script setup lang="ts">
-import type { TypewriterInstance } from 'vue-element-plus-x/types/components/typewriter/types'
+import type { TypewriterInstance } from 'vue-element-plus-x/types/Typewriter'
 import { Delete, RefreshLeft, VideoPause, VideoPlay } from '@element-plus/icons-vue'
 
 const markdownContent = ref(`# 🔥 Bubble 实例方法-事件 \n 😄 使你的打字器可高度定制化。\n - 更方便的控制打字器的状态 \n - 列表项 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n // 🙉 控制台可以查看相关打日志\n console.log('Hello, world!'); \n \`\`\``)

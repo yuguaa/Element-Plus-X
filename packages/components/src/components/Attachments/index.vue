@@ -74,14 +74,29 @@ const _isOverLimit = computed(() => {
 })
 
 // 添加/移除 拖拽类名和定位信息
+const dropAreaRef = ref()
 function toggleDragStyle(isDrag: boolean) {
   isTargetDrag.value = isDrag
   if (targetElement.value) {
+    const isBodyTarget = targetElement.value === document.body // 判断是否为body
+
     if (isDrag) {
-      targetElement.value.classList.add('elx-attachments-dragover')
+      // 针对body特殊处理：使用fixed定位并铺满视口
+      // 有滚动条就会有问题，所以这么处理，后续再看看这个怎么优化
+      if (isBodyTarget && dropAreaRef.value) {
+        dropAreaRef.value.style.position = 'fixed'
+        dropAreaRef.value.style.width = '100vw' // 视口宽度
+        dropAreaRef.value.style.height = '100vh' // 视口高度
+        dropAreaRef.value.style.left = '0'
+        dropAreaRef.value.style.top = '0'
+      }
+      else {
+        // 其他元素保持原逻辑
+        targetElement.value.style.position = 'relative'
+      }
     }
     else {
-      targetElement.value.classList.remove('elx-attachments-dragover')
+      targetElement.value.style.position = ''
     }
   }
 }
@@ -97,18 +112,22 @@ function handleUploadSuccess(response: any, file: File, fileList: FileListProps)
 function handleUploadError(error: any, file: File, fileList: FileListProps) {
   emits('uploadError', error, file, fileList)
 }
+
 function getTargetElement() {
   if (!props.dragTarget)
     return wrapperRef.value
+  // 新增：处理原生 DOM 元素（如 document.body）
+  if (props.dragTarget instanceof HTMLElement) {
+    return props.dragTarget
+  }
   if (typeof props.dragTarget === 'string') {
     return document.getElementById(props.dragTarget)
   }
-  else if (isRef(props.dragTarget)) {
+  if (isRef(props.dragTarget)) {
     return props.dragTarget.value as HTMLElement
   }
-  else {
-    return wrapperRef.value
-  }
+  // 兜底返回 wrapperRef（保持原有逻辑）
+  return wrapperRef.value
 }
 
 function targetDragEnter(event: DragEvent) {
@@ -158,6 +177,7 @@ onMounted(() => {
 
   // 如果有拖拽目标元素，则监听拖拽事件
   if (wrapperRef.value) {
+    console.log('wrapperRef===>', getTargetElement())
     targetElement.value = getTargetElement() || wrapperRef.value
     // 监听拖拽事件
     targetElement.value.addEventListener('dragenter', targetDragEnter, false)
@@ -186,6 +206,30 @@ watch(
   {
     immediate: true, // 组件初始化时立即调用一次
     deep: true, // 如果 items 是对象或数组，需要深度监听
+  },
+)
+
+// 监听 props.dragTarget
+watch(
+  () => props.dragTarget,
+  () => {
+    // 确保 DOM 更新后再调用 checkPing
+    // 确保 DOM 更新后再调用 checkPing
+    nextTick(() => {
+      // 如果有拖拽目标元素，则监听拖拽事件
+      if (wrapperRef.value) {
+        targetElement.value = getTargetElement() || wrapperRef.value
+        // 监听拖拽事件
+        targetElement.value.addEventListener('dragenter', targetDragEnter, false)
+        targetElement.value.addEventListener('dragleave', targetDropLeave, false)
+        targetElement.value.addEventListener('drop', targetDrop, false)
+        targetElement.value.addEventListener('dragover', targetDragOver, false)
+      }
+    })
+  },
+  {
+    immediate: true, // 组件初始化时立即调用一次
+    deep: true,
   },
 )
 
@@ -293,7 +337,7 @@ defineExpose({
     <!-- 使用 DropArea 组件 -->
     <teleport v-if="targetElement && isTargetDrag" :to="targetElement">
       <slot name="drop-area">
-        <div class="elx-attachments-drop-area">
+        <div ref="dropAreaRef" class="elx-attachments-drop-area">
           <el-icon class="elx-attachments-drop-area-icon">
             <UploadFilled />
           </el-icon>
@@ -492,7 +536,6 @@ defineExpose({
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  /* 背景高斯模糊 */
   background: rgba(225, 225, 225, 0.3);
   backdrop-filter: blur(2px);
 

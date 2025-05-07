@@ -8,8 +8,11 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Attachments: typeof import('vue-element-plus-x')['Attachments']
     Bubble: typeof import('vue-element-plus-x')['Bubble']
     BubbleList: typeof import('vue-element-plus-x')['BubbleList']
+    ClientOnly: typeof import('vue-element-plus-x')['ClientOnly']
+    Conversations: typeof import('vue-element-plus-x')['Conversations']
     ElAvatar: typeof import('element-plus')['ElAvatar']
     ElButton: typeof import('element-plus')['ElButton']
     ElColorPicker: typeof import('element-plus')['ElColorPicker']
@@ -21,7 +24,12 @@ declare module 'vue' {
     ElRadioGroup: typeof import('element-plus')['ElRadioGroup']
     ElSlider: typeof import('element-plus')['ElSlider']
     ElSwitch: typeof import('element-plus')['ElSwitch']
+    FilesCard: typeof import('vue-element-plus-x')['FilesCard']
+    MentionSender: typeof import('vue-element-plus-x')['MentionSender']
+    Prompts: typeof import('vue-element-plus-x')['Prompts']
     Sender: typeof import('vue-element-plus-x')['Sender']
+    Thinking: typeof import('vue-element-plus-x')['Thinking']
+    ThoughtChain: typeof import('vue-element-plus-x')['ThoughtChain']
     Typewriter: typeof import('vue-element-plus-x')['Typewriter']
     Welcome: typeof import('vue-element-plus-x')['Welcome']
   }

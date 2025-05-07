@@ -10,23 +10,41 @@
 
 :::
 
-## 代码使用
+## 代码演示
+
+### 基本使用
 
 <demo src="./demos/base.vue"></demo>
 
+### 内容展开/收起
+
 <demo src="./demos/content.vue"></demo>
+
+### 状态管理
 
 <demo src="./demos/v-model.vue"></demo>
 
+### 状态样式
+
 <demo src="./demos/status.vue"></demo>
+
+### 自动收起
 
 <demo src="./demos/autoCollapse.vue"></demo>
 
+### 禁用状态
+
 <demo src="./demos/disabled.vue"></demo>
+
+### 宽度定制
 
 <demo src="./demos/width.vue"></demo>
 
+### 内容颜色样式定制
+
 <demo src="./demos/color.vue"></demo>
+
+### 插槽定制
 
 <demo src="./demos/solt.vue"></demo>
 

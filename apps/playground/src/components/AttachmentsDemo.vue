@@ -36,10 +36,20 @@ function handleBeforUpload(file: any) {
   }
 }
 
-async function handleUploadDrop(file: any, props: any) {
-  console.log('drop', file, props)
+async function handleUploadDrop(files: any, props: any) {
+  console.log('drop', files, props)
 
-  await handleHttpRequest({ file })
+  if (files && files.length > 0) {
+    if (files[0].type === '') {
+      ElMessage.error('禁止上传文件夹！')
+      return false
+    }
+
+    for (let index = 0; index < files.length; index++) {
+      const file = files[index]
+      await handleHttpRequest({ file })
+    }
+  }
 }
 
 async function handleHttpRequest(options: any) {

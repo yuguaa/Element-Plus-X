@@ -22,8 +22,8 @@ title: complete 事件 和 trigger-indices 属性
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/bubbleList/types'
-import type { TypewriterInstance } from 'vue-element-plus-x/typewriter/types'
+import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
+import type { TypewriterInstance } from 'vue-element-plus-x/types/Typewriter'
 
 type listType = BubbleListItemProps & {
   key: number

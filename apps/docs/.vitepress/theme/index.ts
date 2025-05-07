@@ -1,8 +1,9 @@
 import type { Theme } from 'vitepress'
 import { AntdTheme } from 'vite-plugin-vitepress-demo/theme'
 import DefaultTheme from 'vitepress/theme'
-// https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
+// https://vitepress.dev/guide/custom-theme
+import 'virtual:group-icons.css'
 import './style.css'
 
 export default {

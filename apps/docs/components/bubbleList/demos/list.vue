@@ -11,7 +11,7 @@ title: 基础使用
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/bubbleList/types'
+import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
 
 type listType = BubbleListItemProps & {
   key: number

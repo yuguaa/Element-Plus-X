@@ -1,5 +1,7 @@
 import type { TypewriterProps } from '../Typewriter/types'
 
+import type { CodeHighLightEngine } from '../Typewriter/types'
+
 export interface BubbleProps {
   content?: string
   reasoning_content?: string
@@ -9,6 +11,7 @@ export interface BubbleProps {
   shape?: 'round' | 'corner'
   variant?: 'filled' | 'borderless' | 'outlined' | 'shadow'
   isMarkdown?: boolean
+  codeHighLightOptions?: CodeHighLightEngine
   typing?: boolean | { step?: number, suffix?: string, interval?: number }
   isFog?: boolean | { bgColor?: string, width?: string }
   maxWidth?: string

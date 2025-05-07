@@ -42,19 +42,21 @@ function setContents(type: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 8px;">
-    <div>
-      <el-button style="width: fit-content;" @click="setContents('text')">
-        重置文本
-      </el-button>
-      <el-button style="width: fit-content;" type="primary" @click="setContents('markdown')">
-        重置 markdown
-      </el-button>
+  <ClientOnly>
+    <div style="display: flex; flex-direction: column; gap: 8px;">
+      <div>
+        <el-button style="width: fit-content;" @click="setContents('text')">
+          重置文本
+        </el-button>
+        <el-button style="width: fit-content;" type="primary" @click="setContents('markdown')">
+          重置 markdown
+        </el-button>
+      </div>
+      <div style="display: flex;  gap: 8px; flex-direction: column;">
+        <Typewriter :content="content" :typing="isTyping" />
+        <Typewriter :content="content1" :typing="{ step: 2, interval: 100, suffix: '💩' }" />
+        <Typewriter :content="markdownText" :typing="isTyping" :is-markdown="true" />
+      </div>
     </div>
-    <div style="display: flex;  gap: 8px; flex-direction: column;">
-      <Typewriter :content="content" :typing="isTyping" />
-      <Typewriter :content="content1" :typing="{ step: 2, interval: 100, suffix: '💩' }" />
-      <Typewriter :content="markdownText" :typing="isTyping" :is-markdown="true" />
-    </div>
-  </div>
+  </ClientOnly>
 </template>

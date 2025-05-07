@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useShikiRender } from 'vue-element-plus-x'
 import AttachmentsDemo from './components/AttachmentsDemo.vue'
 import BubbleDemo from './components/BubbleDemo.vue'
 import BubbleListDemo from './components/BubbleListDemo.vue'
@@ -14,6 +15,31 @@ import useSendDemo from './components/useSendDemo.vue'
 import useXStreamSIPDemo from './components/useXStreamSIPDemo.vue'
 import useXStreamSSEDemo from './components/useXStreamSSEDemo.vue'
 import WelcomeDemo from './components/WelcomeDemo.vue'
+
+// 如果要使用shiki进行高亮  这里初始化一次
+console.time('initMarkdownIt')
+const { isReady, shikiMd, initMarkdownIt } = useShikiRender()
+provide('shikiMd', shikiMd)
+provide('isReady', isReady)
+console.timeEnd('initMarkdownIt')
+
+onMounted(() => {
+  try {
+    console.time('onMountedInitMarkdownIt')
+    initMarkdownIt({
+      langs: ['typescript', 'javascript', 'java', 'html', 'css', 'bash', 'vue', 'mmd'],
+      themes: {
+        light: 'vitesse-light',
+        dark: 'vitesse-dark',
+      },
+      showLanguageHeader: true,
+      copyButtonText: '复制',
+    })
+  }
+  catch (error) {
+    console.error(error)
+  }
+})
 </script>
 
 <template>

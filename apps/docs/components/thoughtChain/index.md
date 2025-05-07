@@ -6,15 +6,27 @@
 
 ## 代码示例
 
+### 基础用法
+
 <demo src="./demos/base.vue"></demo>
+
+### 尺寸大小控制
 
 <demo src="./demos/dot-size.vue"></demo>
 
+### 最大宽度控制
+
 <demo src="./demos/max-width.vue"></demo>
+
+### 自定义标题和内容
 
 <demo src="./demos/key-label.vue"></demo>
 
+### 扩展插槽
+
 <demo src="./demos/solt.vue"></demo>
+
+### 手动控制展开状态
 
 <demo src="./demos/handle-expand.vue"></demo>
 

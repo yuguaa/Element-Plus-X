@@ -20,7 +20,6 @@ declare module 'vue' {
     EditorSender: typeof import('./src/components/EditorSender/index.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElCard: typeof import('element-plus/es')['ElCard']
     ElCollapse: typeof import('element-plus/es')['ElCollapse']
     ElCollapseItem: typeof import('element-plus/es')['ElCollapseItem']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']

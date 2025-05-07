@@ -22,7 +22,7 @@ title: 回到底部按钮 + 滚动条体验
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/bubbleList/types'
+import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
 
 type listType = BubbleListItemProps & {
   key: number

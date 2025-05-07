@@ -7,7 +7,7 @@ title: search 搜索事件
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from '../types'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
 
 const senderValue1 = ref('')
 const options = ref<MentionOption[]>([
