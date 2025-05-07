@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
-import type {
-  MarkdownShikiRendererFun,
-  TypewriterInstance,
-  TypewriterProps,
-  TypingConfig,
-} from './types.d.ts'
+import type { TypewriterInstance, TypewriterProps, TypingConfig } from './types.d.ts'
 import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid'
 import DOMPurify from 'dompurify' // 新增安全过滤
 import MarkdownIt from 'markdown-it'
 import { usePrism } from '../../hooks/usePrism'
-import '../../assets/style/shiki/shiki.scss'
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   content: '',
@@ -43,10 +37,6 @@ onMounted(() => {
   updateFogColor()
 })
 
-const isReady = inject<Ref<boolean>>('isReady')
-const shikiMd = inject<Ref<MarkdownIt | null>>('shikiMd')
-
-// Prism方式渲染
 const md = new MarkdownIt({
   html: true,
   linkify: true,
@@ -57,7 +47,7 @@ const md = new MarkdownIt({
   },
 })
 
-md.use(markdownItMermaid({ delay: 100, forceLegacyMathML: true }))
+md.use(markdownItMermaid({ delay: 100 }))
 
 function initMarkdownPlugins() {
   if (props.mdPlugins && props.mdPlugins.length) {
@@ -68,13 +58,6 @@ function initMarkdownPlugins() {
 }
 
 initMarkdownPlugins()
-
-
-const MarkdownShikiRenderer: MarkdownShikiRendererFun = ({ content }) => {
-  if (!isReady || !shikiMd || !isReady.value || !shikiMd.value)
-    return ''
-  return shikiMd.value.render(content) ?? 'isError'
-}
 
 const typingIndex = ref(0)
 const isTyping = ref(false)
@@ -137,18 +120,10 @@ const renderedContent = computed(() => {
   if (!props.isMarkdown) {
     return processedContent.value
   }
-
-  // Shiki模式下根据引擎类型处理
-  if (props.codeHighLightOptions) {
-    const { type } = props.codeHighLightOptions
-    if (type === 'Shiki') {
-      return MarkdownShikiRenderer({
-        content: toRaw(processedContent.value),
-      })
-    }
-  }
   // Markdown模式添加安全过滤和样式类
-  return DOMPurify.sanitize(md.render(processedContent.value))
+  return DOMPurify.sanitize(
+    md.render(processedContent.value),
+  )
 })
 
 const instance: TypewriterInstance = {

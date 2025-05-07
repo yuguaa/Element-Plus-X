@@ -9,7 +9,7 @@ title: filter-option 过滤筛选
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
+import type { MentionOption } from '../types'
 
 const senderValue1 = ref('')
 const options = ref<MentionOption[]>([
@@ -27,7 +27,7 @@ const options = ref<MentionOption[]>([
   },
 ])
 
-function filterFunc(_: string, option: MentionOption): any {
+function filterFunc(_: string, option: MentionOption) {
   // 这里打印 option 每次触发指令，会遍历 options 触发 filterFunc。
   if (option.value === 'ageerle' || option.value === 'JsonLee12138') {
     return true

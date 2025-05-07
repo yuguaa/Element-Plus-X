@@ -1,25 +1,13 @@
-# Typewriter 打字器 ✍
+# Typewriter 打字器 🆕
 
 ::: warning
-`v1.2.0 版本` 解决 **样式覆盖** 、**渲染图表** 以及 **自定义代码高亮样式、自定义插件** 问题
+`1.1.6 版本` 支持雾化效果。请及时更新尝试
 
-一、我们在组件库新增了 `prismjs` 官方的 css 样式文件，可以在项目直接引入，解决 **md 代码块高亮**问题。
-
-二、我们在组件库新增了 `Mermaid.js`。用于解决 `mermaid 格式` 简单的**图表**渲染问题。
-
-三、我们把 `markdown-it` 内置的 **代码高亮方法** 和 **插件** 暴露出来。方便开发者更好的集成第三方生态的 **样式** 和 **插件**
-
-🐵 此温馨提示更新时间：`2025-05-06`
-:::
-
-::: info
-`v1.1.6 版本` 支持雾化效果。请及时更新尝试
-
-此消息更新时间：`2025-04-13`
+🐵 此温馨提示更新时间：`2025-04-13`
 :::
 
 ::: danger
-`v1.0.81 版本` ，以及更早版本。在流式输出的情况下，存在一定的性能问题。
+`1.0.81 版本` ，以及更早版本。在流式输出的情况下，存在一定的性能问题。
 
 在新版本中已修复，请及时升级至最新版本，以获得更好的体验。
 
@@ -34,37 +22,17 @@
 🐱 打字器组件会在组件的生命周期中会自动销毁，不用担心内存泄漏，请放心使用。
 :::
 
-## 代码演示
-
-### 基本使用
+## 代码使用
 
 <demo src="./demos/content.vue"></demo>
 
-### Markdown 渲染
+<demo src="./demos/isFog.vue"></demo>
 
 <demo src="./demos/isMarkdown.vue"></demo>
 
-### MD-代码块高亮（v1.2.0 新增）
-
-<demo src="./demos/newMaekDown.vue"></demo>
-
-### MD-图表（v1.2.0 新增）
-
-<demo src="./demos/mermaid.vue"></demo>
-
-### 开启打字效果
-
 <demo src="./demos/typing.vue"></demo>
 
-### 打字器雾化效果
-
-<demo src="./demos/isFog.vue"></demo>
-
-### 动态更新内容 (流式有用)
-
 <demo src="./demos/updates.vue"></demo>
-
-### 控制打字
 
 <demo src="./demos/customized.vue"></demo>
 
@@ -75,7 +43,7 @@
 | `content`    | String  | 否 | `''`    | 要展示的文本内容，支持纯文本或 Markdown 格式。 |
 | `isMarkdown` | Boolean | 否 | `false` | 是否启用 Markdown 渲染模式。                   |
 | `typing`     | Boolean \|  `{ step?: number, interval?: number, suffix?: string }` |否 | `false` | 是否启用打字机效果。 |
-| `typing.step` | Number  | 否 | `2`     | 每次打字吐多少字符。 |
+| `typing.setp` | Number  | 否 | `2`     | 每次打字吐多少字符。 |
 | `typing.interval` | Number |  否 | `50`    | 每次打字的间隔时间  单位( `ms` )。                 |
 | `typing.suffix` | String | 否 |`'\|'` | 打字器后缀光标字符（仅在非 Markdown 模式下生效）。 |
 | `isFog`      | Boolean \|  `{ bgColor?: string, width?: string }`  | 否 | `false` | 是否启用雾化效果，可以设置背景色和宽度。   |

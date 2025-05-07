@@ -9,19 +9,16 @@
 
 #### **二、安装**
 
-::: code-group
-```sh [npm]
+```bash
+# NPM 安装（稳定版）
 npm install vue-element-plus-x --save
-```
 
-```sh [pnpm]
-pnpm add vue-element-plus-x --save
-```
+# PNPM 安装（推荐，速度更快）
+pnpm add vue-element-plus-x
 
-```sh [yarn]
-yarn add vue-element-plus-x --save
+# Yarn 安装
+yarn add vue-element-plus-x
 ```
-:::
 
 **CDN 引入**
 ```html

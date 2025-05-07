@@ -4,7 +4,6 @@ import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue'
 import { usePrism } from 'vue-element-plus-x'
 import 'vue-element-plus-x/styles/prism-solarizedlight.min.css'
 // import Bubble from 'vue-element-plus-x/src/components/Bubble/index.vue'
-import { demoStr } from './str.ts'
 
 const avatar = ref(
   'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png',
@@ -13,7 +12,6 @@ const loading = ref(true)
 const content = ref('')
 
 const highlight = usePrism()
-const switchHighlight = ref(false)
 
 onMounted(() => {
   setTimeout(() => {
@@ -38,16 +36,6 @@ pie
     "VR/AR开发" : 5
     "其他" : 15
 \`\`\`
-
-\`\`\`mermaid
-sequenceDiagram
-    autonumber
-    participant 1 as $$alpha$$
-    participant 2 as $$beta$$
-    1->>2: Solve: $$\sqrt{2+2}$$
-    2-->>1: Answer: $$2$$
-    Note right of 2: $$\sqrt{2+2}=\sqrt{4}=2$$
-\`\`\`
 `.trim()
       loading.value = false
     }, 500)
@@ -58,21 +46,12 @@ sequenceDiagram
 <template>
   <div class="component-container">
     <p>新版本支持 打字器 雾化效果 使用 Mermaid.js 支持简单的图表和函数公式 </p>
-    <el-switch
-      v-model="switchHighlight"
-      size="large"
-      active-text="Shiki"
-      inactive-text="Prism"
-    />
     <div class="component-1">
       <Bubble
         placement="start" :content="content" shape="corner" variant="shadow" :loading="loading" :typing="{
           step: 2,
           suffix: '💗',
         }" :is-markdown="true" :is-fog="{ bgColor: '#FFFFFF' }" :highlight="highlight"
-        :code-high-light-options="{
-          type: switchHighlight ? 'Shiki' : 'Prism',
-        }"
       >
         <template #avatar>
           <el-avatar :size="32" :src="avatar" />

@@ -21,7 +21,7 @@ export default defineConfig({
   plugins: [
     AutoImport({
       imports: ["vue"],
-      ignore: ['h', 'ClientOnly'],
+      ignore: ['h'],
       resolvers: [ElementPlusResolver({
         exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
       })],
@@ -37,7 +37,6 @@ export default defineConfig({
       // 我们让他自动搜索，我们所有项目中的demos下的vue文件
       // glob: ['**/demos/*.vue'],
     }) as PluginOption,
-
     vueJsx() as PluginOption,
     Unocss() as PluginOption,
     // eslint-disable-next-line ts/no-unsafe-call

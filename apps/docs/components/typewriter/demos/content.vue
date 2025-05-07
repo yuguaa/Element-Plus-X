@@ -7,7 +7,5 @@ title: 基本
 </docs>
 
 <template>
-  <ClientOnly>
-    <Typewriter content="content 属性设置 打字器内容" />
-  </ClientOnly>
+  <Typewriter content="content 属性设置 打字器内容" />
 </template>

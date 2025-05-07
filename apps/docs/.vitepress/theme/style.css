@@ -136,11 +136,5 @@
   .DocSearch {
     --docsearch-primary-color: var(--vp-c-brand-1) !important;
   }
-
-  :root {
-    .vp-doc h3  {
-      margin: 24px 0 12px;
-    }
-  }
   
   

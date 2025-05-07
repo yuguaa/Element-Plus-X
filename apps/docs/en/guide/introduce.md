@@ -14,7 +14,6 @@
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;
-<img src="https://cdn.element-plus-x.com/demo4.webp" calss="element-plus-x-bubble" />&emsp;
 </div>
 
 <div align="center">
@@ -42,19 +41,17 @@
 - 📦 **On-demand Loading**: Provides Tree Shaking optimization.
 
 ## 🔎 Installation
-::: code-group
-```sh [npm]
-npm install vue-element-plus-x --save
-```
+```bash
+# NPM
+npm install vue-element-plus-x
 
-```sh [pnpm]
-pnpm add vue-element-plus-x --save
-```
+# PNPM (Recommended)
+pnpm install vue-element-plus-x
 
-```sh [yarn]
-yarn add vue-element-plus-x --save
+# Yarn
+yarn install vue-element-plus-x
+
 ```
-:::
 
 ## 📚 Usage Examples
 
@@ -135,7 +132,7 @@ We welcome:
 
 ## 👥 Community Support
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vw-2025-05-06.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-04-24.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
 <p>Join the WeChat communication group to get the latest news and technical support</p>
 
 <p>If the group link expires, scan the author's QR code:</p>

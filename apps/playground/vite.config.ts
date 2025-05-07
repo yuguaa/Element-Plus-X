@@ -11,10 +11,11 @@ export default defineConfig({
     vue(),
     AutoImport({
       imports: ["vue"],
-      ignore: [ 'h' ], // 忽略自动导入 h
+      ignore: [ 'h' ],
       resolvers: [ElementPlusResolver({
         exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
       })],
+      // resolvers: [ElementPlusResolver()],
       dts: 'src/auto-import.d.ts'
     }),
     Components({
