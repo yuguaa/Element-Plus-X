@@ -1,5 +1,3 @@
-import type { TypewriterProps } from '../Typewriter/types'
-
 export interface BubbleProps {
   content?: string
   reasoning_content?: string
@@ -20,6 +18,4 @@ export interface BubbleProps {
   avatarAlt?: string
   avatarFit?: 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
   noStyle?: boolean
-  highlight?: TypewriterProps['highlight']
-  mdPlugins?: TypewriterProps['mdPlugins']
 }

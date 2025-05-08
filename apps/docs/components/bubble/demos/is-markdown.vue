@@ -28,10 +28,7 @@ function changeContent() {
     </el-button>
     <Bubble :content="content" typing is-markdown>
       <template #avatar>
-        <el-avatar
-          :size="32"
-          :src="avatarUser"
-        />
+        <el-avatar :size="32" :src="avatarUser" />
       </template>
     </Bubble>
   </div>

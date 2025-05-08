@@ -8,6 +8,6 @@ title: 基本
 
 <template>
   <ClientOnly>
-    <Typewriter content="content 属性设置 打字器内容" />
+    <Typewriter content="content 属性设置打字器内容" />
   </ClientOnly>
 </template>

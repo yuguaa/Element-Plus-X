@@ -19,9 +19,7 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   },
   btnLoading: true,
   btnColor: '#409EFF',
-  btnIconSize: 24,
-  highlight: undefined,
-  mdPlugins: undefined,
+  btnIconSize: 24
 })
 
 const emits = defineEmits(['complete'])
@@ -258,8 +256,6 @@ defineExpose({
       :avatar-alt="item.avatarAlt"
       :avatar-fit="item.avatarFit"
       :no-style="item.noStyle"
-      :highlight="item.highlight ? item.highlight : props.highlight"
-      :md-plugins="item.mdPlugins ? item.mdPlugins : props.mdPlugins"
       @finish="(instance) => handleBubbleComplete(index, instance)"
     >
       <template v-if="$slots.avatar" #avatar>

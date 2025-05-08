@@ -61,19 +61,13 @@
 | `uploadDrop`      | `(files: File[], props: FileListProps)`    | 拖拽文件释放时触发（包含拖拽文件数组和组件属性）                     |
 | `deleteCard`      | `(item: FilesCardProps, index: number)`    | 文件卡片删除按钮点击时触发（返回被删除文件信息及索引）               |
 
+## 支持 el-upload 属性
+
+组件内部使用了 **elementplus** `el-upload` 组件，因此支持其大部分上传属性，如：`httpRequest`、`beforeUpload` 等。 详情请参考：[element-plus/upload](https://element-plus.org/zh-CN/component/upload.html)
+
 ## 功能特性
 
-**多布局模式**
-   - 支持 `scrollX`（横向滚动）、`scrollY`（纵向滚动）、`wrap`（自动换行）三种布局，适配不同屏幕空间和文件数量。
-
-**拖拽上传交互**
-   - 内置拖拽目标区域（可自定义 `dragTarget`），拖拽时显示半透明遮罩层提示，支持文件夹过滤和文件类型校验。
-
-**高度可定制化**
-   - 通过 `#file-list` 插槽完全自定义文件列表展示（如替换为自定义卡片组件），支持自定义滚动按钮、上传按钮样式。
-
-**文件状态管理**
-   - 配合 `FilesCard` 组件，支持文件上传中（进度条）、完成、失败等状态可视化，自动同步文件列表更新。
-
-**响应式设计**
-   - 滚动时自动隐藏浏览器原生滚动条，通过 CSS 变量 `--elx-attachments-upload-icon-size` 控制上传按钮尺寸，适配不同屏幕分辨率。
+1. **多布局模式** 支持 `scrollX`（横向滚动）、`scrollY`（纵向滚动）、`wrap`（自动换行）三种布局，适配不同屏幕空间和文件数量。
+2. **拖拽上传交互** 内置拖拽目标区域（可自定义 `dragTarget`），拖拽时显示半透明遮罩层提示，支持文件夹过滤和文件类型校验。
+3. **高度可定制化** 通过 `#file-list` 插槽完全自定义文件列表展示（如替换为自定义卡片组件），支持自定义滚动按钮、上传按钮样式。
+4. **文件状态管理** 配合 `FilesCard` 组件，支持文件上传中（进度条）、完成、失败等状态可视化，自动同步文件列表更新。

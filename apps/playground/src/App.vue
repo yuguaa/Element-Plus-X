@@ -17,67 +17,79 @@ import WelcomeDemo from './components/WelcomeDemo.vue'
 </script>
 
 <template>
-  <el-tabs type="border-card" class="demo-tabs">
-    <el-tab-pane label="Bubble">
-      <BubbleDemo />
-    </el-tab-pane>
+  <div id="app">
+    <el-alert
+      title="💖 欢迎使用 Element-Plus-X"
+      type="success"
+      closable
+    >
+      <p class="self-description">
+        详情可移步使用文档：👉 <a href="https://element-plus-x.com">element-plus-x.com</a>
+      </p>
+    </el-alert>
 
-    <el-tab-pane label="BubbleList">
-      <BubbleListDemo />
-    </el-tab-pane>
+    <el-tabs type="border-card" class="demo-tabs">
+      <el-tab-pane label="Bubble">
+        <BubbleDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="Conversations">
-      <ConversationsDemo />
-    </el-tab-pane>
+      <el-tab-pane label="BubbleList">
+        <BubbleListDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="FilesCard">
-      <FilesCardDemo />
-    </el-tab-pane>
+      <el-tab-pane label="Conversations">
+        <ConversationsDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="Attachments">
-      <AttachmentsDemo />
-    </el-tab-pane>
+      <el-tab-pane label="FilesCard">
+        <FilesCardDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="Sender">
-      <SenderDemo />
-    </el-tab-pane>
+      <el-tab-pane label="Attachments">
+        <AttachmentsDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="MentionSender">
-      <MentionSenderDemo />
-    </el-tab-pane>
+      <el-tab-pane label="Sender">
+        <SenderDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="Welcome">
-      <WelcomeDemo />
-    </el-tab-pane>
+      <el-tab-pane label="MentionSender">
+        <MentionSenderDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="Prompts">
-      <PromptsDemo />
-    </el-tab-pane>
+      <el-tab-pane label="Welcome">
+        <WelcomeDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="Thinking">
-      <ThinkingDemo />
-    </el-tab-pane>
+      <el-tab-pane label="Prompts">
+        <PromptsDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="ThoughtChain">
-      <ThoughtChainDemo />
-    </el-tab-pane>
+      <el-tab-pane label="Thinking">
+        <ThinkingDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="useRecord">
-      <useRecordDemo />
-    </el-tab-pane>
+      <el-tab-pane label="ThoughtChain">
+        <ThoughtChainDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="useSend">
-      <useSendDemo />
-    </el-tab-pane>
+      <el-tab-pane label="useRecord">
+        <useRecordDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="useXStream-SSE">
-      <useXStreamSSEDemo />
-    </el-tab-pane>
+      <el-tab-pane label="useSend">
+        <useSendDemo />
+      </el-tab-pane>
 
-    <el-tab-pane label="useXStream-SIP">
-      <useXStreamSIPDemo />
-    </el-tab-pane>
-  </el-tabs>
+      <el-tab-pane label="useXStream-SSE">
+        <useXStreamSSEDemo />
+      </el-tab-pane>
+
+      <el-tab-pane label="useXStream-SIP">
+        <useXStreamSIPDemo />
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <style scoped>
@@ -88,9 +100,14 @@ import WelcomeDemo from './components/WelcomeDemo.vue'
 }
 
 .demo-tabs {
-  min-height: calc(100vh - 64px);
   background-color: beige;
 }
+
+:deep() {
+    .el-tabs__content {
+      height: calc(100vh - 64px - 130px);
+    }
+  }
 
 .self-description {
   font-size: 14px;

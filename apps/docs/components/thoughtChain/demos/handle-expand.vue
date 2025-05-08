@@ -7,7 +7,7 @@ title: handleExpand 事件
 </docs>
 
 <script setup lang="ts">
-import type { ThoughtChainItemProps } from '../types'
+import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain'
 
 interface DataType {
   codeId: string
@@ -55,6 +55,11 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     self_thinkContent: '进行搜索文字'.repeat(10),
   },
 ]
+
+function handleExpand(value: string[]) {
+  const expandedItems = thinkingItems.filter(item => value.includes(item.codeId))
+  console.log(expandedItems)
+}
 </script>
 
 <template>
@@ -64,7 +69,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     title-key="self_title"
     think-title-key="self_thinkTitle"
     think-content-key="self_thinkContent"
-    @handle-expand="(data: DataType) => console.log(data)"
+    @handle-expand="(value: string[]) => handleExpand(value)"
   />
 </template>
 

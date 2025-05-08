@@ -1,5 +1,3 @@
-
-
 ## [v1.2.0] - 2025-05-05
 
 ### 💥 破坏性变更
@@ -25,28 +23,28 @@
   ElButtonGroup 报错是由于 unplugin-vue-components/resolvers 这个包的 ElementPlusResolver 会回到主重复引入的问题。
   ```
 
-  **解决方案：修改项目 vite 配置** 
+  **解决方案：修改项目 vite 配置**
 
   ```ts
   // vite.config.ts
-  
+
   // plugin 部分
-  
+
   plugins: [
-      AutoImport({
-        imports: ["vue"],
-        ignore: [ 'h' ], // 忽略自动导入 h
-        resolvers: [
-        	ElementPlusResolver({
-          	exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
-          })
-        ],
-        dts: 'src/auto-import.d.ts'
-      }),
-      Components({
-        resolvers: [ElementPlusResolver()],
-      }),
-    ],
+    AutoImport({
+      imports: ['vue'],
+      ignore: ['h'], // 忽略自动导入 h
+      resolvers: [
+        ElementPlusResolver({
+          exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
+        })
+      ],
+      dts: 'src/auto-import.d.ts'
+    }),
+    Components({
+      resolvers: [ElementPlusResolver()],
+    }),
+  ]
   ```
 
   在项目后续的使用 h 函数中，手动引入。ElButtonGroup 暂时没有遇到有使用的地方，感觉是 unplugin-vue-components/resolvers 包没有更新对 ElButtonGroup 的处理导致的。在 elementplus 源码中都貌似没有看到有使用的地方。
@@ -56,8 +54,6 @@
   ```
 
   💩因为是做的二次开发，所以发现问题后，暂时选择这么处理。如果有更好，更优雅的解决方案可以和我们联系，交流下处理方案。💩
-
-
 
 ### 🐛 修复
 
@@ -85,10 +81,6 @@
 - 更新线上开发计划文档，展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/roadmap.html)**
 - 更新首页介绍，交流要求文档。`antdx` 全部组件已经复刻完毕。
 
-
-
-
-
 ## [v1.1.6] - 2025-04-16
 
 ### 🐛 修复
@@ -115,10 +107,6 @@
 - 更新线上开发计划文档，展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/roadmap.html)**
 - 更新 **`指南文档`**  中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，修复文档介绍错误问题
 
-
-
-
-
 ## [v1.1.1] - 2025-04-06
 
 ### 💥 破坏性变更
@@ -137,10 +125,6 @@
 - 新增 `Thinking` 思考中组件，和 `ThoughtChain` 思维链组件 ，用于在流式接口输出下，展示思考过程。**[issue #32](https://github.com/HeJiaYue520/Element-Plus-X/issues/32)**、**[issue #45](https://github.com/HeJiaYue520/Element-Plus-X/issues/45)**
 
 - 新增 `Welcom` 欢迎组件，方便用户快速集成好看的欢迎介绍卡片
-
-
-
-
 
 ## [v1.0.81] - 2025-03-29
 
@@ -170,10 +154,6 @@
 - 更新线上开发计划文档，会给大家展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/roadmap.html)**
 - 更新 **`指南文档`**  中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，着重修改 **开发命令**、**贡献代码**、**本地调试**  全流程介绍。 规范 `开发` 和 `pr` 提交
 
-
-
-
-
 ## [v1.0.6] - 2025-03-23
 
 ### 🛠 改进
@@ -183,10 +163,6 @@
 ### 📚 文档更新
 - 完善中/英文文档内容
 - 新增文档更新日志模块
-
-
-
-
 
 ## [v0.9.x] - 2025-03-20
 ### 💥 破坏性变更
@@ -211,10 +187,6 @@
 - **`Sender` 组件**：
   - 新增 `@recording-change` 事件，监听内置录音按钮点击状态
   - 新增开始录音（`startRecording`）和结束录音（`stopRecording`）实例方法
-
-
-
-
 
 ## [v0.9.x] - 2025-03-14
 ### 💥 破坏性变更

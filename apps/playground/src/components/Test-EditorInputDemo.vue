@@ -64,8 +64,10 @@ function insertElement() {
       自定义节点
     </div>
 
-    <EditorInput ref="inputRef" v-model="value" placeholder="请输入内容 啊啊啊啊" :input-style="{ width: '100%', color: 'red' }"
-      :autosize="{ minRows: 2, maxRows: 4 }" />
+    <EditorInput
+      ref="inputRef" v-model="value" placeholder="请输入内容 啊啊啊啊" :input-style="{ width: '100%', color: 'red' }"
+      :autosize="{ minRows: 2, maxRows: 4 }"
+    />
   </div>
 </template>
 
@@ -78,6 +80,8 @@ function insertElement() {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  height: calc(100vh - 220px);
+  overflow: auto;
   // overflow: auto;
 
   .top-wrap {

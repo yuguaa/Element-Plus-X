@@ -1,7 +1,7 @@
 {
   "name": "vue-element-plus-x",
   "type": "module",
-  "version": "1.2.0",
+  "version": "1.1.6-beta",
   "license": "MIT",
   "homepage": "https://element-plus-x.com",
   "repository": {
@@ -59,7 +59,6 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
-    "@jsonlee_12138/markdown-it-mermaid": "0.0.6",
     "@vueuse/core": "^13.1.0",
     "dompurify": "^3.2.4",
     "element-plus": "^2.9.7",

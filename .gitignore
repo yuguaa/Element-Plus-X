@@ -37,6 +37,8 @@ yarn-error.log*
 .DS_Store
 *.pem
 
+*/**/.vitepress/dist
 */**/.vitepress/cache
+
 
 .idea

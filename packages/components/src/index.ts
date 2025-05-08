@@ -1,4 +1,5 @@
 import type { App, Plugin } from 'vue'
+import AppConfig from './components/AppConfig/index.vue'
 import Attachments from './components/Attachments/index.vue'
 import Bubble from './components/Bubble/index.vue'
 import BubbleList from './components/BubbleList/index.vue'
@@ -19,6 +20,7 @@ export * from './hooks'
 
 const ElementPlusX: Plugin = {
   install(app: App) {
+    app.component('AppConfig', AppConfig)
     app.component('Attachments', Attachments)
     app.component('Bubble', Bubble)
     app.component('BubbleList', BubbleList)

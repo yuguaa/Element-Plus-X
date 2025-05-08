@@ -188,6 +188,8 @@ function handleItemClick(item: PromptsItemsProps) {
   background-color: white;
   padding: 12px;
   border-radius: 15px;
+  height: calc(100vh - 220px);
+  overflow: auto;
 
   .component-title {
     display: flex;

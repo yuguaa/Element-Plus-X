@@ -7,7 +7,7 @@ title: #icon 插槽
 </docs>
 
 <script setup lang="ts">
-import type { ThoughtChainItemProps } from '../types'
+import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain'
 import { CircleCloseFilled, Loading, SuccessFilled } from '@element-plus/icons-vue'
 
 interface DataType {

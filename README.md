@@ -107,7 +107,7 @@ app.mount('#app')
 | `BubbleList` | 气泡消息列表 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubbleList/) |
 | `Conversations` | 会话管理组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/conversations/) |
 | `Welcome`    | 欢迎组件           | [📄 文档](https://element-plus-x.com/components/welcome/) |
-| `Prompts `    | 提示集组件           | [📄 文档](https://element-plus-x.com/components/prompts /) |
+| `Prompts `    | 提示集组件           | [📄 文档](https://element-plus-x.com/components/prompts/) |
 | `FilesCard`       |  文件卡片组件          | [📄 文档](https://element-plus-x.com/components/filesCard/) |
 | `Attachments`       |  上传附件组件          | [📄 文档](https://element-plus-x.com/components/attachments/) |
 | `Sender`     | 智能输入框（含语音交互、内置指令操作） | [📄 文档](https://element-plus-x.com/components/sender/) |

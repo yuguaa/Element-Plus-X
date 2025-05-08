@@ -6,11 +6,8 @@
 
 ## 代码演示
 
-### 绝对自定义样式与分组标题
-<demo src="./demos/absolute-custom.vue"></demo>
-
-### 内置下拉菜单
-<demo src="./demos/built-in-menu.vue"></demo>
+### 基础使用
+<demo src="./demos/base.vue"></demo>
 
 ### 时间分组与吸顶效果
 <demo src="./demos/time-grouping.vue"></demo>
@@ -18,11 +15,17 @@
 ### 自定义分组排序
 <demo src="./demos/custom-group-sort.vue"></demo>
 
+### 内置下拉菜单
+<demo src="./demos/built-in-menu.vue"></demo>
+
 ### 自定义菜单交互
 <demo src="./demos/custom-menu.vue"></demo>
 
 ### 懒加载功能
 <demo src="./demos/lazy-loading.vue"></demo>
+
+### 自定义样式与分组标题
+<demo src="./demos/absolute-custom.vue"></demo>
 
 ## 属性
 
@@ -51,6 +54,13 @@
 | `#menu`             | `{ item: ConversationItem<T> }` | 自定义菜单内容，支持按钮、图标或复杂交互组件                         |
 | `#header`           | -                   | 容器头部插槽，用于添加搜索栏、筛选按钮等自定义内容                   |
 | `#footer`           | -                   | 容器底部插槽，用于添加分页、统计信息等自定义内容                     |
+
+## 事件
+
+| 事件             | 参数                | 描述                                                                 |
+|--------------------|---------------------|----------------------------------------------------------------------|
+| `@menuCommand`       | `(command: ConversationMenuCommand, item: ConversationItem): void` | 菜单命令回调，支持重命名、删除等操作。如果你选择自定义菜单，这个方法失效，需要自行处点击菜单的逻辑。 |
+| `:loadMore`       | -- | 绑定懒加载回调，滚动至底部时触发 |
 
 ## 功能特性
 

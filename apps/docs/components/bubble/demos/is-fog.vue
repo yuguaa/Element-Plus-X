@@ -36,12 +36,12 @@ function changeContent(type: number) {
         雾化 text
       </el-button>
     </div>
-    <Bubble :content="content" :typing="{ step: 3, interval: 80, suffix: '💩' }" is-markdown :is-fog="{ bgColor: '#f5f5f5' }">
+    <Bubble
+      :content="content" :typing="{ step: 3, interval: 80, suffix: '💩' }" is-markdown
+      :is-fog="{ bgColor: '#f5f5f5' }"
+    >
       <template #avatar>
-        <el-avatar
-          :size="32"
-          :src="avatarUser"
-        />
+        <el-avatar :size="32" :src="avatarUser" />
       </template>
     </Bubble>
   </div>

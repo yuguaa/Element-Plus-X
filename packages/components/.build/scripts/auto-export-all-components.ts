@@ -41,6 +41,7 @@ async function generateAutoEntry() {
   // 生成安装文件内容
   const installContent = [
     'import type { App, Plugin } from \'vue\'',
+    // 'import { APP_CONFIG_PROVIDE_KEY, defaultAppConfig } from \'./context/constants\'',
     ...components.map(c => `import ${c.name} from '${c.path}'`),
     '',
     `export * from './components'`,
@@ -48,6 +49,7 @@ async function generateAutoEntry() {
     '',
     'const ElementPlusX: Plugin = {',
     '  install(app: App) {',
+    // '    app.provide(APP_CONFIG_PROVIDE_KEY, defaultAppConfig)',
     ...components.map(c => `    app.component('${c.name}', ${c.name})`),
     '  }',
     '}',

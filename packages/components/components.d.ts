@@ -8,6 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppConfig: typeof import('./src/components/AppConfig/index.vue')['default']
     Attachments: typeof import('./src/components/Attachments/index.vue')['default']
     Audio: typeof import('./src/components/FilesCard/fileSvg/audio.vue')['default']
     Bubble: typeof import('./src/components/Bubble/index.vue')['default']

@@ -60,6 +60,8 @@ import { MoreFilled, Share } from '@element-plus/icons-vue'
   display: flex;
   flex-direction: column;
   gap: 12px;
+  height: calc(100vh - 220px);
+  overflow: auto;
 
   .extra-container {
     :deep {

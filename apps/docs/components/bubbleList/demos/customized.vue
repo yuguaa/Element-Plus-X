@@ -49,7 +49,7 @@ function setLoading(loading: boolean) {
   <div style="display: flex; flex-direction: column; gap: 12px;">
     <div style="display: flex; gap: 12px;">
       <span>动态设置内容 <el-switch v-model="switchValue" /></span>
-      <span>自定义 loading <el-switch v-model="loading" @change="(value) => setLoading(value as boolean)" /></span>
+      <span>自定义 loading <el-switch v-model="loading" @change="(value: any) => setLoading(value as boolean)" /></span>
     </div>
     <BubbleList :list="bubbleItems" max-height="350px">
       <!-- 自定义头像 -->

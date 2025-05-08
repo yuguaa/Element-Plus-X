@@ -11,7 +11,6 @@ declare module 'vue' {
     Attachments: typeof import('vue-element-plus-x')['Attachments']
     Bubble: typeof import('vue-element-plus-x')['Bubble']
     BubbleList: typeof import('vue-element-plus-x')['BubbleList']
-    ClientOnly: typeof import('vue-element-plus-x')['ClientOnly']
     Conversations: typeof import('vue-element-plus-x')['Conversations']
     ElAvatar: typeof import('element-plus')['ElAvatar']
     ElButton: typeof import('element-plus')['ElButton']

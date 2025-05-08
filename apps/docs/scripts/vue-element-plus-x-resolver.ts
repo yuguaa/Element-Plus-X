@@ -13,11 +13,18 @@ export function tovUIResolver(): ComponentResolver {
       //     from: 'element-plus-x',
       //   }
       // }
+      
+
       if (name.startsWith('El') || name.startsWith('el')) {
         return {
           name,
           from: 'element-plus',
         }
+      }
+
+      // 移除 ClientOnly 组件
+      if (name === 'ClientOnly') {
+        return null
       }
 
       return {

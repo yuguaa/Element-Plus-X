@@ -1,7 +1,6 @@
 <script setup lang="tsx">
 import type { ConversationItem, ConversationMenuCommand, GroupableOptions } from 'vue-element-plus-x/types/Conversations'
 import { ChatDotRound, ChatLineRound, Delete, Edit, EditPen, Share } from '@element-plus/icons-vue'
-import Conversations from 'vue-element-plus-x/src/components/Conversations/index.vue'
 
 const timeBasedItems = ref<ConversationItem<{ id: string, label: string }>[]>([
   {
@@ -572,6 +571,8 @@ function handleMenuClick(menuKey: string, item: any) {
 <style scoped lang="scss">
 .demo-container {
   padding: 20px;
+  height: calc(100vh - 220px);
+  overflow: auto;
 
   h2 {
     margin-top: 30px;

@@ -30,7 +30,7 @@ export default defineConfig({
   //   },
   // },
   rewrites: {
-    'docs/(.*)': '(.*)',
+    // 'docs/(.*)': '(.*)',
     // 'packages/icons/docs/(.*)': 'components/icons/(.*)',
     // 'packages/vue-element-plus-x/src/:path/(.*)': 'components/:path/(.*)',
     // 'packages/utils/src/:path/(.*)': 'utils/:path/(.*)',

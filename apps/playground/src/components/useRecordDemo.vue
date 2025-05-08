@@ -112,6 +112,8 @@ watch(text, (val) => {
   padding: 12px;
   background: white;
   border-radius: 15px;
+  height: calc(100vh - 220px);
+  overflow: auto;
 
   .btn-list {
     display: flex;

@@ -70,26 +70,34 @@ function onDestroy() {
         </el-icon>
         <span>暂停</span>
       </el-button>
-      <el-button v-if="!isTypingValue && (progressValue !== 0 && progressValue !== 100)" type="success" style="width: fit-content;" @click="bubbleRef?.continue()">
+      <el-button
+        v-if="!isTypingValue && (progressValue !== 0 && progressValue !== 100)" type="success"
+        style="width: fit-content;" @click="bubbleRef?.continue()"
+      >
         <el-icon :size="18">
           <VideoPlay />
         </el-icon>
         <span>继续</span>
       </el-button>
-      <el-button v-if="!isTypingValue && (progressValue === 0 || progressValue === 100)" type="primary" style="width: fit-content;" @click="bubbleRef?.restart()">
+      <el-button
+        v-if="!isTypingValue && (progressValue === 0 || progressValue === 100)" type="primary"
+        style="width: fit-content;" @click="bubbleRef?.restart()"
+      >
         <el-icon :size="18">
           <RefreshLeft />
         </el-icon>
         <span>重播</span>
       </el-button>
       <el-button type="danger" style="width: fit-content;" @click="onDestroy">
-        <el-icon><Delete /></el-icon>
+        <el-icon>
+          <Delete />
+        </el-icon>
         <span>销毁</span>
       </el-button>
     </div>
 
     <el-progress v-if="progressValue > 0 && progressValue !== 100" :duration="0" :percentage="progressValue" />
-    <el-progress v-if=" progressValue === 100" :percentage="100" status="success" />
+    <el-progress v-if="progressValue === 100" :percentage="100" status="success" />
 
     <!-- 这里展示了如果是 markdown 的话，typing.suffix 会被忽略 -->
     <Bubble

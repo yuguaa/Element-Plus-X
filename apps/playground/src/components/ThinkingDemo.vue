@@ -10,9 +10,9 @@ const { startStream, cancel, data, error, isLoading } = useXStream()
 const BASE_URL = 'https://api.siliconflow.cn/v1/chat/completions'
 // 仅供测试，请勿拿去测试其他付费模型
 const API_KEY = 'sk-vfjyscildobjnrijtcllnkhtcouidcxdgjxtldzqzeowrbga'
-const MODEL = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B'
+const MODEL = 'THUDM/GLM-Z1-9B-0414'
 
-const inputValue = ref('一加一等于多少？')
+const inputValue = ref('帮我写一篇小米手机介绍')
 const senderRef = ref<any>(null)
 const bubbleItems = ref<MessageItem[]>([])
 const bubbleListRef = ref<BubbleListInstance | null>(null)
@@ -221,7 +221,7 @@ function handleChange(payload: { value: boolean, status: ThinkingStatus }) {
     padding: 12px;
   }
   .chat-warp {
-    height: calc(100vh - 365px);
+    height: calc(100vh - 325px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

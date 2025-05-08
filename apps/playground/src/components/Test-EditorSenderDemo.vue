@@ -186,7 +186,8 @@ const triggerPopoverVisible = ref(false)
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  // overflow: auto;
+  height: calc(100vh - 220px);
+  overflow: auto;
 
   .top-wrap {
     margin: 12px 0;

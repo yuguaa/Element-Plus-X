@@ -264,6 +264,11 @@ onMounted(() => {
   :deep(.el-timeline-item__content) {
     color: var(--el-text-color-secondary);
   }
+
+  :deep(.el-timeline-item) {
+    // 清除 li 样式
+    list-style: none !important;
+  }
 }
 
 .thought-chain-move,

@@ -19,9 +19,7 @@ const props = withDefaults(defineProps<BubbleProps>(), {
   avatarSrcSet: '',
   avatarAlt: '',
   avatarFit: 'cover',
-  noStyle: false,
-  highlight: undefined,
-  mdPlugins: undefined,
+  noStyle: false
 })
 
 const emits = defineEmits(['start', 'finish', 'writing', 'avatarError'])
@@ -194,8 +192,6 @@ defineExpose(instance)
             :content="content"
             :is-markdown="isMarkdown"
             :is-fog="props.isFog"
-            :highlight="props.highlight"
-            :md-plugins="props.mdPlugins"
             @start="onStart"
             @writing="onWriting"
             @finish="onFinish"
