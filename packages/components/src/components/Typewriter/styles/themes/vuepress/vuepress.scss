@@ -1,0 +1,37 @@
+@use '../../common/scss-vars' as csv;
+@use './scss-vars' as sv;
+
+@use './modules/code';
+@use './modules/heading';
+@use './modules/image';
+@use './modules/link';
+@use './modules/list';
+@use './modules/paragraph';
+@use './modules/quote';
+@use './modules/table';
+
+@mixin theme-vars($isDark) {
+  div.#{sv.$theme-name} {
+    --md-theme-color: #{if($isDark, #999, #304455)};
+  }
+}
+
+// 亮模式
+.#{csv.$prefix} {
+  @include theme-vars(false);
+}
+
+// 暗模式
+.#{csv.$prefix}-dark {
+  @include theme-vars(true);
+}
+
+div.#{sv.$theme-name} {
+  font-size: 16px;
+  color: var(--md-theme-color);
+
+  em {
+    color: #4f5959;
+    padding: 0 6px 0 4px;
+  }
+}

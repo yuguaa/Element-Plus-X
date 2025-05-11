@@ -1,0 +1,45 @@
+@use '../../common/scss-vars' as csv;
+@use './scss-vars' as sv;
+
+@use './modules/code';
+@use './modules/heading';
+@use './modules/image';
+@use './modules/link';
+@use './modules/list';
+@use './modules/paragraph';
+@use './modules/quote';
+@use './modules/table';
+
+@mixin theme-vars($isDark) {
+  div.#{sv.$theme-name} {
+    --md-theme-color: #{if($isDark, #c9d1d9, #222)};
+  }
+}
+
+// 亮模式
+.#{csv.$prefix} {
+  @include theme-vars(false);
+}
+
+// 暗模式
+.#{csv.$prefix}-dark {
+  @include theme-vars(true);
+}
+
+// 从github上copy的部分样式
+div.#{sv.$theme-name} {
+  line-height: 1.5;
+  color: var(--md-theme-color);
+
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl,
+  table,
+  pre,
+  details {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+}

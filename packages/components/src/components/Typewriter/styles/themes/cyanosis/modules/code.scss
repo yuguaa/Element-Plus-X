@@ -1,0 +1,67 @@
+@use '../../../common/scss-vars' as csv;
+@use '../scss-vars' as sv;
+
+@mixin code-vars($isDark) {
+  div.#{sv.$theme-name} {
+    --md-theme-code-inline-color: var(--md-theme-code-color);
+    --md-theme-code-inline-bg-color: var(--md-theme-code-bg-color);
+    --md-theme-code-block-color: var(--md-theme-base-color);
+    // 顶部背景
+    --md-theme-code-before-bg-color: var(--md-theme-code-block-bg-color);
+  }
+}
+
+.#{csv.$prefix} {
+  @include code-vars(false);
+}
+
+.#{csv.$prefix}-dark {
+  @include code-vars(true);
+}
+
+div.#{sv.$theme-name} {
+  code {
+    padding: 0.065em 0.4em;
+    font-family: sv.$monospace-font;
+    overflow-x: auto;
+
+    &::selection {
+      background-color: var(--md-theme-slct-codebg-color);
+    }
+  }
+
+  .#{csv.$prefix}-code {
+    pre {
+      font-family: sv.$monospace-font;
+
+      code {
+        padding: 11px 12px 22px;
+        margin: 0;
+        word-break: normal;
+        line-height: 1.75;
+
+        &::selection {
+          background-color: var(--md-theme-slct-prebg-color);
+        }
+
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+          background-color: var(--md-theme-border-color);
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background-color: var(--md-theme-strong-color);
+          border-radius: 10px;
+        }
+
+        span[rn-wrapper] {
+          top: 11px;
+        }
+      }
+    }
+  }
+}

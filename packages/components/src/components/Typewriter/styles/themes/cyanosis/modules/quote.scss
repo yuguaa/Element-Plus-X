@@ -1,0 +1,40 @@
+@use '../../../common/scss-vars' as csv;
+@use '../scss-vars' as sv;
+
+@mixin heading-vars($isDark) {
+  div.#{sv.$theme-name} {
+    --md-theme-quote-color: var(--md-theme-blockquote-color);
+    --md-theme-quote-border: 4px solid var(--md-theme-strong-color);
+    --md-theme-quote-bg-color: var(--md-theme-blockquote-bg-color);
+  }
+}
+
+.#{csv.$prefix} {
+  @include heading-vars(false);
+}
+
+// .#{$prefix}-dark {
+//   @include heading-vars(true);
+// }
+
+div.#{sv.$theme-name} {
+  blockquote {
+    padding: 1px 20px;
+    margin: 22px 0;
+    @include sv.transitionColor();
+
+    &::after {
+      display: block;
+      content: '';
+    }
+
+    & > p {
+      margin: 10px 0;
+    }
+
+    & > b,
+    & > strong {
+      color: var(--md-theme-strong-color);
+    }
+  }
+}

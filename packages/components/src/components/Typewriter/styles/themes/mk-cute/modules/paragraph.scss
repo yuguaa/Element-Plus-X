@@ -1,0 +1,9 @@
+@use '../scss-vars' as sv;
+
+div.#{sv.$theme-name} {
+  p {
+    line-height: inherit;
+    margin-top: sv.$line-space;
+    margin-bottom: sv.$line-space;
+  }
+}

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type mdit from 'markdown-it'
 import type { ComputedRef } from 'vue'
 import type { TypewriterInstance, TypewriterProps, TypingConfig } from './types.d.ts'
 import DOMPurify from 'dompurify' // 新增安全过滤
@@ -6,7 +7,16 @@ import MarkdownIt from 'markdown-it'
 // import Prism from 'prismjs'
 import { usePrism } from '../../hooks/usePrism'
 
+import { generateCodeRowNumber } from '../../utils/index.ts'
 import { useAppConfig } from '../AppConfig/hooks.ts'
+// 引入高亮配置文件
+import { codeCss, highlightUrl, prefix } from './config/index.ts'
+import svgMap from './iconStr/index.ts'
+import codetabs from './markdownIt/code/index.ts'
+import { CDN_IDS } from './static/index.ts'
+import { appendHandler } from './utils/dom.ts'
+// import '@vavt/markdown-theme/css/all.css'
+import './styles/themes/all/index.scss'
 
 const props = withDefaults(defineProps<TypewriterProps>(), {
   content: '',
@@ -26,7 +36,7 @@ const emits = defineEmits<{
 
 const appConfig = useAppConfig()
 
-const highlight = computed(() => {
+const _highlight = computed(() => {
   if (!props.highlight) {
     return appConfig.highlight ?? usePrism()
   }
@@ -45,40 +55,195 @@ onMounted(() => {
   // })
 })
 
+function initLineNumber(md: mdit) {
+  console.log('什么时候执行的 initLineNumber', md)
+
+  md.core.ruler.push('init-line-number', (state) => {
+    state.tokens.forEach((token) => {
+      if (token.map) {
+        if (!token.attrs) {
+          token.attrs = []
+        }
+        token.attrs.push(['data-line', token.map[0].toString()])
+      }
+    })
+    return true
+  })
+}
+
+const hljsRef = ref<any>(null)
+
 const md = new MarkdownIt({
   html: true,
   linkify: true,
   typographer: true,
   breaks: true,
-  highlight: (code, lang) => {
-    // const grammar = Prism.languages[lang]
-    // if (grammar) {
-    //   // // 调用 Prism 高亮代码
-    //   // const highlightedCode = Prism.highlight(code, grammar || Prism.languages.text, lang)
+})
 
-    //   // // 生成带 Prism 样式的 HTML
-    //   // return `<pre class="language-${lang}"><code class="language-${lang}">${highlightedCode}</code></pre>`
-    //   return Prism.highlight(code, grammar, lang)
-    // }
-    // return code
-    return highlight.value?.(code, lang)
+initLineNumber(md)
+
+md.set({
+  highlight: (code, lang) => {
+    // 在这里想头部引入样式文件
+    appendHandler('link', {
+      href: codeCss.github.dark,
+      rel: 'stylesheet',
+      id: CDN_IDS.hlcss,
+    })
+
+    // 引入hljs
+    appendHandler(
+      'script',
+      {
+        src: highlightUrl,
+        id: CDN_IDS.hljs,
+        onload() {
+          hljsRef.value = (window as any).hljs
+        },
+      },
+      'hljs',
+    )
+
+    // hljsRef.value = hljs
+
+    let codeHtml
+
+    // 在这里调用高亮样式函数
+    // 获取高亮语言
+    if (hljsRef.value && lang) {
+      console.log(hljsRef.value)
+
+      const hljsLang = hljsRef.value.getLanguage(lang)
+
+      if (hljsLang && hljsRef.value.highlight) {
+        codeHtml = hljsRef.value.highlight(code, {
+          language: lang,
+          ignoreIllegals: true,
+        }).value
+      }
+      else {
+        codeHtml = hljsRef.value.highlightAuto(code).value
+      }
+    }
+    else {
+      codeHtml = md.utils.escapeHtml(code)
+    }
+
+    const codeSpan = generateCodeRowNumber(
+      codeHtml.replace(/^\n+|\n+$/g, ''),
+      code.replace(/^\n+|\n+$/g, ''),
+    )
+
+    console.log('codeSpan', codeSpan)
+
+    return `<pre><code class="language-${lang}" language=${lang}>${codeSpan}</code></pre>`
+
+    // return highlight.value?.(code, lang)
   },
 })
 
-function initMarkdownPlugins() {
-  if (appConfig.mdPlugins?.length) {
-    appConfig.mdPlugins.forEach((plugin) => {
-      md.use(plugin)
-    })
-  }
-  if (props.mdPlugins?.length) {
-    props.mdPlugins.forEach((plugin) => {
-      md.use(plugin)
-    })
-  }
-}
+const usedLanguageTextRef = ref({
+  toolbarTips: {
+    bold: '加粗',
+    underline: '下划线',
+    italic: '斜体',
+    strikeThrough: '删除线',
+    title: '标题',
+    sub: '下标',
+    sup: '上标',
+    quote: '引用',
+    unorderedList: '无序列表',
+    orderedList: '有序列表',
+    task: '任务列表',
+    codeRow: '行内代码',
+    code: '块级代码',
+    link: '链接',
+    image: '图片',
+    table: '表格',
+    mermaid: 'mermaid图',
+    katex: 'katex公式',
+    revoke: '后退',
+    next: '前进',
+    save: '保存',
+    prettier: '美化',
+    pageFullscreen: '浏览器全屏',
+    fullscreen: '屏幕全屏',
+    preview: '预览',
+    previewOnly: '仅预览',
+    htmlPreview: 'html代码预览',
+    catalog: '目录',
+    github: '源码地址',
+  },
+  titleItem: {
+    h1: '一级标题',
+    h2: '二级标题',
+    h3: '三级标题',
+    h4: '四级标题',
+    h5: '五级标题',
+    h6: '六级标题',
+  },
+  imgTitleItem: {
+    link: '添加链接',
+    upload: '上传图片',
+    clip2upload: '裁剪上传',
+  },
+  linkModalTips: {
+    linkTitle: '添加链接',
+    imageTitle: '添加图片',
+    descLabel: '链接描述：',
+    descLabelPlaceHolder: '请输入描述...',
+    urlLabel: '链接地址：',
+    urlLabelPlaceHolder: '请输入链接...',
+    buttonOK: '确定',
+  },
+  clipModalTips: {
+    title: '裁剪图片上传',
+    buttonUpload: '上传',
+  },
+  copyCode: {
+    text: '复制代码',
+    successTips: '已复制！',
+    failTips: '复制失败！',
+  },
+  mermaid: {
+    flow: '流程图',
+    sequence: '时序图',
+    gantt: '甘特图',
+    class: '类图',
+    state: '状态图',
+    pie: '饼图',
+    relationship: '关系图',
+    journey: '旅程图',
+  },
+  katex: {
+    inline: '行内公式',
+    block: '块级公式',
+  },
+  footer: {
+    markdownTotal: '字数',
+    scrollAuto: '同步滚动',
+  },
+})
+const customIconRef = ref({
+  ...svgMap,
+})
 
-initMarkdownPlugins()
+md.use(codetabs, { editorId: prefix, usedLanguageTextRef, codeFoldable: true, autoFoldThreshold: 1000, customIconRef })
+
+// function initMarkdownPlugins() {
+//   if (appConfig.mdPlugins?.length) {
+//     appConfig.mdPlugins.forEach((plugin) => {
+//       md.use(plugin)
+//     })
+//   }
+//   if (props.mdPlugins?.length) {
+//     props.mdPlugins.forEach((plugin) => {
+//       md.use(plugin)
+//     })
+//   }
+// }
+
+// initMarkdownPlugins()
 
 const typingIndex = ref(0)
 const isTyping = ref(false)
@@ -268,6 +433,20 @@ function updateFogColor() {
   }
 }
 
+const value = ref()
+
+function handleChange(val: boolean) {
+  console.log('val', val)
+
+  // 更换系统主题
+  // if (val) {
+  //   document.documentElement.setAttribute('data-theme', 'dark')
+  // }
+  // else {
+  //   document.documentElement.setAttribute('data-theme', 'light')
+  // }
+}
+
 // 生命周期
 onUnmounted(destroy)
 
@@ -276,24 +455,45 @@ defineExpose(instance)
 </script>
 
 <template>
-  <div ref="typeWriterRef" class="typer-container">
+  <div class="btn-list">
+    <span>白天/暗黑：<el-switch v-model="value" @change="handleChange" /></span>
+  </div>
+
+  <div
+    :class="[
+      `${prefix}`,
+    ]"
+  >
     <div
-      ref="markdownContentRef" class="typer-content" :class="[
-        {
-          'markdown-content': isMarkdown,
-          'typing-cursor': typing && mergedConfig.suffix && isTyping,
-          'typing-cursor-foggy': props.isFog && typing && mergedConfig.suffix && isTyping,
-          'typing-markdown-cursor-foggy': isMarkdown && props.isFog && typing && isTyping,
-        },
-        isMarkdown ? 'markdown-body' : '',
-      ]" :style="{
-        '--cursor-char': `'${mergedConfig.suffix}'`,
-        '--cursor-fog-bg-color': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.bgColor ?? 'var(--el-fill-color)' : 'var(--el-fill-color)') : '',
-        '--cursor-fog-width': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.width ?? '80px' : '80px') : '',
-      }" v-html="renderedContent"
-    />
+      :id="`${prefix}-preview`" ref="typeWriterRef" class="typer-container default-theme"
+      :class="[
+        `${prefix}-preview`,
+        `${prefix}`,
+        `${prefix}-scrn`,
+      ]"
+    >
+      <div
+        ref="markdownContentRef" class="typer-content" :class="[
+          {
+            'markdown-content': isMarkdown,
+            'typing-cursor': typing && mergedConfig.suffix && isTyping,
+            'typing-cursor-foggy': props.isFog && typing && mergedConfig.suffix && isTyping,
+            'typing-markdown-cursor-foggy': isMarkdown && props.isFog && typing && isTyping,
+          },
+          isMarkdown ? 'markdown-body' : '',
+        ]" :style="{
+          '--cursor-char': `'${mergedConfig.suffix}'`,
+          '--cursor-fog-bg-color': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.bgColor ?? 'var(--el-fill-color)' : 'var(--el-fill-color)') : '',
+          '--cursor-fog-width': props.isFog ? (typeof props.isFog === 'object' ? props.isFog.width ?? '80px' : '80px') : '',
+        }" v-html="renderedContent"
+      />
+    </div>
   </div>
 </template>
 
 <!-- 样式转移-暂定方案-为后续主题做准备 -->
-<style scoped lang="scss" src="./style.scss"></style>
+<style scoped lang="scss" src="./style.scss">
+.btn-list {
+  display: flex;
+}
+</style>

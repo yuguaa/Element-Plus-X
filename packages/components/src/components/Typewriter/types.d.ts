@@ -34,6 +34,9 @@ export interface TypewriterProps {
   isFog?: boolean | TypingFogfig
   highlight?: (code: string, language: string) => string
   mdPlugins?: MarkdownItPlugin[]
+
+  // mdrenderer 配置
+  mdrendererOptions?: MdrendererOptions
 }
 
 /** 组件实例类型 */
@@ -52,4 +55,17 @@ export interface TypewriterInstance {
   isTyping: Ref<boolean>
   /** 当前进度百分比（0-100）（响应式） */
   progress: ComputedRef<number>
+}
+
+/* mdrenderer 配置 */
+export interface MdrendererOptions {
+  // 继承插件
+  mdPlugins?: MarkdownItPlugin[]
+  mdPluginWithOptions?: MarkdownItPlugin[]
+  mdPluginWithParams?: MarkdownItPlugin[]
+  options?: MarkdownIt.Options
+
+  // 自定义
+  mdhighlight?: (code: string, language: string) => string
+  mermaidConfig?: (base: any) => any
 }

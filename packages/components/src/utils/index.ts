@@ -152,10 +152,9 @@ export function generateCodeRowNumber(code: string, source: string) {
   if (!code) {
     return code
   }
-
   const list = source.split('\n')
   // 行号html代码拼接列表
-  const rowNumberList = ['<span rn-wrapper aria-hidden="true">']
+  const rowNumberList = ['<span rn-wrapper class="rn-wrapper" aria-hidden="true">']
   list.forEach(() => {
     rowNumberList.push('<span></span>')
   })

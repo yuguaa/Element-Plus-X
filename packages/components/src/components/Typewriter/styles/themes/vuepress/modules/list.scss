@@ -1,0 +1,15 @@
+@use '../scss-vars' as sv;
+
+div.#{sv.$theme-name} {
+  ul,
+  ol {
+    position: relative;
+    line-height: 1.4em;
+    margin: 1.2em 0;
+    z-index: 1;
+
+    li {
+      margin: 1.2em 0;
+    }
+  }
+}

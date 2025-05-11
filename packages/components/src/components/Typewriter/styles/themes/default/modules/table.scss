@@ -1,0 +1,72 @@
+@use '../../../common/scss-vars' as csv;
+@use '../scss-vars' as sv;
+
+@mixin table-vars($isDark) {
+  #{sv.$theme-name} {
+    // 斑马条纹
+    --md-theme-table-stripe-color: #{if($isDark, #0c0c0c, #fafafa)};
+  }
+}
+
+.#{csv.$prefix} {
+  @include table-vars(false);
+}
+
+.#{csv.$prefix}-dark {
+  @include table-vars(true);
+}
+
+div.#{sv.$theme-name} {
+  table {
+    // width: 100%;
+    // table-layout: fixed;
+    overflow: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+    margin-bottom: 1em;
+    margin-top: 1em;
+
+    tr {
+      th,
+      td {
+        word-wrap: break-word;
+        padding: 8px 14px;
+        // border: 1px solid var(--md-theme-border-color);
+      }
+    }
+
+    tbody {
+      tr {
+        &:hover {
+          background-color: var(--md-theme-color-hover);
+        }
+      }
+    }
+  }
+
+  // 引用中的表格
+  blockquote {
+    table {
+      line-height: initial;
+
+      tr {
+        th,
+        td {
+          border-color: var(--md-theme-border-color-inset);
+        }
+      }
+
+      tbody {
+        tr {
+          &:nth-child(n) {
+            background-color: inherit;
+          }
+
+          &:hover {
+            background-color: var(--md-theme-color-hover-inset);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use '../scss-vars' as sv;
+
+div.#{sv.$theme-name} {
+  ol,
+  ul {
+    margin: 0.6em 0;
+
+    li {
+      line-height: 1.6;
+      margin: 0.5em 0;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@use '../../../common/scss-vars' as csv;
+@use '../scss-vars' as sv;
+
+@mixin table-vars($isDark) {
+  div.#{sv.$theme-name} {
+    // 斑马条纹
+    --md-theme-table-stripe-color: #{if($isDark, #161b22, #f7f8fa)};
+
+    --md-theme-table-tr-bg-color: #{if($isDark, transparent, #fff)};
+    --md-theme-table-td-border-color: #{if($isDark, #30363d, #d0d7de)};
+  }
+}
+
+.#{csv.$prefix} {
+  @include table-vars(false);
+}
+
+.#{csv.$prefix}-dark {
+  @include table-vars(true);
+}
+
+div.#{sv.$theme-name} {
+  table {
+    display: block;
+    max-width: 100%;
+    overflow: auto;
+    border-spacing: 0;
+    border-collapse: collapse;
+
+    tr {
+      th,
+      td {
+        padding: 6px 13px;
+      }
+    }
+  }
+}

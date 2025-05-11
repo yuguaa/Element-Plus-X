@@ -1,0 +1,48 @@
+@use '../../../common/scss-vars' as csv;
+@use '../scss-vars' as sv;
+
+@mixin heading-vars($isDark) {
+  div.#{sv.$theme-name} {
+    --md-theme-link-color: var(--md-theme-link-color);
+    --md-theme-link-hover-color: var(--md-theme-linkh-color);
+  }
+}
+
+.#{csv.$prefix} {
+  @include heading-vars(false);
+}
+
+div.#{sv.$theme-name} {
+  a {
+    position: relative;
+    display: inline-block;
+    text-decoration: none;
+    border-bottom: 1px solid var(--md-theme-border-color);
+
+    &:hover {
+      border-bottom-color: var(--md-theme-linkh-color);
+    }
+
+    &:active {
+      color: var(--md-theme-linkh-color);
+    }
+
+    &::after {
+      position: absolute;
+      content: '';
+      top: 100%;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+      border-bottom: 1px solid var(--md-theme-border-color);
+      transition: top 0.3s, opacity 0.3s;
+      transform: translate3d(0, 0, 0);
+    }
+
+    &:hover::after {
+      top: 0;
+      opacity: 1;
+      border-bottom-color: var(--md-theme-linkh-color);
+    }
+  }
+}

@@ -1,0 +1,50 @@
+@use '../../../common/scss-vars' as csv;
+@use '../scss-vars' as sv;
+
+@mixin code-vars($isDark) {
+  div.#{sv.$theme-name} {
+    --md-theme-code-inline-color: #4ec9b0;
+    --md-theme-code-inline-bg-color: #282c34;
+
+    --md-theme-code-block-color: #4ec9b0;
+    // 代码背景
+    --md-theme-code-block-bg-color: #282c34;
+    // 顶部背景
+    --md-theme-code-before-bg-color: var(--md-theme-code-block-bg-color);
+    // 圆角
+    --md-theme-code-block-radius: 10px;
+  }
+}
+
+.#{csv.$prefix} {
+  @include code-vars(false);
+}
+
+.#{csv.$prefix}-dark {
+  @include code-vars(true);
+}
+
+div.#{sv.$theme-name} {
+  code {
+    font-family: sv.$monospace-font;
+    overflow-x: auto;
+    padding: 0.14em 0.46em;
+    margin: 0 4px;
+  }
+
+  .#{csv.$prefix}-code {
+    pre {
+      code {
+        font-family: sv.$monospace-font;
+        padding: 22px;
+        margin: 0;
+        word-break: normal;
+        line-height: 1.75;
+
+        span[rn-wrapper] {
+          top: 22px;
+        }
+      }
+    }
+  }
+}
