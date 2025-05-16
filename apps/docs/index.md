@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Element Plus X"
+  name: "Element Plus X "
   text: "🚀AI体验新秩序"
   tagline: ❤️‍🔥开箱即用的企业级 AI 交互组件库，让构建智能界面像搭积木一样简单。 RICH 设计范式，打造卓越 AI 界面解决方案，引领智能新体验。❤️‍🔥
   image:
