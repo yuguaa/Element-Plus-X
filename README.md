@@ -142,7 +142,7 @@ app.mount('#app')
 ## 👥 社区支持
 <div align="center">
 <h3>💖三群二维码已经更新,如果图片是二群二维码,应该是浏览器有缓存,请刷新重试💖</h3>
-<img src="https://cdn.element-plus-x.com/vx-2025-06-06.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-06-16.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
 
 <p>交流群如果过期或者失效，可以添加作者 vx</p>
