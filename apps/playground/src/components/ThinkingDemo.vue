@@ -9,8 +9,8 @@ const { startStream, cancel, data, error, isLoading } = useXStream()
 
 const BASE_URL = 'https://api.siliconflow.cn/v1/chat/completions'
 // 仅供测试，请勿拿去测试其他付费模型
-const API_KEY = 'sk-vfjyscildobjnrijtcllnkhtcouidcxdgjxtldzqzeowrbga'
-const MODEL = 'THUDM/GLM-Z1-9B-0414'
+const API_KEY = 'sk-ostdwhfpevtwvjuavvtmlsobpfergkjzffgojmuosggfqmqu'
+const MODEL = 'deepseek-ai/DeepSeek-R1-Distill-Qwen-7B'
 
 const inputValue = ref('帮我写一篇小米手机介绍')
 const senderRef = ref<any>(null)
