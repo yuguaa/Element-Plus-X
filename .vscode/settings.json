@@ -48,6 +48,7 @@
     "esno",
     "Groupable",
     "jsonlee",
+    "mdast",
     "radash",
     "shiki",
     "shikijs",

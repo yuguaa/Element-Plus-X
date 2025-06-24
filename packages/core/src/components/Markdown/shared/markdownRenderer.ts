@@ -1,6 +1,7 @@
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { CustomAttrs, SanitizeOptions } from '../core';
+import type { InitShikiOptions } from './shikiHighlighter';
 
 const MarkdownProps = {
   markdown: {
@@ -50,6 +51,18 @@ const MarkdownProps = {
   sanitizeOptions: {
     type: Object as PropType<SanitizeOptions>,
     default: () => ({})
+  },
+  langs: {
+    type: Array as PropType<InitShikiOptions['langs']>,
+    default: () => []
+  },
+  themes: {
+    type: Object as PropType<InitShikiOptions['themes']>,
+    default: () =>
+      ({
+        light: 'vitesse-light',
+        dark: 'vitesse-dark'
+      }) satisfies InitShikiOptions['themes']
   }
 };
 export { MarkdownProps };

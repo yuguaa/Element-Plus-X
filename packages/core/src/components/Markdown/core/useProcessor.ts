@@ -1,13 +1,14 @@
 import type { Root } from 'hast';
 import type { Root as MdastRoot } from 'mdast';
 import type { Options as TRehypeOptions } from 'mdast-util-to-hast';
+import type { PluggableList, Processor } from 'unified';
 import type { ComputedRef, MaybeRefOrGetter } from 'vue';
 import type { SanitizeOptions } from './types';
 import deepmerge from 'deepmerge';
 import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-import { type PluggableList, type Processor, unified } from 'unified';
+import { unified } from 'unified';
 import { computed, toValue } from 'vue';
 
 export interface TUseMarkdownProcessorOptions {

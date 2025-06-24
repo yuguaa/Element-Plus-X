@@ -7,8 +7,13 @@ import {
 
 <template>
   <div class="component-container">
-    <MarkdownRenderer v-bind="$attrs" />
-    <!-- <MarkdownRendererAsync v-bind="$attrs" /> -->
+    <MarkdownRenderer
+      v-bind="$attrs"
+      :themes="{
+        light: 'vitesse-light',
+        dark: 'vitesse-dark'
+      }"
+    />
   </div>
 </template>
 

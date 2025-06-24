@@ -49,6 +49,32 @@ func main() {
 }
 \`\`\`
 
+
+### vue
+\`\`\`vue
+<template>
+  <div>Hello, world!</div>
+</template>
+
+<script>
+export default {
+  name: 'HelloWorld',
+  props: {
+    msg: String
+  }
+}
+</script>
+
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+}
+</style>
+\`\`\`
+
 `.trim();
 
 // md 美人鱼图表
