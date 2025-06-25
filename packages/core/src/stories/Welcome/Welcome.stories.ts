@@ -97,7 +97,7 @@ export const WelcomeSlotDemo: Story = {
     variant: 'filled',
     showExtraSlot: true,
     showImageSlot: true
-  },
+  } as any,
   render: (args: any) => ({
     components: {
       WelcomeSlotComponent
