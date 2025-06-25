@@ -6,7 +6,6 @@ import type {
 import { colorMap1 } from '@assets/mock.ts';
 import { ElMessage } from 'element-plus';
 import { ref } from 'vue';
-import 'element-plus/theme-chalk/el-message.css';
 
 export type SelfFilesCardProps = FilesCardProps & { id?: number };
 
@@ -21,8 +20,8 @@ export function genDefaultFiles(count: number = 30) {
       name: `文件${i}`,
       fileSize: 1024 * 2,
       fileType: typeList[Math.floor(Math.random() * typeList.length)],
-      url: 'https://www.baidu.com',
-      thumbUrl: 'https://www.baidu.com',
+      url: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
+      thumbUrl: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
       imgFile: new File([], `test${i}.txt`),
       showDelIcon: true
     });

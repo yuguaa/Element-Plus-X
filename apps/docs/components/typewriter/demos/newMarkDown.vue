@@ -48,7 +48,7 @@ import { ref } from 'vue';
 // import { usePrism } from 'vue-element-plus-x/src/hooks/usePrism.js'
 // import AppConfig from 'vue-element-plus-x/src/components/AppConfig/index.vue'
 // 这里可以引入 Prism 的核心样式，也可以自己引入其他第三方主题样式
-import 'vue-element-plus-x/styles/prism.min.css';
+// import 'vue-element-plus-x/styles/prism.min.css';
 
 const markdownText = ref(
   `#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`js \n console.log('Hello, world!'); \n \`\`\``

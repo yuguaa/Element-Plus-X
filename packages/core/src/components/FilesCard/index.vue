@@ -88,8 +88,9 @@ const _iconSize = computed(() => {
   if (
     (isSquareVariant.value && isImageFile.value && !props.iconSize) ||
     (isSquareVariant.value && isImageFile.value && props.iconSize === '42px')
-  )
+  ) {
     return '64px';
+  }
   return props.iconSize;
 });
 

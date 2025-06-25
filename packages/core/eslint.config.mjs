@@ -15,9 +15,11 @@ export default antfu({
   rules: {
     'new-cap': ['off', { newIsCap: true, capIsNew: false }],
     'no-console': 'off', // 忽略console
+    'antfu/consistent-chaining': 'off', // 关闭链式调用强制换行
     'vue/comma-dangle': 'off',
     '@typescript-eslint/comma-dangle': 'off',
     'comma-dangle': 'off',
+    'style/brace-style': 'off',
     'style/comma-dangle': 'off',
     'style/arrow-parens': 'off',
     'style/quote-props': 'off',
