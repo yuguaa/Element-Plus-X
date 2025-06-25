@@ -1,25 +1,46 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
+import type { MermaidToolbarConfig } from './types';
 import mermaid from 'mermaid';
-import { onMounted, ref, watch } from 'vue';
+import { debounce } from 'radash';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { useMermaidZoom } from '../../hooks';
+import MermaidToolbar from './MermaidToolbar.vue';
 
-const props = withDefaults(defineProps<MdComponent>(), {
-  // codeKey: '',
-  // lang: '',
-  // content: '',
-  // codeData: () => ({}),
-  // mermaidConfig: () => ({
-  //   delay: 500,
-  //   securityLevel: 'loose',
-  // }),
-  raw: () => ({})
+interface MermaidProps extends MdComponent {
+  toolbarConfig?: MermaidToolbarConfig;
+}
+
+const props = withDefaults(defineProps<MermaidProps>(), {
+  raw: () => ({}),
+  toolbarConfig: () => ({})
 });
 
-const loading = ref(true);
-const svg = ref('');
-const id = useId();
+// 计算工具栏配置，合并默认值
+const toolbarConfig = computed(() => {
+  return {
+    showToolbar: true,
+    showFullscreen: true,
+    showZoomIn: true,
+    showZoomOut: true,
+    showReset: true,
+    showCode: true,
+    ...props.toolbarConfig
+  };
+});
 
-let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+const svg = ref('');
+const containerRef = ref<HTMLElement | null>(null);
+const showSourceCode = ref(false);
+const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+
+// 初始化缩放功能（在组件 setup 期间创建，避免 Vue 警告）
+const zoomControls = useMermaidZoom({
+  container: containerRef,
+  scaleStep: 0.2,
+  minScale: 0.1,
+  maxScale: 5
+});
 
 async function renderMermaid() {
   try {
@@ -30,35 +51,116 @@ async function renderMermaid() {
       });
       const { svg: renderedSvg } = await mermaid.render(id, props.raw.content);
       svg.value = renderedSvg;
+
+      // SVG 渲染完成后，手动触发缩放功能初始化
+      setTimeout(() => {
+        if (containerRef.value) {
+          zoomControls.initialize();
+        }
+      }, 100);
     }
   } catch (err) {
     console.log('Mermaid parse/render error:', err);
   }
 }
 
-function scheduleRender() {
-  loading.value = true;
-  if (debounceTimer) clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(() => {
-    loading.value = false;
-    renderMermaid();
-  }, 300);
+// 防抖渲染
+const scheduleRender = debounce({ delay: 300 }, async () => {
+  await renderMermaid();
+});
+
+// 工具栏事件处理
+function handleZoomIn() {
+  if (!showSourceCode.value) {
+    zoomControls?.zoomIn();
+  }
 }
 
+function handleZoomOut() {
+  if (!showSourceCode.value) {
+    zoomControls?.zoomOut();
+  }
+}
+
+function handleReset() {
+  if (!showSourceCode.value) {
+    zoomControls?.reset();
+  }
+}
+
+function handleFullscreen() {
+  if (!showSourceCode.value) {
+    zoomControls?.fullscreen();
+  }
+}
+
+function handleToggleCode() {
+  showSourceCode.value = !showSourceCode.value;
+  // 移除延时逻辑，依赖过渡完成事件来初始化
+}
+
+// 处理图表内容过渡完成事件
+function onContentTransitionEnter() {
+  // 只在图表模式下初始化缩放功能
+  if (!showSourceCode.value) {
+    // 使用 nextTick 确保 DOM 完全更新
+    nextTick(() => {
+      if (containerRef.value) {
+        zoomControls.initialize();
+      }
+    });
+  }
+}
+
+// 监听内容变化
 watch(
   () => props.raw.content,
   () => {
-    scheduleRender();
+    if (props.raw.content) {
+      scheduleRender();
+    }
   }
 );
 
 onMounted(() => {
-  scheduleRender();
+  if (props.raw.content) {
+    renderMermaid();
+  }
 });
 </script>
 
 <template>
-  <div :key="props.raw.key" class="markdown-mermaid" v-html="svg" />
+  <div ref="containerRef" :key="props.raw.key" class="markdown-mermaid">
+    <!-- Mermaid SVG 内容或源码 -->
+    <Transition
+      name="content"
+      mode="out-in"
+      @after-enter="onContentTransitionEnter"
+    >
+      <div
+        v-if="!showSourceCode"
+        key="chart"
+        class="mermaid-content"
+        v-html="svg"
+      />
+      <pre v-else key="source" class="mermaid-source-code">{{
+        props.raw.content
+      }}</pre>
+    </Transition>
+
+    <!-- 工具栏 -->
+    <Transition name="toolbar" appear>
+      <MermaidToolbar
+        :toolbar-config="toolbarConfig"
+        :is-source-code-mode="showSourceCode"
+        @on-zoom-in="handleZoomIn"
+        @on-zoom-out="handleZoomOut"
+        @on-reset="handleReset"
+        @on-fullscreen="handleFullscreen"
+        @on-toggle-code="handleToggleCode"
+      />
+    </Transition>
+  </div>
 </template>
 
 <style src="./style.scss"></style>

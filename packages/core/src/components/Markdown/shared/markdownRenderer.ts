@@ -1,5 +1,6 @@
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
+import type { MermaidToolbarConfig } from '../components/Mermaid/types';
 import type { CustomAttrs, SanitizeOptions } from '../core';
 
 const MarkdownProps = {
@@ -49,6 +50,10 @@ const MarkdownProps = {
   },
   sanitizeOptions: {
     type: Object as PropType<SanitizeOptions>,
+    default: () => ({})
+  },
+  mermaidConfig: {
+    type: Object as PropType<Partial<MermaidToolbarConfig>>,
     default: () => ({})
   }
 };

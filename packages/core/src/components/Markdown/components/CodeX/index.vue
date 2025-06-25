@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent, h } from 'vue';
+import { defineComponent, h, toValue } from 'vue';
 import { CodeBlock, Line, Mermaid } from '../index';
 import { useMarkdownContext } from '../MarkdownProvider';
 
@@ -12,7 +12,7 @@ export default defineComponent({
   },
   setup(props) {
     const context = useMarkdownContext();
-    const { codeBlockRender } = toValue(context);
+    const { codeBlockRender, mermaidConfig } = toValue(context);
     return (): ReturnType<typeof h> | null => {
       if (props.raw.inline) {
         if (codeBlockRender && codeBlockRender.inline) {
@@ -33,7 +33,12 @@ export default defineComponent({
         return h(renderer, props);
       }
       if (language === 'mermaid') {
-        return h(Mermaid, props);
+        // 如果有 mermaidConfig，传递给 Mermaid 组件
+        const mermaidProps = {
+          ...props,
+          ...(mermaidConfig && { toolbarConfig: mermaidConfig })
+        };
+        return h(Mermaid, mermaidProps);
       }
       return h(CodeBlock, props);
     };
