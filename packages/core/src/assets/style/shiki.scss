@@ -1,6 +1,25 @@
 body {
+  --shiki-custom-brr-mini: 3px;
   --shiki-custom-brr: 5px;
   --shiki-custom-blur: 10px;
+  --shiki-code-header-bg: #fafafa;
+}
+
+body[class='dark'] {
+  --shiki-custom-brr-mini: 3px;
+  --shiki-custom-brr: 5px;
+  --shiki-custom-blur: 10px;
+  --shiki-code-header-bg: #272727;
+
+  .shiki,
+  .shiki span {
+    color: var(--shiki-dark) !important;
+    background-color: var(--shiki-dark-bg) !important;
+    /* 可选，用于定义字体样式 */
+    font-style: var(--shiki-dark-font-style) !important;
+    font-weight: var(--shiki-dark-font-weight) !important;
+    text-decoration: var(--shiki-dark-text-decoration) !important;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -70,24 +89,34 @@ body {
   }
 
   pre {
+    border-radius: var(--shiki-custom-brr);
     .markdown-language-header-div {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 5px 5px 5px 8px;
-      border-radius: var(--shiki-custom-brr);
+      border-radius: var(--shiki-custom-brr-mini);
       -webkit-backdrop-filter: blur(var(--shiki-custom-blur));
       backdrop-filter: blur(var(--shiki-custom-blur));
       margin: 0 0 10px 0;
       box-sizing: border-box;
+      background-color: var(--shiki-code-header-bg);
 
       .markdown-language-header-span {
         font-size: 14px;
         color: var(--el-color-primary) !important;
         font-weight: bold;
+        background-color: transparent !important;
       }
 
-      .markdown-language-header-button {
+      .markdown-language-header-space {
+        min-width: 150px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      .shiki-header-button {
         border: 1px solid transparent;
         border-radius: var(--shiki-custom-brr);
         background-color: transparent !important;

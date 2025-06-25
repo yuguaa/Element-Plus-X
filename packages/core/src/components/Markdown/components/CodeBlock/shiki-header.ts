@@ -1,5 +1,5 @@
-import { CopyDocument } from '@element-plus/icons-vue';
-import { ElButton } from 'element-plus';
+import { CopyDocument, Sunny } from '@element-plus/icons-vue';
+import { ElButton, ElSpace } from 'element-plus';
 import { h } from 'vue';
 
 export function languageEle(language: string) {
@@ -12,9 +12,32 @@ export function languageEle(language: string) {
   );
 }
 
+export function controlEle(codeText: string[]) {
+  return h(
+    ElSpace,
+    {
+      class: `markdown-language-header-space`,
+      direction: 'horizontal'
+    },
+    {
+      default: () => [toggleTheme(), copyBtnEle(codeText)]
+    }
+  );
+}
+
+export function toggleTheme() {
+  return h(ElButton, {
+    class: `shiki-header-button markdown-language-header-toggle`,
+    icon: () =>
+      h(Sunny, {
+        class: 'markdown-language-header-toggle'
+      })
+  });
+}
+
 export function copyBtnEle(codeText: string[]) {
   return h(ElButton, {
-    class: `markdown-language-header-button`,
+    class: `shiki-header-button markdown-language-header-button`,
     icon: () =>
       h(CopyDocument, {
         class: `markdown-language-header-button-text`,
@@ -72,27 +95,6 @@ async function copy(v: string) {
   }
 }
 
-/**
- * @description 处理复制事件
- * @date 2025-03-28 14:03:51
- * @author tingfeng
- *
- * @param event
- */
-export function handleCopyClick(event: MouseEvent) {
-  const target = event.target as HTMLElement;
-  console.log('target.classList', target.classList);
-  if (
-    target.classList.contains('markdown-language-header-button') ||
-    target.classList.contains('markdown-language-header-button-text')
-  ) {
-    const code = target.getAttribute('data-code');
-    if (code) {
-      copy(code);
-    }
-  }
-}
-
 export function extractCodeFromHtmlLines(lines: string[]): string {
   const container = document.createElement('div');
 
@@ -103,4 +105,46 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
     })
     .filter(line => line.trim() !== '')
     .join('\n');
+}
+
+let listenerBound = false;
+
+function handleCopyClick(target: HTMLElement) {
+  const code = target.getAttribute('data-code');
+  if (code) copy(code);
+}
+
+function handleThemeToggleClick() {
+  document.body.classList.toggle('dark');
+}
+
+export function handleClick(event: MouseEvent) {
+  const target = event.target as HTMLElement;
+  const copyEl =
+    target.closest('.markdown-language-header-button') ||
+    target.closest('.markdown-language-header-button-text');
+  const toggleEl = target.closest('.markdown-language-header-toggle');
+
+  if (copyEl instanceof HTMLElement) {
+    handleCopyClick(copyEl);
+    return;
+  }
+
+  if (toggleEl) {
+    handleThemeToggleClick();
+  }
+}
+
+export function startEventListener() {
+  if (!listenerBound) {
+    document.addEventListener('click', handleClick);
+    listenerBound = true;
+  }
+}
+
+export function stopEventListener() {
+  if (listenerBound) {
+    document.removeEventListener('click', handleClick);
+    listenerBound = false;
+  }
 }

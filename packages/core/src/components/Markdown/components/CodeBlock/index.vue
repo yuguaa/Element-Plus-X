@@ -10,7 +10,12 @@ import {
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
 import { defineComponent, h, ref, watch } from 'vue'; // 引入vue相关API
-import { copyBtnEle, handleCopyClick, languageEle } from './shiki-header';
+import {
+  controlEle,
+  languageEle,
+  startEventListener,
+  stopEventListener
+} from './shiki-header';
 import '../../../../assets/style/shiki.scss';
 
 export default defineComponent({
@@ -44,8 +49,7 @@ export default defineComponent({
           light: 'vitesse-light',
           dark: 'vitesse-dark'
         },
-        transformers: shikiTransformers,
-        defaultColor: 'light'
+        transformers: shikiTransformers
       });
       const parse = new DOMParser();
       const doc = parse.parseFromString(html, 'text/html');
@@ -65,7 +69,7 @@ export default defineComponent({
       async content => {
         if (content) {
           await generateHtml();
-          document.addEventListener('click', handleCopyClick);
+          startEventListener();
         }
       },
       { immediate: true }
@@ -73,7 +77,7 @@ export default defineComponent({
 
     // 在组件卸载时释放资源
     onBeforeUnmount(() => {
-      document.removeEventListener('click', handleCopyClick);
+      stopEventListener();
     });
 
     return () =>
@@ -90,7 +94,7 @@ export default defineComponent({
             {
               class: `markdown-language-header-div el-card is-always-shadow`
             },
-            [languageEle(props.raw.language), copyBtnEle(renderLines.value)]
+            [languageEle(props.raw.language), controlEle(renderLines.value)]
           ),
           h(
             'code',
