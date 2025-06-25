@@ -10,12 +10,7 @@ import {
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
 import { defineComponent, h, ref, watch } from 'vue'; // 引入vue相关API
-import {
-  controlEle,
-  languageEle,
-  startEventListener,
-  stopEventListener
-} from './shiki-header';
+import { controlEle, expand, languageEle } from './shiki-header';
 import '../../../../assets/style/shiki.scss';
 
 export default defineComponent({
@@ -25,7 +20,7 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props) {
+  setup(props, { slots }) {
     const renderLines = ref<string[]>([]);
     const preStyle = ref<any | null>(null);
     const preClass = ref<string | null>(null);
@@ -69,24 +64,26 @@ export default defineComponent({
       async content => {
         if (content) {
           await generateHtml();
-          startEventListener();
         }
       },
       { immediate: true }
     );
 
-    // 在组件卸载时释放资源
-    onBeforeUnmount(() => {
-      stopEventListener();
-    });
-
     return () =>
       h(
         'pre',
         {
-          class: preClass.value,
+          class: `pre-md ${preClass.value}`,
           style: preStyle.value,
-          key: props.raw.key
+          key: props.raw.key,
+          onVnodeMounted(vnode) {
+            const ele = vnode.el as HTMLElement;
+            if (ele) {
+              setTimeout(() => {
+                expand(ele);
+              }, 500);
+            }
+          }
         },
         [
           h(
@@ -94,7 +91,15 @@ export default defineComponent({
             {
               class: `markdown-language-header-div el-card is-always-shadow`
             },
-            [languageEle(props.raw.language), controlEle(renderLines.value)]
+            slots.header?.({
+              language: props.raw.language,
+              lines: renderLines.value
+            }) ?? [
+              slots.headerLanguage?.({ language: props.raw.language }) ??
+                languageEle(props.raw.language),
+              slots.headerControl?.({ lines: renderLines.value }) ??
+                controlEle(renderLines.value)
+            ]
           ),
           h(
             'code',

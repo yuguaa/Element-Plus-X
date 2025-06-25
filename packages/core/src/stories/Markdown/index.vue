@@ -14,6 +14,20 @@ import {
         dark: 'vitesse-dark'
       }"
     />
+    <!-- <MarkdownRenderer
+      v-bind="$attrs"
+      :themes="{
+        light: 'vitesse-light',
+        dark: 'vitesse-dark'
+      }"
+    >
+      <template #headerLanguage="{ language }">
+        <span>slots language ----  {{ language }}</span>
+      </template>
+      <template #headerControl="{ lines }">
+        <span>slots control ----  {{ lines.length }}</span>
+      </template>
+    </MarkdownRenderer> -->
   </div>
 </template>
 

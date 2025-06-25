@@ -1,17 +1,76 @@
-import { CopyDocument, Sunny } from '@element-plus/icons-vue';
+import {
+  ArrowDownBold,
+  CopyDocument,
+  Moon,
+  Sunny
+} from '@element-plus/icons-vue';
 import { ElButton, ElSpace } from 'element-plus';
 import { h } from 'vue';
 
+/* ----------------------------------- 按钮组 ---------------------------------- */
+
+/**
+ * @description 描述 language标签
+ * @date 2025-06-25 17:48:15
+ * @author tingfeng
+ *
+ * @export
+ * @param language
+ */
 export function languageEle(language: string) {
   return h(
-    'span',
+    ElSpace,
     {
-      class: 'markdown-language-header-span el-card is-always-shadow'
+      class: `markdown-language-header-space markdown-language-header-space-start markdown-language-header-span`,
+      direction: 'horizontal',
+      onClick: (ev: MouseEvent) => {
+        if (ev) {
+          const ele = ev.currentTarget as HTMLElement;
+          const divBox = ele.parentElement as HTMLElement;
+          if (divBox) {
+            if (divBox?.parentElement) {
+              const has =
+                divBox.parentElement.classList.contains('is-expanded');
+              if (has) {
+                collapse(divBox.parentElement);
+              } else {
+                expand(divBox.parentElement);
+              }
+            }
+          }
+        }
+      }
     },
-    language || ''
+    {
+      default: () => [
+        h(
+          'span',
+          {
+            class: 'markdown-language-header-span el-card is-always-shadow'
+          },
+          language || ''
+        ),
+        h(ElButton, {
+          class: 'shiki-header-button shiki-header-button-expand',
+          icon: () =>
+            h(ArrowDownBold, {
+              class:
+                'markdown-language-header-toggle markdown-language-header-toggle-expand '
+            })
+        })
+      ]
+    }
   );
 }
 
+/**
+ * @description 描述 语言头部操作按钮
+ * @date 2025-06-25 17:49:04
+ * @author tingfeng
+ *
+ * @export
+ * @param codeText
+ */
 export function controlEle(codeText: string[]) {
   return h(
     ElSpace,
@@ -20,30 +79,104 @@ export function controlEle(codeText: string[]) {
       direction: 'horizontal'
     },
     {
-      default: () => [toggleTheme(), copyBtnEle(codeText)]
+      default: () => [toggleThemeEle(), copyBtnEle(codeText)]
     }
   );
 }
 
-export function toggleTheme() {
+// 记录当前是否暗色模式
+const isDark = ref(document.body.classList.contains('dark'));
+
+/**
+ * @description 描述 主题按钮
+ * @date 2025-06-25 17:49:53
+ * @author tingfeng
+ *
+ * @export
+ */
+export function toggleThemeEle() {
   return h(ElButton, {
-    class: `shiki-header-button markdown-language-header-toggle`,
+    class: 'shiki-header-button markdown-language-header-toggle',
     icon: () =>
-      h(Sunny, {
+      h(!isDark.value ? Moon : Sunny, {
         class: 'markdown-language-header-toggle'
-      })
+      }),
+    onClick: () => {
+      isDark.value = !isDark.value;
+      if (isDark.value) {
+        document.body.classList.add('dark');
+      } else {
+        document.body.classList.remove('dark');
+      }
+    }
   });
 }
 
+/**
+ * @description 描述 复制按钮
+ * @date 2025-06-25 17:50:05
+ * @author tingfeng
+ *
+ * @export
+ * @param codeText
+ */
 export function copyBtnEle(codeText: string[]) {
   return h(ElButton, {
     class: `shiki-header-button markdown-language-header-button`,
+    onClick: (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const code = target.getAttribute('data-code');
+      if (code) {
+        copy(code);
+      }
+    },
     icon: () =>
       h(CopyDocument, {
         class: `markdown-language-header-button-text`,
         'data-code': extractCodeFromHtmlLines(codeText)
       }),
     'data-code': extractCodeFromHtmlLines(codeText) // Vue 不支持直接绑定数组作为 data-* 属性
+  });
+}
+
+/* ----------------------------------- 方法 ----------------------------------- */
+
+/**
+ * @description 描述 展开
+ * @date 2025-06-25 17:50:22
+ * @author tingfeng
+ *
+ * @export
+ * @param elem
+ */
+export function expand(elem: HTMLElement) {
+  elem.style.height = '42px'; // 默认初始高度
+  requestAnimationFrame(() => {
+    elem.style.height = `${elem.scrollHeight}px`;
+
+    const afterTransition = () => {
+      elem.style.height = 'auto'; // 展开后清除高度限制
+      elem.removeEventListener('transitionend', afterTransition);
+    };
+    elem.addEventListener('transitionend', afterTransition);
+
+    elem.classList.add('is-expanded');
+  });
+}
+
+/**
+ * @description 描述 折叠
+ * @date 2025-06-25 17:50:32
+ * @author tingfeng
+ *
+ * @export
+ * @param elem
+ */
+export function collapse(elem: HTMLElement) {
+  elem.style.height = `${elem.scrollHeight}px`; // 从当前高度开始
+  requestAnimationFrame(() => {
+    elem.style.height = '42px';
+    elem.classList.remove('is-expanded');
   });
 }
 
@@ -95,56 +228,29 @@ async function copy(v: string) {
   }
 }
 
+/**
+ * @description 描述 将源代码行数转换可复制的string
+ * @date 2025-06-25 17:50:42
+ * @author tingfeng
+ *
+ * @export
+ * @param lines
+ */
 export function extractCodeFromHtmlLines(lines: string[]): string {
   const container = document.createElement('div');
+  const output: string[] = [];
 
-  return lines
-    .map(line => {
-      container.innerHTML = line;
-      return container.textContent?.trimEnd() ?? '';
-    })
-    .filter(line => line.trim() !== '')
-    .join('\n');
-}
-
-let listenerBound = false;
-
-function handleCopyClick(target: HTMLElement) {
-  const code = target.getAttribute('data-code');
-  if (code) copy(code);
-}
-
-function handleThemeToggleClick() {
-  document.body.classList.toggle('dark');
-}
-
-export function handleClick(event: MouseEvent) {
-  const target = event.target as HTMLElement;
-  const copyEl =
-    target.closest('.markdown-language-header-button') ||
-    target.closest('.markdown-language-header-button-text');
-  const toggleEl = target.closest('.markdown-language-header-toggle');
-
-  if (copyEl instanceof HTMLElement) {
-    handleCopyClick(copyEl);
-    return;
+  for (let i = 0; i < lines.length; i++) {
+    container.innerHTML = lines[i];
+    const text = container.textContent?.trimEnd();
+    if (text && text.trim() !== '') {
+      output.push(text);
+    }
   }
 
-  if (toggleEl) {
-    handleThemeToggleClick();
-  }
-}
+  container.remove();
+  container.innerHTML = ''; // 清空引用内容
+  container.textContent = null;
 
-export function startEventListener() {
-  if (!listenerBound) {
-    document.addEventListener('click', handleClick);
-    listenerBound = true;
-  }
-}
-
-export function stopEventListener() {
-  if (listenerBound) {
-    document.removeEventListener('click', handleClick);
-    listenerBound = false;
-  }
+  return output.join('\n');
 }

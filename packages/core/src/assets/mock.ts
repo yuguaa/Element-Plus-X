@@ -38,42 +38,6 @@ public class HelloWorld {
 }
 \`\`\`
 
-### go
-\`\`\`go
-package main
-
-import "fmt"
-
-func main() {
-    fmt.Println("Hello, world!")
-}
-\`\`\`
-
-
-### vue
-\`\`\`vue
-<template>
-  <div>Hello, world!</div>
-</template>
-
-<script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
-  }
-}
-</script>
-
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-}
-</style>
-\`\`\`
 
 `.trim();
 

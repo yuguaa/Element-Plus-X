@@ -53,6 +53,7 @@
     "shiki",
     "shikijs",
     "unplugin",
+    "Vnode",
     "vueuse"
   ],
   "eslint.nodePath": "node_modules",
