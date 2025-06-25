@@ -1,13 +1,9 @@
+import type AttachmentsSource from '@components/Attachments/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import Attachments from '@components/Attachments/index.vue';
-import { pick } from 'radash';
 import CustomButtons from './CustomButtons.vue';
 // import CustomList from './CustomList.vue';
-import DefaultScrollX from './DefaultScrollX.vue';
-import AttachmentsDemo from './index.vue';
-import ScrollY from './ScrollY.vue';
+import Attachments from './index.vue';
 import { genDefaultFiles } from './useAttachmentStubs';
-import Wrap from './Wrap.vue';
 
 const files = genDefaultFiles();
 
@@ -41,173 +37,40 @@ const meta: Meta = {
   },
   args: {
     overflow: 'scrollX',
-    listStyle: {},
+    listStyle: {
+      padding: '0 12px',
+      height: '320px'
+    },
     limit: 0,
     hideUpload: false,
     uploadIconSize: '64px',
-    dragTarget: ''
+    dragTarget: '',
+    items: files
   }
-} satisfies Meta<typeof Attachments>;
+} satisfies Meta<typeof AttachmentsSource>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const CustomListDemo: Story = {
-  name: 'AttachmentsDemo',
-  args: {
-    drag: true,
-    items: files,
-    listStyle: {
-      padding: '0 12px'
-    }
-  },
-  render: args => ({
-    components: {
-      AttachmentsDemo
-    },
-    setup() {
-      const attrs = pick(args, [
-        'items',
-        'hideUpload',
-        'listStyle',
-        'overflow',
-        'limit',
-        'uploadIconSize',
-        'dragTarget',
-        'drag'
-      ] as (keyof Story['args'])[]);
-      return {
-        attrs
-      };
-    },
-    template: '<AttachmentsDemo v-bind="attrs" />'
-  })
+export const AttachmentsDemo: Story = {
+  args: {}
 };
 
 export const CustomButtonsDemo: Story = {
   name: 'CustomButtons',
   args: {
-    drag: true,
-    items: files,
-    listStyle: {
-      padding: '0 12px'
-    },
-    hideUpload: false,
-    overflow: 'scrollX'
+    ...AttachmentsDemo.args
   } as Story['args'],
   render: args => ({
-    components: { CustomButtons },
+    components: {
+      CustomButtons
+    },
     setup() {
-      const attrs = pick(args, [
-        'items',
-        'listStyle',
-        'hideUpload',
-        'overflow',
-        'limit',
-        'uploadIconSize',
-        'dragTarget',
-        'drag'
-      ] as (keyof Story['args'])[]);
       return {
-        attrs
+        attrs: args
       };
     },
     template: '<CustomButtons v-bind="attrs" />'
-  })
-};
-
-export const DefaultScrollXDemo: Story = {
-  name: 'ScrollX',
-  args: {
-    drag: true,
-    items: files,
-    listStyle: {
-      padding: '0 12px'
-    },
-    hideUpload: false,
-    overflow: 'scrollX'
-  } as Story['args'],
-  render: args => ({
-    components: { DefaultScrollX },
-    setup() {
-      const attrs = pick(args, [
-        'items',
-        'listStyle',
-        'hideUpload',
-        'overflow',
-        'drag',
-        'overflow',
-        'limit',
-        'uploadIconSize',
-        'dragTarget'
-      ] as (keyof Story['args'])[]);
-      return {
-        attrs
-      };
-    },
-    template: '<DefaultScrollX v-bind="attrs" />'
-  })
-};
-export const ScrollYDemo: Story = {
-  name: 'ScrollY',
-  args: {
-    drag: true,
-    items: files,
-    listStyle: {
-      padding: '0 12px'
-    },
-    overflow: 'scrollY'
-  },
-  render: args => ({
-    components: { ScrollY },
-    setup() {
-      const attrs = pick(args, [
-        'items',
-        'listStyle',
-        'hideUpload',
-        'overflow',
-        'drag',
-        'overflow',
-        'limit',
-        'uploadIconSize',
-        'dragTarget'
-      ] as (keyof Story['args'])[]);
-      return {
-        attrs
-      };
-    },
-    template: '<ScrollY v-bind="attrs"/>'
-  })
-};
-export const WrapDemo: Story = {
-  name: 'Wrap',
-  args: {
-    drag: true,
-    items: files,
-    listStyle: {
-      padding: '0 12px'
-    },
-    overflow: 'wrap'
-  },
-  render: args => ({
-    components: { Wrap },
-    setup() {
-      const attrs = pick(args, [
-        'items',
-        'listStyle',
-        'hideUpload',
-        'overflow',
-        'drag',
-        'overflow',
-        'limit',
-        'uploadIconSize',
-        'dragTarget'
-      ] as (keyof Story['args'])[]);
-      return {
-        attrs
-      };
-    },
-    template: '<Wrap v-bind="attrs"/>'
   })
 };

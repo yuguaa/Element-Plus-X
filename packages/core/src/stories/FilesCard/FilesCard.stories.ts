@@ -1,6 +1,6 @@
 import type FilesCardSource from '@components/FilesCard/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import CustomStyle from './CustomStyle.vue';
+import CustomSolt from './CustomSolt.vue';
 import FilesCard from './index.vue';
 
 const meta: Meta<typeof FilesCardSource> = {
@@ -144,7 +144,7 @@ export const FilesCardDemo: Story = {
   }
 };
 
-export const StyleDemo: Story = {
+export const StyleSoltDemo: Story = {
   args: {
     ...FilesCardDemo.args,
     name: '自定义样式.doc',
@@ -161,11 +161,11 @@ export const StyleDemo: Story = {
   },
   render: args => ({
     components: {
-      CustomStyle
+      CustomSolt
     },
     setup() {
       return { attrs: args };
     },
-    template: `<CustomStyle v-bind="attrs" />`
+    template: `<CustomSolt v-bind="attrs" />`
   })
 };

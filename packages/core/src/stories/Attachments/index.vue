@@ -2,7 +2,6 @@
 import type { AttachmentsProps } from '@components/Attachments/types';
 import Attachments from '@components/Attachments/index.vue';
 import { useAttachmentStubs } from './useAttachmentStubs';
-import 'element-plus/theme-chalk/el-message.css';
 
 type Props = Pick<AttachmentsProps, 'items'>;
 
@@ -12,34 +11,28 @@ const props = withDefaults(defineProps<Props>(), {
 
 const attrs = useAttrs();
 
-const { files, handleBeforeUpload, handleHttpRequest, handleUploadDrop } =
-  useAttachmentStubs(props.items);
+const {
+  files,
+  handleBeforeUpload,
+  handleHttpRequest,
+  handleUploadDrop,
+  handleDeleteCard
+} = useAttachmentStubs(props.items);
 </script>
 
 <template>
   <div class="component-container">
-    <div class="component-title">附件上传组件-自定义 列表内容</div>
-    <!-- :items="files"
-      overflow="scrollX"
-      :list-style="{ padding: '0 12px' }"
-      :hide-upload="false" -->
+    <div class="component-title">
+      附件组件，内置多种文件格式样式。支持上传，删除，预览等操作，支持三种布局方式
+    </div>
     <Attachments
       v-bind="attrs"
       :items="files"
       :before-upload="handleBeforeUpload"
       :http-request="handleHttpRequest"
       @upload-drop="handleUploadDrop"
-    >
-      <template #file-list="{ items }">
-        <div class="custom-list">
-          <div v-for="(item, idx) in items" :key="idx" class="custom-item">
-            <div class="custom-item-name">
-              {{ item.name }}
-            </div>
-          </div>
-        </div>
-      </template>
-    </Attachments>
+      @delete-card="handleDeleteCard"
+    />
   </div>
 </template>
 
@@ -48,7 +41,6 @@ const { files, handleBeforeUpload, handleHttpRequest, handleUploadDrop } =
   background-color: white;
   padding: 12px;
   border-radius: 15px;
-  height: calc(100vh - 80px);
   overflow-y: auto;
 
   .component-title {

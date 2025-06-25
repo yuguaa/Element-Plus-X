@@ -2,7 +2,6 @@
 import type { AttachmentsProps } from '@components/Attachments/types';
 import Attachments from '@components/Attachments/index.vue';
 import { useAttachmentStubs } from './useAttachmentStubs';
-import 'element-plus/theme-chalk/el-message.css';
 
 type Props = Pick<AttachmentsProps, 'items'>;
 
@@ -48,7 +47,6 @@ const { files, handleBeforeUpload, handleHttpRequest, handleUploadDrop } =
   background-color: white;
   padding: 12px;
   border-radius: 15px;
-  height: calc(100vh - 80px);
   overflow-y: auto;
 
   .component-title {

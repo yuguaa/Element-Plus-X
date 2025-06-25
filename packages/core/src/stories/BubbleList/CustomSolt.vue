@@ -5,7 +5,6 @@ import { avatar1, avatar2 } from '@assets/mock';
 import BubbleList from '@components/BubbleList/index.vue';
 import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
-import 'element-plus/theme-chalk/el-message.css';
 
 const props = defineProps<Pick<BubbleListProps, 'list'>>();
 

@@ -5,7 +5,7 @@ import { useAttachmentStubs } from './useAttachmentStubs';
 
 type Props = Pick<AttachmentsProps, 'items'>;
 const props = withDefaults(defineProps<Props>(), {
-  items: () => [],
+  items: () => []
 });
 
 const {
@@ -13,20 +13,14 @@ const {
   handleBeforeUpload,
   handleHttpRequest,
   handleUploadDrop,
-  handleDeleteCard,
+  handleDeleteCard
 } = useAttachmentStubs(props.items);
 </script>
 
 <template>
   <div class="component-container">
-    <div class="component-title">
-      附件上传组件-自定义左右按钮
-    </div>
-    <!-- :items="files"
-      overflow="scrollX"
-      :list-style="{
-        padding: '0 12px',
-      }" -->
+    <div class="component-title">附件上传组件-自定义左右按钮</div>
+
     <Attachments
       v-bind="$attrs"
       :items="files"
@@ -37,22 +31,14 @@ const {
     >
       <!-- 自定义左侧按钮（覆盖默认插槽） -->
       <template #prev-button="{ show, onScrollLeft }">
-        <button
-          v-if="show"
-          class="custom-prev"
-          @click="onScrollLeft"
-        >
+        <button v-if="show" class="custom-prev" @click="onScrollLeft">
           👈
         </button>
       </template>
 
       <!-- 自定义右侧按钮（覆盖默认插槽） -->
       <template #next-button="{ show, onScrollRight }">
-        <button
-          v-if="show"
-          class="custom-next"
-          @click="onScrollRight"
-        >
+        <button v-if="show" class="custom-next" @click="onScrollRight">
           👉
         </button>
       </template>
@@ -65,7 +51,6 @@ const {
   background-color: white;
   padding: 12px;
   border-radius: 15px;
-  height: calc(100vh - 80px);
   overflow-y: auto;
 
   .component-title {
