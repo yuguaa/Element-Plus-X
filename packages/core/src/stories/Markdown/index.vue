@@ -7,19 +7,9 @@ import {
 
 <template>
   <div class="component-container">
-    <MarkdownRenderer
-      v-bind="$attrs"
-      :themes="{
-        light: 'vitesse-light',
-        dark: 'vitesse-dark'
-      }"
-    />
+    <MarkdownRenderer v-bind="$attrs" />
     <!-- <MarkdownRenderer
       v-bind="$attrs"
-      :themes="{
-        light: 'vitesse-light',
-        dark: 'vitesse-dark'
-      }"
     >
       <template #headerLanguage="{ language }">
         <span>slots language ----  {{ language }}</span>
