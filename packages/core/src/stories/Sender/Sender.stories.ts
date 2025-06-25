@@ -10,7 +10,9 @@ const meta: Meta<typeof SenderSource> = {
     modelValue: {
       defaultValue: '',
       control: 'text',
-      description: '输入框的绑定值，使用 v-model 进行双向绑定。'
+      description: '输入框的绑定值，使用 v-model 进行双向绑定。',
+      // 隐藏 modelValue 属性
+      table: { disable: true }
     },
     placeholder: {
       defaultValue: '',
@@ -86,7 +88,7 @@ const meta: Meta<typeof SenderSource> = {
     },
     triggerStrings: {
       defaultValue: [],
-      control: 'array',
+      control: { type: 'object' },
       description: '触发指令的字符串数组。'
     },
     triggerPopoverVisible: {
@@ -166,7 +168,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const SenderDemo: Story = {
-  render: (args: { modelValue: any; triggerPopoverVisible: boolean }) => ({
+  render: (args: any) => ({
     components: { Sender },
     setup() {
       const model = ref(args.modelValue);
@@ -197,7 +199,7 @@ export const SenderDemo: Story = {
 };
 
 export const SenderSlotDemo: Story = {
-  render: (args: { modelValue: any; triggerPopoverVisible: boolean }) => ({
+  render: (args: any) => ({
     components: { SenderSlot },
     setup() {
       const model = ref(args.modelValue);
