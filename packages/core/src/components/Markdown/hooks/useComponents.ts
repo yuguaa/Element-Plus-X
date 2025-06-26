@@ -1,10 +1,9 @@
 import { h } from 'vue';
-import { CodeX, Link } from '../components/index';
+import { CodeX } from '../components/index';
 
-function useComponents(slots: any) {
+function useComponents() {
   const components = {
-    code: (raw: any) => h(CodeX, { raw }, slots),
-    a: (raw: any) => h(Link, { raw })
+    pre: (raw: any) => h(CodeX, { raw })
   };
   return components;
 }

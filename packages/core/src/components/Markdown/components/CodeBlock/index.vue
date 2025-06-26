@@ -9,7 +9,8 @@ import {
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
-import { defineComponent, h, ref, watch } from 'vue'; // 引入vue相关API
+import { defineComponent, h, ref, toValue, watch } from 'vue';
+import { useMarkdownContext } from '../MarkdownProvider';
 import { controlEle, expand, languageEle } from './shiki-header';
 import '../../../../assets/style/shiki.scss';
 
@@ -20,7 +21,9 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props, { slots }) {
+  setup(props) {
+    const context = useMarkdownContext();
+    const { codeXSlot } = toValue(context);
     const renderLines = ref<string[]>([]);
     const firstRender = ref(true);
     const preStyle = ref<any | null>(null);
@@ -69,7 +72,16 @@ export default defineComponent({
       },
       { immediate: true }
     );
-
+    const render = (slotName: string) => {
+      const slotFn = codeXSlot[slotName];
+      if (typeof slotFn === 'function') {
+        return slotFn({ ...props, renderLines: renderLines.value });
+      }
+      return h(slotFn, {
+        ...props,
+        renderLines: renderLines.value
+      });
+    };
     return () =>
       h(
         'pre',
@@ -95,13 +107,10 @@ export default defineComponent({
             {
               class: `markdown-language-header-div el-card is-always-shadow`
             },
-            slots.header?.({
-              language: props.raw.language,
-              lines: renderLines.value
-            }) ?? [
-              slots.headerLanguage?.({ language: props.raw.language }) ??
+            (codeXSlot.codeHeader && render('codeHeader')) ?? [
+              (codeXSlot.codeHeaderLanguage && render('codeHeaderLanguage')) ??
                 languageEle(props.raw.language),
-              slots.headerControl?.({ lines: renderLines.value }) ??
+              (codeXSlot.codeHeaderControl && render('codeHeaderControl')) ??
                 controlEle(renderLines.value)
             ]
           ),
