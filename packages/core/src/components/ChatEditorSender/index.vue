@@ -91,7 +91,6 @@ function createChat() {
         ? event => !event.shiftKey && event.key === 'Enter'
         : event => event.shiftKey && event.key === 'Enter'
   });
-  console.log(chat.value);
   opNode.value = chat.value.createOperateNode();
   // 订阅发送事件
   chat.value.addEventListener('enterSend', onSubmit);
