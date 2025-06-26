@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { TagInfo, UserInfo } from 'chatarea';
 import { ref } from 'vue';
 import { EditorSender } from '../../components';
 
@@ -26,6 +27,69 @@ async function asyncMatchUser(searchVal: string) {
 
 /** 示例二相关 */
 const editorRef = ref<InstanceType<typeof EditorSender>>();
+// 自定义@弹窗相关逻辑
+const userList = ref([
+  {
+    id: '5',
+    name: '张三丰'
+  },
+  {
+    id: '1',
+    name: '张三'
+  },
+  {
+    id: '2',
+    name: '李四'
+  },
+  {
+    id: '3',
+    name: '王五'
+  },
+  {
+    id: '4',
+    name: '马六'
+  }
+]);
+const dialogUserVisible = ref(false);
+function showAtDialog() {
+  dialogUserVisible.value = true;
+}
+function checkUser(user: UserInfo) {
+  editorRef.value?.customSetUser(user);
+  dialogUserVisible.value = false;
+}
+
+// 自定义触发符相关逻辑
+const customTrigger = ref([
+  {
+    dialogTitle: '群话题',
+    prefix: '#',
+    tagList: [
+      { id: 'ht1', name: '话题一' },
+      { id: 'ht2', name: '话题二' }
+    ]
+  },
+  {
+    dialogTitle: '群工具',
+    prefix: '!',
+    tagList: [
+      { id: 'gj1', name: '工具一' },
+      { id: 'gj2', name: '工具二' }
+    ]
+  }
+]);
+const dialogCustomVisible = ref(false);
+const viewPrefix = ref('');
+function showTagDialog(prefix: string) {
+  viewPrefix.value = prefix;
+  dialogCustomVisible.value = true;
+}
+function checkTag(tag: TagInfo) {
+  editorRef.value?.customSetTag(viewPrefix.value, tag);
+  dialogCustomVisible.value = false;
+}
+
+// 自定义选择标签相关逻辑
 const selectList = ref([
   {
     dialogTitle: '风格选择',
@@ -49,33 +113,25 @@ const selectList = ref([
     ]
   }
 ]);
-const userList = ref([
-  {
-    id: '5',
-    name: '张三丰',
-    pinyin: 'zhang san feng'
-  },
-  {
-    id: '1',
-    name: '张三',
-    pinyin: 'zhang san'
-  },
-  {
-    id: '2',
-    name: '李四',
-    pinyin: 'li si'
-  },
-  {
-    id: '3',
-    name: '王五',
-    pinyin: 'wang wu'
-  },
-  {
-    id: '4',
-    name: '马六',
-    pinyin: 'ma liu'
+const viewKey = ref('');
+const dialogSelectVisible = ref(false);
+const currentSelectElm = ref<HTMLElement>();
+function showSelectDialog(key: string, elm?: HTMLElement) {
+  viewKey.value = key;
+  // 有elm值说明内部聊天框唤起
+  currentSelectElm.value = elm;
+  dialogSelectVisible.value = true;
+}
+function checkSelect(tag: TagInfo) {
+  // 没有 currentSelectElm 说明是外部调用走插入逻辑
+  if (!currentSelectElm.value) {
+    editorRef.value?.setSelectTag(viewKey.value, tag.id);
+  } else {
+    // 有值走标签更新方法
+    editorRef.value?.updateSelectTag(currentSelectElm.value, tag);
   }
-]);
+  dialogSelectVisible.value = false;
+}
 </script>
 
 <template>
@@ -89,22 +145,66 @@ const userList = ref([
       :custom-style="{ maxHeight: '240px' }"
     />
 
-    <p style="margin-top: 100px">
-      自定义弹窗示例，本文示例了自定义@弹窗，自定义选择弹窗，其他同理
-    </p>
+    <p style="margin-top: 100px">自定义弹窗示例，完全由用户自己去写弹窗组件</p>
     <p>
-      <el-button @click="editorRef?.setSelectTag('style', '1')">
-        插入一个选择标签以展示自定义选择弹窗
+      <el-button @click="showSelectDialog('style')">
+        唤起自定义选择弹窗
       </el-button>
     </p>
     <EditorSender
       ref="editorRef"
-      placeholder="这里是自定义弹窗"
+      placeholder="这里是自定义弹窗，你可以试着输入@，!，#这些触发符号"
       :custom-style="{ maxHeight: '240px' }"
       :custom-dialog="true"
       :select-list="selectList"
       :user-list="userList"
+      :custom-trigger="customTrigger"
+      @show-at-dialog="showAtDialog"
+      @show-tag-dialog="showTagDialog"
+      @show-select-dialog="showSelectDialog"
     />
+
+    <el-dialog
+      v-model="dialogUserVisible"
+      title="自定义人员选择弹窗"
+      width="500"
+    >
+      <p v-for="user of userList" :key="user.id" @click="checkUser(user)">
+        {{ user.name }}
+      </p>
+    </el-dialog>
+
+    <el-dialog
+      v-model="dialogCustomVisible"
+      title="自定义触发符号选择弹窗"
+      width="500"
+    >
+      <template v-for="option of customTrigger" :key="option.prefix">
+        <div v-if="option.prefix === viewPrefix">
+          <p v-for="tag of option.tagList" :key="tag.id" @click="checkTag(tag)">
+            {{ tag.name }}
+          </p>
+        </div>
+      </template>
+    </el-dialog>
+
+    <el-dialog
+      v-model="dialogSelectVisible"
+      title="自定义选择标签弹窗"
+      width="500"
+    >
+      <template v-for="option of selectList" :key="option.key">
+        <div v-if="option.key === viewKey">
+          <p
+            v-for="tag of option.options"
+            :key="tag.id"
+            @click="checkSelect(tag)"
+          >
+            {{ tag.name }}
+          </p>
+        </div>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
