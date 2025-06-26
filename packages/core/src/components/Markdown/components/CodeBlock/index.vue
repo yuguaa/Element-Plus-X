@@ -22,6 +22,7 @@ export default defineComponent({
   },
   setup(props, { slots }) {
     const renderLines = ref<string[]>([]);
+    const firstRender = ref(true);
     const preStyle = ref<any | null>(null);
     const preClass = ref<string | null>(null);
     const theme = inject<ComputedRef<InitShikiOptions['themes']>>(
@@ -76,12 +77,15 @@ export default defineComponent({
           class: `pre-md ${preClass.value}`,
           style: preStyle.value,
           key: props.raw.key,
-          onVnodeMounted(vnode) {
-            const ele = vnode.el as HTMLElement;
-            if (ele) {
-              setTimeout(() => {
-                expand(ele);
-              }, 800);
+          onVnodeUpdated(vnode) {
+            if (renderLines.value.length > 0) {
+              const ele = vnode.el as HTMLElement;
+              if (ele && firstRender.value) {
+                firstRender.value = false;
+                setTimeout(() => {
+                  expand(ele);
+                }, 100);
+              }
             }
           }
         },

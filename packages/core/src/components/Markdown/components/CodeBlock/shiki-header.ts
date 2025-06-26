@@ -152,42 +152,44 @@ export function copyBtnEle(codeText: string[]) {
 
 /* ----------------------------------- 方法 ----------------------------------- */
 
-/**
- * @description 描述 展开
- * @date 2025-06-25 17:50:22
- * @author tingfeng
- *
- * @export
- * @param elem
- */
+const transitionStateMap = new WeakMap<HTMLElement, boolean>();
+
 export function expand(elem: HTMLElement) {
-  elem.style.height = '42px'; // 默认初始高度
+  if (transitionStateMap.get(elem)) return; // 动画中，忽略重复调用
+
+  transitionStateMap.set(elem, true);
+  elem.style.height = '42px';
+  elem.classList.add('is-expanded');
+
   requestAnimationFrame(() => {
     elem.style.height = `${elem.scrollHeight}px`;
 
     const afterTransition = () => {
-      elem.style.height = 'auto'; // 展开后清除高度限制
+      elem.style.height = 'auto';
       elem.removeEventListener('transitionend', afterTransition);
+      transitionStateMap.set(elem, false); // 解除锁
     };
-    elem.addEventListener('transitionend', afterTransition);
 
-    elem.classList.add('is-expanded');
+    elem.addEventListener('transitionend', afterTransition);
   });
 }
 
-/**
- * @description 描述 折叠
- * @date 2025-06-25 17:50:32
- * @author tingfeng
- *
- * @export
- * @param elem
- */
 export function collapse(elem: HTMLElement) {
-  elem.style.height = `${elem.scrollHeight}px`; // 从当前高度开始
+  if (transitionStateMap.get(elem)) return; // 动画中，忽略重复调用
+
+  transitionStateMap.set(elem, true);
+  elem.style.height = `${elem.scrollHeight}px`;
+  elem.classList.remove('is-expanded');
+
   requestAnimationFrame(() => {
     elem.style.height = '42px';
-    elem.classList.remove('is-expanded');
+
+    const afterTransition = () => {
+      elem.removeEventListener('transitionend', afterTransition);
+      transitionStateMap.set(elem, false); // 解除锁
+    };
+
+    elem.addEventListener('transitionend', afterTransition);
   });
 }
 
