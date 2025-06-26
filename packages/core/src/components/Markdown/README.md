@@ -51,5 +51,13 @@ const customAttrs = {
 ### 代码块渲染
 
 组件内置了代码块渲染器，支持高亮代码块，mermaid图表等。
+codeXSlot自定义代码块顶部
+可通过 codeXRender 属性自定义代码块语言渲染器，如下可以自定义 echarts 渲染器：
 
-可通过 codeXRender 属性自定义代码块渲染器：codeXSlot自定义代码块顶部
+```ts
+codeXRender: {
+  echarts: (props) => {
+    return h()
+  },
+}
+```
