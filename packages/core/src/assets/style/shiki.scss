@@ -190,15 +190,24 @@ body.dark .shiki span {
           }
         }
       }
+      // 按钮图标的大小
+      .shiki-header-button {
+        span {
+          width: 16px;
+          height: 16px;
+        }
+      }
       .shiki-header-button-expand {
-        .el-icon {
-          font-size: 12px !important;
+        span {
+          width: 12px;
+          height: 12px;
         }
-        .markdown-language-header-toggle-expand {
-          margin: 2px 0 0 0;
-          transition: all 0.2s ease-in-out;
-          transform: rotate(-90deg);
-        }
+      }
+
+      .markdown-language-header-toggle-expand {
+        margin: 2px 0 0 0;
+        transition: all 0.2s ease-in-out;
+        transform: rotate(-90deg);
       }
     }
 

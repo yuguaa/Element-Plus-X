@@ -50,14 +50,20 @@ export function languageEle(language: string) {
           },
           language || ''
         ),
-        h(ElButton, {
-          class: 'shiki-header-button shiki-header-button-expand',
-          icon: () =>
-            h(ArrowDownBold, {
-              class:
-                'markdown-language-header-toggle markdown-language-header-toggle-expand '
-            })
-        })
+        h(
+          ElButton,
+          {
+            class: 'shiki-header-button shiki-header-button-expand'
+          },
+          {
+            default: () => [
+              h(ArrowDownBold, {
+                class:
+                  'markdown-language-header-toggle markdown-language-header-toggle-expand '
+              })
+            ]
+          }
+        )
       ]
     }
   );
@@ -95,21 +101,26 @@ const isDark = ref(document.body.classList.contains('dark'));
  * @export
  */
 export function toggleThemeEle() {
-  return h(ElButton, {
-    class: 'shiki-header-button markdown-language-header-toggle',
-    icon: () =>
-      h(!isDark.value ? Moon : Sunny, {
-        class: 'markdown-language-header-toggle'
-      }),
-    onClick: () => {
-      isDark.value = !isDark.value;
-      if (isDark.value) {
-        document.body.classList.add('dark');
-      } else {
-        document.body.classList.remove('dark');
+  return h(
+    ElButton,
+    {
+      class: 'shiki-header-button markdown-language-header-toggle',
+      onClick: () => {
+        isDark.value = !isDark.value;
+        if (isDark.value) {
+          document.body.classList.add('dark');
+        } else {
+          document.body.classList.remove('dark');
+        }
       }
+    },
+    {
+      default: () =>
+        h(!isDark.value ? Moon : Sunny, {
+          class: 'markdown-language-header-toggle'
+        })
     }
-  });
+  );
 }
 
 /**
@@ -121,62 +132,64 @@ export function toggleThemeEle() {
  * @param codeText
  */
 export function copyBtnEle(codeText: string[]) {
-  return h(ElButton, {
-    class: `shiki-header-button markdown-language-header-button`,
-    onClick: (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const code = target.getAttribute('data-code');
-      if (code) {
+  return h(
+    ElButton,
+    {
+      class: `shiki-header-button markdown-language-header-button`,
+      onClick: () => {
+        const code = extractCodeFromHtmlLines(codeText);
         copy(code);
       }
     },
-    icon: () =>
-      h(CopyDocument, {
-        class: `markdown-language-header-button-text`,
-        'data-code': extractCodeFromHtmlLines(codeText)
-      }),
-    'data-code': extractCodeFromHtmlLines(codeText) // Vue 不支持直接绑定数组作为 data-* 属性
-  });
+    {
+      default: () =>
+        h(CopyDocument, {
+          class: `markdown-language-header-button-text`
+        })
+    }
+  );
 }
 
 /* ----------------------------------- 方法 ----------------------------------- */
 
-/**
- * @description 描述 展开
- * @date 2025-06-25 17:50:22
- * @author tingfeng
- *
- * @export
- * @param elem
- */
+const transitionStateMap = new WeakMap<HTMLElement, boolean>();
+
 export function expand(elem: HTMLElement) {
-  elem.style.height = '42px'; // 默认初始高度
+  if (transitionStateMap.get(elem)) return; // 动画中，忽略重复调用
+
+  transitionStateMap.set(elem, true);
+  elem.style.height = '42px';
+  elem.classList.add('is-expanded');
+
   requestAnimationFrame(() => {
     elem.style.height = `${elem.scrollHeight}px`;
 
     const afterTransition = () => {
-      elem.style.height = 'auto'; // 展开后清除高度限制
+      elem.style.height = 'auto';
       elem.removeEventListener('transitionend', afterTransition);
+      transitionStateMap.set(elem, false); // 解除锁
     };
-    elem.addEventListener('transitionend', afterTransition);
 
-    elem.classList.add('is-expanded');
+    elem.addEventListener('transitionend', afterTransition);
   });
 }
 
-/**
- * @description 描述 折叠
- * @date 2025-06-25 17:50:32
- * @author tingfeng
- *
- * @export
- * @param elem
- */
 export function collapse(elem: HTMLElement) {
-  elem.style.height = `${elem.scrollHeight}px`; // 从当前高度开始
+  if (transitionStateMap.get(elem)) return; // 动画中，忽略重复调用
+
+  transitionStateMap.set(elem, true);
+  elem.style.height = `${elem.scrollHeight}px`;
+  elem.classList.remove('is-expanded');
+
   requestAnimationFrame(() => {
     elem.style.height = '42px';
-    elem.classList.remove('is-expanded');
+
+    const afterTransition = () => {
+      elem.removeEventListener('transitionend', afterTransition);
+      transitionStateMap.set(elem, false); // 解除锁
+    };
+
+    elem.addEventListener('transitionend', afterTransition);
   });
 }
 
