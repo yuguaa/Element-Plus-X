@@ -13,10 +13,21 @@ const meta = {
   component: Markdown,
   tags: ['autodocs'],
   argTypes: {
-    markdown: { control: 'text' }
+    markdown: { control: 'text' },
+    themes: {
+      control: 'object',
+      defaultValue: {
+        light: 'vitesse-light',
+        dark: 'vitesse-dark'
+      }
+    }
   },
   args: {
-    markdown: mdContent
+    markdown: mdContent,
+    themes: {
+      light: 'vitesse-light',
+      dark: 'vitesse-dark'
+    }
   }
 } satisfies Meta;
 

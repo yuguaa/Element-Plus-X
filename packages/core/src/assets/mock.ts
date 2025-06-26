@@ -38,16 +38,6 @@ public class HelloWorld {
 }
 \`\`\`
 
-### go
-\`\`\`go
-package main
-
-import "fmt"
-
-func main() {
-    fmt.Println("Hello, world!")
-}
-\`\`\`
 
 `.trim();
 

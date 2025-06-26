@@ -10,7 +10,9 @@ const meta: Meta<typeof MentionSenderSource> = {
     modelValue: {
       defaultValue: '',
       control: 'text',
-      description: '输入框的绑定值，使用 v-model 进行双向绑定。'
+      description: '输入框的绑定值，使用 v-model 进行双向绑定。',
+      // 隐藏 modelValue 属性
+      table: { disable: true }
     },
     placeholder: {
       defaultValue: '',
@@ -86,29 +88,13 @@ const meta: Meta<typeof MentionSenderSource> = {
     },
     options: {
       defaultValue: [],
-      control: 'array',
+      control: { type: 'object' },
       description: '可以传入一个数组，用于定义提及选项列表。'
     },
     triggerStrings: {
       defaultValue: [],
-      control: 'array',
+      control: { type: 'object' },
       description: '触发指令的字符串数组。'
-    },
-    triggerPopoverVisible: {
-      defaultValue: false,
-      control: 'boolean',
-      description:
-        '触发指令的弹框是否可见。需要使用 v-model:triggerPopoverVisible 进行控制。'
-    },
-    triggerPopoverWidth: {
-      defaultValue: 'fit-content',
-      control: 'text',
-      description: '触发指令的弹框的宽度。可使用百分比等 css 单位。'
-    },
-    triggerPopoverLeft: {
-      defaultValue: '0px',
-      control: 'text',
-      description: '触发指令的弹框的左边距。可使用百分比等 css 单位。'
     },
     triggerPopoverOffset: {
       defaultValue: 8,
@@ -174,8 +160,6 @@ const meta: Meta<typeof MentionSenderSource> = {
         label: '选项3'
       }
     ],
-    triggerPopoverWidth: '400px',
-    triggerPopoverLeft: '0px',
     triggerPopoverOffset: 8,
     triggerPopoverPlacement: 'top'
   }
@@ -186,62 +170,50 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const MentionSenderDemo: Story = {
-  render: (args: { modelValue: any; triggerPopoverVisible: boolean }) => ({
+  render: (args: any) => ({
     components: { MentionSender },
     setup() {
       const model = ref(args.modelValue);
-      const triggerVisible = ref(args.triggerPopoverVisible);
 
       // 同步回 Storybook 控制面板
       watch(model, val => {
         args.modelValue = val;
       });
-      watch(triggerVisible, val => {
-        args.triggerPopoverVisible = val;
-      });
 
       return {
         args,
-        model,
-        triggerVisible
+        model
       };
     },
     template: `
       <MentionSender
         v-bind="args"
         v-model:modelValue="model"
-        v-model:triggerPopoverVisible="triggerVisible"
       />
     `
   })
 };
 
 export const MentionSenderSlotDemo: Story = {
-  render: (args: { modelValue: any; triggerPopoverVisible: boolean }) => ({
+  render: (args: any) => ({
     components: { MentionSenderSlot },
     setup() {
       const model = ref(args.modelValue);
-      const triggerVisible = ref(args.triggerPopoverVisible);
 
       // 同步回 Storybook 控制面板
       watch(model, val => {
         args.modelValue = val;
       });
-      watch(triggerVisible, val => {
-        args.triggerPopoverVisible = val;
-      });
 
       return {
         args,
-        model,
-        triggerVisible
+        model
       };
     },
     template: `
       <MentionSenderSlot
         v-bind="args"
         v-model:modelValue="model"
-        v-model:triggerPopoverVisible="triggerVisible"
       />
     `
   })
