@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ChatOperateNode } from 'chatarea';
+import type { ChatOperateNode, TagInfo, UserInfo } from 'chatarea';
 import type {
   ChatState,
   EditorProps,
@@ -27,13 +27,18 @@ const props = withDefaults(defineProps<EditorProps>(), {
   customStyle: () => ({}), // 修改输入样式
   loading: false, // 发送按钮加载状态
   disabled: false, // 是否禁用输入框
-  headerAnimationTimer: 300 // 展开动画
+  headerAnimationTimer: 300, // 展开动画
+  asyncMatchFun: undefined, // 异步加载群成员方法
+  customDialog: false // 是否需要自定义弹窗 开启后内部弹窗将不会再创建了
 });
 /** 暴露的事件 */
 const emits = defineEmits<{
   (e: 'submit', payload: SubmitResult): void;
   (e: 'change'): void;
   (e: 'cancel'): void;
+  (e: 'showAtDialog'): void;
+  (e: 'showSelectDialog', key: string, elm: HTMLElement): void;
+  (e: 'showTagDialog', prefix: string): void;
 }>();
 const slots = defineSlots();
 /** header相关操作 */
@@ -72,9 +77,9 @@ function createChat() {
     ...props,
     userList: JSON.parse(JSON.stringify(props.userList)),
     device: 'pc',
-    needDialog: true,
+    needDialog: !props.customDialog,
     copyType: ['text'],
-    asyncMatch: false,
+    asyncMatch: Boolean(props.asyncMatchFun),
     needDebounce: false,
     needCallSpace: false,
     sendKeyFun:
@@ -86,6 +91,7 @@ function createChat() {
         ? event => !event.shiftKey && event.key === 'Enter'
         : event => event.shiftKey && event.key === 'Enter'
   });
+  console.log(chat.value);
   opNode.value = chat.value.createOperateNode();
   // 订阅发送事件
   chat.value.addEventListener('enterSend', onSubmit);
@@ -113,6 +119,24 @@ function createChat() {
       chatState.selectTagInsetText = '';
     }
   });
+  // 接管异步匹配
+  if (props.asyncMatchFun) {
+    chat.value.addEventListener('atMatch', props.asyncMatchFun);
+  }
+  // 检测多种弹窗唤起事件
+  chat.value.addEventListener('showAtDialog', () => {
+    emits('showAtDialog');
+  });
+  chat.value.addEventListener(
+    'showSelectDialog',
+    (key: string, elm: HTMLElement) => {
+      emits('showSelectDialog', key, elm);
+    }
+  );
+  chat.value.addEventListener('showTagDialog', (prefix: string) => {
+    emits('showTagDialog', prefix);
+  });
+  // 禁用编辑器
   if (props.disabled) {
     chat.value.disabled();
   }
@@ -302,6 +326,30 @@ function openSelectDialog(option: SelectDialogOption) {
   chatState.wrapCallSelectDialog = true;
   chat.value?.showPCSelectDialog(option.key, option.elm);
 }
+// 用户自定义弹窗写入@提及标签
+function customSetUser(user: UserInfo) {
+  // 该方法并未写入ts 因为是一个私有api没暴露给用户 其区别 setUserTag 相比会去向前截取掉触发符
+  (chat.value as any).onceSetTag(user);
+}
+// 用户自定义弹窗写入自定义触发符号标签
+function customSetTag(prefix: string, tag: TagInfo) {
+  // 该方法并未写入ts 因为是一个私有api没暴露给用户 其区别 setCustomTag 相比会去向前截取掉触发符
+  (chat.value as any).onceSetCustomTag(tag, prefix);
+}
+// 用户自定义弹窗更新选择标签
+function updateSelectTag(elm: HTMLElement, tag: TagInfo) {
+  const rank = opNode.value?.getRankByElm(elm.parentElement!);
+  if (!rank) {
+    return;
+  }
+  const chatNode = opNode.value?.getNodeByRank(rank);
+  if (!chatNode) {
+    return;
+  }
+  chatNode.dataset.id = tag.id;
+  chatNode.dataset.name = tag.name;
+  opNode.value?.updateNode(chatNode);
+}
 
 /** 监听响应props的响应式修改 去更新chat示例对象对应的配置 */
 watch(
@@ -413,7 +461,11 @@ defineExpose({
   setHtml,
   setText,
   openSelectDialog,
+  customSetUser,
+  customSetTag,
+  updateSelectTag,
   chat, // 暴露chat实例对象
+  opNode, // 暴露ChatNode操作对象
   chatState
 });
 </script>
@@ -447,13 +499,12 @@ defineExpose({
         <slot name="prefix" />
       </div>
       <!-- 输入区域 -->
-      <div class="el-editor-sender-chat-room">
+      <div class="el-editor-sender-chat-room" @mousedown.stop="() => {}">
         <!-- 输入框载体 这里多嵌套一层是为了存放渲染后的弹窗元素 -->
         <div
           ref="container"
           :style="{ ...customStyle }"
           class="el-editor-sender-chat"
-          @mousedown.stop="() => {}"
         />
       </div>
       <!-- 默认操作列表 -->
