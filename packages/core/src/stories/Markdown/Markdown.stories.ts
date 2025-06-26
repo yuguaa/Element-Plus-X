@@ -34,13 +34,9 @@ const meta = {
       showFullscreen: true,
       showZoomIn: true,
       showZoomOut: true,
-      showReset: false,
+      showReset: true,
       showCode: true,
-      toolbarStyle: {
-        borderRadius: '10px',
-        padding: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.2)'
-      },
+      toolbarStyle: {},
       toolbarClass: 'mermaid-config-toolbar'
     }
   }
@@ -81,16 +77,42 @@ export const MermaidToolbarDemo: Story = {
       showFullscreen: true,
       showZoomIn: true,
       showZoomOut: true,
-      showReset: false, // 禁用重置按钮
+      showReset: true, // 禁用重置按钮
       showCode: true,
       toolbarStyle: {
         background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)', // 紫色渐变背景
-        borderRadius: '10px',
-        padding: '8px',
         boxShadow: '0 4px 16px rgba(139, 92, 246, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.2)'
       },
-      toolbarClass: 'mermaid-config-toolbar'
+      toolbarClass: 'mermaid-config-toolbar',
+      iconColor: '#FFFFFF',
+      tabTextColor: '#FFFFFF'
+    }
+  } as Story['args']
+};
+
+// Mermaid 渲染错误案例演示
+export const MermaidErrorDemo: Story = {
+  args: {
+    markdown: `
+### Mermaid 渲染错误演示
+\`\`\`mermaid
+graph TD
+    A[开始] --> B[处理
+    B --> C[结束]
+    D --> 
+\`\`\`
+`,
+    mermaidConfig: {
+      showToolbar: true,
+      showFullscreen: true,
+      showZoomIn: true,
+      showZoomOut: true,
+      showReset: true,
+      showCode: true,
+      showDownload: true,
+      toolbarStyle: {},
+      toolbarClass: 'mermaid-error-demo'
     }
   } as Story['args']
 };
