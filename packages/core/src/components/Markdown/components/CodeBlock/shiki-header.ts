@@ -50,14 +50,20 @@ export function languageEle(language: string) {
           },
           language || ''
         ),
-        h(ElButton, {
-          class: 'shiki-header-button shiki-header-button-expand',
-          icon: () =>
-            h(ArrowDownBold, {
-              class:
-                'markdown-language-header-toggle markdown-language-header-toggle-expand '
-            })
-        })
+        h(
+          ElButton,
+          {
+            class: 'shiki-header-button shiki-header-button-expand'
+          },
+          {
+            default: () => [
+              h(ArrowDownBold, {
+                class:
+                  'markdown-language-header-toggle markdown-language-header-toggle-expand '
+              })
+            ]
+          }
+        )
       ]
     }
   );
@@ -95,21 +101,26 @@ const isDark = ref(document.body.classList.contains('dark'));
  * @export
  */
 export function toggleThemeEle() {
-  return h(ElButton, {
-    class: 'shiki-header-button markdown-language-header-toggle',
-    icon: () =>
-      h(!isDark.value ? Moon : Sunny, {
-        class: 'markdown-language-header-toggle'
-      }),
-    onClick: () => {
-      isDark.value = !isDark.value;
-      if (isDark.value) {
-        document.body.classList.add('dark');
-      } else {
-        document.body.classList.remove('dark');
+  return h(
+    ElButton,
+    {
+      class: 'shiki-header-button markdown-language-header-toggle',
+      onClick: () => {
+        isDark.value = !isDark.value;
+        if (isDark.value) {
+          document.body.classList.add('dark');
+        } else {
+          document.body.classList.remove('dark');
+        }
       }
+    },
+    {
+      default: () =>
+        h(!isDark.value ? Moon : Sunny, {
+          class: 'markdown-language-header-toggle'
+        })
     }
-  });
+  );
 }
 
 /**
@@ -121,22 +132,22 @@ export function toggleThemeEle() {
  * @param codeText
  */
 export function copyBtnEle(codeText: string[]) {
-  return h(ElButton, {
-    class: `shiki-header-button markdown-language-header-button`,
-    onClick: (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      const code = target.getAttribute('data-code');
-      if (code) {
+  return h(
+    ElButton,
+    {
+      class: `shiki-header-button markdown-language-header-button`,
+      onClick: () => {
+        const code = extractCodeFromHtmlLines(codeText);
         copy(code);
       }
     },
-    icon: () =>
-      h(CopyDocument, {
-        class: `markdown-language-header-button-text`,
-        'data-code': extractCodeFromHtmlLines(codeText)
-      }),
-    'data-code': extractCodeFromHtmlLines(codeText) // Vue 不支持直接绑定数组作为 data-* 属性
-  });
+    {
+      default: () =>
+        h(CopyDocument, {
+          class: `markdown-language-header-button-text`
+        })
+    }
+  );
 }
 
 /* ----------------------------------- 方法 ----------------------------------- */

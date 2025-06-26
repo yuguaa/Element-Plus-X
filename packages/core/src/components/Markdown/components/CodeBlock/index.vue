@@ -81,7 +81,7 @@ export default defineComponent({
             if (ele) {
               setTimeout(() => {
                 expand(ele);
-              }, 500);
+              }, 800);
             }
           }
         },
