@@ -10,7 +10,7 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props) {
+  setup(props, { slots }) {
     const context = useMarkdownContext();
     const { codeBlockRender } = toValue(context);
     return (): ReturnType<typeof h> | null => {
@@ -41,7 +41,7 @@ export default defineComponent({
         };
         return h(Mermaid, mermaidProps);
       }
-      return h(CodeBlock, props);
+      return h(CodeBlock, props, { ...slots });
     };
   }
 });

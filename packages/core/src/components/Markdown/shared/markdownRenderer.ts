@@ -2,6 +2,7 @@ import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
 import type { CustomAttrs, SanitizeOptions } from '../core';
+import type { InitShikiOptions } from './shikiHighlighter';
 
 const MarkdownProps = {
   markdown: {
@@ -55,6 +56,18 @@ const MarkdownProps = {
   mermaidConfig: {
     type: Object as PropType<Partial<MermaidToolbarConfig>>,
     default: () => ({})
+  },
+  langs: {
+    type: Array as PropType<InitShikiOptions['langs']>,
+    default: () => []
+  },
+  themes: {
+    type: Object as PropType<InitShikiOptions['themes']>,
+    default: () =>
+      ({
+        light: 'vitesse-light',
+        dark: 'vitesse-dark'
+      }) satisfies InitShikiOptions['themes']
   }
 };
 export { MarkdownProps };

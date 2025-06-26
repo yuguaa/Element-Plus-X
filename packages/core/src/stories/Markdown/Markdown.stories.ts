@@ -14,10 +14,21 @@ const meta = {
   tags: ['autodocs'],
   argTypes: {
     markdown: { control: 'text' },
+    themes: {
+      control: 'object',
+      defaultValue: {
+        light: 'vitesse-light',
+        dark: 'vitesse-dark'
+      }
+    },
     mermaidConfig: { control: 'object' }
   },
   args: {
     markdown: mdContent,
+    themes: {
+      light: 'vitesse-light',
+      dark: 'vitesse-dark'
+    },
     mermaidConfig: {
       showToolbar: true,
       showFullscreen: true,
