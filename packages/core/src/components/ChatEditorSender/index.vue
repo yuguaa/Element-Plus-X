@@ -447,13 +447,12 @@ defineExpose({
         <slot name="prefix" />
       </div>
       <!-- 输入区域 -->
-      <div class="el-editor-sender-chat-room">
+      <div class="el-editor-sender-chat-room" @mousedown.stop="() => {}">
         <!-- 输入框载体 这里多嵌套一层是为了存放渲染后的弹窗元素 -->
         <div
           ref="container"
           :style="{ ...customStyle }"
           class="el-editor-sender-chat"
-          @mousedown.stop="() => {}"
         />
       </div>
       <!-- 默认操作列表 -->
