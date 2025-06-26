@@ -12,7 +12,7 @@ export default defineComponent({
   },
   setup(props) {
     const context = useMarkdownContext();
-    const { codeBlockRender, mermaidConfig } = toValue(context);
+    const { codeBlockRender } = toValue(context);
     return (): ReturnType<typeof h> | null => {
       if (props.raw.inline) {
         if (codeBlockRender && codeBlockRender.inline) {
@@ -33,6 +33,7 @@ export default defineComponent({
         return h(renderer, props);
       }
       if (language === 'mermaid') {
+        const { mermaidConfig } = context.value;
         // 如果有 mermaidConfig，传递给 Mermaid 组件
         const mermaidProps = {
           ...props,
