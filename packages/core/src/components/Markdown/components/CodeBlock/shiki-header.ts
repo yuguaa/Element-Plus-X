@@ -24,21 +24,7 @@ export function languageEle(language: string) {
       class: `markdown-language-header-space markdown-language-header-space-start markdown-language-header-span`,
       direction: 'horizontal',
       onClick: (ev: MouseEvent) => {
-        if (ev) {
-          const ele = ev.currentTarget as HTMLElement;
-          const divBox = ele.parentElement as HTMLElement;
-          if (divBox) {
-            if (divBox?.parentElement) {
-              const has =
-                divBox.parentElement.classList.contains('is-expanded');
-              if (has) {
-                collapse(divBox.parentElement);
-              } else {
-                expand(divBox.parentElement);
-              }
-            }
-          }
-        }
+        toggleExpand(ev);
       }
     },
     {
@@ -106,12 +92,7 @@ export function toggleThemeEle() {
     {
       class: 'shiki-header-button markdown-language-header-toggle',
       onClick: () => {
-        isDark.value = !isDark.value;
-        if (isDark.value) {
-          document.body.classList.add('dark');
-        } else {
-          document.body.classList.remove('dark');
-        }
+        toggleTheme();
       }
     },
     {
@@ -137,8 +118,7 @@ export function copyBtnEle(codeText: string[]) {
     {
       class: `shiki-header-button markdown-language-header-button`,
       onClick: () => {
-        const code = extractCodeFromHtmlLines(codeText);
-        copy(code);
+        copyCode(codeText);
       }
     },
     {
@@ -266,4 +246,58 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
   container.textContent = null;
 
   return output.join('\n');
+}
+
+/**
+ * @description 描述 切换展开状态
+ * @date 2025-06-26 21:29:50
+ * @author tingfeng
+ *
+ * @export
+ * @param ev
+ */
+export function toggleExpand(ev: MouseEvent) {
+  const ele = ev.currentTarget as HTMLElement;
+  const divBox = ele.parentElement as HTMLElement;
+  if (divBox) {
+    if (divBox?.parentElement) {
+      const has = divBox.parentElement.classList.contains('is-expanded');
+      if (has) {
+        collapse(divBox.parentElement);
+      } else {
+        expand(divBox.parentElement);
+      }
+    }
+  }
+}
+
+/**
+ * @description 描述 切换主题
+ * @date 2025-06-26 21:58:56
+ * @author tingfeng
+ *
+ * @export
+ */
+export function toggleTheme() {
+  const theme = document.body.classList.contains('dark') ? 'light' : 'dark';
+  isDark.value = theme === 'dark';
+  if (isDark.value) {
+    document.body.classList.add('dark');
+  } else {
+    document.body.classList.remove('dark');
+  }
+  return isDark.value;
+}
+
+/**
+ * @description 描述 复制代码
+ * @date 2025-06-26 22:02:57
+ * @author tingfeng
+ *
+ * @export
+ * @param codeText
+ */
+export function copyCode(codeText: string[]) {
+  const code = extractCodeFromHtmlLines(codeText);
+  copy(code);
 }

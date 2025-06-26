@@ -11,7 +11,14 @@ import {
 import { codeToHtml } from 'shiki';
 import { defineComponent, h, ref, toValue, watch } from 'vue';
 import { useMarkdownContext } from '../MarkdownProvider';
-import { controlEle, expand, languageEle } from './shiki-header';
+import {
+  controlEle,
+  copyCode,
+  expand,
+  languageEle,
+  toggleExpand,
+  toggleTheme
+} from './shiki-header';
 import '../../../../assets/style/shiki.scss';
 
 export default defineComponent({
@@ -73,13 +80,25 @@ export default defineComponent({
       { immediate: true }
     );
     const render = (slotName: string) => {
+      if (!codeXSlot) {
+        return h('span', {}, '');
+      }
       const slotFn = codeXSlot[slotName];
       if (typeof slotFn === 'function') {
-        return slotFn({ ...props, renderLines: renderLines.value });
+        return slotFn({
+          ...props,
+          renderLines: renderLines.value,
+          toggleExpand,
+          toggleTheme,
+          copyCode
+        });
       }
       return h(slotFn, {
         ...props,
-        renderLines: renderLines.value
+        renderLines: renderLines.value,
+        toggleExpand,
+        toggleTheme,
+        copyCode
       });
     };
     return () =>
@@ -107,10 +126,10 @@ export default defineComponent({
             {
               class: `markdown-language-header-div el-card is-always-shadow`
             },
-            (codeXSlot.codeHeader && render('codeHeader')) ?? [
-              (codeXSlot.codeHeaderLanguage && render('codeHeaderLanguage')) ??
+            (codeXSlot?.codeHeader && render('codeHeader')) ?? [
+              (codeXSlot?.codeHeaderLanguage && render('codeHeaderLanguage')) ??
                 languageEle(props.raw.language),
-              (codeXSlot.codeHeaderControl && render('codeHeaderControl')) ??
+              (codeXSlot?.codeHeaderControl && render('codeHeaderControl')) ??
                 controlEle(renderLines.value)
             ]
           ),

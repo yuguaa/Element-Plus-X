@@ -1,5 +1,7 @@
-<script setup></script>
+<script setup lang="ts"></script>
 
 <template>
-  <div>ddd</div>
+  <div>组件插槽</div>
 </template>
+
+<style scoped lang="scss"></style>
