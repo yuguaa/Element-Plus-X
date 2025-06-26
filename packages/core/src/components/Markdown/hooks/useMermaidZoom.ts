@@ -28,7 +28,7 @@ export function useMermaidZoom(
       return () => {};
     }
 
-    // 使用 .mermaid-content 作为容器，SVG 作为内容
+    // 使用 SVG 作为变换目标
     const content = svg as unknown as HTMLElement;
 
     let scale = 1;
@@ -40,6 +40,7 @@ export function useMermaidZoom(
     let initialScale = 1;
 
     const updateTransform = () => {
+      content.style.transformOrigin = '0 0';
       content.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
     };
 
@@ -72,23 +73,26 @@ export function useMermaidZoom(
         );
         const scaleChange = newDistance / initialDistance;
         const previousScale = scale;
-        scale = initialScale * (1 + (scaleChange - 1)); // 调整缩放速度
 
-        // 计算双指中心点
+        // 计算双指中心点相对于容器的位置
+        const containerRect = mermaidContent.getBoundingClientRect();
         const centerX =
-          (event.touches[0].clientX + event.touches[1].clientX) / 2;
+          (event.touches[0].clientX + event.touches[1].clientX) / 2 -
+          containerRect.left;
         const centerY =
-          (event.touches[0].clientY + event.touches[1].clientY) / 2;
+          (event.touches[0].clientY + event.touches[1].clientY) / 2 -
+          containerRect.top;
 
-        // 获取内容区域的边界
-        const rect = content.getBoundingClientRect();
-        // 计算相对位置
-        const relativeX = (centerX - rect.left) / previousScale;
-        const relativeY = (centerY - rect.top) / previousScale;
+        // 计算双指中心点在当前变换下对应的内容坐标
+        const contentX = (centerX - posX) / previousScale;
+        const contentY = (centerY - posY) / previousScale;
 
-        // 调整 posX 和 posY 使得缩放发生在双指中心
-        posX -= relativeX * (scale - previousScale);
-        posY -= relativeY * (scale - previousScale);
+        // 更新缩放
+        scale = initialScale * scaleChange;
+
+        // 重新计算translate，使得相同的内容坐标仍然在双指中心
+        posX = centerX - contentX * scale;
+        posY = centerY - contentY * scale;
 
         updateTransform();
       }
@@ -98,26 +102,132 @@ export function useMermaidZoom(
       isDragging = false;
     };
 
-    // PC 端缩放功能
+    //  PC 端缩放功能 : 需要分情况处理  全屏 和 非全屏 的坐标计算,保持 鼠标在图表上时始终以鼠标中心位置为中心点
     const onWheel = (event: WheelEvent) => {
       event.preventDefault();
-      const scaleAmount = 0.02; // 缩放速度
-      const previousScale = scale;
 
+      // 缩放步长调整为更小的值，提供更平滑的缩放体验
+      const zoomStep = 0.05;
+      const maxScale = 10;
+      const minScale = 0.1;
+
+      // 计算新的缩放比例
+      let newScale: number;
       if (event.deltaY < 0) {
-        scale += scaleAmount;
+        newScale = Math.min(scale + zoomStep, maxScale);
       } else {
-        scale = Math.max(0.1, scale - scaleAmount);
+        newScale = Math.max(scale - zoomStep, minScale);
       }
 
-      // 计算鼠标相对于内容的位置
-      const rect = content.getBoundingClientRect();
-      const mouseX = event.clientX - rect.left;
-      const mouseY = event.clientY - rect.top;
+      // 如果缩放值没有变化，直接返回
+      if (Math.abs(newScale - scale) < 0.001) {
+        return;
+      }
+      // 智能坐标获取策略
+      const getMouseCoordinates = () => {
+        const isFullscreen = !!document.fullscreenElement;
+        const hasTransform = posX !== 0 || posY !== 0 || scale !== 1;
 
-      // 调整 posX 和 posY，以使缩放中心为鼠标位置
-      posX -= (mouseX / previousScale) * (scale - previousScale);
-      posY -= (mouseY / previousScale) * (scale - previousScale);
+        let mouseX: number, mouseY: number;
+        let method: string;
+
+        if (hasTransform) {
+          if (isFullscreen) {
+            // 全屏+变换：使用 SVG 边界
+            const svg = mermaidContent.querySelector('svg');
+            if (svg) {
+              const svgRect = svg.getBoundingClientRect();
+              mouseX = event.clientX - svgRect.left;
+              mouseY = event.clientY - svgRect.top;
+              method = 'svg-fullscreen-transformed';
+            } else {
+              const rect = mermaidContent.getBoundingClientRect();
+              mouseX = event.clientX - rect.left;
+              mouseY = event.clientY - rect.top;
+              method = 'rect-fallback';
+            }
+          } else {
+            // 非全屏+变换：使用容器边界
+            const rect = mermaidContent.getBoundingClientRect();
+            mouseX = event.clientX - rect.left;
+            mouseY = event.clientY - rect.top;
+            method = 'rect-transformed';
+          }
+        } else if (isFullscreen) {
+          // 全屏+无变换：使用 offsetX/offsetY
+          if (event.offsetX !== undefined && event.offsetY !== undefined) {
+            mouseX = event.offsetX;
+            mouseY = event.offsetY;
+            method = 'offset-fullscreen';
+          } else {
+            const rect = mermaidContent.getBoundingClientRect();
+            mouseX = event.clientX - rect.left;
+            mouseY = event.clientY - rect.top;
+            method = 'rect-fallback';
+          }
+        } else {
+          // 正常状态：使用 offsetX/offsetY
+          if (event.offsetX !== undefined && event.offsetY !== undefined) {
+            mouseX = event.offsetX;
+            mouseY = event.offsetY;
+            method = 'offset-normal';
+          } else {
+            const rect = mermaidContent.getBoundingClientRect();
+            mouseX = event.clientX - rect.left;
+            mouseY = event.clientY - rect.top;
+            method = 'rect-fallback';
+          }
+        }
+
+        return { mouseX, mouseY, method, isFullscreen, hasTransform };
+      };
+
+      const { mouseX, mouseY, method, isFullscreen, hasTransform } =
+        getMouseCoordinates();
+
+      // 计算缩放中心点在内容坐标系中的位置
+      let contentCenterX: number, contentCenterY: number;
+
+      if (
+        isFullscreen &&
+        hasTransform &&
+        method === 'svg-fullscreen-transformed'
+      ) {
+        // 全屏+移动后：直接基于SVG位置计算
+        const svg = mermaidContent.querySelector('svg');
+        const svgRect = svg!.getBoundingClientRect();
+        const mouseRelativeToSvg = {
+          x: event.clientX - svgRect.left,
+          y: event.clientY - svgRect.top
+        };
+        contentCenterX = mouseRelativeToSvg.x / scale;
+        contentCenterY = mouseRelativeToSvg.y / scale;
+      } else {
+        contentCenterX = (mouseX - posX) / scale;
+        contentCenterY = (mouseY - posY) / scale;
+      }
+
+      // 更新缩放
+      scale = newScale;
+
+      // 重新计算偏移
+      if (
+        isFullscreen &&
+        hasTransform &&
+        method === 'svg-fullscreen-transformed'
+      ) {
+        const svg = mermaidContent.querySelector('svg');
+        const svgRect = svg!.getBoundingClientRect();
+        const mouseRelativeToSvg = {
+          x: event.clientX - svgRect.left,
+          y: event.clientY - svgRect.top
+        };
+        posX = posX + mouseRelativeToSvg.x - contentCenterX * scale;
+        posY = posY + mouseRelativeToSvg.y - contentCenterY * scale;
+      } else {
+        posX = mouseX - contentCenterX * scale;
+        posY = mouseY - contentCenterY * scale;
+      }
 
       updateTransform();
     };
@@ -153,6 +263,9 @@ export function useMermaidZoom(
       containerElement.classList.remove('dragging');
       document.body.style.userSelect = '';
     };
+
+    // 初始化变换原点
+    updateTransform();
 
     // 将事件绑定到 mermaidContent（包含 SVG 的容器）
     mermaidContent.addEventListener('touchstart', onTouchStart, {
@@ -192,20 +305,36 @@ export function useMermaidZoom(
     removeEvents = addZoomEvents(container.value);
   };
 
-  // 工具栏按钮的缩放功能
+  // 全屏状态变化时重新初始化
+  const handleFullscreenChange = () => {
+    setTimeout(() => {
+      if (removeEvents) {
+        removeEvents();
+        removeEvents = null;
+      }
+      if (container.value) {
+        const svg = container.value.querySelector(
+          '.mermaid-content svg'
+        ) as HTMLElement;
+        if (svg) {
+          svg.style.transform = 'translate(0px, 0px) scale(1)';
+        }
+        initializeZoom();
+      }
+    }, 200);
+  };
+
   const zoomIn = () => {
     if (container.value) {
       const mermaidContent = container.value.querySelector('.mermaid-content');
       if (mermaidContent) {
-        // 手动触发放大
+        const rect = mermaidContent.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
         const event = new WheelEvent('wheel', {
-          deltaY: -1,
-          clientX:
-            mermaidContent.getBoundingClientRect().left +
-            mermaidContent.clientWidth / 2,
-          clientY:
-            mermaidContent.getBoundingClientRect().top +
-            mermaidContent.clientHeight / 2
+          deltaY: -100,
+          clientX: rect.left + centerX,
+          clientY: rect.top + centerY
         });
         mermaidContent.dispatchEvent(event);
       }
@@ -216,15 +345,13 @@ export function useMermaidZoom(
     if (container.value) {
       const mermaidContent = container.value.querySelector('.mermaid-content');
       if (mermaidContent) {
-        // 手动触发缩小
+        const rect = mermaidContent.getBoundingClientRect();
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
         const event = new WheelEvent('wheel', {
-          deltaY: 1,
-          clientX:
-            mermaidContent.getBoundingClientRect().left +
-            mermaidContent.clientWidth / 2,
-          clientY:
-            mermaidContent.getBoundingClientRect().top +
-            mermaidContent.clientHeight / 2
+          deltaY: 100,
+          clientX: rect.left + centerX,
+          clientY: rect.top + centerY
         });
         mermaidContent.dispatchEvent(event);
       }
@@ -260,24 +387,36 @@ export function useMermaidZoom(
       removeEvents();
       removeEvents = null;
     }
+    // 移除全屏事件监听
+    document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    document.removeEventListener(
+      'webkitfullscreenchange',
+      handleFullscreenChange
+    );
+    document.removeEventListener('mozfullscreenchange', handleFullscreenChange);
+    document.removeEventListener('MSFullscreenChange', handleFullscreenChange);
   };
 
-  // 手动初始化方法（带重试机制）
   const initialize = () => {
-    if (!container.value) {
-      return;
-    }
+    if (!container.value) return;
 
-    // 智能重试机制
     const tryInitialize = (retryCount = 0, maxRetries = 5) => {
       const mermaidContent = container.value?.querySelector('.mermaid-content');
       const svg = mermaidContent?.querySelector('svg');
 
       if (mermaidContent && svg) {
-        // DOM 元素存在，立即初始化
         initializeZoom();
+        document.addEventListener('fullscreenchange', handleFullscreenChange);
+        document.addEventListener(
+          'webkitfullscreenchange',
+          handleFullscreenChange
+        );
+        document.addEventListener(
+          'mozfullscreenchange',
+          handleFullscreenChange
+        );
+        document.addEventListener('MSFullscreenChange', handleFullscreenChange);
       } else if (retryCount < maxRetries) {
-        //  requestAnimationFrame 重试
         requestAnimationFrame(() => {
           tryInitialize(retryCount + 1, maxRetries);
         });
