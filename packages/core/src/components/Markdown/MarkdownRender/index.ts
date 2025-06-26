@@ -11,7 +11,7 @@ const InnerRenderer = defineComponent({
   name: 'InnerMarkdownRenderer',
   setup(_, { slots }) {
     const context = useMarkdownContext();
-    const components = useComponents(slots);
+    const components = useComponents();
     return () =>
       h(VueMarkdown, context.value as any, {
         ...components,
@@ -24,7 +24,7 @@ const InnerRendererAsync = defineComponent({
   name: 'InnerMarkdownRendererAsync',
   setup(_, { slots }) {
     const context: any = useMarkdownContext();
-    const components = useComponents(slots);
+    const components = useComponents();
 
     return () =>
       h(VueMarkdownAsync, context.value, {
