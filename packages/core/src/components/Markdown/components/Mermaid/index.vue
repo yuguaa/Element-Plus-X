@@ -25,7 +25,6 @@ const toolbarConfig = computed(() => {
     showZoomIn: true,
     showZoomOut: true,
     showReset: true,
-    showCode: true,
     ...props.toolbarConfig
   };
 });

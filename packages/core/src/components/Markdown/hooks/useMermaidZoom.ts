@@ -12,7 +12,6 @@ export function useMermaidZoom(
   let removeEvents: (() => void) | null = null;
 
   const addZoomEvents = (containerElement: HTMLElement) => {
-    // 查找 .mermaid-content 元素
     const mermaidContent = containerElement.querySelector(
       '.mermaid-content'
     ) as HTMLElement;
@@ -123,7 +122,7 @@ export function useMermaidZoom(
       if (Math.abs(newScale - scale) < 0.001) {
         return;
       }
-      // 智能坐标获取策略
+      // 坐标获取
       const getMouseCoordinates = () => {
         const isFullscreen = !!document.fullscreenElement;
         const hasTransform = posX !== 0 || posY !== 0 || scale !== 1;
@@ -399,7 +398,7 @@ export function useMermaidZoom(
 
   const initialize = () => {
     if (!container.value) return;
-
+    // 如果图表没有加载完成, 则需要等待图表加载完成后再初始化
     const tryInitialize = (retryCount = 0, maxRetries = 5) => {
       const mermaidContent = container.value?.querySelector('.mermaid-content');
       const svg = mermaidContent?.querySelector('svg');

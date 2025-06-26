@@ -4,7 +4,6 @@ export interface MermaidToolbarConfig {
   showZoomIn?: boolean;
   showZoomOut?: boolean;
   showReset?: boolean;
-  showCode?: boolean;
   showDownload?: boolean;
   toolbarStyle?: Record<string, any>;
   toolbarClass?: string;

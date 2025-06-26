@@ -50,7 +50,6 @@ const config = computed(() => {
     showZoomIn: true,
     showZoomOut: true,
     showReset: true,
-    showCode: true,
     showDownload: true,
     toolbarStyle: {},
     toolbarClass: '',

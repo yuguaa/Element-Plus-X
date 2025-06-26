@@ -35,7 +35,7 @@ const meta = {
       showZoomIn: true,
       showZoomOut: true,
       showReset: true,
-      showCode: true,
+      showDownload: true,
       toolbarStyle: {},
       toolbarClass: 'mermaid-config-toolbar'
     }
@@ -77,10 +77,9 @@ export const MermaidToolbarDemo: Story = {
       showFullscreen: true,
       showZoomIn: true,
       showZoomOut: true,
-      showReset: true, // 禁用重置按钮
-      showCode: true,
+      showReset: true,
       toolbarStyle: {
-        background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)', // 紫色渐变背景
+        background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)',
         boxShadow: '0 4px 16px rgba(139, 92, 246, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.2)'
       },
@@ -109,7 +108,6 @@ graph TD
       showZoomIn: true,
       showZoomOut: true,
       showReset: true,
-      showCode: true,
       showDownload: true,
       toolbarStyle: {},
       toolbarClass: 'mermaid-error-demo'
