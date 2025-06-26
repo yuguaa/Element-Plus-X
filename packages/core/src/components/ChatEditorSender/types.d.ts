@@ -14,6 +14,7 @@ export interface EditorProps {
   disabled?: boolean;
   clearable?: boolean;
   headerAnimationTimer?: number;
+  asyncMatchFun?: (searchVal: string) => Promise<UserInfo[]>;
 }
 
 export interface ChatState {

@@ -27,7 +27,8 @@ const props = withDefaults(defineProps<EditorProps>(), {
   customStyle: () => ({}), // 修改输入样式
   loading: false, // 发送按钮加载状态
   disabled: false, // 是否禁用输入框
-  headerAnimationTimer: 300 // 展开动画
+  headerAnimationTimer: 300, // 展开动画
+  asyncMatchFun: undefined // 异步加载群成员方法
 });
 /** 暴露的事件 */
 const emits = defineEmits<{
@@ -74,7 +75,7 @@ function createChat() {
     device: 'pc',
     needDialog: true,
     copyType: ['text'],
-    asyncMatch: false,
+    asyncMatch: Boolean(props.asyncMatchFun),
     needDebounce: false,
     needCallSpace: false,
     sendKeyFun:
@@ -113,6 +114,11 @@ function createChat() {
       chatState.selectTagInsetText = '';
     }
   });
+  // 接管异步匹配
+  if (props.asyncMatchFun) {
+    chat.value.addEventListener('atMatch', props.asyncMatchFun);
+  }
+  // 禁用编辑器
   if (props.disabled) {
     chat.value.disabled();
   }
