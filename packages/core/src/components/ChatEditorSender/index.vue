@@ -28,7 +28,8 @@ const props = withDefaults(defineProps<EditorProps>(), {
   loading: false, // 发送按钮加载状态
   disabled: false, // 是否禁用输入框
   headerAnimationTimer: 300, // 展开动画
-  asyncMatchFun: undefined // 异步加载群成员方法
+  asyncMatchFun: undefined, // 异步加载群成员方法
+  customDialog: false // 是否需要自定义弹窗 开启后内部弹窗将不会再创建了
 });
 /** 暴露的事件 */
 const emits = defineEmits<{
@@ -73,7 +74,7 @@ function createChat() {
     ...props,
     userList: JSON.parse(JSON.stringify(props.userList)),
     device: 'pc',
-    needDialog: true,
+    needDialog: !props.customDialog,
     copyType: ['text'],
     asyncMatch: Boolean(props.asyncMatchFun),
     needDebounce: false,
@@ -420,6 +421,7 @@ defineExpose({
   setText,
   openSelectDialog,
   chat, // 暴露chat实例对象
+  opNode, // 暴露ChatNode操作对象
   chatState
 });
 </script>
