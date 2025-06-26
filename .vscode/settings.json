@@ -48,10 +48,12 @@
     "esno",
     "Groupable",
     "jsonlee",
+    "mdast",
     "radash",
     "shiki",
     "shikijs",
     "unplugin",
+    "Vnode",
     "vueuse"
   ],
   "eslint.nodePath": "node_modules",

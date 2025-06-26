@@ -3,14 +3,20 @@ import type { MarkdownContext } from './types';
 import deepmerge from 'deepmerge';
 import { computed, defineComponent, h, inject, provide } from 'vue';
 import { usePlugins } from '../../hooks';
-import { MarkdownProps } from '../../shared';
-import { MARKDOWN_PROVIDER_KEY } from '../../shared';
+import {
+  MARKDOWN_PROVIDER_KEY,
+  MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY,
+  MarkdownProps
+} from '../../shared';
 
 const MarkdownProvider = defineComponent({
   name: 'MarkdownProvider',
   props: MarkdownProps,
   setup(props, { slots, attrs }) {
     const { rehypePlugins, remarkPlugins } = usePlugins(props);
+    const highlighterTheme = computed(() => props.themes);
+    provide(MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY, highlighterTheme);
+
     const contextProps = computed(() => {
       return deepmerge(
         {

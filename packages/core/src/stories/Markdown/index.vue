@@ -8,7 +8,16 @@ import {
 <template>
   <div class="component-container">
     <MarkdownRenderer v-bind="$attrs" />
-    <!-- <MarkdownRendererAsync v-bind="$attrs" /> -->
+    <!-- <MarkdownRenderer
+      v-bind="$attrs"
+    >
+      <template #headerLanguage="{ language }">
+        <span>slots language ----  {{ language }}</span>
+      </template>
+      <template #headerControl="{ lines }">
+        <span>slots control ----  {{ lines.length }}</span>
+      </template>
+    </MarkdownRenderer> -->
   </div>
 </template>
 
