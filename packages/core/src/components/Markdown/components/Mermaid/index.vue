@@ -130,7 +130,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="containerRef" :key="props.raw.key" class="markdown-mermaid">
+  <div
+    ref="containerRef"
+    :key="props.raw.key"
+    class="markdown-mermaid unselectable"
+    unselectable="on"
+    onselectstart="return false"
+    ondragstart="return false"
+  >
     <!-- Mermaid SVG 内容或源码 -->
     <Transition
       name="content"

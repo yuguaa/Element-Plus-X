@@ -36,24 +36,39 @@ const config = computed(() => {
   };
 });
 
-function handleZoomIn() {
+function handleZoomIn(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
   emit('onZoomIn');
 }
 
-function handleZoomOut() {
+function handleZoomOut(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
   emit('onZoomOut');
 }
 
-function handleReset() {
+function handleReset(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
   emit('onReset');
 }
 
-function handleFullscreen() {
+function handleFullscreen(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
   emit('onFullscreen');
 }
 
-function handleToggleCode() {
+function handleToggleCode(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
   emit('onToggleCode');
+}
+
+function handleToolbarClick(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
 }
 </script>
 
@@ -63,13 +78,14 @@ function handleToggleCode() {
     class="mermaid-toolbar"
     :class="config.toolbarClass"
     :style="config.toolbarStyle"
+    @click="handleToolbarClick"
   >
     <el-icon
       v-if="config.showFullscreen"
       class="toolbar-icon"
       :size="20"
       :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleFullscreen()"
+      @click="props.isSourceCodeMode ? undefined : handleFullscreen($event)"
     >
       <FullScreen />
     </el-icon>
@@ -79,7 +95,7 @@ function handleToggleCode() {
       class="toolbar-icon"
       :size="20"
       :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleZoomIn()"
+      @click="props.isSourceCodeMode ? undefined : handleZoomIn($event)"
     >
       <ZoomIn />
     </el-icon>
@@ -89,7 +105,7 @@ function handleToggleCode() {
       class="toolbar-icon"
       :size="20"
       :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleZoomOut()"
+      @click="props.isSourceCodeMode ? undefined : handleZoomOut($event)"
     >
       <ZoomOut />
     </el-icon>
@@ -99,7 +115,7 @@ function handleToggleCode() {
       class="toolbar-icon"
       :size="20"
       :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleReset()"
+      @click="props.isSourceCodeMode ? undefined : handleReset($event)"
     >
       <Refresh />
     </el-icon>
@@ -108,7 +124,7 @@ function handleToggleCode() {
       v-if="config.showCode"
       class="toolbar-icon"
       :size="20"
-      @click="handleToggleCode"
+      @click="handleToggleCode($event)"
     >
       <Document />
     </el-icon>
@@ -127,7 +143,9 @@ function handleToggleCode() {
   border-radius: 12px;
   backdrop-filter: blur(4px);
   transition: all 0.2s ease;
-  z-index: 10;
+  z-index: 1000;
+  pointer-events: auto;
+  user-select: none !important;
 
   .toolbar-icon {
     width: 28px;
@@ -139,6 +157,8 @@ function handleToggleCode() {
     cursor: pointer;
     transition: all 0.2s ease;
     color: #020817;
+    pointer-events: auto;
+    user-select: none !important;
 
     &:hover:not(.disabled) {
       background: rgb(230 230 234);
