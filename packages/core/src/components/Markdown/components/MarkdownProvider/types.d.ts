@@ -23,4 +23,6 @@ export interface MarkdownContext {
   sanitize?: boolean;
   // 清洗选项
   sanitizeOptions?: SanitizeOptions;
+  // Mermaid 配置对象
+  mermaidConfig?: Record<string, any>;
 }
