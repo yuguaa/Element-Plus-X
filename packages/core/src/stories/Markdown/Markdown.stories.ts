@@ -20,13 +20,28 @@ const meta = {
         light: 'vitesse-light',
         dark: 'vitesse-dark'
       }
-    }
+    },
+    mermaidConfig: { control: 'object' }
   },
   args: {
     markdown: mdContent,
     themes: {
       light: 'vitesse-light',
       dark: 'vitesse-dark'
+    },
+    mermaidConfig: {
+      showToolbar: true,
+      showFullscreen: true,
+      showZoomIn: true,
+      showZoomOut: true,
+      showReset: false,
+      showCode: true,
+      toolbarStyle: {
+        borderRadius: '10px',
+        padding: '8px',
+        border: '1px solid rgba(255, 255, 255, 0.2)'
+      },
+      toolbarClass: 'mermaid-config-toolbar'
     }
   }
 } satisfies Meta;
@@ -54,5 +69,28 @@ export const PieRenderDemo: Story = {
 export const MathRenderDemo: Story = {
   args: {
     markdown: mathMdContent
+  } as Story['args']
+};
+
+// Mermaid 工具栏配置演示
+export const MermaidToolbarDemo: Story = {
+  args: {
+    markdown: mermaidMdContent,
+    mermaidConfig: {
+      showToolbar: true,
+      showFullscreen: true,
+      showZoomIn: true,
+      showZoomOut: true,
+      showReset: false, // 禁用重置按钮
+      showCode: true,
+      toolbarStyle: {
+        background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)', // 紫色渐变背景
+        borderRadius: '10px',
+        padding: '8px',
+        boxShadow: '0 4px 16px rgba(139, 92, 246, 0.3)',
+        border: '1px solid rgba(255, 255, 255, 0.2)'
+      },
+      toolbarClass: 'mermaid-config-toolbar'
+    }
   } as Story['args']
 };
