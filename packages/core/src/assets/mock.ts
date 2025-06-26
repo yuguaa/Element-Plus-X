@@ -25,7 +25,6 @@ export const mdContent = `
 
 // md 代码块高亮
 export const highlightMdContent = `
-\`test inline code\`
 
 ### javascript
 \`\`\`javascript
