@@ -114,6 +114,12 @@ importers:
       '@vueuse/core':
         specifier: ^13.1.0
         version: 13.3.0(vue@3.5.17(typescript@5.8.3))
+<<<<<<< storybook
+      chatarea:
+        specifier: ^5.5.1
+        version: 5.5.1
+=======
+>>>>>>> storybook
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -2821,6 +2827,12 @@ packages:
   chardet@0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
 
+<<<<<<< storybook
+  chatarea@5.5.1:
+    resolution: {integrity: sha512-rC4Wb6aldX0ejEHHvmmczEC2qvZoij5fnVXJxnxJTpu7wyF7Z9i+dpNXWKZp7fs0qs4MIDWmAPIseBreflYM0A==}
+
+=======
+>>>>>>> storybook
   check-error@2.1.1:
     resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
     engines: {node: '>= 16'}
@@ -9174,6 +9186,11 @@ snapshots:
 
   chardet@0.7.0: {}
 
+<<<<<<< storybook
+  chatarea@5.5.1: {}
+
+=======
+>>>>>>> storybook
   check-error@2.1.1: {}
 
   chevrotain-allstar@0.3.1(chevrotain@11.0.3):
