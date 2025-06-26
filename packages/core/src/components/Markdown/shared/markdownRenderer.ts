@@ -21,7 +21,11 @@ const MarkdownProps = {
     type: Boolean,
     default: true
   },
-  codeBlockRender: {
+  codeXRender: {
+    type: Object,
+    default: () => ({})
+  },
+  codeXSlot: {
     type: Object,
     default: () => ({})
   },

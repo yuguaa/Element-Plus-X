@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, h, toValue } from 'vue';
-import { CodeBlock, Line, Mermaid } from '../index';
+import { CodeBlock, Mermaid } from '../index';
 import { useMarkdownContext } from '../MarkdownProvider';
 
 export default defineComponent({
@@ -10,23 +10,13 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props, { slots }) {
+  setup(props) {
     const context = useMarkdownContext();
-    const { codeBlockRender } = toValue(context);
+    const { codeXRender } = toValue(context);
     return (): ReturnType<typeof h> | null => {
-      if (props.raw.inline) {
-        if (codeBlockRender && codeBlockRender.inline) {
-          const renderer = codeBlockRender.inline;
-          if (typeof renderer === 'function') {
-            return renderer(props);
-          }
-          return h(renderer, props);
-        }
-        return h(Line, props);
-      }
       const { language } = props.raw;
-      if (codeBlockRender && codeBlockRender[language]) {
-        const renderer = codeBlockRender[language];
+      if (codeXRender && codeXRender[language]) {
+        const renderer = codeXRender[language];
         if (typeof renderer === 'function') {
           return renderer(props);
         }
@@ -41,7 +31,7 @@ export default defineComponent({
         };
         return h(Mermaid, mermaidProps);
       }
-      return h(CodeBlock, props, { ...slots });
+      return h(CodeBlock, props);
     };
   }
 });
