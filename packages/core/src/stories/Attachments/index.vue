@@ -78,12 +78,6 @@ const {
     border-radius: 8px;
     background-color: antiquewhite;
     flex: none;
-
-    .custom-item-name {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
   }
 }
 </style>

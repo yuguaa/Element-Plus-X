@@ -4,7 +4,7 @@ import ConversationsCustomStyleAndSort from './custom-style-and-sort.vue';
 import Conversations from './index.vue';
 
 const meta: Meta<typeof ConversationsSource> = {
-  title: 'Example/Conversations',
+  title: 'Example/Conversations 会话管理组件 📱',
   component: Conversations,
   argTypes: {
     items: {

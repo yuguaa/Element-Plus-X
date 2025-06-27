@@ -1,12 +1,25 @@
 <!-- TODO: 修改数据计算, 添加数据计算缓存 -->
 
-<script setup lang="ts"
-  generic="T extends AnyObject = AnyObject, V extends string | number | boolean = string | number"
+<script
+  setup
+  lang="ts"
+  generic="
+    T extends AnyObject = AnyObject,
+    V extends string | number | boolean = string | number
+  "
 >
 import type { ElScrollbar } from 'element-plus';
 import type { AnyObject } from 'typescript-api-pro';
 import type { ComponentPublicInstance } from 'vue';
-import type { Conversation, ConversationItem, ConversationItemUseOptions, ConversationMenuCommand, GroupableOptions, GroupItem } from './types';
+import type {
+  Conversation,
+  ConversationItem,
+  ConversationItemUseOptions,
+  ConversationMenuCommand,
+  GroupableOptions,
+  GroupItem
+} from './types';
+import type { ConversationsEmits } from './types.d.ts';
 import { Delete, Edit, Loading, Top } from '@element-plus/icons-vue';
 import { get } from 'radash';
 import Item from './components/item.vue';
@@ -28,7 +41,7 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
       label: '重命名',
       key: 'rename',
       icon: markRaw(Edit),
-      command: 'rename',
+      command: 'rename'
     },
     {
       label: '删除',
@@ -37,9 +50,9 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
       command: 'delete',
       menuItemHoverStyle: {
         color: 'red',
-        backgroundColor: 'rgba(255, 0, 0, 0.1)',
-      },
-    },
+        backgroundColor: 'rgba(255, 0, 0, 0.1)'
+      }
+    }
   ],
   ungroupedTitle: '未分组',
   tooltipPlacement: 'top',
@@ -53,14 +66,10 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
   loadMoreLoading: false,
   showToTopBtn: false,
   labelKey: 'label',
-  rowKey: 'id',
+  rowKey: 'id'
 });
 
-const emits = defineEmits<{
-  (e: 'menuCommand', command: ConversationMenuCommand, item: ConversationItem<T>): void;
-  (e: 'change', item: ConversationItem<T>): void;
-  // (e: 'update:active', v: V): void
-}>();
+const emits = defineEmits<ConversationsEmits>();
 
 const activeKey = defineModel<V>('active', { required: false });
 
@@ -71,8 +80,10 @@ const activeKey = defineModel<V>('active', { required: false });
 const itemsUse = computed<ConversationItemUseOptions<T>[]>(() => {
   return props.items.map((item, index) => ({
     ...item,
-    uniqueKey: props.rowKey ? get(item, props.rowKey as string) as string : index.toString(),
-    label: get(item, props.labelKey as string),
+    uniqueKey: props.rowKey
+      ? (get(item, props.rowKey as string) as string)
+      : index.toString(),
+    label: get(item, props.labelKey as string)
   }));
 });
 
@@ -89,7 +100,7 @@ const mergedStyle = computed(() => {
     backgroundColor: '#fff',
     borderRadius: '8px',
     width: '280px',
-    height: '0',
+    height: '0'
   };
   return { ...defaultStyle, ...props.style };
 });
@@ -120,8 +131,7 @@ const mergedStyle = computed(() => {
 
 function handleClick(item: ConversationItemUseOptions<T>) {
   // 如果是disabled状态，则不允许选中
-  if (item.disabled)
-    return;
+  if (item.disabled) return;
   emits('change', item);
   activeKey.value = item.uniqueKey as V;
 }
@@ -140,8 +150,7 @@ const filteredItems = computed(() => {
 // 根据分组方式进行分组
 const groups = computed(() => {
   // 如果不需要分组，则返回空数组
-  if (!shouldUseGrouping.value)
-    return [];
+  if (!shouldUseGrouping.value) return [];
 
   // 检查filteredItems是否有值
   if (!filteredItems.value || filteredItems.value.length === 0) {
@@ -152,7 +161,7 @@ const groups = computed(() => {
   const groupMap: Record<string, GroupItem> = {};
 
   // 使用过滤后的项目进行分组
-  filteredItems.value.forEach((item) => {
+  filteredItems.value.forEach(item => {
     let groupName: string | null = null;
 
     // 优先使用item中的group字段
@@ -168,7 +177,7 @@ const groups = computed(() => {
         title: finalGroupName,
         key: finalGroupName,
         children: [],
-        isUngrouped: !groupName, // 如果没有找到组名，则标记为未分组
+        isUngrouped: !groupName // 如果没有找到组名，则标记为未分组
       };
     }
 
@@ -183,10 +192,8 @@ const groups = computed(() => {
   if (typeof props.groupable === 'object' && props.groupable.sort) {
     return groupArray.sort((a, b) => {
       // 确保未分组总是在最后
-      if (a.isUngrouped)
-        return 1;
-      if (b.isUngrouped)
-        return -1;
+      if (a.isUngrouped) return 1;
+      if (b.isUngrouped) return -1;
 
       const sortFn = (props.groupable as GroupableOptions).sort;
       return sortFn ? sortFn(a.key, b.key) : 0;
@@ -196,10 +203,8 @@ const groups = computed(() => {
   // 否则只确保未分组在最后，不做其他排序
   return groupArray.sort((a, b) => {
     // 确保未分组总是在最后
-    if (a.isUngrouped)
-      return 1;
-    if (b.isUngrouped)
-      return -1;
+    if (a.isUngrouped) return 1;
+    if (b.isUngrouped) return -1;
 
     // 不做其他排序
     return 0;
@@ -222,13 +227,11 @@ function handleScroll(e: any) {
 
   // 获取当前滚动容器
   const scrollbar = scrollbarRef.value;
-  if (!scrollbar)
-    return;
+  if (!scrollbar) return;
 
   // 使用scrollbar的wrapRef获取真实DOM以获取正确的尺寸
   const wrap = scrollbar.wrapRef;
-  if (!wrap)
-    return;
+  if (!wrap) return;
 
   // 检查是否需要加载更多
   // 当滚动到距离底部20px时触发加载
@@ -249,16 +252,14 @@ function handleScroll(e: any) {
 
 // 更新标题吸顶状态
 function updateStickyStatus(_e: any) {
-  if (!shouldUseGrouping.value || groups.value.length === 0)
-    return;
+  if (!shouldUseGrouping.value || groups.value.length === 0) return;
 
   // 先清空当前的吸顶组
   stickyGroupKeys.value.clear();
 
   // 获取滚动容器
   const scrollContainer = scrollbarRef.value?.wrapRef;
-  if (!scrollContainer)
-    return;
+  if (!scrollContainer) return;
 
   // 如果只有一个分组，直接设置为吸顶状态
   if (groups.value.length === 1) {
@@ -291,11 +292,11 @@ function updateStickyStatus(_e: any) {
       const relativeTop = groupRect.top - scrollContainerTop;
 
       // 分组至少部分可见
-      if ((relativeTop < containerHeight && relativeTop + groupRect.height > 0)) {
+      if (relativeTop < containerHeight && relativeTop + groupRect.height > 0) {
         visibleGroups.push({
           group,
           relativeTop,
-          height: groupRect.height,
+          height: groupRect.height
         });
       }
     }
@@ -312,13 +313,11 @@ function updateStickyStatus(_e: any) {
     if (fullyVisibleGroup) {
       // 如果有完全进入视口的分组，选择它
       stickyGroupKeys.value.add(fullyVisibleGroup.group.key);
-    }
-    else {
+    } else {
       // 否则选择第一个部分可见的分组（通常是标题已经滚出但内容还可见的）
       stickyGroupKeys.value.add(visibleGroups[0].group.key);
     }
-  }
-  else if (groups.value.length > 0) {
+  } else if (groups.value.length > 0) {
     // 如果没有可见分组，则选择第一个分组
     stickyGroupKeys.value.add(groups.value[0].key);
   }
@@ -326,8 +325,7 @@ function updateStickyStatus(_e: any) {
 
 // 加载更多数据
 function loadMoreData() {
-  if (!props.loadMore)
-    return;
+  if (!props.loadMore) return;
   props.loadMore();
 }
 
@@ -337,11 +335,17 @@ function scrollToTop() {
 }
 
 // 菜单 item 点击事件
-function handleMenuItemClick(command: ConversationMenuCommand, item: ConversationItem<T>) {
+function handleMenuItemClick(
+  command: ConversationMenuCommand,
+  item: ConversationItem<T>
+) {
   emits('menuCommand', command, item);
 }
 
-function bindGroupRef(el: Element | ComponentPublicInstance | null, item: GroupItem) {
+function bindGroupRef(
+  el: Element | ComponentPublicInstance | null,
+  item: GroupItem
+) {
   if (el) {
     groupRefs.value[item.key] = el as HTMLDivElement;
   }
@@ -359,21 +363,30 @@ onMounted(() => {
 
 <template>
   <div
-    class="conversations-container" :style="{
+    class="conversations-container"
+    :style="{
       '--conversation-label-height': `${props.labelHeight}px`,
-      '--conversation-list-auto-bg-color': mergedStyle.backgroundColor,
+      '--conversation-list-auto-bg-color': mergedStyle.backgroundColor
     }"
   >
     <slot name="header" />
     <ul class="conversations-list" :style="mergedStyle">
       <!-- 滚动区域容器 -->
       <li class="conversations-scroll-wrapper">
-        <el-scrollbar ref="scrollbarRef" height="100%" class="custom-scrollbar" always @scroll="handleScroll">
+        <el-scrollbar
+          ref="scrollbarRef"
+          height="100%"
+          class="custom-scrollbar"
+          always
+          @scroll="handleScroll"
+        >
           <div class="scroll-content">
             <template v-if="shouldUseGrouping">
               <!-- 分组显示 -->
               <div
-                v-for="group in groups" :key="group.key" :ref="el => bindGroupRef(el, group)"
+                v-for="group in groups"
+                :key="group.key"
+                :ref="el => bindGroupRef(el, group)"
                 class="conversation-group"
               >
                 <div
@@ -386,17 +399,31 @@ onMounted(() => {
                 </div>
                 <div class="conversation-group-items">
                   <Item
-                    v-for="item in group.children" :key="item.uniqueKey" :item="item"
-                    :active="item.uniqueKey === activeKey" :items-style="props.itemsStyle"
-                    :items-hover-style="props.itemsHoverStyle" :items-active-style="props.itemsActiveStyle"
-                    :items-menu-opened-style="props.itemsMenuOpenedStyle" :prefix-icon="item.prefixIcon"
-                    :show-tooltip="showTooltip" :tooltip-placement="props.tooltipPlacement"
-                    :tooltip-offset="props.tooltipOffset" :suffix-icon="item.suffixIcon" :active-key="activeKey || ''"
-                    :label-max-width="labelMaxWidth" :menu="menu" :show-built-in-menu="props.showBuiltInMenu"
-                    :menu-placement="props.menuPlacement" :menu-offset="props.menuOffset"
-                    :menu-max-height="props.menuMaxHeight" :menu-style="props.menuStyle"
-                    :menu-show-arrow="props.menuShowArrow" :menu-class-name="props.menuClassName"
-                    :menu-teleported="props.menuTeleported" @click="handleClick(item)"
+                    v-for="item in group.children"
+                    :key="item.uniqueKey"
+                    :item="item"
+                    :active="item.uniqueKey === activeKey"
+                    :items-style="props.itemsStyle"
+                    :items-hover-style="props.itemsHoverStyle"
+                    :items-active-style="props.itemsActiveStyle"
+                    :items-menu-opened-style="props.itemsMenuOpenedStyle"
+                    :prefix-icon="item.prefixIcon"
+                    :show-tooltip="showTooltip"
+                    :tooltip-placement="props.tooltipPlacement"
+                    :tooltip-offset="props.tooltipOffset"
+                    :suffix-icon="item.suffixIcon"
+                    :active-key="activeKey || ''"
+                    :label-max-width="labelMaxWidth"
+                    :menu="menu"
+                    :show-built-in-menu="props.showBuiltInMenu"
+                    :menu-placement="props.menuPlacement"
+                    :menu-offset="props.menuOffset"
+                    :menu-max-height="props.menuMaxHeight"
+                    :menu-style="props.menuStyle"
+                    :menu-show-arrow="props.menuShowArrow"
+                    :menu-class-name="props.menuClassName"
+                    :menu-teleported="props.menuTeleported"
+                    @click="handleClick(item)"
                     @menu-command="handleMenuItemClick"
                   >
                     <!-- 传递插槽 -->
@@ -404,7 +431,10 @@ onMounted(() => {
                       <slot name="label" v-bind="{ item }" />
                     </template>
 
-                    <template v-if="$slots['more-filled']" #more-filled="moreFilledSoltProps">
+                    <template
+                      v-if="$slots['more-filled']"
+                      #more-filled="moreFilledSoltProps"
+                    >
                       <slot name="more-filled" v-bind="moreFilledSoltProps" />
                     </template>
 
@@ -418,23 +448,42 @@ onMounted(() => {
 
             <template v-else>
               <Item
-                v-for="item in filteredItems" :key="item.uniqueKey" :item="item" :items-style="props.itemsStyle"
-                :items-hover-style="props.itemsHoverStyle" :items-active-style="props.itemsActiveStyle"
-                :active="item.uniqueKey === activeKey" :items-menu-opened-style="props.itemsMenuOpenedStyle"
-                :prefix-icon="item.prefixIcon" :show-tooltip="showTooltip" :tooltip-placement="props.tooltipPlacement"
-                :tooltip-offset="props.tooltipOffset" :suffix-icon="item.suffixIcon" :active-key="activeKey || ''"
-                :label-max-width="labelMaxWidth" :menu="menu" :show-built-in-menu="props.showBuiltInMenu"
-                :menu-placement="props.menuPlacement" :menu-offset="props.menuOffset"
-                :menu-max-height="props.menuMaxHeight" :menu-style="props.menuStyle"
-                :menu-show-arrow="props.menuShowArrow" :menu-class-name="props.menuClassName"
-                :menu-teleported="props.menuTeleported" @click="handleClick(item)" @menu-command="handleMenuItemClick"
+                v-for="item in filteredItems"
+                :key="item.uniqueKey"
+                :item="item"
+                :items-style="props.itemsStyle"
+                :items-hover-style="props.itemsHoverStyle"
+                :items-active-style="props.itemsActiveStyle"
+                :active="item.uniqueKey === activeKey"
+                :items-menu-opened-style="props.itemsMenuOpenedStyle"
+                :prefix-icon="item.prefixIcon"
+                :show-tooltip="showTooltip"
+                :tooltip-placement="props.tooltipPlacement"
+                :tooltip-offset="props.tooltipOffset"
+                :suffix-icon="item.suffixIcon"
+                :active-key="activeKey || ''"
+                :label-max-width="labelMaxWidth"
+                :menu="menu"
+                :show-built-in-menu="props.showBuiltInMenu"
+                :menu-placement="props.menuPlacement"
+                :menu-offset="props.menuOffset"
+                :menu-max-height="props.menuMaxHeight"
+                :menu-style="props.menuStyle"
+                :menu-show-arrow="props.menuShowArrow"
+                :menu-class-name="props.menuClassName"
+                :menu-teleported="props.menuTeleported"
+                @click="handleClick(item)"
+                @menu-command="handleMenuItemClick"
               >
                 <!-- 传递插槽 -->
                 <template v-if="$slots.label" #label>
                   <slot name="label" v-bind="{ item }" />
                 </template>
 
-                <template v-if="$slots['more-filled']" #more-filled="moreFilledSoltProps">
+                <template
+                  v-if="$slots['more-filled']"
+                  #more-filled="moreFilledSoltProps"
+                >
                   <slot name="more-filled" v-bind="moreFilledSoltProps" />
                 </template>
 
@@ -459,7 +508,12 @@ onMounted(() => {
     </ul>
     <slot name="footer" />
     <!-- 滚动到顶部按钮 -->
-    <el-button v-show="showScrollTop && props.showToTopBtn" class="scroll-to-top-btn" circle @click="scrollToTop">
+    <el-button
+      v-show="showScrollTop && props.showToTopBtn"
+      class="scroll-to-top-btn"
+      circle
+      @click="scrollToTop"
+    >
       <el-icon>
         <Top />
       </el-icon>
@@ -467,136 +521,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss">
-.conversations-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  width: fit-content;
-  box-sizing: border-box;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.conversations-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-.conversations-scroll-wrapper {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-
-  /* 在右侧添加留白区域 */
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 8px;
-    /* 右侧留白宽度 */
-    height: 100%;
-    background-color: transparent;
-    pointer-events: none;
-    /* 确保不影响交互 */
-  }
-}
-
-// 加载更多
-.conversations-load-more {
-  display: flex;
-  width: calc(100% - 20px);
-  padding: 4px 0;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  gap: 3px;
-  height: 100%;
-  color: #909399;
-  background-color: var(--conversation-list-auto-bg-color, #fff);
-}
-
-// 加载动画
-.conversations-load-more-is-loading {
-  margin-top: 2px;
-  animation: spinloading 2s linear infinite;
-}
-
-@keyframes spinloading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.scroll-content {
-  min-height: 100%;
-}
-
-.loading-more {
-  text-align: center;
-  padding: 10px 0;
-  color: #909399;
-  font-size: 14px;
-}
-
-.conversation-group {
-  position: relative;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  .conversation-group-title {
-    font-size: 14px;
-    color: #909399;
-    padding: 8px 0;
-    font-weight: 500;
-    margin-bottom: 4px;
-    border-radius: 4px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    // 预留滚动条宽度
-    width: calc(100% - 10px);
-    box-sizing: border-box;
-  }
-
-  .sticky-title {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background-color: var(--conversation-list-auto-bg-color, #fff);
-  }
-
-  .active-sticky {
-    z-index: 10;
-  }
-
-  .conversation-group-items {
-    padding-top: 0;
-  }
-}
-
-.scroll-to-top-btn {
-  position: absolute;
-  right: 16px;
-  bottom: 16px;
-  z-index: 99;
-  opacity: 0.8;
-  transition: opacity 0.3s;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-</style>
+<style scoped lang="scss" src="./style.scss"></style>

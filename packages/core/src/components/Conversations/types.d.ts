@@ -49,7 +49,19 @@ export interface Conversation<T extends AnyObject = AnyObject> {
   labelMaxWidth?: number;
   labelHeight?: number;
   showTooltip?: boolean;
-  tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end';
+  tooltipPlacement?:
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left-start'
+    | 'left-end'
+    | 'right-start'
+    | 'right-end';
   tooltipOffset?: number;
   // 允许boolean或GroupableOptions类型
   groupable?: boolean | GroupableOptions;
@@ -57,7 +69,13 @@ export interface Conversation<T extends AnyObject = AnyObject> {
   ungroupedTitle?: string;
   menu?: ConversationMenu[];
   showBuiltInMenu?: boolean;
-  menuPlacement?: 'top' | 'bottom' | 'top-start' | 'top-end' | 'bottom-start' | 'bottom-end';
+  menuPlacement?:
+    | 'top'
+    | 'bottom'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom-start'
+    | 'bottom-end';
   menuOffset?: number;
   menuShowArrow?: boolean;
   menuMaxHeight?: number;
@@ -76,4 +94,14 @@ export interface GroupItem {
   key: string;
   children: ConversationItemUseOptions<T>[];
   isUngrouped?: boolean; // 标记是否为未分组
+}
+
+export interface ConversationsEmits {
+  (
+    event: 'menuCommand',
+    command: ConversationMenuCommand,
+    item: ConversationItem<T>
+  ): void;
+  (event: 'change', item: ConversationItem<T>): void;
+  // (e: 'update:active', v: V): void
 }

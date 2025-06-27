@@ -55,9 +55,18 @@ export const AttachmentsDemo: Story = {
 };
 
 export const Solt: Story = {
-  name: 'CustomSolt',
+  name: 'Solt Demo',
   args: {
-    ...AttachmentsDemo.args
+    ...AttachmentsDemo.args,
+    items: [
+      { id: 1, name: '1.png' },
+      { id: 2, name: '2.png' },
+      { id: 3, name: '3.png' },
+      { id: 4, name: '4.png' },
+      { id: 5, name: '5.png' },
+      { id: 6, name: '6.png' },
+      { id: 7, name: '7.png' }
+    ]
   } as Story['args'],
   render: args => ({
     components: {

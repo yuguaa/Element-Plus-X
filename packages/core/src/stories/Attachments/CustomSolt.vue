@@ -137,6 +137,13 @@ const {
   }
 }
 
+.custom-item-name {
+  padding: 0 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .custom-list-overflow-no-x {
   flex-wrap: wrap;
 }

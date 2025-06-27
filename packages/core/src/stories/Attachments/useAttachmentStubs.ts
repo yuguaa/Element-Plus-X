@@ -21,7 +21,7 @@ export function genDefaultFiles(count: number = 30) {
       fileType: typeList[Math.floor(Math.random() * typeList.length)],
       url: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
       thumbUrl: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
-      // imgFile: new File([], `test${i}.txt`),
+      //   : new File([], `test${i}.txt`),
       showDelIcon: true
     });
   }
