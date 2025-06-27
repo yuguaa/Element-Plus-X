@@ -2,7 +2,7 @@ import type AttachmentsSource from '@components/Attachments/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import CustomSolt from './CustomSolt.vue';
 import Attachments from './index.vue';
-// import { genDefaultFiles } from './useAttachmentStubs.ts';
+import { genDefaultFiles } from './useAttachmentStubs.ts';
 
 const meta: Meta = {
   title: 'Example/Attachments 附件上传组件 📪️',
@@ -33,18 +33,7 @@ const meta: Meta = {
     }
   },
   args: {
-    items: [
-      {
-        uid: '1'.toString(),
-        name: `文件${1}`,
-        fileSize: 1024 * 2,
-        fileType: 'file',
-        url: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
-        thumbUrl: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
-        imgFile: new File([], `test${1}.txt`),
-        showDelIcon: true
-      }
-    ],
+    items: genDefaultFiles(),
     overflow: 'scrollX',
     listStyle: {
       padding: '0 12px',

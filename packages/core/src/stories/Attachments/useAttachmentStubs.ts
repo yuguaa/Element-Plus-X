@@ -15,14 +15,13 @@ export function genDefaultFiles(count: number = 30) {
   const typeList = Object.keys(colorMap1) as FilesType[];
   for (let i = 0; i < count; i++) {
     res.push({
-      id: i,
       uid: i.toString(),
       name: `文件${i}`,
       fileSize: 1024 * 2,
       fileType: typeList[Math.floor(Math.random() * typeList.length)],
       url: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
       thumbUrl: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
-      imgFile: new File([], `test${i}.txt`),
+      // imgFile: new File([], `test${i}.txt`),
       showDelIcon: true
     });
   }
@@ -67,8 +66,7 @@ export function useAttachmentStubs(initValue: SelfFilesCardProps[] = []) {
         imgFile: options.file
       };
       files.value.push({
-        id: files.value.length,
-        uid: res.uid,
+        uid: files.value.length,
         name: res.fileName,
         fileSize: res.fileSize,
         imgFile: res.imgFile,

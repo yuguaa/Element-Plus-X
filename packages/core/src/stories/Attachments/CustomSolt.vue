@@ -21,7 +21,8 @@ const {
   <div class="component-container">
     <div class="component-title">附件上传组件-自定义左右按钮、列表内容</div>
     <Attachments
-      v-bind="{ ...$attrs, ...props, items: files }"
+      v-bind="{ ...$attrs }"
+      :items="files"
       :http-request="handleHttpRequest"
       :before-upload="handleBeforeUpload"
       @upload-drop="handleUploadDrop"

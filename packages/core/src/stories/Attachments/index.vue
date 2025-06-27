@@ -23,7 +23,8 @@ const {
       附件组件，内置多种文件格式样式。支持上传，删除，预览等操作，支持三种布局方式
     </div>
     <Attachments
-      v-bind="{ ...$attrs, ...props, items: files }"
+      v-bind="{ ...$attrs }"
+      :items="files"
       :before-upload="handleBeforeUpload"
       :http-request="handleHttpRequest"
       @upload-drop="handleUploadDrop"
