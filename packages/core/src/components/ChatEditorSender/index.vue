@@ -91,7 +91,6 @@ function createChat() {
         ? event => !event.shiftKey && event.key === 'Enter'
         : event => event.shiftKey && event.key === 'Enter'
   });
-  console.log(chat.value);
   opNode.value = chat.value.createOperateNode();
   // 订阅发送事件
   chat.value.addEventListener('enterSend', onSubmit);
@@ -355,78 +354,64 @@ function updateSelectTag(elm: HTMLElement, tag: TagInfo) {
 watch(
   () => props.disabled,
   () => {
-    if (chat.value) {
-      props.disabled ? chat.value.disabled() : chat.value.enable();
-    }
+    props.disabled ? chat.value?.disabled() : chat.value?.enable();
   }
 );
 watch(
   () => props.placeholder,
   () => {
-    if (chat.value) {
-      chat.value.updateConfig({
-        placeholder: props.placeholder
-      });
-    }
+    chat.value?.updateConfig({
+      placeholder: props.placeholder
+    });
   }
 );
 watch(
   () => props.maxLength,
   () => {
-    if (chat.value) {
-      chat.value.updateConfig({
-        maxLength: props.maxLength
-      });
-    }
+    chat.value?.updateConfig({
+      maxLength: props.maxLength
+    });
   }
 );
 watch(
   () => props.submitType,
   () => {
-    if (chat.value) {
-      chat.value.updateConfig({
-        sendKeyFun:
-          props.submitType === 'enter'
-            ? event => !event.shiftKey && event.key === 'Enter'
-            : event => event.shiftKey && event.key === 'Enter',
-        wrapKeyFun:
-          props.submitType === 'shiftEnter'
-            ? event => !event.shiftKey && event.key === 'Enter'
-            : event => event.shiftKey && event.key === 'Enter'
-      });
-    }
+    chat.value?.updateConfig({
+      sendKeyFun:
+        props.submitType === 'enter'
+          ? event => !event.shiftKey && event.key === 'Enter'
+          : event => event.shiftKey && event.key === 'Enter',
+      wrapKeyFun:
+        props.submitType === 'shiftEnter'
+          ? event => !event.shiftKey && event.key === 'Enter'
+          : event => event.shiftKey && event.key === 'Enter'
+    });
   }
 );
 watch(
   () => props.userList,
   () => {
-    if (chat.value) {
-      chat.value.updateConfig({
-        userList: props.userList
-      });
-    }
+    chat.value?.updateConfig({
+      userList: props.userList
+    });
   },
   { deep: true }
 );
 watch(
   () => props.selectList,
   () => {
-    if (chat.value) {
-      chat.value.updateConfig({
-        selectList: props.selectList
-      });
-    }
+    chat.value?.updateConfig({
+      selectList: props.selectList
+    });
   },
   { deep: true }
 );
 watch(
   () => props.customTrigger,
   () => {
-    if (chat.value) {
-      chat.value.updateConfig({
-        customTrigger: props.customTrigger
-      });
-    }
+    chat.value?.updateConfig({
+      customTrigger: props.customTrigger
+    });
   },
   { deep: true }
 );
