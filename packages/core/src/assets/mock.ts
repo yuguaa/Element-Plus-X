@@ -25,6 +25,9 @@ export const mdContent = `
 
 // md 代码块高亮
 export const highlightMdContent = `
+\`\`\`echarts
+use codeXRender for echarts render
+\`\`\`
 
 ### javascript
 \`\`\`javascript
