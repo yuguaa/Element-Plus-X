@@ -1,25 +1,46 @@
 <script setup lang="ts">
 import type { MermaidToolbarConfig, MermaidToolbarEmits } from './types';
 import {
-  Document,
+  Aim,
+  Check,
+  CopyDocument,
+  Download,
   FullScreen,
-  Refresh,
   ZoomIn,
   ZoomOut
 } from '@element-plus/icons-vue';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 interface MermaidToolbarInternalProps {
   toolbarConfig?: MermaidToolbarConfig;
   isSourceCodeMode?: boolean;
+  sourceCode?: string;
+  renderError?: boolean;
 }
 
 const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
   toolbarConfig: () => ({}),
-  isSourceCodeMode: false
+  isSourceCodeMode: false,
+  sourceCode: '',
+  renderError: false
 });
 
 const emit = defineEmits<MermaidToolbarEmits>();
+
+// 复制成功状态
+const isCopySuccess = ref(false);
+
+// 当前激活的 tab
+const activeTab = computed({
+  get: () => (props.isSourceCodeMode ? 'code' : 'diagram'),
+  set: (value: string) => {
+    if (value === 'code' && !props.isSourceCodeMode) {
+      handleToggleCode();
+    } else if (value === 'diagram' && props.isSourceCodeMode) {
+      handleToggleCode();
+    }
+  }
+});
 
 // 合并默认配置
 const config = computed(() => {
@@ -29,11 +50,54 @@ const config = computed(() => {
     showZoomIn: true,
     showZoomOut: true,
     showReset: true,
-    showCode: true,
+    showDownload: true,
     toolbarStyle: {},
     toolbarClass: '',
+    iconColor: undefined,
+    tabTextColor: undefined,
+    hoverBackgroundColor: undefined,
+    tabActiveBackgroundColor: undefined,
     ...props.toolbarConfig
   };
+});
+
+// 动态图标颜色
+const iconColorStyle = computed(() => {
+  const style: Record<string, string> = {};
+
+  if (config.value.iconColor) {
+    style.color = config.value.iconColor;
+    style['--custom-icon-color'] = config.value.iconColor;
+  }
+
+  // 设置hover背景色
+  if (config.value.hoverBackgroundColor) {
+    style['--custom-hover-bg'] = config.value.hoverBackgroundColor;
+  } else if (config.value.iconColor) {
+    // 如果设置了图标颜色但没有设置hover背景色，使用稍暗的背景
+    style['--custom-hover-bg'] = 'rgba(0, 0, 0, 0.1)';
+  }
+
+  return style;
+});
+
+// 动态 tab 文字颜色
+const tabTextColorStyle = computed(() => {
+  const style: Record<string, string> = {};
+
+  if (config.value.tabTextColor) {
+    style['--tab-text-color'] = config.value.tabTextColor;
+  }
+
+  // 设置tab激活状态背景色
+  if (config.value.tabActiveBackgroundColor) {
+    style['--tab-active-bg'] = config.value.tabActiveBackgroundColor;
+  } else if (config.value.tabTextColor) {
+    // 如果设置了文字颜色但没有设置激活背景色，使用稍暗的背景
+    style['--tab-active-bg'] = 'rgba(0, 0, 0, 0.1)';
+  }
+
+  return style;
 });
 
 function handleZoomIn(event: Event) {
@@ -60,19 +124,87 @@ function handleFullscreen(event: Event) {
   emit('onFullscreen');
 }
 
-function handleToggleCode(event: Event) {
+function handleToggleCode(event?: Event) {
+  if (event) {
+    event.stopPropagation();
+    event.preventDefault();
+  }
+  emit('onToggleCode');
+}
+
+function handleDownload(event: Event) {
   event.stopPropagation();
   event.preventDefault();
-  emit('onToggleCode');
+  emit('onDownload');
+}
+
+async function handleCopyCode(event: Event) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  // 如果正在显示成功状态，不执行复制操作
+  if (isCopySuccess.value) {
+    return;
+  }
+
+  try {
+    if (!props.sourceCode) {
+      emit('onCopyCode');
+      return;
+    }
+
+    // 使用现代剪贴板 API
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(props.sourceCode);
+    } else {
+      // 降级方案：使用传统方法
+      const textArea = document.createElement('textarea');
+      textArea.value = props.sourceCode;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      textArea.remove();
+    }
+
+    // 设置复制成功状态
+    isCopySuccess.value = true;
+
+    setTimeout(() => {
+      isCopySuccess.value = false;
+    }, 1500);
+
+    emit('onCopyCode');
+  } catch (err) {
+    console.error('Failed to copy code: ', err);
+    // 如果复制失败，也通知父组件，让父组件决定如何处理
+    emit('onCopyCode');
+  }
 }
 
 function handleToolbarClick(event: Event) {
   event.stopPropagation();
   event.preventDefault();
 }
+
+function handleTabClick(tabName: string) {
+  activeTab.value = tabName;
+}
+
+interface TabClickEvent {
+  paneName: string;
+}
+
+function handleTabClickEvent(pane: TabClickEvent) {
+  handleTabClick(pane.paneName);
+}
 </script>
 
 <template>
+  <!-- 正常状态：显示工具栏 -->
   <div
     v-if="config.showToolbar"
     class="mermaid-toolbar"
@@ -80,102 +212,211 @@ function handleToolbarClick(event: Event) {
     :style="config.toolbarStyle"
     @click="handleToolbarClick"
   >
-    <el-icon
-      v-if="config.showFullscreen"
-      class="toolbar-icon"
-      :size="20"
-      :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleFullscreen($event)"
-    >
-      <FullScreen />
-    </el-icon>
+    <!-- 左侧 Tabs -->
+    <div class="toolbar-left" :style="tabTextColorStyle">
+      <el-tabs
+        :model-value="activeTab"
+        class="toolbar-tabs"
+        @tab-click="handleTabClickEvent"
+      >
+        <el-tab-pane label="图片" name="diagram" />
+        <el-tab-pane label="代码" name="code" />
+      </el-tabs>
+    </div>
 
-    <el-icon
-      v-if="config.showZoomIn"
-      class="toolbar-icon"
-      :size="20"
-      :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleZoomIn($event)"
-    >
-      <ZoomIn />
-    </el-icon>
+    <!-- 右侧按钮组 -->
+    <div class="toolbar-right">
+      <!-- 代码视图：只显示复制按钮 -->
+      <template v-if="props.isSourceCodeMode">
+        <div
+          class="toolbar-action-btn"
+          :class="{ 'copy-success': isCopySuccess }"
+          :style="iconColorStyle"
+          @click="handleCopyCode($event)"
+        >
+          <el-icon :size="16">
+            <Check v-if="isCopySuccess" />
+            <CopyDocument v-else />
+          </el-icon>
+        </div>
+      </template>
 
-    <el-icon
-      v-if="config.showZoomOut"
-      class="toolbar-icon"
-      :size="20"
-      :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleZoomOut($event)"
-    >
-      <ZoomOut />
-    </el-icon>
+      <!-- 图片视图：显示所有操作按钮 -->
+      <template v-else>
+        <!-- 下载按钮 -->
+        <div
+          v-if="config.showDownload"
+          class="toolbar-action-btn"
+          :class="{ disabled: props.renderError }"
+          :style="iconColorStyle"
+          @click="props.renderError ? undefined : handleDownload($event)"
+        >
+          <el-icon :size="16">
+            <Download />
+          </el-icon>
+        </div>
 
-    <el-icon
-      v-if="config.showReset"
-      class="toolbar-icon"
-      :size="20"
-      :class="{ disabled: props.isSourceCodeMode }"
-      @click="props.isSourceCodeMode ? undefined : handleReset($event)"
-    >
-      <Refresh />
-    </el-icon>
+        <!-- 分割线 -->
+        <div v-if="config.showDownload" class="toolbar-divider" />
 
-    <el-icon
-      v-if="config.showCode"
-      class="toolbar-icon"
-      :size="20"
-      @click="handleToggleCode($event)"
-    >
-      <Document />
-    </el-icon>
+        <!-- 缩小按钮 -->
+        <div
+          v-if="config.showZoomOut"
+          class="toolbar-action-btn"
+          :class="{ disabled: props.renderError }"
+          :style="iconColorStyle"
+          @click="props.renderError ? undefined : handleZoomOut($event)"
+        >
+          <el-icon :size="16">
+            <ZoomOut />
+          </el-icon>
+        </div>
+
+        <!-- 放大按钮 -->
+        <div
+          v-if="config.showZoomIn"
+          class="toolbar-action-btn"
+          :class="{ disabled: props.renderError }"
+          :style="iconColorStyle"
+          @click="props.renderError ? undefined : handleZoomIn($event)"
+        >
+          <el-icon :size="16">
+            <ZoomIn />
+          </el-icon>
+        </div>
+
+        <!-- 适应按钮 (重置) -->
+        <div
+          v-if="config.showReset"
+          class="toolbar-action-btn"
+          :class="{ disabled: props.renderError }"
+          :style="iconColorStyle"
+          @click="props.renderError ? undefined : handleReset($event)"
+        >
+          <el-icon :size="16">
+            <Aim />
+          </el-icon>
+        </div>
+
+        <!-- 全屏按钮 -->
+        <div
+          v-if="config.showFullscreen"
+          class="toolbar-action-btn"
+          :class="{ disabled: props.renderError }"
+          :style="iconColorStyle"
+          @click="props.renderError ? undefined : handleFullscreen($event)"
+        >
+          <el-icon :size="16">
+            <FullScreen />
+          </el-icon>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 .mermaid-toolbar {
-  position: absolute;
-  top: 8px;
-  right: 8px;
   display: flex;
-  gap: 4px;
-  padding: 8px 16px;
-  background: rgb(242 243 247);
-  border-radius: 12px;
-  backdrop-filter: blur(4px);
-  transition: all 0.2s ease;
-  z-index: 1000;
+  align-items: center;
+  height: 42px;
+  background: #ebecef;
+  border-radius: 8px 8px 0 0;
+  padding: 0 12px;
   pointer-events: auto;
   user-select: none !important;
+  border-bottom: 1px solid var(--el-border-color-light);
+  position: relative;
+  z-index: 10;
 
-  .toolbar-icon {
-    width: 28px;
-    height: 28px;
+  .toolbar-left {
+    flex: 1;
+
+    .toolbar-tabs {
+      :deep(.el-tabs__header) {
+        margin: 0;
+        border-bottom: none;
+      }
+
+      :deep(.el-tabs__nav-wrap) {
+        &::after {
+          display: none;
+        }
+      }
+
+      :deep(.el-tabs__item) {
+        height: 32px;
+        line-height: 32px;
+        padding: 0 12px;
+        font-size: 14px;
+        border: none;
+        color: var(--tab-text-color, var(--el-text-color-regular));
+
+        &.is-active {
+          color: var(--tab-text-color, var(--el-text-color-primary));
+          background: var(--tab-active-bg, rgba(255, 255, 255, 0.8));
+          border-radius: 10px;
+        }
+
+        &:hover:not(.is-active) {
+          color: var(--tab-text-color, var(--el-text-color-primary));
+        }
+      }
+
+      :deep(.el-tabs__active-bar) {
+        display: none;
+      }
+    }
+  }
+
+  .toolbar-right {
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #020817;
-    pointer-events: auto;
-    user-select: none !important;
+    gap: 0;
 
-    &:hover:not(.disabled) {
-      background: rgb(230 230 234);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    .toolbar-action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--el-text-color-regular);
       border-radius: 4px;
+      position: relative;
+
+      &:hover:not(.disabled) {
+        background: var(--custom-hover-bg, var(--el-fill-color-light));
+        color: var(--custom-icon-color, var(--el-text-color-primary));
+      }
+
+      &:active:not(.disabled) {
+        transform: scale(0.95);
+      }
+
+      &.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none !important;
+        background: none !important;
+      }
+
+      &.toolbar-action-btn-last {
+        margin-right: 0;
+      }
+
+      &.copy-success {
+        cursor: default;
+        transform: none !important;
+      }
     }
 
-    &:active:not(.disabled) {
-      transform: translateY(0) scale(1);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    }
-
-    &.disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none !important;
-      box-shadow: none !important;
+    .toolbar-divider {
+      width: 1px;
+      height: 16px;
+      background: var(--el-border-color);
+      margin: 0 8px;
     }
   }
 }
@@ -188,17 +429,36 @@ function handleToolbarClick(event: Event) {
 
 /* 全屏状态下的样式调整 */
 :global(.markdown-mermaid:fullscreen .mermaid-toolbar) {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
 
-  .toolbar-icon {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: white;
+  .toolbar-left .toolbar-tabs {
+    :deep(.el-tabs__item) {
+      color: rgba(255, 255, 255, 0.7);
 
-    &:hover:not(.disabled) {
+      &.is-active {
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      &:hover:not(.is-active) {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
+  }
+
+  .toolbar-right {
+    .toolbar-action-btn {
+      color: rgba(255, 255, 255, 0.7);
+
+      &:hover:not(.disabled) {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+    }
+
+    .toolbar-divider {
       background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.5);
-      color: white;
     }
   }
 }
