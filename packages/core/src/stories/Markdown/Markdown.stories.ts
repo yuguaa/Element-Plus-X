@@ -3,6 +3,7 @@ import {
   highlightMdContent,
   mathMdContent,
   mdContent,
+  mermaidComplexMdContent,
   mermaidMdContent
 } from '@assets/mock';
 import HighlightCodeDemo from './highlight-code.vue';
@@ -99,27 +100,9 @@ export const MermaidToolbarDemo: Story = {
   } as Story['args']
 };
 
-// Mermaid 渲染错误案例演示
-export const MermaidErrorDemo: Story = {
+// Mermaid 渲染复杂图表案例
+export const MermaidComplexDemo: Story = {
   args: {
-    markdown: `
-### Mermaid 渲染错误演示
-\`\`\`mermaid
-graph TD
-    A[开始] --> B[处理
-    B --> C[结束]
-    D --> 
-\`\`\`
-`,
-    mermaidConfig: {
-      showToolbar: true,
-      showFullscreen: true,
-      showZoomIn: true,
-      showZoomOut: true,
-      showReset: true,
-      showDownload: true,
-      toolbarStyle: {},
-      toolbarClass: 'mermaid-error-demo'
-    }
+    markdown: mermaidComplexMdContent
   } as Story['args']
 };

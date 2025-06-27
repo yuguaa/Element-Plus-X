@@ -1,6 +1,9 @@
 <script lang="ts">
 import type { InitShikiOptions } from '../../shared/shikiHighlighter';
-import { MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY } from '@components/Markdown/shared';
+import {
+  MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY,
+  SHIKI_SUPPORT_LANGS
+} from '@components/Markdown/shared';
 import {
   transformerNotationDiff,
   transformerNotationErrorLevel,
@@ -47,8 +50,10 @@ export default defineComponent({
     ];
     // 生成高亮HTML
     const generateHtml = async () => {
-      const { language, content } = props.raw;
-
+      let { language, content } = props.raw;
+      if (!SHIKI_SUPPORT_LANGS.includes(language)) {
+        language = 'text';
+      }
       const html = await codeToHtml(content, {
         lang: language,
         themes: theme?.value ?? {
