@@ -19,10 +19,15 @@ export const mdContent = `
 - 列表项 2
 **粗体文本** 和 *斜体文本*
 
+- [x] Add some task
+- [ ] Do some task
 `.trim();
 
 // md 代码块高亮
 export const highlightMdContent = `
+\`\`\`echarts
+use codeXRender for echarts render
+\`\`\`
 
 ### javascript
 \`\`\`javascript

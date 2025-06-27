@@ -8,7 +8,9 @@ export interface MarkdownContext {
   // 是否启用换行符转 <br>
   enableBreaks?: boolean;
   // 自定义代码块渲染函数
-  codeBlockRender?: Record<string, any>;
+  codeXRender?: Record<string, any>;
+  // 自定义代码块插槽
+  codeXSlot?: Record<string, any>;
   // 自定义代码高亮主题
   codeHighlightTheme?: builtinTheme;
   // 自定义属性对象

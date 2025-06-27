@@ -1,6 +1,9 @@
 <script lang="ts">
 import type { InitShikiOptions } from '../../shared/shikiHighlighter';
-import { MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY } from '@components/Markdown/shared';
+import {
+  MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY,
+  SHIKI_SUPPORT_LANGS
+} from '@components/Markdown/shared';
 import {
   transformerNotationDiff,
   transformerNotationErrorLevel,
@@ -9,8 +12,16 @@ import {
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
-import { defineComponent, h, ref, watch } from 'vue'; // 引入vue相关API
-import { controlEle, expand, languageEle } from './shiki-header';
+import { defineComponent, h, ref, toValue, watch } from 'vue';
+import { useMarkdownContext } from '../MarkdownProvider';
+import {
+  controlEle,
+  copyCode,
+  expand,
+  languageEle,
+  toggleExpand,
+  toggleTheme
+} from './shiki-header';
 import '../../../../assets/style/shiki.scss';
 
 export default defineComponent({
@@ -20,7 +31,9 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup(props, { slots }) {
+  setup(props) {
+    const context = useMarkdownContext();
+    const { codeXSlot } = toValue(context);
     const renderLines = ref<string[]>([]);
     const firstRender = ref(true);
     const preStyle = ref<any | null>(null);
@@ -37,8 +50,10 @@ export default defineComponent({
     ];
     // 生成高亮HTML
     const generateHtml = async () => {
-      const { language, content } = props.raw;
-
+      let { language, content } = props.raw;
+      if (!SHIKI_SUPPORT_LANGS.includes(language)) {
+        language = 'text';
+      }
       const html = await codeToHtml(content, {
         lang: language,
         themes: theme?.value ?? {
@@ -69,7 +84,28 @@ export default defineComponent({
       },
       { immediate: true }
     );
-
+    const render = (slotName: string) => {
+      if (!codeXSlot) {
+        return h('span', {}, '');
+      }
+      const slotFn = codeXSlot[slotName];
+      if (typeof slotFn === 'function') {
+        return slotFn({
+          ...props,
+          renderLines: renderLines.value,
+          toggleExpand,
+          toggleTheme,
+          copyCode
+        });
+      }
+      return h(slotFn, {
+        ...props,
+        renderLines: renderLines.value,
+        toggleExpand,
+        toggleTheme,
+        copyCode
+      });
+    };
     return () =>
       h(
         'pre',
@@ -95,13 +131,10 @@ export default defineComponent({
             {
               class: `markdown-language-header-div el-card is-always-shadow`
             },
-            slots.header?.({
-              language: props.raw.language,
-              lines: renderLines.value
-            }) ?? [
-              slots.headerLanguage?.({ language: props.raw.language }) ??
+            (codeXSlot?.codeHeader && render('codeHeader')) ?? [
+              (codeXSlot?.codeHeaderLanguage && render('codeHeaderLanguage')) ??
                 languageEle(props.raw.language),
-              slots.headerControl?.({ lines: renderLines.value }) ??
+              (codeXSlot?.codeHeaderControl && render('codeHeaderControl')) ??
                 controlEle(renderLines.value)
             ]
           ),

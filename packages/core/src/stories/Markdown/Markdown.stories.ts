@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-// import type MarkdownSource from '../../components/Markdown';
 import {
   highlightMdContent,
   mathMdContent,
   mdContent,
   mermaidMdContent
 } from '@assets/mock';
+import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';
 
 const meta = {
@@ -34,13 +34,9 @@ const meta = {
       showFullscreen: true,
       showZoomIn: true,
       showZoomOut: true,
-      showReset: false,
-      showCode: true,
-      toolbarStyle: {
-        borderRadius: '10px',
-        padding: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.2)'
-      },
+      showReset: true,
+      showDownload: true,
+      toolbarStyle: {},
       toolbarClass: 'mermaid-config-toolbar'
     }
   }
@@ -57,7 +53,16 @@ export const MarkdownDemo: Story = {
 export const highlightMdContentDemo: Story = {
   args: {
     markdown: highlightMdContent
-  } as Story['args']
+  },
+  render: args => ({
+    components: {
+      HighlightCodeDemo
+    },
+    setup() {
+      return { attrs: args };
+    },
+    template: `<HighlightCodeDemo v-bind="attrs"  />`
+  })
 };
 
 export const PieRenderDemo: Story = {
@@ -81,16 +86,40 @@ export const MermaidToolbarDemo: Story = {
       showFullscreen: true,
       showZoomIn: true,
       showZoomOut: true,
-      showReset: false, // 禁用重置按钮
-      showCode: true,
+      showReset: true,
       toolbarStyle: {
-        background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)', // 紫色渐变背景
-        borderRadius: '10px',
-        padding: '8px',
+        background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)',
         boxShadow: '0 4px 16px rgba(139, 92, 246, 0.3)',
         border: '1px solid rgba(255, 255, 255, 0.2)'
       },
-      toolbarClass: 'mermaid-config-toolbar'
+      toolbarClass: 'mermaid-config-toolbar',
+      iconColor: '#FFFFFF',
+      tabTextColor: '#FFFFFF'
+    }
+  } as Story['args']
+};
+
+// Mermaid 渲染错误案例演示
+export const MermaidErrorDemo: Story = {
+  args: {
+    markdown: `
+### Mermaid 渲染错误演示
+\`\`\`mermaid
+graph TD
+    A[开始] --> B[处理
+    B --> C[结束]
+    D --> 
+\`\`\`
+`,
+    mermaidConfig: {
+      showToolbar: true,
+      showFullscreen: true,
+      showZoomIn: true,
+      showZoomOut: true,
+      showReset: true,
+      showDownload: true,
+      toolbarStyle: {},
+      toolbarClass: 'mermaid-error-demo'
     }
   } as Story['args']
 };

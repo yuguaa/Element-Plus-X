@@ -2,14 +2,15 @@
 
 // export type * from './core/types'
 import type { BuiltinTheme } from 'shiki';
+import type { Component } from 'vue';
 
 export interface MdComponent {
   raw: any;
 }
-export type CodeBlockRenderer =
+export type codeXRenderer =
   | ((params: { language?: string; content: string }) => VNodeChild)
   | Component;
-
+export type codeXSlot = ((params: any) => VNodeChild) | Component;
 export interface HighlightProps {
   theme?: BuiltinTheme | null;
   isDark?: boolean;
