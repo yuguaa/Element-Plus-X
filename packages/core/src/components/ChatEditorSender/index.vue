@@ -68,7 +68,8 @@ const chatState = reactive<ChatState>({
   lastFocusNode: null,
   lastOffset: 0,
   wrapCallSelectDialog: false, // 记录是否是外部调用了选择弹窗进行插值行为操作
-  selectTagInsetText: ''
+  beforeText: '',
+  afterText: ''
 });
 // 创建输入框
 function createChat() {
@@ -112,10 +113,16 @@ function createChat() {
   );
   // 订阅标签选择事件
   chat.value.addEventListener('selectCheck', () => {
-    if (chatState.wrapCallSelectDialog && chatState.selectTagInsetText) {
-      chat.value?.insertText(chatState.selectTagInsetText);
+    if (chatState.wrapCallSelectDialog && chatState.beforeText) {
+      chat.value?.insertText(chatState.beforeText);
+      chatState.beforeText = '';
+    }
+  });
+  chat.value.addEventListener('afterSelectCheck', () => {
+    if (chatState.wrapCallSelectDialog && chatState.afterText) {
+      chat.value?.insertText(chatState.afterText);
+      chatState.afterText = '';
       chatState.wrapCallSelectDialog = false;
-      chatState.selectTagInsetText = '';
     }
   });
   // 接管异步匹配
@@ -321,7 +328,8 @@ function setText(txt: string) {
 }
 // 外部调用唤起标签选择弹窗
 function openSelectDialog(option: SelectDialogOption) {
-  chatState.selectTagInsetText = option.insertText || '';
+  chatState.beforeText = option.beforeText || '';
+  chatState.afterText = option.afterText || '';
   chatState.wrapCallSelectDialog = true;
   chat.value?.showPCSelectDialog(option.key, option.elm);
 }
@@ -617,6 +625,7 @@ defineExpose({
       height: 100%;
       display: flex;
       align-items: center;
+      flex-direction: column;
       align-self: center;
       box-sizing: border-box;
       .el-editor-sender-chat {
