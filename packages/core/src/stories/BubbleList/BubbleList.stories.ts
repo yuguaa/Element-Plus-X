@@ -34,6 +34,7 @@ const meta = {
 } satisfies Meta<typeof BubbleListSource>;
 
 export default meta;
+
 type Story = StoryObj<typeof meta>;
 
 export const BubbleListDemo: Story = {

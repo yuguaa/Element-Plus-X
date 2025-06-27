@@ -1,6 +1,7 @@
 import type { BubbleProps } from '@components/Bubble/types';
 import type { BubbleListProps } from '@components/BubbleList/types';
 import type { FilesType } from '@components/FilesCard/types';
+
 import type { ThinkingStatus } from '@components/Thinking/types';
 
 // 头像1

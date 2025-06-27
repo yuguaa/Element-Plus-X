@@ -4,12 +4,9 @@ import Attachments from '@components/Attachments/index.vue';
 import { useAttachmentStubs } from './useAttachmentStubs';
 
 type Props = Pick<AttachmentsProps, 'items'>;
-
 const props = withDefaults(defineProps<Props>(), {
   items: () => []
 });
-
-const attrs = useAttrs();
 
 const {
   files,
@@ -26,8 +23,7 @@ const {
       附件组件，内置多种文件格式样式。支持上传，删除，预览等操作，支持三种布局方式
     </div>
     <Attachments
-      v-bind="attrs"
-      :items="files"
+      v-bind="{ ...$attrs, ...props, items: files }"
       :before-upload="handleBeforeUpload"
       :http-request="handleHttpRequest"
       @upload-drop="handleUploadDrop"
@@ -81,6 +77,12 @@ const {
     border-radius: 8px;
     background-color: antiquewhite;
     flex: none;
+
+    .custom-item-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 }
 </style>

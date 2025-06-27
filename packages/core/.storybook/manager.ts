@@ -31,7 +31,7 @@ addons.setConfig({
   // 是否启用快捷键
   enableShortcuts: false,
   // 是否显示顶部工具栏
-  showToolbar: false,
+  showToolbar: true,
   // 初始选中的面板（undefined 表示不强制选中）
   selectedPanel: undefined,
   // 初始激活的界面元素：'sidebar' 或 'panel'

@@ -1,11 +1,8 @@
 import type AttachmentsSource from '@components/Attachments/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import CustomButtons from './CustomButtons.vue';
-// import CustomList from './CustomList.vue';
+import CustomSolt from './CustomSolt.vue';
 import Attachments from './index.vue';
-import { genDefaultFiles } from './useAttachmentStubs';
-
-const files = genDefaultFiles();
+// import { genDefaultFiles } from './useAttachmentStubs.ts';
 
 const meta: Meta = {
   title: 'Example/Attachments 附件上传组件 📪️',
@@ -36,6 +33,18 @@ const meta: Meta = {
     }
   },
   args: {
+    items: [
+      {
+        uid: '1'.toString(),
+        name: `文件${1}`,
+        fileSize: 1024 * 2,
+        fileType: 'file',
+        url: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
+        thumbUrl: 'https://avatars.githubusercontent.com/u/76239030?s=70&v=4',
+        imgFile: new File([], `test${1}.txt`),
+        showDelIcon: true
+      }
+    ],
     overflow: 'scrollX',
     listStyle: {
       padding: '0 12px',
@@ -44,8 +53,7 @@ const meta: Meta = {
     limit: 0,
     hideUpload: false,
     uploadIconSize: '64px',
-    dragTarget: '',
-    items: files
+    dragTarget: ''
   }
 } satisfies Meta<typeof AttachmentsSource>;
 
@@ -57,20 +65,20 @@ export const AttachmentsDemo: Story = {
   args: {}
 };
 
-export const CustomButtonsDemo: Story = {
-  name: 'CustomButtons',
+export const Solt: Story = {
+  name: 'CustomSolt',
   args: {
     ...AttachmentsDemo.args
   } as Story['args'],
   render: args => ({
     components: {
-      CustomButtons
+      CustomSolt
     },
     setup() {
       return {
         attrs: args
       };
     },
-    template: '<CustomButtons v-bind="attrs" />'
+    template: '<CustomSolt v-bind="attrs" />'
   })
 };
