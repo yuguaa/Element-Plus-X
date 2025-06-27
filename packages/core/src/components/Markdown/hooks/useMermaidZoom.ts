@@ -2,14 +2,41 @@ import type {
   MermaidZoomControls,
   UseMermaidZoomOptions
 } from '../components/Mermaid/types';
-import { onUnmounted, watch } from 'vue';
+import { onUnmounted, ref, watch } from 'vue';
 
 export function useMermaidZoom(
   options: UseMermaidZoomOptions
 ): MermaidZoomControls {
   const { container } = options;
 
+  const scale = ref(1);
+  const posX = ref(0);
+  const posY = ref(0);
+  const isDragging = ref(false);
+  const startX = ref(0);
+  const startY = ref(0);
+  const initialDistance = ref(0);
+  const initialScale = ref(1);
+
   let removeEvents: (() => void) | null = null;
+
+  // 更新函数
+  const updateTransform = (content: HTMLElement) => {
+    content.style.transformOrigin = '0 0';
+    content.style.transform = `translate(${posX.value}px, ${posY.value}px) scale(${scale.value})`;
+  };
+
+  // 重置所有状态的函数
+  const resetState = () => {
+    scale.value = 1;
+    posX.value = 0;
+    posY.value = 0;
+    isDragging.value = false;
+    startX.value = 0;
+    startY.value = 0;
+    initialDistance.value = 0;
+    initialScale.value = 1;
+  };
 
   const addZoomEvents = (containerElement: HTMLElement) => {
     const mermaidContent = containerElement.querySelector(
@@ -30,48 +57,35 @@ export function useMermaidZoom(
     // 使用 SVG 作为变换目标
     const content = svg as unknown as HTMLElement;
 
-    let scale = 1;
-    let posX = 0;
-    let posY = 0;
-    let isDragging = false;
-    let startX: number, startY: number;
-    let initialDistance: number;
-    let initialScale = 1;
-
-    const updateTransform = () => {
-      content.style.transformOrigin = '0 0';
-      content.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
-    };
-
     // 处理拖拽和单指移动
     const onTouchStart = (event: TouchEvent) => {
       if (event.touches.length === 1) {
-        isDragging = true;
-        startX = event.touches[0].clientX - posX;
-        startY = event.touches[0].clientY - posY;
+        isDragging.value = true;
+        startX.value = event.touches[0].clientX - posX.value;
+        startY.value = event.touches[0].clientY - posY.value;
       } else if (event.touches.length === 2) {
-        initialDistance = Math.hypot(
+        initialDistance.value = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
           event.touches[0].clientY - event.touches[1].clientY
         );
-        initialScale = scale;
+        initialScale.value = scale.value;
       }
     };
 
     const onTouchMove = (event: TouchEvent) => {
       event.preventDefault();
 
-      if (isDragging && event.touches.length === 1) {
-        posX = event.touches[0].clientX - startX;
-        posY = event.touches[0].clientY - startY;
-        updateTransform();
+      if (isDragging.value && event.touches.length === 1) {
+        posX.value = event.touches[0].clientX - startX.value;
+        posY.value = event.touches[0].clientY - startY.value;
+        updateTransform(content);
       } else if (event.touches.length === 2) {
         const newDistance = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
           event.touches[0].clientY - event.touches[1].clientY
         );
-        const scaleChange = newDistance / initialDistance;
-        const previousScale = scale;
+        const scaleChange = newDistance / initialDistance.value;
+        const previousScale = scale.value;
 
         // 计算双指中心点相对于容器的位置
         const containerRect = mermaidContent.getBoundingClientRect();
@@ -83,22 +97,22 @@ export function useMermaidZoom(
           containerRect.top;
 
         // 计算双指中心点在当前变换下对应的内容坐标
-        const contentX = (centerX - posX) / previousScale;
-        const contentY = (centerY - posY) / previousScale;
+        const contentX = (centerX - posX.value) / previousScale;
+        const contentY = (centerY - posY.value) / previousScale;
 
         // 更新缩放
-        scale = initialScale * scaleChange;
+        scale.value = initialScale.value * scaleChange;
 
         // 重新计算translate，使得相同的内容坐标仍然在双指中心
-        posX = centerX - contentX * scale;
-        posY = centerY - contentY * scale;
+        posX.value = centerX - contentX * scale.value;
+        posY.value = centerY - contentY * scale.value;
 
-        updateTransform();
+        updateTransform(content);
       }
     };
 
     const onTouchEnd = () => {
-      isDragging = false;
+      isDragging.value = false;
     };
 
     //  PC 端缩放功能 : 需要分情况处理  全屏 和 非全屏 的坐标计算,保持 鼠标在图表上时始终以鼠标中心位置为中心点
@@ -118,19 +132,20 @@ export function useMermaidZoom(
       // 计算新的缩放比例
       let newScale: number;
       if (event.deltaY < 0) {
-        newScale = Math.min(scale + zoomStep, maxScale);
+        newScale = Math.min(scale.value + zoomStep, maxScale);
       } else {
-        newScale = Math.max(scale - zoomStep, minScale);
+        newScale = Math.max(scale.value - zoomStep, minScale);
       }
 
       // 如果缩放值没有变化，直接返回
-      if (Math.abs(newScale - scale) < 0.001) {
+      if (Math.abs(newScale - scale.value) < 0.001) {
         return;
       }
       // 坐标获取
       const getMouseCoordinates = () => {
         const isFullscreen = !!document.fullscreenElement;
-        const hasTransform = posX !== 0 || posY !== 0 || scale !== 1;
+        const hasTransform =
+          posX.value !== 0 || posY.value !== 0 || scale.value !== 1;
 
         let mouseX: number, mouseY: number;
         let method: string;
@@ -204,15 +219,15 @@ export function useMermaidZoom(
           x: event.clientX - svgRect.left,
           y: event.clientY - svgRect.top
         };
-        contentCenterX = mouseRelativeToSvg.x / scale;
-        contentCenterY = mouseRelativeToSvg.y / scale;
+        contentCenterX = mouseRelativeToSvg.x / scale.value;
+        contentCenterY = mouseRelativeToSvg.y / scale.value;
       } else {
-        contentCenterX = (mouseX - posX) / scale;
-        contentCenterY = (mouseY - posY) / scale;
+        contentCenterX = (mouseX - posX.value) / scale.value;
+        contentCenterY = (mouseY - posY.value) / scale.value;
       }
 
       // 更新缩放
-      scale = newScale;
+      scale.value = newScale;
 
       // 重新计算偏移
       if (
@@ -226,22 +241,24 @@ export function useMermaidZoom(
           x: event.clientX - svgRect.left,
           y: event.clientY - svgRect.top
         };
-        posX = posX + mouseRelativeToSvg.x - contentCenterX * scale;
-        posY = posY + mouseRelativeToSvg.y - contentCenterY * scale;
+        posX.value =
+          posX.value + mouseRelativeToSvg.x - contentCenterX * scale.value;
+        posY.value =
+          posY.value + mouseRelativeToSvg.y - contentCenterY * scale.value;
       } else {
-        posX = mouseX - contentCenterX * scale;
-        posY = mouseY - contentCenterY * scale;
+        posX.value = mouseX - contentCenterX * scale.value;
+        posY.value = mouseY - contentCenterY * scale.value;
       }
 
-      updateTransform();
+      updateTransform(content);
     };
 
     // PC 端拖拽功能
     const onMouseDown = (event: MouseEvent) => {
       event.preventDefault();
-      isDragging = true;
-      startX = event.clientX - posX;
-      startY = event.clientY - posY;
+      isDragging.value = true;
+      startX.value = event.clientX - posX.value;
+      startY.value = event.clientY - posY.value;
 
       // 添加拖拽样式
       containerElement.classList.add('dragging');
@@ -249,27 +266,27 @@ export function useMermaidZoom(
     };
 
     const onMouseMove = (event: MouseEvent) => {
-      if (isDragging) {
-        posX = event.clientX - startX;
-        posY = event.clientY - startY;
-        updateTransform();
+      if (isDragging.value) {
+        posX.value = event.clientX - startX.value;
+        posY.value = event.clientY - startY.value;
+        updateTransform(content);
       }
     };
 
     const onMouseUp = () => {
-      isDragging = false;
+      isDragging.value = false;
       containerElement.classList.remove('dragging');
       document.body.style.userSelect = '';
     };
 
     const onMouseLeave = () => {
-      isDragging = false;
+      isDragging.value = false;
       containerElement.classList.remove('dragging');
       document.body.style.userSelect = '';
     };
 
     // 初始化变换原点
-    updateTransform();
+    updateTransform(content);
 
     // 将事件绑定到 mermaidContent（包含 SVG 的容器）
     mermaidContent.addEventListener('touchstart', onTouchStart, {
@@ -321,7 +338,9 @@ export function useMermaidZoom(
           '.mermaid-content svg'
         ) as HTMLElement;
         if (svg) {
-          svg.style.transform = 'translate(0px, 0px) scale(1)';
+          // 重置DOM和状态
+          resetState();
+          updateTransform(svg);
         }
         initializeZoom();
       }
@@ -368,7 +387,9 @@ export function useMermaidZoom(
         '.mermaid-content svg'
       ) as HTMLElement;
       if (svg) {
-        svg.style.transform = 'translate(0px, 0px) scale(1)';
+        // 同时重置状态和DOM
+        resetState();
+        updateTransform(svg);
       }
     }
   };
@@ -391,6 +412,8 @@ export function useMermaidZoom(
       removeEvents();
       removeEvents = null;
     }
+    // 重置状态
+    resetState();
     // 移除全屏事件监听
     document.removeEventListener('fullscreenchange', handleFullscreenChange);
     document.removeEventListener(
@@ -403,6 +426,8 @@ export function useMermaidZoom(
 
   const initialize = () => {
     if (!container.value) return;
+    // 初始化时重置状态
+    resetState();
     // 如果图表没有加载完成, 则需要等待图表加载完成后再初始化
     const tryInitialize = (retryCount = 0, maxRetries = 5) => {
       const mermaidContent = container.value?.querySelector('.mermaid-content');
@@ -438,6 +463,8 @@ export function useMermaidZoom(
         removeEvents();
         removeEvents = null;
       }
+      // 重置状态
+      resetState();
     }
   );
 

@@ -11,21 +11,19 @@ import {
 } from '@element-plus/icons-vue';
 import { computed, ref } from 'vue';
 
+const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
+  toolbarConfig: () => ({}),
+  isSourceCodeMode: false,
+  sourceCode: ''
+});
+
+const emit = defineEmits<MermaidToolbarEmits>();
+
 interface MermaidToolbarInternalProps {
   toolbarConfig?: MermaidToolbarConfig;
   isSourceCodeMode?: boolean;
   sourceCode?: string;
-  renderError?: boolean;
 }
-
-const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
-  toolbarConfig: () => ({}),
-  isSourceCodeMode: false,
-  sourceCode: '',
-  renderError: false
-});
-
-const emit = defineEmits<MermaidToolbarEmits>();
 
 // 复制成功状态
 const isCopySuccess = ref(false);
@@ -247,9 +245,8 @@ function handleTabClickEvent(pane: TabClickEvent) {
         <div
           v-if="config.showDownload"
           class="toolbar-action-btn"
-          :class="{ disabled: props.renderError }"
           :style="iconColorStyle"
-          @click="props.renderError ? undefined : handleDownload($event)"
+          @click="handleDownload($event)"
         >
           <el-icon :size="16">
             <Download />
@@ -263,9 +260,8 @@ function handleTabClickEvent(pane: TabClickEvent) {
         <div
           v-if="config.showZoomOut"
           class="toolbar-action-btn"
-          :class="{ disabled: props.renderError }"
           :style="iconColorStyle"
-          @click="props.renderError ? undefined : handleZoomOut($event)"
+          @click="handleZoomOut($event)"
         >
           <el-icon :size="16">
             <ZoomOut />
@@ -276,9 +272,8 @@ function handleTabClickEvent(pane: TabClickEvent) {
         <div
           v-if="config.showZoomIn"
           class="toolbar-action-btn"
-          :class="{ disabled: props.renderError }"
           :style="iconColorStyle"
-          @click="props.renderError ? undefined : handleZoomIn($event)"
+          @click="handleZoomIn($event)"
         >
           <el-icon :size="16">
             <ZoomIn />
@@ -289,9 +284,8 @@ function handleTabClickEvent(pane: TabClickEvent) {
         <div
           v-if="config.showReset"
           class="toolbar-action-btn"
-          :class="{ disabled: props.renderError }"
           :style="iconColorStyle"
-          @click="props.renderError ? undefined : handleReset($event)"
+          @click="handleReset($event)"
         >
           <el-icon :size="16">
             <Aim />
@@ -302,9 +296,8 @@ function handleTabClickEvent(pane: TabClickEvent) {
         <div
           v-if="config.showFullscreen"
           class="toolbar-action-btn"
-          :class="{ disabled: props.renderError }"
           :style="iconColorStyle"
-          @click="props.renderError ? undefined : handleFullscreen($event)"
+          @click="handleFullscreen($event)"
         >
           <el-icon :size="16">
             <FullScreen />

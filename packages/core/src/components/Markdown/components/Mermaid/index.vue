@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
-import { Warning } from '@element-plus/icons-vue';
+
 import mermaid from 'mermaid';
-import { debounce } from 'radash';
+import { throttle } from 'radash';
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
 import { useMermaidZoom } from '../../hooks';
 import MermaidToolbar from './MermaidToolbar.vue';
@@ -43,7 +43,6 @@ const toolbarConfig = computed(() => {
 const svg = ref('');
 const containerRef = ref<HTMLElement | null>(null);
 const showSourceCode = ref(false);
-const renderError = ref(false);
 const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
 
 // 初始化缩放功能
@@ -56,8 +55,6 @@ const zoomControls = useMermaidZoom({
 
 async function renderMermaid() {
   try {
-    // 重置错误状态
-    renderError.value = false;
     const valid = await mermaid.parse(props.raw.content);
     if (valid) {
       mermaid.initialize({
@@ -71,17 +68,18 @@ async function renderMermaid() {
           zoomControls.initialize();
         }
       }, 100);
-    } else {
-      renderError.value = true;
     }
   } catch (error) {
     console.log('Mermaid render error:', error);
-    renderError.value = true;
   }
 }
 
-// 防抖渲染
-const scheduleRender = debounce({ delay: 300 }, async () => {
+// // 防抖渲染
+// const scheduleRender = debounce({ delay: 300 }, async () => {
+//   await renderMermaid();
+// });
+// 节流渲染
+const scheduleRender = throttle({ interval: 300 }, async () => {
   await renderMermaid();
 });
 // function scheduleRender() {
@@ -128,7 +126,7 @@ function handleCopyCode() {
 }
 
 function handleDownload() {
-  if (!svg.value || renderError.value) {
+  if (!svg.value) {
     return;
   }
 
@@ -226,11 +224,12 @@ function onContentTransitionEnter() {
 // 监听内容变化
 watch(
   () => props.raw.content,
-  () => {
-    if (props.raw.content) {
-      // 内容变化时重置错误状态
-      renderError.value = false;
+  newContent => {
+    if (newContent) {
       scheduleRender();
+    } else {
+      // 内容为空时清空显示
+      svg.value = '';
     }
   }
 );
@@ -257,7 +256,6 @@ onMounted(() => {
         :toolbar-config="toolbarConfig"
         :is-source-code-mode="showSourceCode"
         :source-code="props.raw.content"
-        :render-error="renderError"
         @on-zoom-in="handleZoomIn"
         @on-zoom-out="handleZoomOut"
         @on-reset="handleReset"
@@ -273,25 +271,12 @@ onMounted(() => {
       mode="out-in"
       @after-enter="onContentTransitionEnter"
     >
-      <!-- 代码视图：总是显示代码，不显示错误 -->
+      <!-- 代码视图 -->
       <pre v-if="showSourceCode" key="source" class="mermaid-source-code">
         {{ props.raw.content }}
       </pre>
-      <!-- 图片视图：有错误时显示错误，无错误时显示图表 -->
-      <template v-else>
-        <!-- 渲染错误状态 -->
-        <div v-if="renderError" key="error" class="mermaid-error-container">
-          <el-empty description="出错啦~">
-            <template #image>
-              <el-icon :size="40">
-                <Warning />
-              </el-icon>
-            </template>
-          </el-empty>
-        </div>
-        <!-- 正常图表显示 -->
-        <div v-else key="chart" class="mermaid-content" v-html="svg" />
-      </template>
+      <!-- 图表视图 -->
+      <div v-else key="chart" class="mermaid-content" v-html="svg" />
     </Transition>
   </div>
 </template>
