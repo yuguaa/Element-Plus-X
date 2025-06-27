@@ -105,6 +105,11 @@ export function useMermaidZoom(
     const onWheel = (event: WheelEvent) => {
       event.preventDefault();
 
+      // 禁用真实的鼠标滚轮缩放，只允许工具栏按钮触发的模拟事件
+      if (event.isTrusted) {
+        return;
+      }
+
       // 缩放步长调整为更小的值，提供更平滑的缩放体验
       const zoomStep = 0.05;
       const maxScale = 10;

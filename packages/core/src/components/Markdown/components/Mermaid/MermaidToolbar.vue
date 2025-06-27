@@ -257,7 +257,7 @@ function handleTabClickEvent(pane: TabClickEvent) {
         </div>
 
         <!-- 分割线 -->
-        <div class="toolbar-divider" />
+        <div v-if="config.showDownload" class="toolbar-divider" />
 
         <!-- 缩小按钮 -->
         <div
