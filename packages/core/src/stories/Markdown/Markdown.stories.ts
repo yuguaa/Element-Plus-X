@@ -3,6 +3,7 @@ import {
   highlightMdContent,
   mathMdContent,
   mdContent,
+  mermaidComplexMdContent,
   mermaidMdContent
 } from '@assets/mock';
 import HighlightCodeDemo from './highlight-code.vue';
@@ -102,30 +103,6 @@ export const MermaidToolbarDemo: Story = {
 // Mermaid 渲染复杂图表案例
 export const MermaidComplexDemo: Story = {
   args: {
-    markdown: `
-### Mermaid 渲染复杂图表案例
-\`\`\`mermaid
-graph LR
-    A[用户] -->|请求交互| B[前端应用]
-    B -->|API调用| C[API网关]
-    C -->|认证请求| D[认证服务]
-    C -->|业务请求| E[业务服务]
-    E -->|数据读写| F[数据库]
-    E -->|缓存操作| G[缓存服务]
-    E -->|消息发布| H[消息队列]
-    H -->|触发任务| I[后台任务]
-    
-    subgraph "微服务集群"
-        D[认证服务]
-        E[业务服务]
-        I[后台任务]
-    end
-    
-    subgraph "数据持久层"
-        F[数据库]
-        G[缓存服务]
-    end
-\`\`\`
-`
+    markdown: mermaidComplexMdContent
   } as Story['args']
 };
