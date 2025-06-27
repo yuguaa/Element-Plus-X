@@ -115,8 +115,8 @@ importers:
         specifier: ^13.1.0
         version: 13.3.0(vue@3.5.17(typescript@5.8.3))
       chatarea:
-        specifier: ^5.5.1
-        version: 5.5.1
+        specifier: ^5.5.2
+        version: 5.5.2
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -2824,7 +2824,7 @@ packages:
   chardet@0.7.0:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
 
-  chatarea@5.5.1:
+  chatarea@5.5.2:
     resolution: {integrity: sha512-/js76+1JInCLnkuHfp0bRVVnYTFuvR9EV7lba+OyYHDawOPqBEHTMzqTdM/8I8S6KksvnDtT/K8jHSzw8iJTBg==}
 
   check-error@2.1.1:
@@ -9180,7 +9180,7 @@ snapshots:
 
   chardet@0.7.0: {}
 
-  chatarea@5.5.1: {}
+  chatarea@5.5.2: {}
 
   check-error@2.1.1: {}
 
