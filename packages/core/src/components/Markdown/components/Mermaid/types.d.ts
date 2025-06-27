@@ -4,9 +4,13 @@ export interface MermaidToolbarConfig {
   showZoomIn?: boolean;
   showZoomOut?: boolean;
   showReset?: boolean;
-  showCode?: boolean;
+  showDownload?: boolean;
   toolbarStyle?: Record<string, any>;
   toolbarClass?: string;
+  iconColor?: string;
+  tabTextColor?: string;
+  hoverBackgroundColor?: string;
+  tabActiveBackgroundColor?: string;
 }
 
 export interface MermaidToolbarProps extends MermaidToolbarConfig {}
@@ -34,4 +38,6 @@ export interface MermaidToolbarEmits {
   onFullscreen: [];
   onEdit: [];
   onToggleCode: [];
+  onCopyCode: [];
+  onDownload: [];
 }

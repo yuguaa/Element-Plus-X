@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
+import { Warning } from '@element-plus/icons-vue';
 import mermaid from 'mermaid';
 import { debounce } from 'radash';
 import { computed, nextTick, onMounted, ref, watch } from 'vue';
@@ -12,6 +13,14 @@ interface MermaidProps extends MdComponent {
 }
 
 const props = withDefaults(defineProps<MermaidProps>(), {
+  // codeKey: '',
+  // lang: '',
+  // content: '',
+  // codeData: () => ({}),
+  // mermaidConfig: () => ({
+  //   delay: 500,
+  //   securityLevel: 'loose',
+  // }),
   raw: () => ({}),
   toolbarConfig: () => ({})
 });
@@ -24,17 +33,20 @@ const toolbarConfig = computed(() => {
     showZoomIn: true,
     showZoomOut: true,
     showReset: true,
-    showCode: true,
     ...props.toolbarConfig
   };
 });
+// const loading = ref(true);
+// let debounceTimer: ReturnType<typeof setTimeout> | null = null;
+// const id = useId();
 
 const svg = ref('');
 const containerRef = ref<HTMLElement | null>(null);
 const showSourceCode = ref(false);
+const renderError = ref(false);
 const id = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
 
-// 初始化缩放功能（在组件 setup 期间创建，避免 Vue 警告）
+// 初始化缩放功能
 const zoomControls = useMermaidZoom({
   container: containerRef,
   scaleStep: 0.2,
@@ -44,6 +56,8 @@ const zoomControls = useMermaidZoom({
 
 async function renderMermaid() {
   try {
+    // 重置错误状态
+    renderError.value = false;
     const valid = await mermaid.parse(props.raw.content);
     if (valid) {
       mermaid.initialize({
@@ -51,16 +65,18 @@ async function renderMermaid() {
       });
       const { svg: renderedSvg } = await mermaid.render(id, props.raw.content);
       svg.value = renderedSvg;
-
       // SVG 渲染完成后，手动触发缩放功能初始化
       setTimeout(() => {
         if (containerRef.value) {
           zoomControls.initialize();
         }
       }, 100);
+    } else {
+      renderError.value = true;
     }
-  } catch (err) {
-    console.log('Mermaid parse/render error:', err);
+  } catch (error) {
+    console.log('Mermaid render error:', error);
+    renderError.value = true;
   }
 }
 
@@ -68,6 +84,15 @@ async function renderMermaid() {
 const scheduleRender = debounce({ delay: 300 }, async () => {
   await renderMermaid();
 });
+// function scheduleRender() {
+//   loading.value = true;
+//   if (debounceTimer)
+//     clearTimeout(debounceTimer);
+//   debounceTimer = setTimeout(() => {
+//     loading.value = false;
+//     renderMermaid();
+//   }, 300);
+// }
 
 // 工具栏事件处理
 function handleZoomIn() {
@@ -96,9 +121,95 @@ function handleFullscreen() {
 
 function handleToggleCode() {
   showSourceCode.value = !showSourceCode.value;
-  // 移除延时逻辑，依赖过渡完成事件来初始化
 }
 
+function handleCopyCode() {
+  console.log('handleCopyCode');
+}
+
+function handleDownload() {
+  if (!svg.value || renderError.value) {
+    return;
+  }
+
+  try {
+    // 创建处理后的SVG数据URL（避免Blob可能的跨域问题）
+    const svgDataUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg.value)}`;
+    const img = new Image();
+    img.onload = () => {
+      try {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: false });
+        if (!ctx) {
+          return;
+        }
+        const scale = 2;
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = 'high';
+        // 背景
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // SVG => Canvas
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        try {
+          canvas.toBlob(
+            blob => {
+              if (!blob) {
+                return;
+              }
+              const url = URL.createObjectURL(blob);
+              const link = document.createElement('a');
+              link.href = url;
+              const timestamp = new Date()
+                .toISOString()
+                .slice(0, 19)
+                .replace(/:/g, '-');
+              link.download = `mermaid-diagram-${timestamp}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              URL.revokeObjectURL(url);
+            },
+            'image/png',
+            0.95
+          );
+        } catch (toBlobError) {
+          console.error('toBlobError:', toBlobError);
+          // 如果toBlob失败，尝试使用toDataURL
+          try {
+            const dataUrl = canvas.toDataURL('image/png', 0.95);
+            const link = document.createElement('a');
+            link.href = dataUrl;
+
+            const timestamp = new Date()
+              .toISOString()
+              .slice(0, 19)
+              .replace(/:/g, '-');
+            link.download = `mermaid-diagram-${timestamp}.png`;
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } catch (dataUrlError) {
+            console.error('dataUrlError:', dataUrlError);
+          }
+        }
+      } catch (canvasError) {
+        console.error('Canvas操作失败:', canvasError);
+      }
+    };
+
+    img.onerror = error => {
+      console.error('error:', error);
+    };
+    // 不设置crossOrigin，使用Data URL避免跨域问题
+    img.src = svgDataUrl;
+  } catch (error) {
+    console.error('error:', error);
+  }
+}
 // 处理图表内容过渡完成事件
 function onContentTransitionEnter() {
   // 只在图表模式下初始化缩放功能
@@ -117,6 +228,8 @@ watch(
   () => props.raw.content,
   () => {
     if (props.raw.content) {
+      // 内容变化时重置错误状态
+      renderError.value = false;
       scheduleRender();
     }
   }
@@ -138,34 +251,47 @@ onMounted(() => {
     onselectstart="return false"
     ondragstart="return false"
   >
+    <!-- 工具栏 -->
+    <Transition name="toolbar" appear>
+      <MermaidToolbar
+        :toolbar-config="toolbarConfig"
+        :is-source-code-mode="showSourceCode"
+        :source-code="props.raw.content"
+        :render-error="renderError"
+        @on-zoom-in="handleZoomIn"
+        @on-zoom-out="handleZoomOut"
+        @on-reset="handleReset"
+        @on-fullscreen="handleFullscreen"
+        @on-toggle-code="handleToggleCode"
+        @on-copy-code="handleCopyCode"
+        @on-download="handleDownload"
+      />
+    </Transition>
     <!-- Mermaid SVG 内容或源码 -->
     <Transition
       name="content"
       mode="out-in"
       @after-enter="onContentTransitionEnter"
     >
-      <div
-        v-if="!showSourceCode"
-        key="chart"
-        class="mermaid-content"
-        v-html="svg"
-      />
-      <pre v-else key="source" class="mermaid-source-code">{{
-        props.raw.content
-      }}</pre>
-    </Transition>
-
-    <!-- 工具栏 -->
-    <Transition name="toolbar" appear>
-      <MermaidToolbar
-        :toolbar-config="toolbarConfig"
-        :is-source-code-mode="showSourceCode"
-        @on-zoom-in="handleZoomIn"
-        @on-zoom-out="handleZoomOut"
-        @on-reset="handleReset"
-        @on-fullscreen="handleFullscreen"
-        @on-toggle-code="handleToggleCode"
-      />
+      <!-- 代码视图：总是显示代码，不显示错误 -->
+      <pre v-if="showSourceCode" key="source" class="mermaid-source-code">
+        {{ props.raw.content }}
+      </pre>
+      <!-- 图片视图：有错误时显示错误，无错误时显示图表 -->
+      <template v-else>
+        <!-- 渲染错误状态 -->
+        <div v-if="renderError" key="error" class="mermaid-error-container">
+          <el-empty description="出错啦~">
+            <template #image>
+              <el-icon :size="40">
+                <Warning />
+              </el-icon>
+            </template>
+          </el-empty>
+        </div>
+        <!-- 正常图表显示 -->
+        <div v-else key="chart" class="mermaid-content" v-html="svg" />
+      </template>
     </Transition>
   </div>
 </template>
