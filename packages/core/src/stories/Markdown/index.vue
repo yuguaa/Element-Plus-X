@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { h } from 'vue';
 import {
   MarkdownRenderer
   // MarkdownRendererAsync
 } from '../../components/Markdown/index';
-import CodeHeader from './CodeHeader.vue';
 
 const props = defineProps<{
   markdown: string;
@@ -49,59 +47,7 @@ onMounted(() => {
   <el-button @click="pause"> 暂停 </el-button>
   <el-button @click="redo"> 重新开始 </el-button>
   <div class="component-container">
-    <h4>默认插槽</h4>
     <MarkdownRenderer v-bind="$attrs" :markdown="content" />
-    <h4>全部函数式自定义插槽 以及方法</h4>
-    <MarkdownRenderer
-      v-bind="$attrs"
-      :markdown="content"
-      :code-x-slot="{
-        codeHeaderLanguage(props: any) {
-          return h(
-            'span',
-            { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
-            '语言(可点击切换)'
-          );
-        },
-        codeHeaderControl(props: any) {
-          return h(
-            'span',
-            {},
-            {
-              default: () => [
-                h(
-                  'button',
-                  {
-                    onClick: () => {
-                      console.log('isDark', props.toggleTheme());
-                    }
-                  },
-                  '主题'
-                ),
-                h('span', {}, '&nbsp;|&nbsp;'),
-                h(
-                  'button',
-                  {
-                    onClick: () => {
-                      props.copyCode(props.renderLines);
-                    }
-                  },
-                  '复制'
-                )
-              ]
-            }
-          );
-        }
-      }"
-    />
-    <h4>组件插槽</h4>
-    <MarkdownRenderer
-      v-bind="$attrs"
-      :markdown="content"
-      :code-x-slot="{
-        codeHeaderLanguage: CodeHeader
-      }"
-    />
   </div>
 </template>
 
