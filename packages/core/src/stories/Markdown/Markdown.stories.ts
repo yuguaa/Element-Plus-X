@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
-// import type MarkdownSource from '../../components/Markdown';
 import {
   highlightMdContent,
   mathMdContent,
   mdContent,
   mermaidMdContent
 } from '@assets/mock';
+import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';
 
 const meta = {
@@ -53,7 +53,16 @@ export const MarkdownDemo: Story = {
 export const highlightMdContentDemo: Story = {
   args: {
     markdown: highlightMdContent
-  } as Story['args']
+  },
+  render: args => ({
+    components: {
+      HighlightCodeDemo
+    },
+    setup() {
+      return { attrs: args };
+    },
+    template: `<HighlightCodeDemo v-bind="attrs"  />`
+  })
 };
 
 export const PieRenderDemo: Story = {
