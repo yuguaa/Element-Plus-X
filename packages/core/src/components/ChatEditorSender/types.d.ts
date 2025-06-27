@@ -2,6 +2,7 @@ import type { CustomTag, SelectTag, TagInfo, UserInfo } from 'chatarea';
 
 export interface EditorProps {
   placeholder?: string;
+  device?: 'pc' | 'h5';
   autoFocus?: boolean;
   variant?: 'default' | 'updown';
   userList?: UserInfo[];

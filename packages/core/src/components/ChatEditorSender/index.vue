@@ -17,6 +17,7 @@ import 'chatarea/lib/ChatArea.css';
 /** 支持的配置属性 */
 const props = withDefaults(defineProps<EditorProps>(), {
   placeholder: '请输入内容', // 输入框提示占位语
+  device: 'pc', // 使用编辑器设备类型 pc内置了很多丰富的弹出选择功能，如果用户传入了h5，弹出交互需要参考自定义弹出去支持
   autoFocus: false, // 是否在聊天框生成后自动聚焦
   variant: 'default', // 输入框的变体类型
   selectList: () => [], // 配置标签下拉选择的选项
@@ -77,8 +78,7 @@ function createChat() {
     elm: container.value!,
     ...props,
     userList: JSON.parse(JSON.stringify(props.userList)),
-    device: 'pc',
-    needDialog: !props.customDialog,
+    needDialog: !props.customDialog && props.device === 'pc',
     copyType: ['text'],
     asyncMatch: Boolean(props.asyncMatchFun),
     needDebounce: false,
