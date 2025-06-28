@@ -1,8 +1,7 @@
 <script lang="ts">
-import type { InitShikiOptions } from '../../shared/shikiHighlighter';
 import {
-  MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY,
-  SHIKI_SUPPORT_LANGS
+  SHIKI_SUPPORT_LANGS,
+  shikiThemeDefault
 } from '@components/Markdown/shared';
 import {
   transformerNotationDiff,
@@ -38,9 +37,8 @@ export default defineComponent({
     const firstRender = ref(true);
     const preStyle = ref<any | null>(null);
     const preClass = ref<string | null>(null);
-    const theme = inject<ComputedRef<InitShikiOptions['themes']>>(
-      MARKDOWN_SHIKI_HIGHLIGHTER_THEME_KEY
-    );
+    const themes = computed(() => context.value.themes);
+
     const shikiTransformers = [
       transformerNotationDiff(),
       transformerNotationErrorLevel(),
@@ -56,9 +54,8 @@ export default defineComponent({
       }
       const html = await codeToHtml(content, {
         lang: language,
-        themes: theme?.value ?? {
-          light: 'vitesse-light',
-          dark: 'vitesse-dark'
+        themes: themes?.value ?? {
+          ...shikiThemeDefault
         },
         transformers: shikiTransformers
       });

@@ -6,6 +6,7 @@ import {
   mermaidComplexMdContent,
   mermaidMdContent
 } from '@assets/mock';
+import { shikiThemeDefault } from '@components/Markdown/shared';
 import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';
 
@@ -18,8 +19,7 @@ const meta = {
     themes: {
       control: 'object',
       defaultValue: {
-        light: 'vitesse-light',
-        dark: 'vitesse-dark'
+        ...shikiThemeDefault
       }
     },
     mermaidConfig: { control: 'object' }
@@ -27,8 +27,7 @@ const meta = {
   args: {
     markdown: mdContent,
     themes: {
-      light: 'vitesse-light',
-      dark: 'vitesse-dark'
+      ...shikiThemeDefault
     },
     mermaidConfig: {
       showToolbar: true,
