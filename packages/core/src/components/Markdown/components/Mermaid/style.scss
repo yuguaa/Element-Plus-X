@@ -83,20 +83,34 @@
     z-index: 1;
     flex: 1;
     min-height: 200px;
-    max-height: 100vh;
+    max-height: 60vh;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-    // overflow: auto;
-    // text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden; // 防止未缩放的大图表溢出
+
     &:active {
       cursor: grabbing;
     }
 
     svg {
       transform-origin: center center; // SVG 的变换原点
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    // 渲染状态时的加载效果
+    &.rendering {
+      svg {
+        opacity: 0.8;
+        pointer-events: none;
+      }
     }
   }
 
@@ -144,20 +158,21 @@
   }
 }
 
-// 内容切换过渡
-.content-enter-active,
+// 内容切换过渡 - 减少闪烁，优化为淡入淡出
+.content-enter-active {
+  transition: opacity 0.2s ease-out;
+}
+
 .content-leave-active {
-  transition: all 0.4s ease;
+  transition: opacity 0.15s ease-in;
 }
 
 .content-enter-from {
   opacity: 0;
-  transform: translateX(20px);
 }
 
 .content-leave-to {
   opacity: 0;
-  transform: translateX(-20px);
 }
 
 // 工具栏过渡
