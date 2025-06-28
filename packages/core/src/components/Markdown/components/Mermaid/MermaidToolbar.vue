@@ -318,7 +318,6 @@ function handleTabClickEvent(pane: TabClickEvent) {
   padding: 0 12px;
   pointer-events: auto;
   user-select: none !important;
-  border-bottom: 1px solid var(--el-border-color-light);
   position: relative;
   z-index: 10;
 

@@ -4,8 +4,9 @@ import type { MermaidToolbarConfig } from './types';
 
 import mermaid from 'mermaid';
 import { throttle } from 'radash';
-import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import { computed, nextTick, onMounted, ref, toValue, watch } from 'vue';
 import { useMermaidZoom } from '../../hooks';
+import { useMarkdownContext } from '../MarkdownProvider';
 import MermaidToolbar from './MermaidToolbar.vue';
 
 interface MermaidProps extends MdComponent {
@@ -24,6 +25,10 @@ const props = withDefaults(defineProps<MermaidProps>(), {
   raw: () => ({}),
   toolbarConfig: () => ({})
 });
+
+// 获取插槽上下文
+const context = useMarkdownContext();
+const { codeXSlot } = toValue(context);
 
 // 计算工具栏配置，合并默认值
 const toolbarConfig = computed(() => {
@@ -121,8 +126,32 @@ function handleToggleCode() {
   showSourceCode.value = !showSourceCode.value;
 }
 
-function handleCopyCode() {
-  console.log('handleCopyCode');
+async function handleCopyCode() {
+  if (!props.raw.content) {
+    return;
+  }
+
+  try {
+    // 使用现代剪贴板 API
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(props.raw.content);
+    } else {
+      // 降级方案：使用传统方法
+      const textArea = document.createElement('textarea');
+      textArea.value = props.raw.content;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      textArea.remove();
+    }
+    console.log('Mermaid code copied successfully');
+  } catch (err) {
+    console.error('Failed to copy mermaid code: ', err);
+  }
 }
 
 function handleDownload() {
@@ -234,6 +263,31 @@ watch(
   }
 );
 
+// 创建暴露给插槽的方法对象
+const exposedMethods = computed(() => {
+  return {
+    // 基础属性
+    showSourceCode: showSourceCode.value,
+    svg: svg.value,
+    rawContent: props.raw.content || '',
+    toolbarConfig: toolbarConfig.value,
+
+    // 缩放控制方法
+    zoomIn: handleZoomIn,
+    zoomOut: handleZoomOut,
+    reset: handleReset,
+    fullscreen: handleFullscreen,
+
+    // 其他操作方法
+    toggleCode: handleToggleCode,
+    copyCode: handleCopyCode,
+    download: handleDownload,
+
+    // 原始 props（除了重复的 toolbarConfig）
+    raw: props.raw
+  };
+});
+
 onMounted(() => {
   if (props.raw.content) {
     renderMermaid();
@@ -252,18 +306,37 @@ onMounted(() => {
   >
     <!-- 工具栏 -->
     <Transition name="toolbar" appear>
-      <MermaidToolbar
-        :toolbar-config="toolbarConfig"
-        :is-source-code-mode="showSourceCode"
-        :source-code="props.raw.content"
-        @on-zoom-in="handleZoomIn"
-        @on-zoom-out="handleZoomOut"
-        @on-reset="handleReset"
-        @on-fullscreen="handleFullscreen"
-        @on-toggle-code="handleToggleCode"
-        @on-copy-code="handleCopyCode"
-        @on-download="handleDownload"
-      />
+      <div class="toolbar-container">
+        <!-- 自定义完整头部插槽 -->
+        <component
+          :is="codeXSlot.codeMermaidHeader"
+          v-if="codeXSlot?.codeMermaidHeader"
+          v-bind="exposedMethods"
+        />
+        <!-- 默认工具栏 + 自定义操作插槽 -->
+        <template v-else>
+          <!-- 自定义操作按钮插槽 -->
+          <component
+            :is="codeXSlot.codeMermaidHeaderControl"
+            v-if="codeXSlot?.codeMermaidHeaderControl"
+            v-bind="exposedMethods"
+          />
+          <!-- 默认工具栏 -->
+          <MermaidToolbar
+            v-else
+            :toolbar-config="toolbarConfig"
+            :is-source-code-mode="showSourceCode"
+            :source-code="props.raw.content"
+            @on-zoom-in="handleZoomIn"
+            @on-zoom-out="handleZoomOut"
+            @on-reset="handleReset"
+            @on-fullscreen="handleFullscreen"
+            @on-toggle-code="handleToggleCode"
+            @on-copy-code="handleCopyCode"
+            @on-download="handleDownload"
+          />
+        </template>
+      </div>
     </Transition>
     <!-- Mermaid SVG 内容或源码 -->
     <Transition
