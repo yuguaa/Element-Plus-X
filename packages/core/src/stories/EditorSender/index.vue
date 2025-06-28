@@ -126,7 +126,8 @@ function openSelectDialog() {
   editorRef.value?.openSelectDialog({
     key: 'style',
     elm: document.getElementById('dialogBtn')!,
-    insertText: '自定义前置内容'
+    beforeText: '[自定义前置内容]',
+    afterText: '[自定义后置内容]'
   });
 }
 

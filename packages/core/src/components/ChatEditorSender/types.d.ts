@@ -2,6 +2,7 @@ import type { CustomTag, SelectTag, TagInfo, UserInfo } from 'chatarea';
 
 export interface EditorProps {
   placeholder?: string;
+  device?: 'pc' | 'h5';
   autoFocus?: boolean;
   variant?: 'default' | 'updown';
   userList?: UserInfo[];
@@ -24,7 +25,8 @@ export interface ChatState {
   lastFocusNode: Node | null;
   lastOffset: number;
   wrapCallSelectDialog: boolean;
-  selectTagInsetText: string;
+  beforeText?: string;
+  afterText?: string;
 }
 
 export interface SubmitResult {
@@ -54,5 +56,6 @@ export interface MixTag {
 export interface SelectDialogOption {
   key: string;
   elm: HTMLElement;
-  insertText?: string;
+  beforeText?: string;
+  afterText?: string;
 }

@@ -17,6 +17,7 @@ import 'chatarea/lib/ChatArea.css';
 /** 支持的配置属性 */
 const props = withDefaults(defineProps<EditorProps>(), {
   placeholder: '请输入内容', // 输入框提示占位语
+  device: 'pc', // 使用编辑器设备类型 pc内置了很多丰富的弹出选择功能，如果用户传入了h5，弹出交互需要参考自定义弹出去支持
   autoFocus: false, // 是否在聊天框生成后自动聚焦
   variant: 'default', // 输入框的变体类型
   selectList: () => [], // 配置标签下拉选择的选项
@@ -68,7 +69,8 @@ const chatState = reactive<ChatState>({
   lastFocusNode: null,
   lastOffset: 0,
   wrapCallSelectDialog: false, // 记录是否是外部调用了选择弹窗进行插值行为操作
-  selectTagInsetText: ''
+  beforeText: '',
+  afterText: ''
 });
 // 创建输入框
 function createChat() {
@@ -76,8 +78,7 @@ function createChat() {
     elm: container.value!,
     ...props,
     userList: JSON.parse(JSON.stringify(props.userList)),
-    device: 'pc',
-    needDialog: !props.customDialog,
+    needDialog: !props.customDialog && props.device === 'pc',
     copyType: ['text'],
     asyncMatch: Boolean(props.asyncMatchFun),
     needDebounce: false,
@@ -112,10 +113,16 @@ function createChat() {
   );
   // 订阅标签选择事件
   chat.value.addEventListener('selectCheck', () => {
-    if (chatState.wrapCallSelectDialog && chatState.selectTagInsetText) {
-      chat.value?.insertText(chatState.selectTagInsetText);
+    if (chatState.wrapCallSelectDialog && chatState.beforeText) {
+      chat.value?.insertText(chatState.beforeText);
+      chatState.beforeText = '';
+    }
+  });
+  chat.value.addEventListener('afterSelectCheck', () => {
+    if (chatState.wrapCallSelectDialog && chatState.afterText) {
+      chat.value?.insertText(chatState.afterText);
+      chatState.afterText = '';
       chatState.wrapCallSelectDialog = false;
-      chatState.selectTagInsetText = '';
     }
   });
   // 接管异步匹配
@@ -321,7 +328,8 @@ function setText(txt: string) {
 }
 // 外部调用唤起标签选择弹窗
 function openSelectDialog(option: SelectDialogOption) {
-  chatState.selectTagInsetText = option.insertText || '';
+  chatState.beforeText = option.beforeText || '';
+  chatState.afterText = option.afterText || '';
   chatState.wrapCallSelectDialog = true;
   chat.value?.showPCSelectDialog(option.key, option.elm);
 }
@@ -617,6 +625,7 @@ defineExpose({
       height: 100%;
       display: flex;
       align-items: center;
+      flex-direction: column;
       align-self: center;
       box-sizing: border-box;
       .el-editor-sender-chat {
