@@ -3,11 +3,11 @@ import {
   highlightMdContent,
   mathMdContent,
   mdContent,
-  mermaidComplexMdContent,
   mermaidMdContent
 } from '@assets/mock';
 import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';
+import MermaidSlot from './mermaid-slot.vue';
 
 const meta = {
   title: 'Example/Markdown 组件 ',
@@ -78,8 +78,8 @@ export const MathRenderDemo: Story = {
   } as Story['args']
 };
 
-// Mermaid 工具栏配置演示
-export const MermaidToolbarDemo: Story = {
+// Mermaid 插槽功能演示
+export const MermaidSlotDemo: Story = {
   args: {
     markdown: mermaidMdContent,
     mermaidConfig: {
@@ -88,21 +88,25 @@ export const MermaidToolbarDemo: Story = {
       showZoomIn: true,
       showZoomOut: true,
       showReset: true,
+      showDownload: true,
       toolbarStyle: {
         background: 'linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%)',
         boxShadow: '0 4px 16px rgba(139, 92, 246, 0.3)',
-        border: '1px solid rgba(255, 255, 255, 0.2)'
+        borderRadius: '8px'
       },
-      toolbarClass: 'mermaid-config-toolbar',
       iconColor: '#FFFFFF',
       tabTextColor: '#FFFFFF'
     }
-  } as Story['args']
-};
+  } as Story['args'],
 
-// Mermaid 渲染复杂图表案例
-export const MermaidComplexDemo: Story = {
-  args: {
-    markdown: mermaidComplexMdContent
-  } as Story['args']
+  render: args => ({
+    components: {
+      MermaidSlot
+    },
+    setup() {
+      return { attrs: args };
+    },
+    template: `<MermaidSlot v-bind="attrs"  />`
+  })
+  // render: () => MermaidSlot
 };
