@@ -1,7 +1,9 @@
 import mermaid from 'mermaid';
 import { ref } from 'vue';
 
-// 内容哈希生成
+// 内容哈希生成 - 保留作为参考，当前使用直接内容比较
+// 对于一般长度的Mermaid内容，直接字符串比较性能足够且更准确
+/*
 export function generateContentHash(content: string): string {
   let hash = 0;
   for (let i = 0; i < content.length; i++) {
@@ -11,6 +13,7 @@ export function generateContentHash(content: string): string {
   }
   return hash.toString();
 }
+*/
 
 // 复制到剪贴板
 export async function copyToClipboard(content: string): Promise<boolean> {
@@ -122,14 +125,14 @@ export function downloadSvgAsPng(svg: string): void {
 export function useMermaidRenderer(id: string) {
   const svg = ref('');
   const isRendering = ref(false);
-  const contentHash = ref('');
+  const previousContent = ref('');
 
   // 渲染Mermaid图表
   async function renderMermaid(content: string): Promise<boolean> {
     if (isRendering.value) return false;
 
-    const newHash = generateContentHash(content);
-    if (newHash === contentHash.value && svg.value) {
+    // 直接比较内容，避免哈希计算开销和潜在碰撞风险
+    if (content === previousContent.value && svg.value) {
       return true;
     }
 
@@ -142,7 +145,7 @@ export function useMermaidRenderer(id: string) {
         const renderKey = `${id}-${Date.now()}`;
         const { svg: renderedSvg } = await mermaid.render(renderKey, content);
 
-        contentHash.value = newHash;
+        previousContent.value = content;
         svg.value = renderedSvg;
         return true;
       }
@@ -158,7 +161,7 @@ export function useMermaidRenderer(id: string) {
   // 重置状态
   function resetRenderer() {
     svg.value = '';
-    contentHash.value = '';
+    previousContent.value = '';
     isRendering.value = false;
   }
 
