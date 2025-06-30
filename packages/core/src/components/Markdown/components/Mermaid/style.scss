@@ -83,7 +83,7 @@
     z-index: 1;
     flex: 1;
     min-height: 200px;
-    // max-height: 60vh;
+    max-height: 80vh;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
@@ -117,7 +117,8 @@
   // 全屏
   &:fullscreen {
     .mermaid-content {
-      text-align: center;
+      max-height: 100vh;
+      justify-content: center;
       svg {
         filter: invert(0.1);
       }

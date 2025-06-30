@@ -314,7 +314,7 @@ function handleTabClickEvent(pane: TabClickEvent) {
   align-items: center;
   height: 42px;
   background: #ebecef;
-  border-radius: 8px 8px 0 0;
+  border-radius: 3px 3px 0 0;
   padding: 0 12px;
   pointer-events: auto;
   user-select: none !important;

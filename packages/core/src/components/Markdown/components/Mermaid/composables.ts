@@ -1,20 +1,3 @@
-import mermaid from 'mermaid';
-import { ref } from 'vue';
-
-// 内容哈希生成 - 保留作为参考，当前使用直接内容比较
-// 对于一般长度的Mermaid内容，直接字符串比较性能足够且更准确
-/*
-export function generateContentHash(content: string): string {
-  let hash = 0;
-  for (let i = 0; i < content.length; i++) {
-    const char = content.charCodeAt(i);
-    hash = (hash << 5) - hash + char;
-    hash = hash & hash;
-  }
-  return hash.toString();
-}
-*/
-
 // 复制到剪贴板
 export async function copyToClipboard(content: string): Promise<boolean> {
   if (!content) return false;
@@ -37,7 +20,7 @@ export async function copyToClipboard(content: string): Promise<boolean> {
       return true;
     }
   } catch (err) {
-    console.error('Failed to copy content: ', err);
+    console.error('复制失败: ', err);
     return false;
   }
 }
@@ -117,58 +100,6 @@ export function downloadSvgAsPng(svg: string): void {
 
     img.src = svgDataUrl;
   } catch (error) {
-    console.error('Download error:', error);
+    console.error('下载失败:', error);
   }
-}
-
-// Mermaid渲染composable
-export function useMermaidRenderer(id: string) {
-  const svg = ref('');
-  const isRendering = ref(false);
-  const previousContent = ref('');
-
-  // 渲染Mermaid图表
-  async function renderMermaid(content: string): Promise<boolean> {
-    if (isRendering.value) return false;
-
-    // 直接比较内容，避免哈希计算开销和潜在碰撞风险
-    if (content === previousContent.value && svg.value) {
-      return true;
-    }
-
-    try {
-      isRendering.value = true;
-      const valid = await mermaid.parse(content);
-
-      if (valid) {
-        mermaid.initialize({ securityLevel: 'loose' });
-        const renderKey = `${id}-${Date.now()}`;
-        const { svg: renderedSvg } = await mermaid.render(renderKey, content);
-
-        previousContent.value = content;
-        svg.value = renderedSvg;
-        return true;
-      }
-      return false;
-    } catch (error) {
-      console.log('Mermaid render error:', error);
-      return false;
-    } finally {
-      isRendering.value = false;
-    }
-  }
-
-  // 重置状态
-  function resetRenderer() {
-    svg.value = '';
-    previousContent.value = '';
-    isRendering.value = false;
-  }
-
-  return {
-    svg,
-    isRendering,
-    renderMermaid,
-    resetRenderer
-  };
 }
