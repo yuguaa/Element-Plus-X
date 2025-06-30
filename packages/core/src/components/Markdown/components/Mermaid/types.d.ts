@@ -41,3 +41,18 @@ export interface MermaidToolbarEmits {
   onCopyCode: [];
   onDownload: [];
 }
+
+// Mermaid 组件暴露给插槽的方法接口
+export interface MermaidExposedMethods {
+  zoomIn: () => void;
+  zoomOut: () => void;
+  reset: () => void;
+  fullscreen: () => void;
+  toggleCode: () => void;
+  copyCode: () => void;
+  download: () => void;
+  svg: import('vue').Ref<string>;
+  showSourceCode: import('vue').Ref<boolean>;
+  toolbarConfig: import('vue').ComputedRef<MermaidToolbarConfig>;
+  rawContent: string;
+}
