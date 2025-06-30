@@ -65,8 +65,15 @@ export const Solt: Story = {
       { id: 4, name: '4.png' },
       { id: 5, name: '5.png' },
       { id: 6, name: '6.png' },
-      { id: 7, name: '7.png' }
-    ]
+      { id: 7, name: '7.png' },
+      { id: 8, name: '8.png' },
+      { id: 9, name: '9.png' },
+      { id: 10, name: '10.png' }
+    ],
+    listStyle: {
+      padding: '0 12px',
+      height: '220px'
+    }
   } as Story['args'],
   render: args => ({
     components: {

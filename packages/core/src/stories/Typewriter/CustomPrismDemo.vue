@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { DEFAULT_MD_CONFIG } from '@components/ConfigProvider/constants';
+// import { DEFAULT_MD_CONFIG } from '@components/ConfigProvider/constants';
 import ConfigProvider from '@components/ConfigProvider/index.vue';
 import Typewriter from '@components/Typewriter/index.vue';
-import { usePrism } from '@hooks/usePrism';
-import MarkdownIt from 'markdown-it';
+// import { usePrism } from '@hooks/usePrism';
+// import MarkdownIt from 'markdown-it';
 import { useAttrs } from 'vue';
-import 'prismjs/themes/prism.min.css';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-go';
+// import 'prismjs/themes/prism.min.css';
+// import 'prismjs/components/prism-java';
+// import 'prismjs/components/prism-go';
 
-const prismHighlight = usePrism();
+// const prismHighlight = usePrism();
 
-const md = new MarkdownIt({
-  ...DEFAULT_MD_CONFIG,
-  highlight: (code, language) => {
-    return prismHighlight(code, language);
-  }
-});
+// const md = new MarkdownIt({
+//   ...DEFAULT_MD_CONFIG,
+//   highlight: (code, language) => {
+//     return prismHighlight(code, language);
+//   }
+// });
 
 const attrs = useAttrs();
 </script>
 
 <template>
-  <ConfigProvider :md="md">
+  <ConfigProvider>
     <div class="component-container">
       <Typewriter v-bind="attrs" />
     </div>

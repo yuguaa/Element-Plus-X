@@ -4,17 +4,17 @@ import Welcome from './index.vue';
 import WelcomeSlotComponent from './SlotDemo.vue';
 
 const meta: Meta<typeof WelcomeSource> = {
-  title: 'Example/Welcome',
+  title: 'Example/Welcome 欢迎 🌹',
   component: Welcome,
   argTypes: {
     variant: {
-      control: { type: 'select' },
+      control: { type: 'radio' },
       defaultValue: 'filled',
       options: ['filled', 'borderless'],
       description: '组件样式变体（filled/borderless）'
     },
     direction: {
-      control: { type: 'select' },
+      control: { type: 'radio' },
       defaultValue: 'ltr',
       options: ['ltr', 'rtl'],
       description: '组件语言方向（ltr/rtl）'

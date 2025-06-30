@@ -3,11 +3,24 @@ import type { WelcomeProps } from './types.d.ts';
 
 const props = withDefaults(defineProps<WelcomeProps>(), {
   variant: 'filled' as const,
-  direction: 'ltr' as const,
+  direction: 'ltr' as const
 });
 
 const solts = defineSlots();
-const { prefixCls, className, rootClassName, variant, direction, classNames, icon, title, extra, description, style, styles } = toRefs(props);
+const {
+  prefixCls,
+  className,
+  rootClassName,
+  variant,
+  direction,
+  classNames,
+  icon,
+  title,
+  extra,
+  description,
+  style,
+  styles
+} = toRefs(props);
 // 提取计算逻辑到独立函数
 function getContainerClass() {
   return [
@@ -16,8 +29,8 @@ function getContainerClass() {
     rootClassName.value,
     `welcome-${variant.value}`,
     {
-      'welcome-rtl': direction.value === 'rtl',
-    },
+      'welcome-rtl': direction.value === 'rtl'
+    }
   ];
 }
 
@@ -39,11 +52,7 @@ const descriptionClass = computed(getDescriptionClass);
 </script>
 
 <template>
-  <div
-    :class="containerClass"
-    :style="style"
-    class="welcome-container"
-  >
+  <div :class="containerClass" :style="style" class="welcome-container">
     <!-- S image -->
     <slot name="image">
       <div
@@ -59,10 +68,7 @@ const descriptionClass = computed(getDescriptionClass);
 
     <div class="content-wrapper">
       <!-- S 标题 & Extra -->
-      <div
-        v-if="hasTitleOrExtra"
-        class="title-wrapper"
-      >
+      <div v-if="hasTitleOrExtra" class="title-wrapper">
         <div
           v-if="title"
           :class="titleClass"
@@ -98,101 +104,4 @@ const descriptionClass = computed(getDescriptionClass);
   </div>
 </template>
 
-<style scoped lang="scss">
-.welcome-container {
-  --border-radius: 8px;
-  --icon-size: 64px;
-  --icon-size-small: 48px;
-  --gap: 16px;
-  --gap-small: 8px;
-  --padding: 24px;
-  --color-filled-bg: #e6f4ff;
-  --color-filled-border: #91caff;
-  --color-title: rgba(0, 0, 0, 0.88);
-  --color-description: rgba(0, 0, 0, 0.65);
-
-  display: flex;
-  gap: var(--gap);
-  padding: var(--padding);
-  border-radius: var(--border-radius);
-
-  &.welcome-filled {
-    background-color: var(--color-filled-bg);
-    border: 1px solid var(--color-filled-border);
-  }
-
-  &.welcome-borderless {
-    border: none;
-  }
-
-  &.welcome-rtl {
-    direction: rtl;
-  }
-}
-
-.welcome-icon {
-  // 图标容器样式
-  flex: 0 0 auto;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: calc(var(--border-radius) / 2);
-  overflow: hidden;
-  font-size: 24px;
-
-  .icon-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    padding: 4px;
-  }
-
-  // 小尺寸适配
-  @media (max-width: 480px) {
-    width: var(--icon-size-small);
-    height: var(--icon-size-small);
-  }
-}
-
-.content-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-small);
-}
-
-.title-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--gap-small);
-}
-
-.welcome-title {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-title);
-}
-
-.welcome-extra {
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: var(--gap-small);
-
-  /* 如果内容需要换行 */
-  :deep(*) {
-    flex-shrink: 0;
-  }
-}
-
-.welcome-description {
-  margin: 0;
-  font-size: 14px;
-  color: var(--color-description);
-  line-height: 1.5;
-}
-</style>
+<style scoped lang="scss" src="./style.scss"></style>
