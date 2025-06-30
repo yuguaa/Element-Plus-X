@@ -1,3 +1,6 @@
+import type { InitShikiOptions } from '@components/Markdown/shared';
+import type { ThemeRegistrationResolved } from 'shiki';
+
 export interface MarkdownContext {
   // markdown 字符串内容
   markdown?: string;
@@ -27,4 +30,10 @@ export interface MarkdownContext {
   sanitizeOptions?: SanitizeOptions;
   // Mermaid 配置对象
   mermaidConfig?: Record<string, any>;
+  // 主题配置
+  themes?: InitShikiOptions['themes'];
+  // 是否是暗黑模式(代码高亮块)
+  isDarkMode?: boolean;
+  // 代码高亮主题颜色的配置
+  themeColors?: ThemeRegistrationResolved;
 }

@@ -3,6 +3,7 @@ import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
 import type { CustomAttrs, SanitizeOptions } from '../core';
 import type { InitShikiOptions } from './shikiHighlighter';
+import { shikiThemeDefault } from './shikiHighlighter';
 
 const MarkdownProps = {
   markdown: {
@@ -69,8 +70,7 @@ const MarkdownProps = {
     type: Object as PropType<InitShikiOptions['themes']>,
     default: () =>
       ({
-        light: 'vitesse-light',
-        dark: 'vitesse-dark'
+        ...shikiThemeDefault
       }) satisfies InitShikiOptions['themes']
   }
 };
