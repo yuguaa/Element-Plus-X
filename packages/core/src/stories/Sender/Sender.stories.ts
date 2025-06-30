@@ -1,10 +1,10 @@
 import type SenderSource from '@components/Sender/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import CustomSolt from './CustomSolt.vue';
 import Sender from './index.vue';
-import SenderSlot from './sender-slot.vue';
 
 const meta: Meta<typeof SenderSource> = {
-  title: 'Example/Sender',
+  title: 'Example/Sender 输入框 💭',
   component: Sender,
   argTypes: {
     modelValue: {
@@ -57,7 +57,7 @@ const meta: Meta<typeof SenderSource> = {
     },
     submitType: {
       defaultValue: 'enter',
-      control: { type: 'select' },
+      control: { type: 'radio' },
       options: ['enter', 'shiftEnter'],
       description: '提交方式，支持 "shiftEnter"（按 Shift + Enter 提交）。'
     },
@@ -72,7 +72,7 @@ const meta: Meta<typeof SenderSource> = {
     },
     variant: {
       defaultValue: 'default',
-      control: { type: 'select' },
+      control: { type: 'radio' },
       options: ['default', 'updown'],
       description: '输入框的变体类型，支持 "default"、"updown"。'
     },
@@ -114,7 +114,7 @@ const meta: Meta<typeof SenderSource> = {
     },
     triggerPopoverPlacement: {
       defaultValue: 'top-start',
-      control: { type: 'select' },
+      control: { type: 'radio' },
       options: [
         'top',
         'top-start',
@@ -198,9 +198,9 @@ export const SenderDemo: Story = {
   })
 };
 
-export const SenderSlotDemo: Story = {
+export const SlotDemo: Story = {
   render: (args: any) => ({
-    components: { SenderSlot },
+    components: { CustomSolt },
     setup() {
       const model = ref(args.modelValue);
       const triggerVisible = ref(args.triggerPopoverVisible);
@@ -220,7 +220,7 @@ export const SenderSlotDemo: Story = {
       };
     },
     template: `
-      <SenderSlot
+      <CustomSolt
         v-bind="args"
         v-model:modelValue="model"
         v-model:triggerPopoverVisible="triggerVisible"

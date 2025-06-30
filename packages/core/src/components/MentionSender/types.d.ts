@@ -48,3 +48,16 @@ export interface MentionSenderProps {
   // 触发字段的下拉面板的弹出位置偏移量
   triggerPopoverOffset?: number;
 }
+
+export interface MentionSenderEmits {
+  // 双向绑定相关事件
+  (event: 'update:modelValue', value: string): void;
+  // 操作事件
+  (event: 'submit', internalValue: string): void;
+  (event: 'cancel', internalValue: string): void;
+  // 录音状态变更事件
+  (event: 'recordingChange', isRecording: boolean): void;
+  // 触发器事件
+  (event: 'search', pattern: string, prefix: string): void;
+  (event: 'select', option: MentionOption, prefix: string): void;
+}

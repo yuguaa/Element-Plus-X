@@ -19,3 +19,7 @@ export interface PromptsProps {
   vertical?: boolean;
   style?: CSSProperties;
 }
+
+export interface PromptsEmits {
+  (event: 'itemClick', instance: PromptsItemsProps): void;
+}

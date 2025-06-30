@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TriggerEvent } from '@components/EditorSender/types';
+import type { TriggerEvent } from '@components/EditorSender/types.d.ts';
 import { CircleClose, Delete, Position } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { Sender } from '../../components';
@@ -45,7 +45,7 @@ function handleCancel() {
 
 function handleTrigger(value: TriggerEvent) {
   ElMessage.success(
-    `Trigger ${value.oldValue}, ${value.newValue}, ${value.isOpen}`
+    `Trigger ${value.oldValue}, ${value.newValue}, ${value.isOpen}, `
   );
 }
 function handleRecordingChange() {
