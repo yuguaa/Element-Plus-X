@@ -19,6 +19,11 @@ export interface InitShikiOptions {
   >;
 }
 
+export const shikiThemeDefault: InitShikiOptions['themes'] = {
+  light: 'vitesse-light',
+  dark: 'vitesse-dark'
+};
+
 export const SHIKI_SUPPORT_LANGS = [
   'abap',
   'actionscript-3',
