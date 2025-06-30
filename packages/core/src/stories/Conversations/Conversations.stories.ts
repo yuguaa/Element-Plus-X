@@ -1,6 +1,6 @@
 import type ConversationsSource from '@components/Conversations/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import ConversationsCustomStyleAndSort from './custom-style-and-sort.vue';
+import CustomStyleSolt from './CustomStyleSolt.vue';
 import Conversations from './index.vue';
 
 const meta: Meta<typeof ConversationsSource> = {
@@ -159,7 +159,7 @@ export const ConversationsDemo: Story = {
   }
 };
 
-export const CustomStyleAndSortDemo: Story = {
+export const StyleSoltDemo: Story = {
   args: {
     ...ConversationsDemo.args,
     items: [
@@ -261,11 +261,11 @@ export const CustomStyleAndSortDemo: Story = {
   },
   render: (args: any) => ({
     components: {
-      ConversationsCustomStyleAndSort
+      CustomStyleSolt
     },
     setup() {
       return { attrs: args };
     },
-    template: `<ConversationsCustomStyleAndSort v-bind="attrs" />`
+    template: `<CustomStyleSolt v-bind="attrs" />`
   })
 };
