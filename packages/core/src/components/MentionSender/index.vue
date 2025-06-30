@@ -163,9 +163,8 @@ function submit() {
     props.loading ||
     props.disabled ||
     isSubmitDisabled.value
-  ) {
+  )
     return;
-  }
   emits('submit', internalValue.value);
 }
 // 取消按钮
