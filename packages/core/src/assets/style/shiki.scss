@@ -108,6 +108,22 @@ body.dark .shiki span {
   pre,
   code {
     text-shadow: none !important;
+    // 设置代码字体样式
+    span {
+      font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      tab-size: 4;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+    }
   }
 
   .pre-md {
