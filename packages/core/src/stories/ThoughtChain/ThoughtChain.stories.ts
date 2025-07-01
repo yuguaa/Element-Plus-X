@@ -39,11 +39,11 @@ const mockItems: ThoughtChainProps['thinkingItems'] = [
 ];
 
 const meta: Meta<typeof ThoughtChainSource> = {
-  title: 'Example/ThoughtChain',
+  title: 'Example/ThoughtChain 思维链 🔗',
   component: ThoughtChain,
   argTypes: {
     dotSize: {
-      control: { type: 'select' },
+      control: { type: 'radio' },
       options: ['small', 'default', 'large']
     },
     maxWidth: {
@@ -111,7 +111,7 @@ export const CustomIconDemo: Story = {
     thinkingItems: mockItems,
     lineGradient: false
   },
-  render: (args) => ({
+  render: args => ({
     components: {
       ThoughtChainWithCustomIcon
     },
