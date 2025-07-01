@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3';
 import Thinking from './index.vue';
 
 const meta = {
-  title: 'Example/Thinking',
+  title: 'Example/Thinking 思考中 🍓',
   component: Thinking,
   tags: ['autodocs'],
   argTypes: {
@@ -13,7 +13,7 @@ const meta = {
     buttonWidth: { control: 'text' },
     maxWidth: { control: 'text' },
     backgroundColor: { control: 'color' },
-    color: { control: 'color' },
+    color: { control: 'color' }
   },
   args: {
     modelValue: true,
@@ -22,8 +22,8 @@ const meta = {
     buttonWidth: '160px',
     maxWidth: '500px',
     backgroundColor: '#fcfcfc',
-    color: 'var(--el-color-info)',
-  },
+    color: 'var(--el-color-info)'
+  }
 } satisfies Meta<typeof ThinkingSource>;
 
 export default meta;
@@ -32,6 +32,5 @@ type Story = StoryObj<typeof meta>;
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
  */
 export const ThinkingDemo: Story = {
-  args: {
-  } as Story['args'],
+  args: {} as Story['args']
 };

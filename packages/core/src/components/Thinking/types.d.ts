@@ -24,3 +24,8 @@ export interface ThinkingProps {
   /** 展开内容字体颜色 */
   color?: string;
 }
+
+export interface ThinkingEmits {
+  (event: 'change', value: { value: boolean; status: ThinkingStatus }): void;
+  (event: 'update:expanded', value: boolean): void;
+}
