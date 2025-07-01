@@ -32,13 +32,16 @@ export default defineComponent({
   },
   setup(props) {
     const context = useMarkdownContext();
-    const { codeXSlot } = toValue(context);
+    const { codeXSlot, customAttrs } = toValue(context);
     const renderLines = ref<string[]>([]);
     const firstRender = ref(true);
     const preStyle = ref<any | null>(null);
     const preClass = ref<string | null>(null);
     const themes = computed(() => context.value.themes);
-
+    const codeAttrs =
+      typeof customAttrs?.code === 'function'
+        ? customAttrs.code(props.raw)
+        : customAttrs?.code || {};
     const shikiTransformers = [
       transformerNotationDiff(),
       transformerNotationErrorLevel(),
@@ -142,7 +145,8 @@ export default defineComponent({
               style: {
                 display: 'flex',
                 flexDirection: 'column'
-              }
+              },
+              ...codeAttrs
             },
             renderLines.value.map((line, index) =>
               h('span', {

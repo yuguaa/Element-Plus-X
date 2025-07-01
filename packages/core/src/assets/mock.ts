@@ -26,6 +26,13 @@ export const mdContent = `
 
 // md 代码块高亮
 export const highlightMdContent = `
+
+###### 非commonMark语法，dom多个
+<pre>
+  <code class="language-javascript">code1</code>
+  <code class="language-javascript">code2</code>
+</pre>
+
 \`\`\`echarts
 use codeXRender for echarts render
 \`\`\`
@@ -95,7 +102,11 @@ sequenceDiagram
 \`\`\`
 
 `;
-
+export const customAttrContent = `
+<a href="https://element-plus-x.com/">element-plus-x</a>
+<h1>标题1</h1>
+<h2>标题2</h2>
+`;
 export type MessageItem = BubbleProps & {
   key: number;
   role: 'ai' | 'user' | 'system';
