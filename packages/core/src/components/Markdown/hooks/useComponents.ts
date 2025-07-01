@@ -3,7 +3,7 @@ import { CodeX } from '../components/index';
 
 function useComponents() {
   const components = {
-    pre: (raw: any) => h(CodeX, { raw })
+    code: (raw: any) => h(CodeX, { raw })
   };
   return components;
 }

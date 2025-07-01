@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3';
 import {
+  customAttrContent,
   highlightMdContent,
   mathMdContent,
   mdContent,
   mermaidMdContent
 } from '@assets/mock';
 import { shikiThemeDefault } from '@components/Markdown/shared';
+import CustomAttrs from './customAttrs.vue';
 import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';
 import MermaidSlot from './mermaid-slot.vue';
@@ -108,4 +110,37 @@ export const MermaidSlotDemo: Story = {
     template: `<MermaidSlot v-bind="attrs"  />`
   })
   // render: () => MermaidSlot
+};
+
+export const CustomAttrsDemo: Story = {
+  args: {
+    markdown: customAttrContent,
+    customAttrs: {
+      a: () => ({
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }),
+      h1: {
+        style: {
+          color: 'red',
+          fontSize: '24px'
+        }
+      },
+      h2: {
+        style: {
+          color: 'blue',
+          fontSize: '20px'
+        }
+      }
+    }
+  } as Story['args'],
+  render: args => ({
+    components: {
+      CustomAttrs
+    },
+    setup() {
+      return { attrs: args };
+    },
+    template: `<CustomAttrs v-bind="attrs" />`
+  })
 };
