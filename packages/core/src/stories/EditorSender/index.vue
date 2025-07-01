@@ -2,7 +2,7 @@
 import type {
   EditorProps,
   SubmitResult
-} from '@components/ChatEditorSender/types';
+} from '@components/EditorSender/types.d.ts';
 import { computed, onMounted, ref } from 'vue';
 import { EditorSender } from '../../components';
 

@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import type { PromptsEmits, PromptsItemsProps, PromptsProps } from './types';
+import type {
+  PromptsEmits,
+  PromptsItemsProps,
+  PromptsProps
+} from './types.d.ts';
 
 const props = withDefaults(defineProps<PromptsProps>(), {
   items: () => [],

@@ -7,7 +7,15 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
   >
     <title>Loading</title>
-    <rect fill="currentColor" height="250" rx="24" ry="24" width="250" x="375" y="375" />
+    <rect
+      fill="currentColor"
+      height="250"
+      rx="24"
+      ry="24"
+      width="250"
+      x="375"
+      y="375"
+    />
     <circle
       cx="500"
       cy="500"

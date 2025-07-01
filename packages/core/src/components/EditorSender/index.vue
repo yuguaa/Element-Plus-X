@@ -1,522 +1,577 @@
 <script setup lang="ts">
-import type { SenderProps } from './types.d.ts';
-import EditorInput from '../EditorInput/index.vue';
-import {
-  ClearButton,
-  LoadingButton,
-  SendButton,
-  SpeechButton,
-  SpeechLoadingButton,
-} from './components';
+import type { ChatOperateNode, TagInfo, UserInfo } from 'chatarea';
+import type {
+  ChatState,
+  EditorProps,
+  MixTag,
+  SelectDialogOption,
+  SubmitResult
+} from './types';
+import ChatArea from 'chatarea';
+import { onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
+import ClearButton from './components/ClearButton/index.vue';
+import LoadingButton from './components/LoadingButton/index.vue';
+import SendButton from './components/SendButton/index.vue';
+import 'chatarea/lib/ChatArea.css';
 
-const props = withDefaults(defineProps<SenderProps>(), {
-  placeholder: '请输入内容',
-  autoSize: () => ({
-    minRows: 1,
-    maxRows: 6,
-  }),
-  submitType: 'enter',
-  headerAnimationTimer: 300,
-  inputWidth: '100%',
-  modelValue: '', // 显式定义value的默认值
-
-  variant: 'default',
-  showUpdown: true,
-
-  // el-input 属性透传
-  inputStyle: () => {},
-
-  triggerStrings: () => [], // 指令字符数组，默认空数组
-  triggerPopoverVisible: false,
-  triggerPopoverWidth: 'fit-content',
-  triggerPopoverLeft: '0px',
-  triggerPopoverOffset: 8,
-  triggerPopoverPlacement: 'top-start',
+/** 支持的配置属性 */
+const props = withDefaults(defineProps<EditorProps>(), {
+  placeholder: '请输入内容', // 输入框提示占位语
+  device: 'pc', // 使用编辑器设备类型 pc内置了很多丰富的弹出选择功能，如果用户传入了h5，弹出交互需要参考自定义弹出去支持
+  autoFocus: false, // 是否在聊天框生成后自动聚焦
+  variant: 'default', // 输入框的变体类型
+  selectList: () => [], // 配置标签下拉选择的选项
+  userList: () => [], // @研讨群成员列表
+  customTrigger: () => [], // 扩展自定义弹窗列表
+  maxLength: undefined, // 限制输入框最大字数 *注 该配置项性能开销较大 非必要情况请别设置（像豆包和文心一言都不对这块做限制，不应因小失大）
+  submitType: 'enter', // 控制换行与提交模式
+  customStyle: () => ({}), // 修改输入样式
+  loading: false, // 发送按钮加载状态
+  disabled: false, // 是否禁用输入框
+  headerAnimationTimer: 300, // 展开动画
+  asyncMatchFun: undefined, // 异步加载群成员方法
+  customDialog: false // 是否需要自定义弹窗 开启后内部弹窗将不会再创建了
 });
-
-const emits = defineEmits([
-  'update:modelValue',
-
-  'update:triggerPopoverVisible',
-
-  'submit',
-  'cancel',
-  'recordingChange',
-
-  'trigger',
-]);
-
+/** 暴露的事件 */
+const emits = defineEmits<{
+  (e: 'submit', payload: SubmitResult): void;
+  (e: 'change'): void;
+  (e: 'cancel'): void;
+  (e: 'showAtDialog'): void;
+  (e: 'showSelectDialog', key: string, elm: HTMLElement): void;
+  (e: 'showTagDialog', prefix: string): void;
+}>();
 const slots = defineSlots();
+/** header相关操作 */
+const visibleHeader = ref(false);
+// 展开头部
+function openHeader() {
+  if (!slots.header) {
+    return false;
+  }
+  visibleHeader.value = true;
+}
+// 关闭头部
+function closeHeader() {
+  if (!slots.header) {
+    return false;
+  }
+  visibleHeader.value = false;
+}
 
-// 获取当前组件实例
-const instance = getCurrentInstance();
-// 判断是否存在 submit 监听器
-const hasOnRecordingChangeListener = computed(() => {
-  return !!instance?.vnode.props?.onRecordingChange;
+/** 输入框相关 */
+const chat = ref<ChatArea>();
+const opNode = ref<ChatOperateNode>();
+const container = ref<HTMLElement>();
+const chatState = reactive<ChatState>({
+  isEmpty: true,
+  textLength: 0, // 该属性值只会在配置了maxLength情况下才拥有赋值
+  lastFocusNode: null,
+  lastOffset: 0,
+  wrapCallSelectDialog: false, // 记录是否是外部调用了选择弹窗进行插值行为操作
+  beforeText: '',
+  afterText: ''
 });
-const senderRef = ref();
-const inputRef = ref();
-const contentRef = ref();
-const internalValue = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(val) {
-    if (props.readOnly || props.disabled)
-      return;
-    emits('update:modelValue', val);
-  },
-});
+// 创建输入框
+function createChat() {
+  chat.value = new ChatArea({
+    elm: container.value!,
+    ...props,
+    userList: JSON.parse(JSON.stringify(props.userList)),
+    needDialog: !props.customDialog && props.device === 'pc',
+    copyType: ['text'],
+    asyncMatch: Boolean(props.asyncMatchFun),
+    needDebounce: false,
+    needCallSpace: false,
+    sendKeyFun:
+      props.submitType === 'enter'
+        ? event => !event.shiftKey && event.key === 'Enter'
+        : event => event.shiftKey && event.key === 'Enter',
+    wrapKeyFun:
+      props.submitType === 'shiftEnter'
+        ? event => !event.shiftKey && event.key === 'Enter'
+        : event => event.shiftKey && event.key === 'Enter'
+  });
+  opNode.value = chat.value.createOperateNode();
+  // 订阅发送事件
+  chat.value.addEventListener('enterSend', onSubmit);
+  // 对输入框进行操作事件
+  chat.value.addEventListener('operate', () => {
+    chatState.isEmpty = chat.value!.isEmpty(true);
+    chatState.textLength = chat.value!.textLength;
+    emits('change');
+  });
+  // 失去焦点记录最后一次光标Node节点
+  chat.value.richText.addEventListener(
+    'blur',
+    () => {
+      const sel = getSelection()!;
+      chatState.lastFocusNode = sel.focusNode;
+      chatState.lastOffset = sel.focusOffset;
+    },
+    true
+  );
+  // 订阅标签选择事件
+  chat.value.addEventListener('selectCheck', () => {
+    if (chatState.wrapCallSelectDialog && chatState.beforeText) {
+      chat.value?.insertText(chatState.beforeText);
+      chatState.beforeText = '';
+    }
+  });
+  chat.value.addEventListener('afterSelectCheck', () => {
+    if (chatState.wrapCallSelectDialog && chatState.afterText) {
+      chat.value?.insertText(chatState.afterText);
+      chatState.afterText = '';
+      chatState.wrapCallSelectDialog = false;
+    }
+  });
+  // 接管异步匹配
+  if (props.asyncMatchFun) {
+    chat.value.addEventListener('atMatch', props.asyncMatchFun);
+  }
+  // 检测多种弹窗唤起事件
+  chat.value.addEventListener('showAtDialog', () => {
+    emits('showAtDialog');
+  });
+  chat.value.addEventListener(
+    'showSelectDialog',
+    (key: string, elm: HTMLElement) => {
+      emits('showSelectDialog', key, elm);
+    }
+  );
+  chat.value.addEventListener('showTagDialog', (prefix: string) => {
+    emits('showTagDialog', prefix);
+  });
+  // 禁用编辑器
+  if (props.disabled) {
+    chat.value.disabled();
+  }
+}
+// 获取输入框当前内容
+function getCurrentValue(): SubmitResult {
+  const text = chat.value!.getText();
+  const html = chat.value!.getHtml();
+  const inputTags = chat.value!.getInputTagList();
+  const userTags =
+    props.userList.length > 0 ? chat.value!.getCallUserTagList() : undefined;
+  const selectTags =
+    props.selectList.length > 0 ? chat.value!.getSelectTagList() : undefined;
+  const customTags =
+    props.customTrigger.length > 0 ? chat.value!.getCustomTagList() : undefined;
+  return {
+    text,
+    html,
+    inputTags,
+    userTags,
+    selectTags,
+    customTags
+  };
+}
+// 提交发送方法
+function onSubmit() {
+  // 内容纯空 拦截发送
+  if (chatState.isEmpty) {
+    return;
+  }
+  emits('submit', getCurrentValue());
+}
+// 取消发送方法
+function onCancel() {
+  emits('cancel');
+}
+// 清空输入框方法
+function onClear(txt?: string) {
+  chat.value!.clear(txt);
+  // 将光标移动到末尾
+  focusToEnd();
+}
+// 点击内容区域聚焦输入框
+function onContentMouseDown() {
+  requestAnimationFrame(() => {
+    const focusElm = chatState.lastFocusNode?.parentElement;
+    // chatInput不是暴露给用户操作的对象 因此没有写入ts类型
+    const chatInput = (chat.value as any).chatInput;
+    if (focusElm && focusElm.classList.contains('input-write')) {
+      chatInput.setInputTagRange(chatState.lastFocusNode, chatState.lastOffset);
+    } else {
+      chatInput.restCursorPos(chatInput.vnode, chatInput.cursorIndex);
+    }
+  });
+}
+// 聚焦到文本最前方
+function focusToStart() {
+  if (chat.value && opNode.value) {
+    opNode.value.setCursorNode(
+      opNode.value.getNodeByRank(
+        opNode.value.getRank(0) + opNode.value.getRank(0)
+      ),
+      0
+    );
+  }
+}
+// 聚焦到文本最后方
+function focusToEnd() {
+  if (chat.value && opNode.value) {
+    opNode.value.setCursorNode(
+      opNode.value.getNodeByRank(
+        opNode.value.getRank(-1) + opNode.value.getRank(-1)
+      )
+    );
+  }
+}
+// 失去焦点
+function blur() {
+  if (chat.value) {
+    const selection = getSelection()!;
+    selection.removeAllRanges();
+    chat.value.richText.blur();
+  }
+}
+// 内容全选
+function selectAll() {
+  if (chat.value && opNode.value) {
+    const firstNode = opNode.value.getNodeByRank(
+      opNode.value.getRank(0) + opNode.value.getRank(0)
+    );
+    const lastNode = opNode.value.getNodeByRank(
+      opNode.value.getRank(-1) + opNode.value.getRank(-1)
+    );
+    opNode.value.setSelectNodes(firstNode, lastNode);
+  }
+}
+// 插入一个选择标签
+function setSelectTag(key: string, tagId: string) {
+  chatState.wrapCallSelectDialog = false;
+  const tag = props.selectList
+    ?.find(option => option.key === key)
+    ?.options.find(tag => tag.id === tagId);
+  if (tag) {
+    chat.value?.setSelectTag(tag, key);
+  }
+}
+// 插入一个输入标签
+function setInputTag(key: string, placeholder: string, defaultValue?: string) {
+  chat.value?.setInputTag(key, placeholder, defaultValue);
+}
+// 插入一个@提及标签
+function setUserTag(userId: string) {
+  const user = props.userList?.find(user => user.id === userId);
+  if (user) {
+    chat.value?.setUserTag(user);
+  }
+}
+// 插入一个自定义触发符标签
+function setCustomTag(prefix: string, id: string) {
+  const custom = props.customTrigger
+    ?.find(option => option.prefix === prefix)
+    ?.tagList.find(tag => tag.id === id);
+  if (custom) {
+    chat.value?.setCustomTag(custom, prefix);
+  }
+}
+// 混合式插入
+function setMixTags(tags: MixTag[][]) {
+  // 整合ChatNode
+  const chatNodes = tags.map((row: MixTag[], index) => {
+    return {
+      type: 'gridBox',
+      rank: opNode.value?.getRank(index),
+      children: row.map((cRow: MixTag) => {
+        return {
+          type: cRow.type,
+          text: cRow.value,
+          html: cRow.value,
+          dataset: {
+            id: cRow.value,
+            name: getNameByTypeId(cRow),
+            prefix: cRow.key,
+            key: cRow.key,
+            placeholder: cRow.placeholder,
+            value: cRow.value
+          }
+        };
+      })
+    };
+  });
+  opNode.value?.coverNodes(chatNodes);
+}
+// 根据id和类型捕获目标name
+function getNameByTypeId(mixTag: MixTag): string {
+  const { type, value, key } = mixTag;
+  switch (type) {
+    case 'userTag':
+      return props.userList?.find(user => user.id === value)?.name || '';
+    case 'selectTag':
+      return (
+        props.selectList
+          ?.find(row => row.key === key)
+          ?.options.find(select => select.id === value)?.name || ''
+      );
+    case 'customTag':
+      return (
+        props.customTrigger
+          ?.find(row => row.prefix === key)
+          ?.tagList.find(custom => custom.id === value)?.name || ''
+      );
+    default:
+      return '';
+  }
+}
+// 在当前光标处插入html片段
+function setHtml(html: string) {
+  // 注* 插入的html标签必须是 行内 或 行内块元素，如果需要块级元素标签 请自行插入行内元素然后修改其css属性为块级元素
+  chat.value?.insertHtml(html);
+}
+// 在当前光标处插入text内容
+function setText(txt: string) {
+  chat.value?.insertText(txt);
+}
+// 外部调用唤起标签选择弹窗
+function openSelectDialog(option: SelectDialogOption) {
+  chatState.beforeText = option.beforeText || '';
+  chatState.afterText = option.afterText || '';
+  chatState.wrapCallSelectDialog = true;
+  chat.value?.showPCSelectDialog(option.key, option.elm);
+}
+// 用户自定义弹窗写入@提及标签
+function customSetUser(user: UserInfo) {
+  // 该方法并未写入ts 因为是一个私有api没暴露给用户 其区别 setUserTag 相比会去向前截取掉触发符
+  (chat.value as any).onceSetTag(user);
+}
+// 用户自定义弹窗写入自定义触发符号标签
+function customSetTag(prefix: string, tag: TagInfo) {
+  // 该方法并未写入ts 因为是一个私有api没暴露给用户 其区别 setCustomTag 相比会去向前截取掉触发符
+  (chat.value as any).onceSetCustomTag(tag, prefix);
+}
+// 用户自定义弹窗更新选择标签
+function updateSelectTag(elm: HTMLElement, tag: TagInfo) {
+  const rank = opNode.value?.getRankByElm(elm.parentElement!);
+  if (!rank) {
+    return;
+  }
+  const chatNode = opNode.value?.getNodeByRank(rank);
+  if (!chatNode) {
+    return;
+  }
+  chatNode.dataset.id = tag.id;
+  chatNode.dataset.name = tag.name;
+  opNode.value?.updateNode(chatNode);
+}
 
-// 处理输入法组合状态
-const isComposing = ref(false);
-const popoverRef = ref();
-// 判断是否存在 trigger 监听器
-const hasOnTriggerListener = computed(() => {
-  return !!instance?.vnode.props?.onTrigger;
-});
-
-const popoverVisible = computed({
-  get() {
-    return props.triggerPopoverVisible;
-  },
-  set(value) {
-    if (props.readOnly || props.disabled)
-      return;
-    emits('update:triggerPopoverVisible', value);
-  },
-});
-
-// 当前触发 指令的 字符
-const triggerString = ref('');
-
-// 监听输入值变化
+/** 监听响应props的响应式修改 去更新chat示例对象对应的配置 */
 watch(
-  () => internalValue.value,
-  (newVal, oldVal) => {
-    if (isComposing.value)
-      return;
-    // 触发逻辑：当输入值等于数组中的任意一个指令字符时触发
-    // 确保 oldVal 是字符串类型
-    const triggerStrings = props.triggerStrings || []; // 如果为 undefined，就使用空数组
-    const validOldVal = typeof oldVal === 'string' ? oldVal : '';
-    const wasOldValTrigger = triggerStrings.includes(validOldVal);
-    const isNewValTrigger = triggerStrings.includes(newVal);
-
-    // 触发显示：从空变为触发字符
-    if (oldVal === '' && isNewValTrigger) {
-      triggerString.value = newVal;
-      if (hasOnTriggerListener.value) {
-        emits('trigger', {
-          oldValue: oldVal, // 关闭时返回之前触发的字符
-          newValue: newVal,
-          triggerString: newVal,
-          isOpen: true,
-        });
-        popoverVisible.value = true;
-      }
-      else {
-        popoverVisible.value = true;
-      }
-    }
-    // 关闭：从触发字符变为非触发字符
-    else if (!isNewValTrigger && wasOldValTrigger) {
-      if (hasOnTriggerListener.value) {
-        emits('trigger', {
-          oldValue: oldVal, // 关闭时返回之前触发的字符
-          newValue: newVal,
-          triggerString: undefined,
-          isOpen: false,
-        });
-        popoverVisible.value = false;
-      }
-      else {
-        popoverVisible.value = false;
-      }
-    }
-    // 触发显示：从非空且非触发字符变为触发字符
-    else if (oldVal !== '' && isNewValTrigger && !wasOldValTrigger) {
-      triggerString.value = newVal;
-      if (hasOnTriggerListener.value) {
-        emits('trigger', {
-          oldValue: oldVal, // 关闭时返回之前触发的字符
-          newValue: newVal,
-          triggerString: newVal,
-          isOpen: true,
-        });
-        popoverVisible.value = true;
-      }
-      else {
-        popoverVisible.value = true;
-      }
-    }
+  () => props.disabled,
+  () => {
+    props.disabled ? chat.value?.disabled() : chat.value?.enable();
+  }
+);
+watch(
+  () => props.placeholder,
+  () => {
+    chat.value?.updateConfig({
+      placeholder: props.placeholder
+    });
+  }
+);
+watch(
+  () => props.maxLength,
+  () => {
+    chat.value?.updateConfig({
+      maxLength: props.maxLength
+    });
+  }
+);
+watch(
+  () => props.submitType,
+  () => {
+    chat.value?.updateConfig({
+      sendKeyFun:
+        props.submitType === 'enter'
+          ? event => !event.shiftKey && event.key === 'Enter'
+          : event => event.shiftKey && event.key === 'Enter',
+      wrapKeyFun:
+        props.submitType === 'shiftEnter'
+          ? event => !event.shiftKey && event.key === 'Enter'
+          : event => event.shiftKey && event.key === 'Enter'
+    });
+  }
+);
+watch(
+  () => props.userList,
+  () => {
+    chat.value?.updateConfig({
+      userList: props.userList
+    });
   },
-  { deep: true, immediate: true },
+  { deep: true }
+);
+watch(
+  () => props.selectList,
+  () => {
+    chat.value?.updateConfig({
+      selectList: props.selectList
+    });
+  },
+  { deep: true }
+);
+watch(
+  () => props.customTrigger,
+  () => {
+    chat.value?.updateConfig({
+      customTrigger: props.customTrigger
+    });
+  },
+  { deep: true }
 );
 
-/* 内容容器聚焦 开始 */
-function onContentMouseDown(e: MouseEvent) {
-  // 点击容器后设置输入框的聚焦，会触发 &:focus-within 样式
-  if (e.target !== senderRef.value.querySelector(`.el-textarea__inner`)) {
-    e.preventDefault();
+onMounted(() => {
+  createChat();
+});
+
+onBeforeUnmount(() => {
+  if (chat.value) {
+    chat.value.dispose();
+    chat.value = undefined;
+    opNode.value = undefined;
   }
-  inputRef.value.focus();
-}
-/* 内容容器聚焦 结束 */
+});
 
-/* 头部显示隐藏 开始 */
-const visiableHeader = ref(false);
-function openHeader() {
-  if (!slots.header)
-    return false;
-
-  if (props.readOnly)
-    return false;
-
-  visiableHeader.value = true;
-}
-function closeHeader() {
-  if (!slots.header)
-    return;
-  if (props.readOnly)
-    return;
-  visiableHeader.value = false;
-}
-/* 头部显示隐藏 结束 */
-
-/* 使用浏览器自带的语音转文字功能 开始 */
-const recognition = ref<SpeechRecognition | null>(null);
-const speechLoading = ref<boolean>(false);
-
-function startRecognition() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
-  if (hasOnRecordingChangeListener.value) {
-    speechLoading.value = true;
-    emits('recordingChange', true);
-    return;
-  }
-  if ('webkitSpeechRecognition' in window) {
-    recognition.value = new webkitSpeechRecognition();
-    recognition.value!.continuous = true;
-    recognition.value.interimResults = true;
-    recognition.value.lang = 'zh-CN';
-    recognition.value.onresult = (event: SpeechRecognitionEvent) => {
-      let results = '';
-      for (let i = 0; i <= event.resultIndex; i++) {
-        results += event.results[i][0].transcript;
-      }
-      if (!props.readOnly) {
-        internalValue.value = results;
-      }
-    };
-    recognition.value.onstart = () => {
-      speechLoading.value = true;
-    };
-    recognition.value.onend = () => {
-      speechLoading.value = false;
-    };
-    recognition.value.onerror = (event: SpeechRecognitionError) => {
-      console.error('语音识别出错:', event.error);
-      speechLoading.value = false;
-    };
-    recognition.value.start();
-  }
-  else {
-    console.error('浏览器不支持 Web Speech API');
-  }
-}
-
-function stopRecognition() {
-  // 如果有自定义处理函数
-  if (hasOnRecordingChangeListener.value) {
-    speechLoading.value = false;
-    emits('recordingChange', false);
-    return;
-  }
-  if (recognition.value) {
-    recognition.value.stop();
-    speechLoading.value = false;
-  }
-}
-/* 使用浏览器自带的语音转文字功能 结束 */
-
-/* 输入框事件 开始 */
-function submit() {
-  if (props.readOnly || props.loading || props.disabled || !internalValue.value)
-    return;
-  emits('submit', internalValue.value);
-}
-// 取消按钮
-function cancel() {
-  if (props.readOnly)
-    return;
-  emits('cancel', internalValue.value);
-}
-
-function clear() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
-  inputRef.value.clear();
-  internalValue.value = '';
-}
-
-// 在这判断组合键的回车键 (目前支持两种模式)
-// function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-//   if (props.readOnly)
-//     return // 直接返回，不执行后续逻辑
-//   if (props.submitType === 'enter') {
-//     // 判断是否按下了 Shift + 回车键
-//     if (e.shiftKey && e.keyCode === 13) {
-//       e.preventDefault()
-//       const cursorPosition = e.target.selectionStart // 获取光标位置
-//       const textBeforeCursor = internalValue.value.slice(0, cursorPosition) // 光标前的文本
-//       const textAfterCursor = internalValue.value.slice(cursorPosition) // 光标后的文本
-//       internalValue.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
-//       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1) // 更新光标位置
-//     }
-//     else if (e.keyCode === 13 && !e.shiftKey) {
-//       // 阻止掉 Enter 的默认换行行为
-//       e.preventDefault()
-//       // 触发提交功能
-//       submit()
-//     }
-//   }
-//   else if (props.submitType === 'shiftEnter') {
-//     // 判断是否按下了 Shift + 回车键
-//     if (e.shiftKey && e.keyCode === 13) {
-//       // 阻止掉 Enter 的默认换行行为
-//       e.preventDefault()
-//       // 触发提交功能
-//       submit()
-//     }
-//     else if (e.keyCode === 13 && !e.shiftKey) {
-//       e.preventDefault()
-//       const cursorPosition = e.target.selectionStart // 获取光标位置
-//       const textBeforeCursor = internalValue.value.slice(0, cursorPosition) // 光标前的文本
-//       const textAfterCursor = internalValue.value.slice(cursorPosition) // 光标后的文本
-//       internalValue.value = `${textBeforeCursor}\n${textAfterCursor}` // 插入换行符
-//       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1) // 更新光标位置
-//     }
-//   }
-// }
-/* 输入框事件 结束 */
-
-/* 焦点 事件 开始 */
-function blur() {
-  if (props.readOnly) {
-    return false;
-  }
-  inputRef.value.blur();
-}
-
-function focus(type = 'all') {
-  if (props.readOnly) {
-    return false;
-  }
-  if (type === 'all') {
-    inputRef.value.select();
-  }
-  else if (type === 'start') {
-    inputRef.value.moveToStart();
-  }
-  else if (type === 'end') {
-    inputRef.value.moveToEnd();
-  }
-}
-/* 焦点 事件 结束 */
-
-// 处理输入法开始/结束 (此方法是拼音输入法的时候用)
-function handleCompositionStart() {
-  isComposing.value = true;
-}
-
-function handleCompositionEnd() {
-  isComposing.value = false;
-}
-
+/** 暴露方法 */
 defineExpose({
-  openHeader, // 打开头部
-  closeHeader, // 关闭头部
-  clear, // 清空输入框
-  blur, // 失去焦点
-  focus, // 获取焦点
-  // 按钮操作
-  submit,
-  cancel,
-  startRecognition,
-  stopRecognition,
+  openHeader,
+  closeHeader,
+  getCurrentValue,
+  focusToStart,
+  focusToEnd,
+  blur,
+  selectAll,
+  clear: onClear,
+  setSelectTag,
+  setInputTag,
+  setUserTag,
+  setCustomTag,
+  setMixTags,
+  setHtml,
+  setText,
+  openSelectDialog,
+  customSetUser,
+  customSetTag,
+  updateSelectTag,
+  chat, // 暴露chat实例对象
+  opNode, // 暴露ChatNode操作对象
+  chatState
 });
 </script>
 
 <template>
   <div
-    class="el-sender-wrap"
+    class="el-editor-sender-wrap"
     :style="{
-      'cursor': disabled ? 'not-allowed' : 'default',
-      '--el-sender-trigger-popover-width': props.triggerPopoverWidth,
-      '--el-sender-trigger-popover-left': props.triggerPopoverLeft,
+      '--el-editor-sender-header-duration': `${headerAnimationTimer}ms`
     }"
   >
-    <div
-      ref="senderRef"
-      class="el-sender"
-      :style="{
-        '--el-padding-xs': '8px',
-        '--el-padding-sm': '12px',
-        '--el-padding': '16px',
-        '--el-box-shadow-tertiary':
-          '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
-        '--el-sender-input-input-font-size': '14px',
-        '--el-sender-header-animation-duration': `${headerAnimationTimer}ms`,
-      }"
-      :class="{
-        'el-sender-disabled': disabled,
-      }"
-    >
-      <!-- 头部容器 -->
-      <Transition name="slide">
-        <div v-if="visiableHeader" class="el-sender-header-wrap">
-          <div v-if="$slots.header" class="el-sender-header">
-            <slot name="header" />
-          </div>
+    <!-- 头部容器 -->
+    <Transition name="slide">
+      <div v-if="visibleHeader" class="el-editor-sender-header">
+        <div v-if="$slots.header" class="el-editor-sender-header-container">
+          <slot name="header" />
         </div>
-      </Transition>
-      <!-- 内容容器 内置变体逻辑 -->
+      </div>
+    </Transition>
+    <!-- 内容容器 -->
+    <div
+      class="el-editor-sender-content"
+      :class="{ 'content-variant-updown': props.variant === 'updown' }"
+      @mousedown="onContentMouseDown"
+    >
+      <!-- Prefix 前缀 -->
       <div
-        ref="contentRef"
-        class="el-sender-content"
-        :class="{ 'content-variant-updown': props.variant === 'updown' }" @mousedown="onContentMouseDown"
+        v-if="$slots.prefix && props.variant === 'default'"
+        class="el-editor-sender-prefix"
       >
-        <!-- Prefix 前缀 -->
-        <div v-if="$slots.prefix && props.variant === 'default'" class="el-sender-prefix">
+        <slot name="prefix" />
+      </div>
+      <!-- 输入区域 -->
+      <div class="el-editor-sender-chat-room" @mousedown.stop="() => {}">
+        <!-- 输入框载体 这里多嵌套一层是为了存放渲染后的弹窗元素 -->
+        <div
+          ref="container"
+          :style="{ ...customStyle }"
+          class="el-editor-sender-chat"
+        />
+      </div>
+      <!-- 默认操作列表 -->
+      <div
+        v-if="props.variant === 'default'"
+        class="el-editor-sender-action-list"
+      >
+        <slot name="action-list">
+          <div class="el-editor-sender-action-list-presets">
+            <SendButton
+              v-if="!props.loading"
+              :disabled="chatState.isEmpty || props.disabled"
+              @submit="onSubmit"
+            />
+
+            <LoadingButton v-if="props.loading" @cancel="onCancel" />
+
+            <ClearButton :disabled="chatState.isEmpty" @clear="onClear" />
+          </div>
+        </slot>
+      </div>
+      <!-- 变体操作列表 -->
+      <div
+        v-else-if="props.variant === 'updown'"
+        class="el-editor-sender-updown-action-list"
+      >
+        <!-- 变体 updown： Prefix 前缀 -->
+        <div v-if="$slots.prefix" class="el-editor-sender-prefix">
           <slot name="prefix" />
         </div>
-        <!-- 输入框 -->
-        <EditorInput
-          ref="inputRef"
-          v-model="internalValue"
-          class="el-sender-input"
-          :input-style="{
-            'resize': 'none',
-            'max-height': '176px',
-            'max-width': inputWidth,
-          }"
-          :rows="1"
-          :autosize="autoSize"
-          type="textarea"
-          :validate-event="false"
-          :placeholder="placeholder"
-          :read-only="readOnly || disabled"
-          :disabled="disabled"
-          :inpurt-style="props.inputStyle"
-          :submit-type="props.submitType"
-          @compositionstart="handleCompositionStart"
-          @compositionend="handleCompositionEnd"
-        />
-        <!-- 操作列表 -->
-        <div v-if="props.variant === 'default'" class="el-sender-action-list">
+
+        <!-- 变体 updown：操作列表 -->
+        <div class="el-editor-sender-action-list">
           <slot name="action-list">
-            <div
-              class="el-sender-action-list-presets"
-            >
-              <SendButton v-if="!loading" :disabled="!internalValue" @submit="submit" />
-
-              <LoadingButton v-if="loading" @cancel="cancel" />
-
-              <SpeechButton
-                v-if="!speechLoading && allowSpeech"
-                @click="startRecognition"
+            <div class="el-editor-sender-action-list-presets">
+              <SendButton
+                v-if="!props.loading"
+                :disabled="chatState.isEmpty || props.disabled"
+                @submit="onSubmit"
               />
 
-              <SpeechLoadingButton
-                v-if="speechLoading && allowSpeech"
-                @click="stopRecognition"
-              />
+              <LoadingButton v-if="props.loading" @cancel="onCancel" />
 
-              <ClearButton v-if="clearable" @clear="clear" />
+              <ClearButton :disabled="chatState.isEmpty" @clear="onClear" />
             </div>
           </slot>
         </div>
-
-        <!-- 变体样式 -->
-        <div v-if="props.variant === 'updown' && props.showUpdown" class="el-sender-updown-wrap">
-          <!-- 变体 updown： Prefix 前缀 -->
-          <div v-if="$slots.prefix" class="el-sender-prefix">
-            <slot name="prefix" />
-          </div>
-
-          <!-- 变体 updown：操作列表 -->
-          <div class="el-sender-action-list">
-            <slot name="action-list">
-              <div
-                class="el-sender-action-list-presets"
-              >
-                <SendButton v-if="!loading" :disabled="!internalValue" @submit="submit" />
-
-                <LoadingButton v-if="loading" @cancel="cancel" />
-
-                <SpeechButton
-                  v-if="!speechLoading && allowSpeech"
-                  @click="startRecognition"
-                />
-
-                <SpeechLoadingButton
-                  v-if="speechLoading && allowSpeech"
-                  @click="stopRecognition"
-                />
-
-                <ClearButton v-if="clearable" @clear="clear" />
-              </div>
-            </slot>
-          </div>
-        </div>
       </div>
-
-      <!-- 底部容器 -->
-      <Transition name="slide">
-        <div v-if="$slots.footer" class="el-sender-footer">
-          <slot name="footer" />
-        </div>
-      </Transition>
     </div>
-
-    <!-- 虚拟触发 popover -->
-    <el-popover
-      ref="popoverRef"
-      :virtual-ref="senderRef"
-      virtual-triggering
-      :visible="popoverVisible"
-      :disabled="props.disabled"
-      :show-arrow="false"
-      :placement="props.triggerPopoverPlacement"
-      :offset="props.triggerPopoverOffset"
-      popper-class="el-sender-trigger-popover"
-      :teleported="false"
-    >
-      <slot name="trigger-popover" :trigger-string="triggerString" :readonly="props.readOnly">
-        当前触发的字符为：{{ `${triggerString}` }} 在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
-      </slot>
-    </el-popover>
+    <!-- 底部容器 -->
+    <Transition name="slide">
+      <div v-if="$slots.footer" class="el-editor-sender-footer">
+        <slot name="footer" />
+      </div>
+    </Transition>
   </div>
 </template>
 
 <style scoped lang="scss">
-.el-sender {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
+.el-editor-sender-wrap {
   position: relative;
+  width: 100%;
   box-sizing: border-box;
-  box-shadow: var(--el-box-shadow-tertiary);
   transition: background var(--el-transition-duration);
   border-radius: calc(var(--el-border-radius-base) * 2);
   border-color: var(--el-border-color);
+  box-shadow: var(
+    --el-box-shadow-tertiary,
+    0 1px 2px 0 rgba(0, 0, 0, 0.03),
+    0 1px 6px -1px rgba(0, 0, 0, 0.02),
+    0 2px 4px 0 rgba(0, 0, 0, 0.02)
+  );
   border-width: 0;
   border-style: solid;
-  transition: width var(--el-sender-header-animation-duration);
-
   &:after {
     content: '';
     position: absolute;
@@ -536,128 +591,125 @@ defineExpose({
     }
   }
 
-  .el-sender-header-wrap {
+  .el-editor-sender-header {
     display: flex;
     flex-direction: column;
-    gap: var(--el-padding-xs);
+    gap: var(--el-padding-xs, 8px);
     width: 100%;
     margin: 0;
     padding: 0;
+    .el-editor-sender-header-container {
+      border-bottom-width: var(--el-border-width);
+      border-bottom-style: solid;
+      border-bottom-color: var(--el-border-color);
+    }
   }
 
-  // 展开收起动画
-  // calc-size 新特性，解决无法对某些非固定尺寸（如 auto、min-content、max-content 等）进行动画过渡的新特性
+  .el-editor-sender-content {
+    display: flex;
+    width: 100%;
+    gap: var(--el-padding-xs, 8px);
+    padding-block: var(--el-padding-sm, 12px);
+    padding-inline-start: var(--el-padding, 16px);
+    padding-inline-end: var(--el-padding-sm, 12px);
+    box-sizing: border-box;
+    align-items: flex-end;
+
+    .el-editor-sender-prefix {
+      flex: none;
+    }
+
+    .el-editor-sender-chat-room {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      align-self: center;
+      box-sizing: border-box;
+      .el-editor-sender-chat {
+        flex-shrink: 0;
+        width: 100%;
+        font-size: 14px;
+        line-height: var(--el-font-line-height-primary);
+        box-sizing: border-box;
+        overflow-y: auto;
+        overflow-x: hidden;
+        :deep(.chat-rich-text) {
+          font-family: inherit;
+          padding: 0;
+          font-size: inherit;
+          .chat-grid-wrap {
+            font-size: inherit;
+            span {
+              font-size: inherit;
+            }
+          }
+        }
+        :deep(.chat-placeholder-wrap) {
+          font-family: inherit;
+          font-style: normal;
+          color: var(--el-text-color-placeholder);
+          padding: 0;
+          font-weight: bold;
+          font-size: inherit;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+
+    .el-editor-sender-action-list {
+      .el-editor-sender-action-list-presets {
+        display: flex;
+        gap: var(--el-padding-xs, 8px);
+        flex-direction: row-reverse;
+      }
+    }
+
+    &.content-variant-updown {
+      display: flex;
+      flex-direction: column;
+      align-items: initial;
+
+      .el-editor-sender-updown-action-list {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        // 前缀
+        .el-editor-sender-prefix {
+          flex: initial;
+        }
+
+        .el-editor-sender-action-list {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+
+  .el-editor-sender-footer {
+    border-top-width: var(--el-border-width);
+    border-top-style: solid;
+    border-top-color: var(--el-border-color);
+  }
+
   .slide-enter-active,
   .slide-leave-active {
     height: calc-size(max-content, size);
     opacity: 1;
     transition:
-      height var(--el-sender-header-animation-duration),
-      opacity var(--el-sender-header-animation-duration),
-      border var(--el-sender-header-animation-duration);
+      height var(--el-editor-sender-header-duration),
+      opacity var(--el-editor-sender-header-duration),
+      border var(--el-editor-sender-header-duration);
     overflow: hidden;
   }
-
   .slide-enter-from,
   .slide-leave-to {
     height: 0;
     opacity: 0 !important;
   }
-
-  .el-sender-header {
-    border-bottom-width: var(--el-border-width);
-    border-bottom-style: solid;
-    border-bottom-color: var(--el-border-color);
-  }
-
-  .el-sender-content {
-    display: flex;
-    gap: var(--el-padding-xs);
-    width: 100%;
-    padding-block: var(--el-padding-sm);
-    padding-inline-start: var(--el-padding);
-    padding-inline-end: var(--el-padding-sm);
-    box-sizing: border-box;
-    align-items: flex-end;
-    // 前缀
-    .el-sender-prefix {
-      flex: none;
-    }
-    // 输入框
-    .el-sender-input {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      align-self: center;
-
-      :deep(.el-textarea__inner) {
-        padding: 0;
-        margin: 0;
-        color: var(--el-text-color-primary);
-        font-size: var(--el-sender-input-input-font-size);
-        line-height: var(--el-font-line-height-primary);
-        list-style: none;
-        position: relative;
-        display: inline-block;
-        box-sizing: border-box;
-        width: 100%;
-        min-width: 0;
-        max-width: 100%;
-        height: auto;
-        min-height: auto !important;
-        border-radius: 0;
-        border: none;
-        flex: auto;
-        align-self: center;
-        vertical-align: bottom;
-        resize: none;
-        background-color: transparent;
-        transition:
-          all var(--el-transition-duration),
-          height 0s;
-        box-shadow: none !important;
-      }
-    }
-    // 操作列表
-    .el-sender-action-list-presets {
-      display: flex;
-      gap: var(--el-padding-xs);
-      flex-direction: row-reverse;
-    }
-  }
-
-  // 变体样式 --variant
-  .content-variant-updown {
-    display: flex;
-    flex-direction: column;
-    align-items: initial;
-    .el-sender-updown-wrap {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      // 前缀
-      .el-sender-prefix {
-        flex: initial;
-      }
-    }
-  }
-
-  // 底部容器
-  .el-sender-footer {
-    border-top-width: var(--el-border-width);
-    border-top-style: solid;
-    border-top-color: var(--el-border-color);
-  }
-}
-
-.el-sender-disabled {
-  background-color: var(--el-fill-color);
-  pointer-events: none;
-}
-
-:deep(.el-sender-trigger-popover) {
-  width: var(--el-sender-trigger-popover-width) !important;
-  max-width: calc(100% - 54px) !important;
-  margin-left: var(--el-sender-trigger-popover-left) !important;
 }
 </style>
