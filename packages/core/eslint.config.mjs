@@ -24,6 +24,7 @@ export default antfu({
     'style/arrow-parens': 'off',
     'style/quote-props': 'off',
     'style/operator-linebreak': 'off',
+    'antfu/if-newline': 'off',
   },
   ignores: [
     '**/dist/**',
