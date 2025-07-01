@@ -17,6 +17,7 @@ import {
   controlEle,
   copyCode,
   expand,
+  isDark,
   languageEle,
   toggleExpand,
   toggleTheme
@@ -93,6 +94,7 @@ export default defineComponent({
         return slotFn({
           ...props,
           renderLines: renderLines.value,
+          isDark,
           toggleExpand,
           toggleTheme,
           copyCode
@@ -101,6 +103,7 @@ export default defineComponent({
       return h(slotFn, {
         ...props,
         renderLines: renderLines.value,
+        isDark,
         toggleExpand,
         toggleTheme,
         copyCode
@@ -108,7 +111,7 @@ export default defineComponent({
     };
     return () =>
       h(
-        'pre',
+        'div',
         {
           class: `pre-md ${preClass.value}`,
           style: preStyle.value,

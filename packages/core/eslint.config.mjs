@@ -25,7 +25,8 @@ export default antfu({
     'style/quote-props': 'off',
     'style/operator-linebreak': 'off',
     'vue/quote-props': 'off',
-    'vue/operator-linebreak': 'off'
+    'vue/operator-linebreak': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
   },
   ignores: [
     '**/dist/**',

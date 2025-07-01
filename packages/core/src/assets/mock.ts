@@ -26,22 +26,24 @@ export const mdContent = `
 
 // md 代码块高亮
 export const highlightMdContent = `
-
 ###### 非commonMark语法，dom多个
 <pre>
-  <code class="language-javascript">code1</code>
-  <code class="language-javascript">code2</code>
+<code class="language-java">
+public class HelloWorld {
+  public static void main(String[] args) {
+      System.out.println("Hello, world!");
+  }
+}
+</code>
+<code class="language-javascript">console.log('Hello, world!');</code>
 </pre>
-
 \`\`\`echarts
 use codeXRender for echarts render
 \`\`\`
-
 ### javascript
 \`\`\`javascript
 console.log('Hello, world!');
 \`\`\`
-
 ### java
 \`\`\`java
 public class HelloWorld {
@@ -50,8 +52,34 @@ public class HelloWorld {
     }
 }
 \`\`\`
+\`\`\`typescript
+import {
+  ArrowDownBold,
+  CopyDocument,
+  Moon,
+  Sunny
+} from '@element-plus/icons-vue';
+import { ElButton, ElSpace } from 'element-plus';
+import { h } from 'vue';
 
+/* ----------------------------------- 按钮组 ---------------------------------- */
 
+/**
+ * @description 描述 language标签
+ * @date 2025-06-25 17:48:15
+ * @author tingfeng
+ *
+ * @export
+ * @param language
+ */
+export function languageEle(language: string) {
+  return h(
+    ElSpace,
+    {},
+    {}
+  );
+}
+\`\`\`
 `.trim();
 
 // md 美人鱼图表
@@ -78,17 +106,17 @@ export const mathMdContent = `
 flowchart TD
     %% 前端专项四层结构
     A["战略层
-    【提升用户体验】"] 
+    【提升用户体验】"]
     --> B["架构层
     【微前端方案选型】"]
     --> C["框架层
     【React+TS技术栈】"]
     --> D["实现层
     【组件库开发】"]
-    style A fill:#FFD700,stroke:#FFA500  
-    style B fill:#87CEFA,stroke:#1E90FF  
-    style C fill:#9370DB,stroke:#663399  
-    style D fill:#FF6347,stroke:#CD5C5C 
+    style A fill:#FFD700,stroke:#FFA500
+    style B fill:#87CEFA,stroke:#1E90FF
+    style C fill:#9370DB,stroke:#663399
+    style D fill:#FF6347,stroke:#CD5C5C
 
 \`\`\`
 ### mermaid 数学公式
@@ -128,13 +156,13 @@ graph LR
     E -->|缓存操作| G[缓存服务]
     E -->|消息发布| H[消息队列]
     H -->|触发任务| I[后台任务]
-    
+
     subgraph "微服务集群"
         D[认证服务]
         E[业务服务]
         I[后台任务]
     end
-    
+
     subgraph "数据持久层"
         F[数据库]
         G[缓存服务]

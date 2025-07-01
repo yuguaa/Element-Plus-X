@@ -43,7 +43,6 @@ const MarkdownProvider = defineComponent({
       () => [highlighterTheme.value, isDark.value],
       ([highlighterTheme, isDark]) => {
         if (highlighterTheme !== oldHighlighterTheme.value) {
-          console.log('不一致');
           oldHighlighterTheme.value =
             highlighterTheme as InitShikiOptions['themes'];
           createHighlighter({
@@ -57,21 +56,12 @@ const MarkdownProvider = defineComponent({
             shikiThemeColor.value = res.getTheme(
               isDark ? (themeArr.value[1] as any) : (themeArr.value[0] as any)
             );
-            // 初始化样式输出
-            console.log(
-              '🚀 ~ 主题名称变化后的初始化样式输出 ~ shikiThemeColor:',
-              shikiThemeColor.value
-            );
           });
         }
 
         if (highlighter.value) {
           shikiThemeColor.value = highlighter.value.getTheme(
             isDark ? (themeArr.value[1] as any) : (themeArr.value[0] as any)
-          );
-          console.log(
-            '🚀 ~ 主题名称没变化下的样式输出 ~ shikiThemeColor:',
-            shikiThemeColor.value
           );
         }
       },
