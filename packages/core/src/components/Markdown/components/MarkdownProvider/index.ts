@@ -16,6 +16,7 @@ import {
   MarkdownProps,
   shikiThemeDefault
 } from '../../shared';
+import '../../../../assets/style/katex.min.css';
 
 const MarkdownProvider = defineComponent({
   name: 'MarkdownProvider',
