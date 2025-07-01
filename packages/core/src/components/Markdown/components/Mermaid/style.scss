@@ -11,38 +11,114 @@
   -webkit-user-select: none !important;
   -moz-user-select: none !important;
   -ms-user-select: none !important;
+  display: flex;
+  flex-direction: column;
+
+  // 工具栏容器样式
+  .toolbar-container {
+    position: relative;
+    z-index: 10;
+    flex-shrink: 0;
+    background: white;
+
+    // 确保自定义头部插槽正确显示
+    .custom-mermaid-header {
+      position: relative;
+      z-index: 11;
+    }
+
+    // 默认工具栏的基础样式
+    .mermaid-language-tag {
+      display: inline-block;
+      padding: 8px 12px;
+      background: #f0f9ff;
+      border: 1px solid #e0f2fe;
+      border-radius: 4px;
+      font-size: 12px;
+      color: #0891b2;
+      margin-right: 8px;
+    }
+
+    // 简单默认工具栏样式
+    .mermaid-default-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      background: white;
+
+      .toolbar-buttons {
+        display: flex;
+        gap: 4px;
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 28px;
+          height: 28px;
+          border: 1px solid #d1d5db;
+          border-radius: 4px;
+          background: white;
+          color: #374151;
+          font-size: 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+          }
+
+          &:active {
+            background: #e5e7eb;
+          }
+        }
+      }
+    }
+  }
 
   .mermaid-content {
+    position: relative;
+    z-index: 1;
+    flex: 1;
     min-height: 200px;
-    max-height: 60vh;
+    // max-height: 80vh;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden; // 防止未缩放的大图表溢出
+
     &:active {
       cursor: grabbing;
     }
 
-    :deep(svg) {
-      display: block;
-      margin: 0 auto;
-      transform-origin: 0 0; // SVG 的变换原点
+    svg {
+      transform-origin: center center; // SVG 的变换原点
+      position: relative;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    // 渲染状态时的加载效果
+    &.rendering {
+      svg {
+        opacity: 0.8;
+        pointer-events: none;
+      }
     }
   }
 
   // 全屏
   &:fullscreen {
-    // background: #000;
-
     .mermaid-content {
-      display: flex;
-      align-items: center;
+      max-height: 100vh;
       justify-content: center;
-
-      :deep(svg) {
-        filter: invert(0.1);
-      }
     }
   }
 
@@ -60,8 +136,10 @@
   }
 
   .mermaid-source-code {
+    position: relative;
+    z-index: 1;
+    flex: 1;
     width: 100%;
-    height: 100%;
     margin: 0;
     padding: 16px;
     background-color: #f8f9fa;
@@ -78,20 +156,21 @@
   }
 }
 
-// 内容切换过渡
-.content-enter-active,
+// 内容切换过渡 - 减少闪烁，优化为淡入淡出
+.content-enter-active {
+  transition: opacity 0.2s ease-out;
+}
+
 .content-leave-active {
-  transition: all 0.4s ease;
+  transition: opacity 0.15s ease-in;
 }
 
 .content-enter-from {
   opacity: 0;
-  transform: translateX(20px);
 }
 
 .content-leave-to {
   opacity: 0;
-  transform: translateX(-20px);
 }
 
 // 工具栏过渡

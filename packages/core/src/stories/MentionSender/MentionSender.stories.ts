@@ -1,10 +1,10 @@
 import type MentionSenderSource from '@components/MentionSender/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import CustomSolt from './CustomSolt.vue';
 import MentionSender from './index.vue';
-import MentionSenderSlot from './mention-sender-slot.vue';
 
 const meta: Meta<typeof MentionSenderSource> = {
-  title: 'Example/MentionSender',
+  title: 'Example/MentionSender 提及输入框 🦥',
   component: MentionSender,
   argTypes: {
     modelValue: {
@@ -194,9 +194,9 @@ export const MentionSenderDemo: Story = {
   })
 };
 
-export const MentionSenderSlotDemo: Story = {
+export const SlotDemo: Story = {
   render: (args: any) => ({
-    components: { MentionSenderSlot },
+    components: { CustomSolt },
     setup() {
       const model = ref(args.modelValue);
 
@@ -211,7 +211,7 @@ export const MentionSenderSlotDemo: Story = {
       };
     },
     template: `
-      <MentionSenderSlot
+      <CustomSolt
         v-bind="args"
         v-model:modelValue="model"
       />

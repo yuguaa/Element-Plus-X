@@ -1,12 +1,12 @@
 import type PromptsSource from '@components/Prompts/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import PromptsCustomStyle from './CustomStyleDemo.vue';
+import CustomStyle from './CustomStyle.vue';
 import Prompts from './index.vue';
 import { CustomStyleItems, mockPromptsItems, WithChildrenItems } from './mock';
 import PromptsWithChildren from './WithChildrenDemo.vue';
 
 const meta: Meta<typeof PromptsSource> = {
-  title: 'Example/Prompts',
+  title: 'Example/Prompts 提示集组件 🎁',
   component: Prompts,
   argTypes: {
     title: {
@@ -52,7 +52,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const PromptsDefaultDemo: Story = {
+export const PromptsDemo: Story = {
   args: {
     title: '欢迎使用Element-Plus-X AI 助手',
     items: mockPromptsItems,
@@ -62,7 +62,7 @@ export const PromptsDefaultDemo: Story = {
   }
 };
 
-export const PromptsChildrenDemo: Story = {
+export const ChildrenDemo: Story = {
   args: {
     title: '欢迎使用Element-Plus-X AI 助手',
     wrap: true,
@@ -80,7 +80,7 @@ export const PromptsChildrenDemo: Story = {
   })
 };
 
-export const PromptsCustomStyleDemo: Story = {
+export const StyleDemo: Story = {
   args: {
     title: '欢迎使用Element-Plus-X AI 助手',
     items: CustomStyleItems,
@@ -96,11 +96,11 @@ export const PromptsCustomStyleDemo: Story = {
   },
   render: (args: any) => ({
     components: {
-      PromptsCustomStyle
+      CustomStyle
     },
     setup() {
       return { attrs: args };
     },
-    template: `<PromptsCustomStyle v-bind="attrs" />`
+    template: `<CustomStyle v-bind="attrs" />`
   })
 };

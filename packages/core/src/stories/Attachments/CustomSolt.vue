@@ -19,16 +19,30 @@ const {
 
 <template>
   <div class="component-container">
-    <div class="component-title">附件上传组件-自定义左右按钮</div>
-
+    <div class="component-title">附件上传组件-自定义左右按钮、列表内容</div>
     <Attachments
-      v-bind="$attrs"
+      v-bind="{ ...$attrs }"
       :items="files"
       :http-request="handleHttpRequest"
       :before-upload="handleBeforeUpload"
       @upload-drop="handleUploadDrop"
       @delete-card="handleDeleteCard"
     >
+      <template #file-list="{ items }">
+        <div
+          class="custom-list"
+          :class="{
+            'custom-list-overflow-no-x': $attrs.overflow !== 'scrollX'
+          }"
+        >
+          <div v-for="(item, idx) in items" :key="idx" class="custom-item">
+            <div class="custom-item-name">
+              {{ item.name }}
+            </div>
+          </div>
+        </div>
+      </template>
+
       <!-- 自定义左侧按钮（覆盖默认插槽） -->
       <template #prev-button="{ show, onScrollLeft }">
         <button v-if="show" class="custom-prev" @click="onScrollLeft">
@@ -51,7 +65,8 @@ const {
   background-color: white;
   padding: 12px;
   border-radius: 15px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   .component-title {
     display: flex;
@@ -104,5 +119,32 @@ const {
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
   border-color: rgba(255, 255, 255, 0.8);
+}
+
+.custom-list {
+  display: flex;
+
+  .custom-item {
+    margin: 8px;
+    width: 200px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: antiquewhite;
+    flex: none;
+  }
+}
+
+.custom-item-name {
+  padding: 0 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-list-overflow-no-x {
+  flex-wrap: wrap;
 }
 </style>

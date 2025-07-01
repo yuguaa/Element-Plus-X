@@ -1,20 +1,20 @@
 import type WelcomeSource from '@components/Welcome/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import CustomSolt from './CustomSolt.vue';
 import Welcome from './index.vue';
-import WelcomeSlotComponent from './SlotDemo.vue';
 
 const meta: Meta<typeof WelcomeSource> = {
-  title: 'Example/Welcome',
+  title: 'Example/Welcome 欢迎 🌹',
   component: Welcome,
   argTypes: {
     variant: {
-      control: { type: 'select' },
+      control: { type: 'radio' },
       defaultValue: 'filled',
       options: ['filled', 'borderless'],
       description: '组件样式变体（filled/borderless）'
     },
     direction: {
-      control: { type: 'select' },
+      control: { type: 'radio' },
       defaultValue: 'ltr',
       options: ['ltr', 'rtl'],
       description: '组件语言方向（ltr/rtl）'
@@ -89,7 +89,7 @@ export const WelcomeDemo: Story = {
   }
 };
 
-export const WelcomeSlotDemo: Story = {
+export const SlotDemo: Story = {
   args: {
     title: '欢迎使用Element-Plus-X AI 助手',
     description: '一起玩耍吧',
@@ -100,11 +100,11 @@ export const WelcomeSlotDemo: Story = {
   } as any,
   render: (args: any) => ({
     components: {
-      WelcomeSlotComponent
+      CustomSolt
     },
     setup() {
       return { attrs: args };
     },
-    template: `<WelcomeSlotComponent v-bind="attrs" />`
+    template: `<CustomSolt v-bind="attrs" />`
   })
 };

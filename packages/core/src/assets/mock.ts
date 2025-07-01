@@ -1,6 +1,7 @@
 import type { BubbleProps } from '@components/Bubble/types';
 import type { BubbleListProps } from '@components/BubbleList/types';
 import type { FilesType } from '@components/FilesCard/types';
+
 import type { ThinkingStatus } from '@components/Thinking/types';
 
 // 头像1
@@ -65,7 +66,24 @@ pie
 
 // md 数学公式
 export const mathMdContent = `
+### mermaid 流程图
+\`\`\`mermaid
+flowchart TD
+    %% 前端专项四层结构
+    A["战略层
+    【提升用户体验】"] 
+    --> B["架构层
+    【微前端方案选型】"]
+    --> C["框架层
+    【React+TS技术栈】"]
+    --> D["实现层
+    【组件库开发】"]
+    style A fill:#FFD700,stroke:#FFA500  
+    style B fill:#87CEFA,stroke:#1E90FF  
+    style C fill:#9370DB,stroke:#663399  
+    style D fill:#FF6347,stroke:#CD5C5C 
 
+\`\`\`
 ### mermaid 数学公式
 \`\`\`mermaid
 sequenceDiagram
@@ -74,7 +92,6 @@ sequenceDiagram
     participant 2 as $$beta$$
     1->>2: Solve: $$\sqrt{2+2}$$
     2-->>1: Answer: $$2$$
-    Note right of 2: $$\sqrt{2+2}=\sqrt{4}=2$$
 \`\`\`
 
 `;

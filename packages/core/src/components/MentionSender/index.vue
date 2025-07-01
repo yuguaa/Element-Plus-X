@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import type { MentionOption, MentionSenderProps } from './types.d.ts';
+import type {
+  MentionOption,
+  MentionSenderEmits,
+  MentionSenderProps
+} from './types.d.ts';
 import {
   ClearButton,
   LoadingButton,
   SendButton,
   SpeechButton,
-  SpeechLoadingButton,
+  SpeechLoadingButton
 } from './components';
 
 const props = withDefaults(defineProps<MentionSenderProps>(), {
   placeholder: '请输入内容',
   autoSize: () => ({
     minRows: 1,
-    maxRows: 6,
+    maxRows: 6
   }),
   submitType: 'enter',
   headerAnimationTimer: 300,
@@ -35,10 +39,10 @@ const props = withDefaults(defineProps<MentionSenderProps>(), {
   triggerStrings: () => [],
   triggerSplit: ' ',
   triggerPopoverPlacement: 'top',
-  triggerPopoverOffset: 20,
+  triggerPopoverOffset: 20
 });
 
-const emits = defineEmits(['update:modelValue', 'submit', 'cancel', 'recordingChange', 'search', 'select']);
+const emits = defineEmits<MentionSenderEmits>();
 
 const slots = defineSlots();
 
@@ -47,10 +51,9 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:modelValue', val);
-  },
+  }
 });
 
 // 获取当前组件实例
@@ -85,19 +88,15 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false);
 function openHeader() {
-  if (!slots.header)
-    return false;
+  if (!slots.header) return false;
 
-  if (props.readOnly)
-    return false;
+  if (props.readOnly) return false;
 
   visiableHeader.value = true;
 }
 function closeHeader() {
-  if (!slots.header)
-    return;
-  if (props.readOnly)
-    return;
+  if (!slots.header) return;
+  if (props.readOnly) return;
   visiableHeader.value = false;
 }
 /* 头部显示隐藏 结束 */
@@ -107,8 +106,7 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -139,8 +137,7 @@ function startRecognition() {
       speechLoading.value = false;
     };
     recognition.value.start();
-  }
-  else {
+  } else {
     console.error('浏览器不支持 Web Speech API');
   }
 }
@@ -161,28 +158,30 @@ function stopRecognition() {
 
 /* 输入框事件 开始 */
 function submit() {
-  if (props.readOnly || props.loading || props.disabled || isSubmitDisabled.value)
+  if (
+    props.readOnly ||
+    props.loading ||
+    props.disabled ||
+    isSubmitDisabled.value
+  )
     return;
   emits('submit', internalValue.value);
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly)
-    return;
+  if (props.readOnly) return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   inputRef.value.input.clear();
   internalValue.value = '';
 }
 
 // 在这判断组合键的回车键 (目前支持两种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (props.submitType === 'enter') {
     // 判断是否按下了 Shift + 回车键
     if (e.shiftKey && e.keyCode === 13) {
@@ -192,23 +191,20 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
       const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
       internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
       e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
-    }
-    else if (e.keyCode === 13 && !e.shiftKey) {
+    } else if (e.keyCode === 13 && !e.shiftKey) {
       // 阻止掉 Enter 的默认换行行为
       e.preventDefault();
       // 触发提交功能
       submit();
     }
-  }
-  else if (props.submitType === 'shiftEnter') {
+  } else if (props.submitType === 'shiftEnter') {
     // 判断是否按下了 Shift + 回车键
     if (e.shiftKey && e.keyCode === 13) {
       // 阻止掉 Enter 的默认换行行为
       e.preventDefault();
       // 触发提交功能
       submit();
-    }
-    else if (e.keyCode === 13 && !e.shiftKey) {
+    } else if (e.keyCode === 13 && !e.shiftKey) {
       e.preventDefault();
       const cursorPosition = e.target.selectionStart; // 获取光标位置
       const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
@@ -234,11 +230,9 @@ function focus(type = 'all') {
   }
   if (type === 'all') {
     inputRef.value.input.select();
-  }
-  else if (type === 'start') {
+  } else if (type === 'start') {
     focusToStart();
-  }
-  else if (type === 'end') {
+  } else if (type === 'end') {
     focusToEnd();
   }
 }
@@ -262,7 +256,10 @@ function focusToEnd() {
     const textarea = inputRef.value.input.$el.querySelector('textarea');
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
-      textarea.setSelectionRange(internalValue.value.length, internalValue.value.length); // 设置光标到最后方
+      textarea.setSelectionRange(
+        internalValue.value.length,
+        internalValue.value.length
+      ); // 设置光标到最后方
     }
   }
 }
@@ -288,7 +285,7 @@ defineExpose({
   submit,
   cancel,
   startRecognition,
-  stopRecognition,
+  stopRecognition
 });
 </script>
 
@@ -304,10 +301,10 @@ defineExpose({
         '--el-box-shadow-tertiary':
           '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
         '--el-sender-input-input-font-size': '14px',
-        '--el-sender-header-animation-duration': `${headerAnimationTimer}ms`,
+        '--el-sender-header-animation-duration': `${headerAnimationTimer}ms`
       }"
       :class="{
-        'el-sender-disabled': disabled,
+        'el-sender-disabled': disabled
       }"
     >
       <!-- 头部容器 -->
@@ -325,7 +322,10 @@ defineExpose({
         @mousedown="onContentMouseDown"
       >
         <!-- Prefix 前缀 -->
-        <div v-if="$slots.prefix && props.variant === 'default'" class="el-sender-prefix">
+        <div
+          v-if="$slots.prefix && props.variant === 'default'"
+          class="el-sender-prefix"
+        >
           <slot name="prefix" />
         </div>
         <!-- 输入框 -->
@@ -333,11 +333,13 @@ defineExpose({
           ref="inputRef"
           v-model="internalValue"
           class="el-sender-input"
-          :input-style="props.inputStyle || {
-            'resize': 'none',
-            'max-height': '176px',
-            'max-width': inputWidth,
-          }"
+          :input-style="
+            props.inputStyle || {
+              resize: 'none',
+              'max-height': '176px',
+              'max-width': inputWidth
+            }
+          "
           :rows="1"
           :autosize="autoSize"
           type="textarea"
@@ -379,10 +381,12 @@ defineExpose({
         <!-- 操作列表 -->
         <div v-if="props.variant === 'default'" class="el-sender-action-list">
           <slot name="action-list">
-            <div
-              class="el-sender-action-list-presets"
-            >
-              <SendButton v-if="!loading" :disabled="isSubmitDisabled" @submit="submit" />
+            <div class="el-sender-action-list-presets">
+              <SendButton
+                v-if="!loading"
+                :disabled="isSubmitDisabled"
+                @submit="submit"
+              />
 
               <LoadingButton v-if="loading" @cancel="cancel" />
 
@@ -402,7 +406,10 @@ defineExpose({
         </div>
 
         <!-- 变体样式 -->
-        <div v-if="props.variant === 'updown' && props.showUpdown" class="el-sender-updown-wrap">
+        <div
+          v-if="props.variant === 'updown' && props.showUpdown"
+          class="el-sender-updown-wrap"
+        >
           <!-- 变体 updown： Prefix 前缀 -->
           <div v-if="$slots.prefix" class="el-sender-prefix">
             <slot name="prefix" />
@@ -411,10 +418,12 @@ defineExpose({
           <!-- 变体 updown：操作列表 -->
           <div class="el-sender-action-list">
             <slot name="action-list">
-              <div
-                class="el-sender-action-list-presets"
-              >
-                <SendButton v-if="!loading" :disabled="isSubmitDisabled" @submit="submit" />
+              <div class="el-sender-action-list-presets">
+                <SendButton
+                  v-if="!loading"
+                  :disabled="isSubmitDisabled"
+                  @submit="submit"
+                />
 
                 <LoadingButton v-if="loading" @cancel="cancel" />
 
@@ -445,167 +454,4 @@ defineExpose({
   </div>
 </template>
 
-<style scoped lang="scss">
-.el-sender {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-
-  position: relative;
-  box-sizing: border-box;
-  box-shadow: var(--el-box-shadow-tertiary);
-  transition: background var(--el-transition-duration);
-  border-radius: calc(var(--el-border-radius-base) * 2);
-  border-color: var(--el-border-color);
-  border-width: 0;
-  border-style: solid;
-  transition: width var(--el-sender-header-animation-duration);
-
-  &:after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    transition: border-color var(--el-transition-duration);
-    border-radius: inherit;
-    border-style: inherit;
-    border-color: inherit;
-    border-width: var(--el-border-width);
-  }
-  &:focus-within {
-    box-shadow: var(--el-box-shadow);
-    border-color: var(--el-color-primary);
-    &::after {
-      border-width: 2px;
-    }
-  }
-
-  .el-sender-header-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: var(--el-padding-xs, 8px);
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  // 展开收起动画
-  // calc-size 新特性，解决无法对某些非固定尺寸（如 auto、min-content、max-content 等）进行动画过渡的新特性
-  .slide-enter-active,
-  .slide-leave-active {
-    height: calc-size(max-content, size);
-    opacity: 1;
-    transition:
-      height var(--el-sender-header-animation-duration),
-      opacity var(--el-sender-header-animation-duration),
-      border var(--el-sender-header-animation-duration);
-    overflow: hidden;
-  }
-
-  .slide-enter-from,
-  .slide-leave-to {
-    height: 0;
-    opacity: 0;
-  }
-
-  .el-sender-header {
-    border-bottom-width: var(--el-border-width);
-    border-bottom-style: solid;
-    border-bottom-color: var(--el-border-color);
-  }
-
-  .el-sender-content {
-    display: flex;
-    gap: var(--el-padding-xs, 8px);
-    width: 100%;
-    padding-block: var(--el-padding-sm, 12px);
-    padding-inline-start: var(--el-padding, 16px);
-    padding-inline-end: var(--el-padding-sm, 12px);
-    box-sizing: border-box;
-    align-items: flex-end;
-    // 前缀
-    .el-sender-prefix {
-      flex: none;
-    }
-    // 输入框
-    .el-sender-input {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      align-self: center;
-    }
-    // el-mention
-    .el-mention {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      align-self: center;
-    }
-    :deep(.el-textarea__inner) {
-      padding: 0;
-      margin: 0;
-      color: var(--el-text-color-primary);
-      font-size: var(--el-sender-input-input-font-size);
-      line-height: var(--el-font-line-height-primary);
-      list-style: none;
-      position: relative;
-      display: inline-block;
-      box-sizing: border-box;
-      width: 100%;
-      min-width: 0;
-      max-width: 100%;
-      height: auto;
-      min-height: auto !important;
-      border-radius: 0;
-      border: none;
-      flex: auto;
-      align-self: center;
-      vertical-align: bottom;
-      resize: none;
-      background-color: transparent;
-      transition:
-        all var(--el-transition-duration),
-        height 0s;
-      box-shadow: none !important;
-    }
-    // 操作列表
-    .el-sender-action-list-presets {
-      display: flex;
-      gap: var(--el-padding-xs, 8px);
-      flex-direction: row-reverse;
-    }
-  }
-
-  // 变体样式 --variant
-  .content-variant-updown {
-    display: flex;
-    flex-direction: column;
-    align-items: initial;
-    .el-sender-updown-wrap {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      // 前缀
-      .el-sender-prefix {
-        flex: initial;
-      }
-
-      .el-sender-action-list {
-        margin-left: auto;
-      }
-    }
-  }
-
-  // 底部容器
-  .el-sender-footer {
-    border-top-width: var(--el-border-width);
-    border-top-style: solid;
-    border-top-color: var(--el-border-color);
-  }
-}
-
-.el-sender-disabled {
-  background-color: var(--el-fill-color);
-  pointer-events: none;
-}
-</style>
+<style scoped lang="scss" src="./style.scss"></style>

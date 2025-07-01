@@ -1,11 +1,8 @@
 import type AttachmentsSource from '@components/Attachments/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import CustomButtons from './CustomButtons.vue';
-// import CustomList from './CustomList.vue';
+import CustomSolt from './CustomSolt.vue';
 import Attachments from './index.vue';
-import { genDefaultFiles } from './useAttachmentStubs';
-
-const files = genDefaultFiles();
+import { genDefaultFiles } from './useAttachmentStubs.ts';
 
 const meta: Meta = {
   title: 'Example/Attachments 附件上传组件 📪️',
@@ -36,6 +33,7 @@ const meta: Meta = {
     }
   },
   args: {
+    items: genDefaultFiles(),
     overflow: 'scrollX',
     listStyle: {
       padding: '0 12px',
@@ -44,8 +42,7 @@ const meta: Meta = {
     limit: 0,
     hideUpload: false,
     uploadIconSize: '64px',
-    dragTarget: '',
-    items: files
+    dragTarget: ''
   }
 } satisfies Meta<typeof AttachmentsSource>;
 
@@ -57,20 +54,36 @@ export const AttachmentsDemo: Story = {
   args: {}
 };
 
-export const CustomButtonsDemo: Story = {
-  name: 'CustomButtons',
+export const Solt: Story = {
+  name: 'Solt Demo',
   args: {
-    ...AttachmentsDemo.args
+    ...AttachmentsDemo.args,
+    items: [
+      { id: 1, name: '1.png' },
+      { id: 2, name: '2.png' },
+      { id: 3, name: '3.png' },
+      { id: 4, name: '4.png' },
+      { id: 5, name: '5.png' },
+      { id: 6, name: '6.png' },
+      { id: 7, name: '7.png' },
+      { id: 8, name: '8.png' },
+      { id: 9, name: '9.png' },
+      { id: 10, name: '10.png' }
+    ],
+    listStyle: {
+      padding: '0 12px',
+      height: '220px'
+    }
   } as Story['args'],
   render: args => ({
     components: {
-      CustomButtons
+      CustomSolt
     },
     setup() {
       return {
         attrs: args
       };
     },
-    template: '<CustomButtons v-bind="attrs" />'
+    template: '<CustomSolt v-bind="attrs" />'
   })
 };

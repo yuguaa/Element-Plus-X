@@ -13,7 +13,48 @@ function handleMenuCommand(
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px; height: 320px">
-    <Conversations v-bind="$attrs" @menu-command="handleMenuCommand" />
+  <div class="component-container">
+    <div class="component-title">
+      会话管理组件，高度自动会撑满父元素高度，溢出则会滚动
+    </div>
+
+    <div class="conversations-wrap">
+      <Conversations v-bind="$attrs" @menu-command="handleMenuCommand" />
+    </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.component-container {
+  background-color: white;
+  padding: 12px;
+  border-radius: 15px;
+  overflow: auto;
+
+  .component-title {
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    margin-top: 24px;
+
+    &::after {
+      position: absolute;
+      content: '';
+      display: block;
+      width: 5px;
+      height: 75%;
+      border-radius: 15px;
+      left: 0;
+      background-color: #409eff;
+    }
+  }
+
+  .conversations-wrap {
+    height: 530px;
+  }
+}
+</style>
