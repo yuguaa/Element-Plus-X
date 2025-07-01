@@ -1,34 +1,35 @@
 <script lang="ts">
 import {
   SHIKI_SUPPORT_LANGS,
-  shikiThemeDefault
-} from '@components/Markdown/shared';
+  shikiThemeDefault,
+} from "@components/Markdown/shared";
 import {
   transformerNotationDiff,
   transformerNotationErrorLevel,
   transformerNotationFocus,
   transformerNotationHighlight,
-  transformerNotationWordHighlight
-} from '@shikijs/transformers';
-import { codeToHtml } from 'shiki';
-import { defineComponent, h, ref, toValue, watch } from 'vue';
-import { useMarkdownContext } from '../MarkdownProvider';
+  transformerNotationWordHighlight,
+} from "@shikijs/transformers";
+import { codeToHtml } from "shiki";
+import { defineComponent, h, ref, toValue, watch } from "vue";
+import { useMarkdownContext } from "../MarkdownProvider";
 import {
   controlEle,
   copyCode,
   expand,
+  isDark,
   languageEle,
   toggleExpand,
-  toggleTheme
-} from './shiki-header';
-import '../../../../assets/style/shiki.scss';
+  toggleTheme,
+} from "./shiki-header";
+import "../../../../assets/style/shiki.scss";
 
 export default defineComponent({
   props: {
     raw: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   setup(props) {
     const context = useMarkdownContext();
@@ -39,7 +40,7 @@ export default defineComponent({
     const preClass = ref<string | null>(null);
     const themes = computed(() => context.value.themes);
     const codeAttrs =
-      typeof customAttrs?.code === 'function'
+      typeof customAttrs?.code === "function"
         ? customAttrs.code(props.raw)
         : customAttrs?.code || {};
     const shikiTransformers = [
@@ -47,68 +48,70 @@ export default defineComponent({
       transformerNotationErrorLevel(),
       transformerNotationFocus(),
       transformerNotationHighlight(),
-      transformerNotationWordHighlight()
+      transformerNotationWordHighlight(),
     ];
     // 生成高亮HTML
     const generateHtml = async () => {
       let { language, content } = props.raw;
       if (!SHIKI_SUPPORT_LANGS.includes(language)) {
-        language = 'text';
+        language = "text";
       }
       const html = await codeToHtml(content, {
         lang: language,
         themes: themes?.value ?? {
-          ...shikiThemeDefault
+          ...shikiThemeDefault,
         },
-        transformers: shikiTransformers
+        transformers: shikiTransformers,
       });
       const parse = new DOMParser();
-      const doc = parse.parseFromString(html, 'text/html');
-      const preElement = doc.querySelector('pre');
-      preStyle.value = preElement?.getAttribute('style');
+      const doc = parse.parseFromString(html, "text/html");
+      const preElement = doc.querySelector("pre");
+      preStyle.value = preElement?.getAttribute("style");
       const preClassNames = preElement?.className;
-      preClass.value = preClassNames ?? '';
-      const codeElement = doc.querySelector('pre code');
+      preClass.value = preClassNames ?? "";
+      const codeElement = doc.querySelector("pre code");
       if (codeElement) {
-        const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
-        renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
+        const lines = codeElement.querySelectorAll(".line"); // 获取所有代码行
+        renderLines.value = Array.from(lines).map((line) => line.outerHTML); // 存储每行HTML
       }
     };
 
     watch(
       () => props.raw.content,
-      async content => {
+      async (content) => {
         if (content) {
           await generateHtml();
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
     const render = (slotName: string) => {
       if (!codeXSlot) {
-        return h('span', {}, '');
+        return h("span", {}, "");
       }
       const slotFn = codeXSlot[slotName];
-      if (typeof slotFn === 'function') {
+      if (typeof slotFn === "function") {
         return slotFn({
           ...props,
           renderLines: renderLines.value,
+          isDark,
           toggleExpand,
           toggleTheme,
-          copyCode
+          copyCode,
         });
       }
       return h(slotFn, {
         ...props,
         renderLines: renderLines.value,
+        isDark,
         toggleExpand,
         toggleTheme,
-        copyCode
+        copyCode,
       });
     };
     return () =>
       h(
-        'pre',
+        "div",
         {
           class: `pre-md ${preClass.value}`,
           style: preStyle.value,
@@ -123,40 +126,40 @@ export default defineComponent({
                 }, 100);
               }
             }
-          }
+          },
         },
         [
           h(
-            'div',
+            "div",
             {
-              class: `markdown-language-header-div el-card is-always-shadow`
+              class: `markdown-language-header-div el-card is-always-shadow`,
             },
-            (codeXSlot?.codeHeader && render('codeHeader')) ?? [
-              (codeXSlot?.codeHeaderLanguage && render('codeHeaderLanguage')) ??
+            (codeXSlot?.codeHeader && render("codeHeader")) ?? [
+              (codeXSlot?.codeHeaderLanguage && render("codeHeaderLanguage")) ??
                 languageEle(props.raw.language),
-              (codeXSlot?.codeHeaderControl && render('codeHeaderControl')) ??
-                controlEle(renderLines.value)
-            ]
+              (codeXSlot?.codeHeaderControl && render("codeHeaderControl")) ??
+                controlEle(renderLines.value),
+            ],
           ),
           h(
-            'code',
+            "code",
             {
               class: `language-${props.raw.language}`,
               style: {
-                display: 'flex',
-                flexDirection: 'column'
+                display: "flex",
+                flexDirection: "column",
               },
-              ...codeAttrs
+              ...codeAttrs,
             },
             renderLines.value.map((line, index) =>
-              h('span', {
+              h("span", {
                 key: index,
-                innerHTML: line
-              })
-            )
-          )
-        ]
+                innerHTML: line,
+              }),
+            ),
+          ),
+        ],
       );
-  }
+  },
 });
 </script>

@@ -108,23 +108,48 @@ body.dark .shiki span {
   pre,
   code {
     text-shadow: none !important;
+    // 设置代码字体样式
+    span {
+      font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      text-align: left;
+      white-space: pre-wrap;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      tab-size: 4;
+      -webkit-hyphens: none;
+      -moz-hyphens: none;
+      -ms-hyphens: none;
+      hyphens: none;
+    }
   }
 
-  .pre-md {
-    transition: height 0.2s ease-in-out;
+  pre div.pre-md {
     height: 42px;
-    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
 
-  pre.is-expanded {
+  pre div.is-expanded {
+    height: auto !important;
+    code {
+      padding: 8px;
+      height: auto !important;
+    }
     .markdown-language-header-toggle-expand {
       transform: rotate(0deg) !important;
     }
   }
 
-  pre {
+  pre div {
+    position: relative;
     border-radius: var(--shiki-custom-brr);
     .markdown-language-header-div {
+      position: sticky;
+      top: 0;
+      z-index: 999;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -132,9 +157,13 @@ body.dark .shiki span {
       border-radius: var(--shiki-custom-brr-mini);
       -webkit-backdrop-filter: blur(var(--shiki-custom-blur));
       backdrop-filter: blur(var(--shiki-custom-blur));
-      margin: 0 0 10px 0;
+      margin: 0 0 5px 0;
       box-sizing: border-box;
       background-color: var(--shiki-code-header-bg);
+      span {
+        box-shadow: none !important;
+        background-color: transparent !important;
+      }
 
       .markdown-language-header-span {
         font-size: 14px;
@@ -168,7 +197,7 @@ body.dark .shiki span {
         width: fit-content !important;
         padding: 5px;
         opacity: 1;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.3s ease-in-out;
         cursor: pointer;
         .el-icon {
           font-size: 16px;
@@ -206,17 +235,21 @@ body.dark .shiki span {
 
       .markdown-language-header-toggle-expand {
         margin: 2px 0 0 0;
-        transition: all 0.2s ease-in-out;
+        transition: all 0.3s ease-in-out;
         transform: rotate(-90deg);
       }
     }
 
     code {
+      flex: 1;
       box-sizing: border-box;
-      padding: 8px;
-      display: block;
       width: 100%;
       overflow: auto;
+      height: 0;
+      overflow: hidden;
+      span {
+        display: inline-block;
+      }
 
       &::-webkit-scrollbar {
         z-index: 1000;
