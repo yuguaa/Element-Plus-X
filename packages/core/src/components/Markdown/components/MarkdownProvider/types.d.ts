@@ -20,8 +20,10 @@ export interface MarkdownContext {
   customAttrs?: CustomAttrs;
   // remark 插件列表
   remarkPlugins?: PluggableList;
+  remarkPluginsAhead?: PluggableList;
   // rehype 插件列表
   rehypePlugins?: PluggableList;
+  rehypePluginsAhead?: PluggableList;
   // rehype 配置项
   rehypeOptions?: Record<string, any>;
   // 是否启用内容清洗

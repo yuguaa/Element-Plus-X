@@ -7,11 +7,19 @@ import remarkMath from 'remark-math';
 import { computed, toRefs } from 'vue';
 
 function usePlugins(props: any) {
-  const { allowHtml, enableLatex, enableBreaks, rehypePlugins, remarkPlugins } =
-    toRefs(props);
+  const {
+    allowHtml,
+    enableLatex,
+    enableBreaks,
+    rehypePlugins,
+    remarkPlugins,
+    rehypePluginsAhead,
+    remarkPluginsAhead
+  } = toRefs(props);
 
   const rehype = computed(() => {
     return [
+      ...(rehypePluginsAhead.value as Pluggable[]),
       allowHtml.value && rehypeRaw,
       enableLatex.value && rehypeKatex,
       ...(rehypePlugins.value as Pluggable[])
@@ -20,12 +28,13 @@ function usePlugins(props: any) {
 
   const remark = computed(() => {
     const base: (Pluggable | { plugins: Pluggable[] })[] = [
-      [remarkGfm, { singleTilde: false }],
       enableLatex.value && remarkMath,
       enableBreaks.value && remarkBreaks
     ].filter(Boolean) as (Pluggable | { plugins: Pluggable[] })[];
 
     return [
+      [remarkGfm, { singleTilde: false }],
+      ...(remarkPluginsAhead.value as (Pluggable | { plugins: Pluggable[] })[]),
       ...base,
       ...(remarkPlugins.value as (Pluggable | { plugins: Pluggable[] })[])
     ];

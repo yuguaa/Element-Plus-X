@@ -14,6 +14,49 @@ export const avatar2: string =
 
 // md 普通内容
 export const mdContent = `
+### 行内公式
+1. 欧拉公式：$e^{i\\pi} + 1 = 0$
+2. 二次方程求根公式：$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$
+3. 向量点积：$\\vec{a} \\cdot \\vec{b} = a_x b_x + a_y b_y + a_z b_z$
+
+### 块级公式
+1. 傅里叶变换：
+$$
+F(\\omega) = \\int_{-\\infty}^{\\infty} f(t) e^{-i\\omega t} dt
+$$
+
+2. 矩阵乘法：
+$$
+\\begin{bmatrix}
+a & b \\\\
+c & d
+\\end{bmatrix}
+\\begin{bmatrix}
+x \\\\
+y
+\\end{bmatrix}
+=
+\\begin{bmatrix}
+ax + by \\\\
+cx + dy
+\\end{bmatrix}
+$$
+
+3. 泰勒级数展开：
+$$
+f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x - a)^n
+$$
+
+4. 拉普拉斯方程：
+$$
+\\nabla^2 u = \\frac{\\partial^2 u}{\\partial x^2} + \\frac{\\partial^2 u}{\\partial y^2} + \\frac{\\partial^2 u}{\\partial z^2} = 0
+$$
+
+5. 概率密度函数（正态分布）：
+$$
+f(x) = \\frac{1}{\\sqrt{2\\pi\\sigma^2}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}
+$$
+
 # 标题
 这是一个 Markdown 示例。
 - 列表项 1
