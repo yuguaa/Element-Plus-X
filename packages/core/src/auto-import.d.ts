@@ -8,6 +8,8 @@ export {}
 declare global {
   const EffectScope: (typeof import('vue'))['EffectScope'];
   const ElMessage: (typeof import('element-plus/es'))['ElMessage'];
+  const ElSpace: (typeof import('element-plus/es'))['ElSpace'];
+  const ElT: (typeof import('element-plus/es'))['ElT'];
   const computed: (typeof import('vue'))['computed'];
   const createApp: (typeof import('vue'))['createApp'];
   const customRef: (typeof import('vue'))['customRef'];

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElButton, ElTooltip } from 'element-plus';
 import { h } from 'vue';
 import {
   MarkdownRenderer
@@ -31,6 +32,71 @@ const content = computed(() => {
   return props.markdown.slice(0, index.value);
 });
 
+const codeXSlotConfig = {
+  codeHeaderLanguage: (props: any) => {
+    return h(
+      'span',
+      { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
+      {
+        default: () => '语言(可点击切换)'
+      }
+    );
+  },
+  codeHeaderControl: (props: any) => {
+    return h(
+      ElSpace,
+      {
+        class: `markdown-language-header-space`,
+        direction: 'horizontal'
+      },
+      {
+        default: () => [
+          h(
+            ElTooltip,
+            {
+              content: '切换主题',
+              placement: 'top'
+            },
+            {
+              default: () =>
+                h(
+                  ElButton,
+                  {
+                    class: 'shiki-header-button',
+                    onClick: () => {
+                      console.log('isDark', props.toggleTheme());
+                    }
+                  },
+                  { default: () => (props.isDark.value ? '🌞' : '🌙') }
+                )
+            }
+          ),
+          h(
+            ElTooltip,
+            {
+              content: '复制代码',
+              placement: 'top'
+            },
+            {
+              default: () =>
+                h(
+                  ElButton,
+                  {
+                    class: 'shiki-header-button',
+                    onClick: () => {
+                      props.copyCode(props.renderLines);
+                    }
+                  },
+                  { default: () => '🥢' }
+                )
+            }
+          )
+        ]
+      }
+    );
+  }
+};
+
 function redo() {
   index.value = 0;
   if (timer.value) {
@@ -45,9 +111,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-button @click="start"> 开始 </el-button>
-  <el-button @click="pause"> 暂停 </el-button>
-  <el-button @click="redo"> 重新开始 </el-button>
+  <ElButton @click="start"> 开始 </ElButton>
+  <ElButton @click="pause"> 暂停 </ElButton>
+  <ElButton @click="redo"> 重新开始 </ElButton>
   <div class="component-container">
     <h4>默认插槽</h4>
     <MarkdownRenderer v-bind="$attrs" :markdown="content" />
@@ -55,44 +121,7 @@ onMounted(() => {
     <MarkdownRenderer
       v-bind="$attrs"
       :markdown="content"
-      :code-x-slot="{
-        codeHeaderLanguage(props: any) {
-          return h(
-            'span',
-            { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
-            '语言(可点击切换)'
-          );
-        },
-        codeHeaderControl(props: any) {
-          return h(
-            'span',
-            {},
-            {
-              default: () => [
-                h(
-                  'button',
-                  {
-                    onClick: () => {
-                      console.log('isDark', props.toggleTheme());
-                    }
-                  },
-                  '主题'
-                ),
-                h('span', {}, '&nbsp;|&nbsp;'),
-                h(
-                  'button',
-                  {
-                    onClick: () => {
-                      props.copyCode(props.renderLines);
-                    }
-                  },
-                  '复制'
-                )
-              ]
-            }
-          );
-        }
-      }"
+      :code-x-slot="codeXSlotConfig"
     />
     <h4>组件插槽</h4>
     <MarkdownRenderer

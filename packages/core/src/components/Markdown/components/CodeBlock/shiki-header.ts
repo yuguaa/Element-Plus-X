@@ -77,7 +77,7 @@ export function controlEle(codeText: string[]) {
 }
 
 // 记录当前是否暗色模式
-const isDark = ref(document.body.classList.contains('dark'));
+export const isDark = ref(document.body.classList.contains('dark'));
 
 /**
  * @description 描述 主题按钮
@@ -132,45 +132,30 @@ export function copyBtnEle(codeText: string[]) {
 
 /* ----------------------------------- 方法 ----------------------------------- */
 
-const transitionStateMap = new WeakMap<HTMLElement, boolean>();
-
+/**
+ * @description 描述 展开代码
+ * @date 2025-07-01 11:33:32
+ * @author tingfeng
+ *
+ * @export
+ * @param elem
+ */
 export function expand(elem: HTMLElement) {
-  if (transitionStateMap.get(elem)) return; // 动画中，忽略重复调用
-
-  transitionStateMap.set(elem, true);
-  elem.style.height = '42px';
+  elem.style.height = 'auto';
   elem.classList.add('is-expanded');
-
-  requestAnimationFrame(() => {
-    elem.style.height = `${elem.scrollHeight}px`;
-
-    const afterTransition = () => {
-      elem.style.height = 'auto';
-      elem.removeEventListener('transitionend', afterTransition);
-      transitionStateMap.set(elem, false); // 解除锁
-    };
-
-    elem.addEventListener('transitionend', afterTransition);
-  });
 }
 
+/**
+ * @description 描述 折叠代码
+ * @date 2025-07-01 11:33:49
+ * @author tingfeng
+ *
+ * @export
+ * @param elem
+ */
 export function collapse(elem: HTMLElement) {
-  if (transitionStateMap.get(elem)) return; // 动画中，忽略重复调用
-
-  transitionStateMap.set(elem, true);
-  elem.style.height = `${elem.scrollHeight}px`;
+  elem.style.height = '42px';
   elem.classList.remove('is-expanded');
-
-  requestAnimationFrame(() => {
-    elem.style.height = '42px';
-
-    const afterTransition = () => {
-      elem.removeEventListener('transitionend', afterTransition);
-      transitionStateMap.set(elem, false); // 解除锁
-    };
-
-    elem.addEventListener('transitionend', afterTransition);
-  });
 }
 
 /**

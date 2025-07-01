@@ -126,21 +126,30 @@ body.dark .shiki span {
     }
   }
 
-  .pre-md {
-    transition: height 0.2s ease-in-out;
-    height: 42px;
-    overflow: hidden;
-  }
+  // .pre-md {
+  //     transition: height 0.2s ease-in-out;
+  //     height: 42px;
+  //   }
 
   pre.is-expanded {
+    height: auto !important;
+    code {
+      span {
+        display: inline-block;
+      }
+    }
     .markdown-language-header-toggle-expand {
       transform: rotate(0deg) !important;
     }
   }
 
   pre {
+    position: relative;
     border-radius: var(--shiki-custom-brr);
     .markdown-language-header-div {
+      position: sticky;
+      top: 0;
+      z-index: 999;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -151,6 +160,10 @@ body.dark .shiki span {
       margin: 0 0 10px 0;
       box-sizing: border-box;
       background-color: var(--shiki-code-header-bg);
+      span {
+        box-shadow: none !important;
+        background-color: transparent !important;
+      }
 
       .markdown-language-header-span {
         font-size: 14px;
@@ -228,11 +241,14 @@ body.dark .shiki span {
     }
 
     code {
+      flex: 1;
       box-sizing: border-box;
       padding: 8px;
-      display: block;
       width: 100%;
       overflow: auto;
+      span {
+        display: none;
+      }
 
       &::-webkit-scrollbar {
         z-index: 1000;
