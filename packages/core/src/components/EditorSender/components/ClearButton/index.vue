@@ -3,12 +3,19 @@
 import { Brush } from '@element-plus/icons-vue';
 import { defineEmits } from 'vue';
 
+const props = defineProps({
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+});
+
 const emit = defineEmits(['clear']);
 </script>
 
 <template>
   <div class="el-send-button">
-    <el-button circle @click="emit('clear')">
+    <el-button circle :disabled="props.disabled" @click="emit('clear')">
       <el-icon><Brush /></el-icon>
     </el-button>
   </div>

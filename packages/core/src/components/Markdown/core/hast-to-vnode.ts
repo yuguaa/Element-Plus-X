@@ -1,4 +1,4 @@
-import type { Element, Root, RootContent } from 'hast';
+import type { Element, Root, RootContent, Text } from 'hast';
 import type { MaybeRefOrGetter, Slots, VNode, VNodeArrayChildren } from 'vue';
 import type {
   AliasList,
@@ -46,8 +46,6 @@ export function renderChildren(
         return node.value;
       case 'raw':
         return node.value;
-      // Note: targeting libs like `@shikijs/rehype` which return `root` node.
-      // This may be abnormal. keep track of this.
       case 'root':
         return renderChildren(node.children, ctx, parent, slots, customAttrs);
       case 'element': {
@@ -131,46 +129,22 @@ export function getVNodeInfos(
         vnodeProps.level = Number.parseFloat(node.tagName.slice(1));
         aliasList.push('heading');
         break;
-      case 'pre': {
-        const codeChild = node.children.find(
-          child => child.type === 'element' && child.tagName === 'code'
-        ) as Element | undefined;
-        if (codeChild) {
-          vnodeProps.languageOriginal = Array.isArray(
-            codeChild.properties?.className
-          )
-            ? (codeChild.properties.className as string[]).find(cls =>
-                cls.startsWith('language-')
-              )
-            : '';
-          vnodeProps.language = vnodeProps.languageOriginal
-            ? vnodeProps.languageOriginal.replace('language-', '')
-            : '';
-          vnodeProps.inline = false;
-          vnodeProps.content = extractTextContent(codeChild);
-          aliasList.push('block-code');
-        } else {
-          vnodeProps.content = extractTextContent(node);
-        }
-        break;
-      }
-      case 'code': {
+      // TODO: maybe use <pre> instead for customizing from <pre> not <code> ?
+      case 'code':
+        vnodeProps.languageOriginal = Array.isArray(attrs.class)
+          ? attrs.class.find(cls => cls.startsWith('language-'))
+          : '';
+        vnodeProps.language = vnodeProps.languageOriginal
+          ? vnodeProps.languageOriginal.replace('language-', '')
+          : '';
         vnodeProps.inline = 'tagName' in parent && parent.tagName !== 'pre';
-        if (vnodeProps.inline) {
-          vnodeProps.content = extractTextContent(node);
-          aliasList.push('inline-code');
-        } else {
-          vnodeProps.languageOriginal = Array.isArray(attrs.class)
-            ? attrs.class.find(cls => cls.startsWith('language-'))
-            : '';
-          vnodeProps.language = vnodeProps.languageOriginal
-            ? vnodeProps.languageOriginal.replace('language-', '')
-            : '';
-          vnodeProps.content = extractTextContent(node);
-          aliasList.push('block-code');
-        }
+
+        // when tagName is code, it definitely has children and the first child is text
+        // https://github.com/syntax-tree/mdast-util-to-hast/blob/main/lib/handlers/code.js
+        vnodeProps.content = (node.children[0] as unknown as Text).value;
+
+        aliasList.push(vnodeProps.inline ? 'inline-code' : 'block-code');
         break;
-      }
       case 'thead':
       case 'tbody':
         ctx.currentContext = node.tagName;
@@ -260,17 +234,4 @@ function computeAttrs(
     }
   }
   return result;
-}
-
-function extractTextContent(node: Element): string {
-  const texts = node.children?.map(child => {
-    if (child.type === 'text') {
-      return child.value;
-    }
-    if (child.type === 'element') {
-      return extractTextContent(child);
-    }
-    return '';
-  });
-  return (texts ?? []).join('').trim();
 }

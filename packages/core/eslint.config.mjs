@@ -24,6 +24,8 @@ export default antfu({
     'style/arrow-parens': 'off',
     'style/quote-props': 'off',
     'style/operator-linebreak': 'off',
+    'vue/quote-props': 'off',
+    'vue/operator-linebreak': 'off'
   },
   ignores: [
     '**/dist/**',

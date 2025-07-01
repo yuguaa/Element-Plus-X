@@ -5,8 +5,8 @@ import { Top } from '@element-plus/icons-vue';
 const props = defineProps({
   disabled: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 
 const emits = defineEmits(['submit']);

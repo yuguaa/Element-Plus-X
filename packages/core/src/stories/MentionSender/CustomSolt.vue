@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TriggerEvent } from '@components/EditorSender/types';
+import type { MentionOption } from '@components/MentionSender/types.d.ts';
 import { CircleClose, Delete, Position } from '@element-plus/icons-vue';
 import { MentionSender } from '../../components';
 
@@ -42,11 +42,14 @@ function handleCancel() {
   ElMessage.success(`点击了Cancel`);
 }
 
-function handleTrigger(value: TriggerEvent) {
-  ElMessage.success(
-    `Trigger ${value.oldValue}, ${value.newValue}, ${value.isOpen}`
-  );
+function handleSearch(pattern: string, prefix: string) {
+  ElMessage.success(`handleSearch ${pattern}, ${prefix}`);
 }
+
+function handleSelect(option: MentionOption, prefix: string) {
+  ElMessage.success(`handleSelect  ${JSON.stringify(option)}, ${prefix}`);
+}
+
 function handleRecordingChange() {
   ElMessage.success(`RecordingChange`);
 }
@@ -100,7 +103,8 @@ function handleRecordingChange() {
         ref="senderRef"
         @submit="handleSubmit"
         @cancel="handleCancel"
-        @trigger="handleTrigger"
+        @search="handleSearch"
+        @select="handleSelect"
         @recording-change="handleRecordingChange"
       >
         <!-- 自定义操作列表 -->

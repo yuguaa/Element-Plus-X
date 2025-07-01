@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TriggerEvent } from '@components/EditorSender/types';
+import type { TriggerEvent } from '@components/Sender/types';
 import { Sender } from '../../components';
 
 function handleSubmit(value: string) {

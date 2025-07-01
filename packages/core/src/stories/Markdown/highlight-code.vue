@@ -116,7 +116,22 @@ onMounted(() => {
   <ElButton @click="redo"> 重新开始 </ElButton>
   <div class="component-container">
     <h4>默认插槽</h4>
-    <MarkdownRenderer v-bind="$attrs" :markdown="content" />
+    <MarkdownRenderer
+      v-bind="$attrs"
+      :markdown="content"
+      :custom-attrs="{
+        code: () => {
+          return {
+            name: 'code',
+            class: 'inline-code'
+          };
+        },
+        a: _ => ({
+          target: '_blank',
+          rel: 'noopener noreferrer'
+        })
+      }"
+    />
     <h4>全部函数式自定义插槽 以及方法</h4>
     <MarkdownRenderer
       v-bind="$attrs"

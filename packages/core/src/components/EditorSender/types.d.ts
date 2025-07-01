@@ -1,37 +1,61 @@
-export interface SenderProps {
-  modelValue?: string;
+import type { CustomTag, SelectTag, TagInfo, UserInfo } from 'chatarea';
+
+export interface EditorProps {
   placeholder?: string;
-  autoSize?: {
-    minRows: number;
-    maxRows: number;
-  };
-  readOnly?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  clearable?: boolean;
-  allowSpeech?: boolean;
-  submitType?: 'enter' | 'shiftEnter';
-  headerAnimationTimer?: number;
-  inputWidth?: string;
-
-  // 变体属性
+  device?: 'pc' | 'h5';
+  autoFocus?: boolean;
   variant?: 'default' | 'updown';
-  showUpdown?: boolean;
-
-  // 新增 el-input 样式透传
-  inputStyle?: string | CSSProperties | CSSProperties[] | string[];
-
-  // 新增 el-popover 样式透传
-  triggerStrings?: string[];
-  triggerPopoverVisible?: boolean; // 指令提示框是否可见
-  triggerPopoverWidth?: string;
-  triggerPopoverLeft?: string;
-  triggerPopoverOffset?: number;
-  triggerPopoverPlacement?: 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end' | 'right' | 'right-start' | 'right-end';
+  userList?: UserInfo[];
+  customTrigger?: CustomTag[];
+  selectList?: SelectTag[];
+  maxLength?: number;
+  submitType?: 'enter' | 'shiftEnter';
+  customStyle?: Record<string, any>;
+  loading?: boolean;
+  disabled?: boolean;
+  clearable?: boolean;
+  headerAnimationTimer?: number;
+  asyncMatchFun?: (searchVal: string) => Promise<UserInfo[]>;
+  customDialog?: boolean;
 }
 
-export interface TriggerEvent {
-  oldValue: string; // 明确触发的字符
-  newValue: string; // 当前输入框的值
-  isOpen: boolean; // 弹窗状态
+export interface ChatState {
+  isEmpty: boolean;
+  textLength: number;
+  lastFocusNode: Node | null;
+  lastOffset: number;
+  wrapCallSelectDialog: boolean;
+  beforeText?: string;
+  afterText?: string;
+}
+
+export interface SubmitResult {
+  text: string;
+  html: string;
+  inputTags: Record<string, (string | null)[]>;
+  userTags?: UserInfo[];
+  selectTags?: Record<string, SelectTag[]>;
+  customTags?: Record<string, TagInfo[]>;
+}
+
+export type MixTagType =
+  | 'gridInput'
+  | 'userTag'
+  | 'customTag'
+  | 'selectTag'
+  | 'inputTag'
+  | 'htmlTag';
+
+export interface MixTag {
+  type: MixTagType;
+  key?: string;
+  value?: string;
+  placeholder?: string;
+}
+
+export interface SelectDialogOption {
+  key: string;
+  elm: HTMLElement;
+  beforeText?: string;
+  afterText?: string;
 }

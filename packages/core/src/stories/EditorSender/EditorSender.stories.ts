@@ -1,5 +1,5 @@
-import type EditorSenderSource from '@components/ChatEditorSender/index.vue';
-import type { EditorProps } from '@components/ChatEditorSender/types';
+import type EditorSenderSource from '@components/EditorSender/index.vue';
+import type { EditorProps } from '@components/EditorSender/types';
 import type { Meta, StoryObj } from '@storybook/vue3';
 import EditorSender from './index.vue';
 import OtherEditorSender from './other.vue';

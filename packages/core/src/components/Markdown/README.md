@@ -36,7 +36,7 @@ const customAttrs = {
 
 > 组件提供了多个插槽，可以自定义渲染，标签即为插槽,你可以接管任何插槽，自定义渲染逻辑。
 
-**请注意：组件内部拦截了pre标签的渲染，支持高亮代码块，mermaid图表等。如果你需要自定义渲染，可以接管pre插槽。**
+**请注意：组件内部拦截了code标签的渲染，支持高亮代码块，mermaid图表等。如果你需要自定义渲染，可以接管code插槽。**
 
 ```vue
 <header></header>
@@ -54,7 +54,7 @@ const customAttrs = {
 codeXSlot自定义代码块顶部
 可通过 codeXRender 属性自定义代码块语言渲染器，如下可以自定义 echarts 渲染器：
 
-```ts
+```text
 codeXRender: {
   echarts: (props) => {
     return h()
