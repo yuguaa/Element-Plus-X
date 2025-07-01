@@ -235,8 +235,9 @@ function submit() {
     props.loading ||
     props.disabled ||
     isSubmitDisabled.value
-  )
+  ) {
     return;
+  }
   emits('submit', internalValue.value);
 }
 // 取消按钮
@@ -518,9 +519,7 @@ defineExpose({
         :trigger-string="triggerString"
         :readonly="props.readOnly"
       >
-        当前触发的字符为：{{
-          `${triggerString}`
-        }}
+        当前触发的字符为：{{ `${triggerString}` }}
         在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
       </slot>
     </el-popover>

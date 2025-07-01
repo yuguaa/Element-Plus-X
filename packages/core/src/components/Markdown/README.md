@@ -54,7 +54,7 @@ const customAttrs = {
 codeXSlot自定义代码块顶部
 可通过 codeXRender 属性自定义代码块语言渲染器，如下可以自定义 echarts 渲染器：
 
-```ts
+```text
 codeXRender: {
   echarts: (props) => {
     return h()

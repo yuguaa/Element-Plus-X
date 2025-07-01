@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { TriggerEvent } from '@components/EditorSender/types.d.ts';
+import type { TriggerEvent } from '@components/Sender/types.d.ts';
 import { CircleClose, Delete, Position } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
 import { Sender } from '../../components';
