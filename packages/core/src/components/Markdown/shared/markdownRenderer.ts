@@ -42,7 +42,15 @@ const MarkdownProps = {
     type: Array as PropType<PluggableList>,
     default: () => []
   },
+  remarkPluginsAhead: {
+    type: Array as PropType<PluggableList>,
+    default: () => []
+  },
   rehypePlugins: {
+    type: Array as PropType<PluggableList>,
+    default: () => []
+  },
+  rehypePluginsAhead: {
     type: Array as PropType<PluggableList>,
     default: () => []
   },
