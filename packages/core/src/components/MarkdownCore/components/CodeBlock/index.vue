@@ -2,7 +2,7 @@
 import {
   SHIKI_SUPPORT_LANGS,
   shikiThemeDefault
-} from '@components/Markdown/shared';
+} from '@components/MarkdownCore/shared';
 import {
   transformerNotationDiff,
   transformerNotationErrorLevel,

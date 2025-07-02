@@ -5,6 +5,7 @@ import type { PropType } from 'vue';
 
 import type { CustomAttrs, SanitizeOptions, TVueMarkdown } from './types';
 import { defineComponent, shallowRef, toRefs, watch } from 'vue';
+// import { useMarkdownContext } from '../components/MarkdownProvider';
 import { render } from './hast-to-vnode';
 import { useMarkdownProcessor } from './useProcessor';
 
@@ -53,6 +54,7 @@ const vueMarkdownImpl = defineComponent({
       sanitizeOptions,
       customAttrs
     } = toRefs(props);
+
     const { processor } = useMarkdownProcessor({
       remarkPlugins,
       rehypePlugins,

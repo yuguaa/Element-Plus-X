@@ -2,7 +2,7 @@
 import {
   MarkdownRenderer
   // MarkdownRendererAsync
-} from '../../components/Markdown/index';
+} from '../../components/MarkdownCore/index';
 
 const props = defineProps<{
   markdown: string;

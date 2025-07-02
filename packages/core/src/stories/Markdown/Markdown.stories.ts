@@ -6,7 +6,7 @@ import {
   mdContent,
   mermaidMdContent
 } from '@assets/mock';
-import { shikiThemeDefault } from '@components/Markdown/shared';
+import { shikiThemeDefault } from '@components/MarkdownCore/shared';
 import CustomAttrs from './customAttrs.vue';
 import HighlightCodeDemo from './highlight-code.vue';
 import Markdown from './index.vue';

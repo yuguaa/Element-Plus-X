@@ -6,7 +6,10 @@ import ConfigProvider from './components/ConfigProvider/index.vue';
 import Conversations from './components/Conversations/index.vue';
 import EditorSender from './components/EditorSender/index.vue';
 import FilesCard from './components/FilesCard/index.vue';
-import { MarkdownRenderer, MarkdownRendererAsync } from './components/Markdown';
+import {
+  MarkdownRenderer,
+  MarkdownRendererAsync
+} from './components/MarkdownCore';
 import MentionSender from './components/MentionSender/index.vue';
 import Prompts from './components/Prompts/index.vue';
 import Sender from './components/Sender/index.vue';

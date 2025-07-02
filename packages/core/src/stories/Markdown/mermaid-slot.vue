@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { MermaidToolbarConfig } from '../../components/Markdown/components/Mermaid/types';
+import type { MermaidToolbarConfig } from '../../components/MarkdownCore/components/Mermaid/types';
 import { ElButton, ElMessage, ElTooltip } from 'element-plus';
 import { computed, h, onMounted, ref } from 'vue';
 import {
   MarkdownRenderer
   // MarkdownRendererAsync
-} from '../../components/Markdown/index';
+} from '../../components/MarkdownCore/index';
 import MermaidHeader from './MermaidHeader.vue';
 
 const props = defineProps<{

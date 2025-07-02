@@ -4,7 +4,7 @@ import { h } from 'vue';
 import {
   MarkdownRenderer
   // MarkdownRendererAsync
-} from '../../components/Markdown/index';
+} from '../../components/MarkdownCore/index';
 import CodeHeader from './CodeHeader.vue';
 
 const props = defineProps<{
