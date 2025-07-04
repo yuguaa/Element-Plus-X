@@ -1,3 +1,4 @@
+import type { Component, VNode } from 'vue';
 import {
   ArrowDownBold,
   CopyDocument,
@@ -6,6 +7,24 @@ import {
 } from '@element-plus/icons-vue';
 import { ElButton, ElSpace } from 'element-plus';
 import { h } from 'vue';
+
+export interface CodeBlockExpose {
+  renderLines: Array<string>;
+  isDark: Ref<boolean>;
+  toggleExpand: (ev: MouseEvent) => void;
+  toggleTheme: () => Ref<boolean>;
+  copyCode: (value: Array<string>) => void;
+}
+
+export type CodeBlockHeaderRenderer =
+  | ((props: CodeBlockExpose) => VNode)
+  | Component;
+
+export interface CodeBlockHeaderExpose {
+  codeHeader?: CodeBlockHeaderRenderer;
+  codeHeaderLanguage?: CodeBlockHeaderRenderer;
+  codeHeaderControl?: CodeBlockHeaderRenderer;
+}
 
 /* ----------------------------------- 按钮组 ---------------------------------- */
 
@@ -243,15 +262,13 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
  */
 export function toggleExpand(ev: MouseEvent) {
   const ele = ev.currentTarget as HTMLElement;
-  const divBox = ele.parentElement as HTMLElement;
-  if (divBox) {
-    if (divBox?.parentElement) {
-      const has = divBox.parentElement.classList.contains('is-expanded');
-      if (has) {
-        collapse(divBox.parentElement);
-      } else {
-        expand(divBox.parentElement);
-      }
+  const preMd = ele.closest('.pre-md') as HTMLElement | null;
+
+  if (preMd) {
+    if (preMd.classList.contains('is-expanded')) {
+      collapse(preMd);
+    } else {
+      expand(preMd);
     }
   }
 }
