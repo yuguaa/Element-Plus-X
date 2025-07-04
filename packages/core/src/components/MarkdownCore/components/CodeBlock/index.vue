@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import type { BundledLanguage } from 'shiki';
+import type { RawProps } from './types';
 import {
   SHIKI_SUPPORT_LANGS,
   shikiThemeDefault
@@ -10,8 +12,8 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
-import { type BundledLanguage, codeToHtml } from 'shiki';
-import { computed, ref, toValue, watch } from 'vue';
+import { codeToHtml } from 'shiki';
+import { computed, h, ref, toValue, watch } from 'vue';
 import { useMarkdownContext } from '../MarkdownProvider';
 import {
   controlEle,
@@ -23,13 +25,15 @@ import {
   toggleTheme
 } from './shiki-header';
 import '../../../../assets/style/shiki.scss';
-import type { RawProps } from './types';
 
-const props = withDefaults(defineProps<{
-  raw?: RawProps;
-}>(), {
-  raw: () => ({}),
-});
+const props = withDefaults(
+  defineProps<{
+    raw?: RawProps;
+  }>(),
+  {
+    raw: () => ({})
+  }
+);
 
 const context = useMarkdownContext();
 const { codeXSlot, customAttrs } = toValue(context) || {};
@@ -72,7 +76,7 @@ async function generateHtml() {
     const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
     renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
   }
-};
+}
 
 watch(
   () => props.raw?.content,
@@ -94,7 +98,7 @@ function handleUpdated(vnode: any) {
       }, 100);
     }
   }
-};
+}
 
 // 渲染插槽函数
 function renderSlot(slotName: string) {
@@ -110,10 +114,18 @@ function renderSlot(slotName: string) {
       toggleExpand,
       toggleTheme,
       copyCode
-    }) || 'div';
+    });
   }
-  return slotFn || 'div';
-};
+
+  return h(slotFn as any, {
+    ...props,
+    renderLines: renderLines.value,
+    isDark,
+    toggleExpand,
+    toggleTheme,
+    copyCode
+  });
+}
 
 // 计算属性
 const computedClass = computed(() => `pre-md ${preClass.value}`);
@@ -134,10 +146,20 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
       />
       <template v-else>
         <component
-          :is="codeXSlot?.codeHeaderLanguage ? renderSlot('codeHeaderLanguage') : languageEle(props.raw?.language ?? 'text')"
+          :is="
+            codeXSlot?.codeHeaderLanguage
+              ? renderSlot('codeHeaderLanguage')
+              : languageEle(props.raw?.language ?? 'text')
+          "
         />
         <component
-          :is="codeXSlot?.codeHeaderControl ? renderSlot('codeHeaderControl') : controlEle(renderLines)"
+          :is="
+            codeXSlot?.codeHeaderControl
+              ? renderSlot('codeHeaderControl')
+              : controlEle(() => {
+                  copyCode(renderLines);
+                })
+          "
         />
       </template>
     </div>
@@ -150,11 +172,7 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
       }"
       v-bind="codeAttrs"
     >
-      <span
-        v-for="(line, index) in renderLines"
-        :key="index"
-        v-html="line"
-      />
+      <span v-for="(line, index) in renderLines" :key="index" v-html="line" />
     </code>
   </div>
 </template>

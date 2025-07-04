@@ -39,7 +39,7 @@ const codeXSlotConfig: CodeBlockHeaderExpose = {
       'span',
       { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
       {
-        default: () => '语言(可点击切换)'
+        default: () => '点击切换折叠状态'
       }
     );
   },
@@ -65,7 +65,8 @@ const codeXSlotConfig: CodeBlockHeaderExpose = {
                   {
                     class: 'shiki-header-button',
                     onClick: () => {
-                      console.log('isDark', props.toggleTheme());
+                      props.toggleTheme();
+                      console.log('isDark', props.isDark.value);
                     }
                   },
                   { default: () => (props.isDark.value ? '🌞' : '🌙') }
