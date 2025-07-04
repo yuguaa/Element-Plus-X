@@ -58,7 +58,7 @@ const buildConfig: BuildEnvironmentOptions = {
         vue: 'Vue'
       },
       exports: 'named', // 确保有命名导出
-      assetFileNames: ((info: any) => {
+      assetFileNames: (info => {
         const srcName = info.originalFileNames[0];
         if (srcName) {
           if (srcName.includes('src/components/')) {
