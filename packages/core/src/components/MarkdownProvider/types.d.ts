@@ -1,12 +1,13 @@
 import type { TVueMarkdownProps } from '@components/MarkdownCore';
+import type { CodeBlockHeaderExpose } from '@components/MarkdownCore/components/CodeBlock/shiki-header';
 import type { InitShikiOptions } from './shiki';
 
 export type MarkdownProps = {
   allowHtml?: boolean;
   enableLatex?: boolean;
   enableBreaks?: boolean;
-  codeXRender?: unknown;
-  codeXSlot?: unknown;
+  codeXRender?: Record<string, any>;
+  codeXSlot?: CodeBlockHeaderExpose & Record<string, any>;
   codeHighlightTheme?: BuiltinTheme | null;
   remarkPluginsAhead?: PluggableList;
   rehypePluginsAhead?: PluggableList;

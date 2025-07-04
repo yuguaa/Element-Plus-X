@@ -61,6 +61,7 @@ export function useMermaidZoom(
 
     // 鼠标事件
     const onMouseDown = (e: MouseEvent) => {
+      if (e.button !== 0) return; // ⭐️ 只响应鼠标左键
       e.preventDefault();
       onStart(e.clientX, e.clientY);
     };

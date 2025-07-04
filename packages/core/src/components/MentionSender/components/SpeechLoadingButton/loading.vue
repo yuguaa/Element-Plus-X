@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, defineProps, withDefaults } from 'vue';
-
-withDefaults(defineProps<{
-  className?: string;
-}>(), {
-  className: '',
-});
+withDefaults(
+  defineProps<{
+    className?: string;
+  }>(),
+  {
+    className: ''
+  }
+);
 
 // 定义常量
 const SIZE = 1000;

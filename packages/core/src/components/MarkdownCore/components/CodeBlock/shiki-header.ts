@@ -1,11 +1,31 @@
-import {
-  ArrowDownBold,
-  CopyDocument,
-  Moon,
-  Sunny
-} from '@element-plus/icons-vue';
+import type { Component, VNode } from 'vue';
+import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElSpace } from 'element-plus';
 import { h } from 'vue';
+import CopyCodeButton from './copy-code-button.vue';
+
+export interface CodeBlockExpose {
+  renderLines: Array<string>;
+  isDark: Ref<boolean>;
+  toggleExpand: (ev: MouseEvent) => void;
+  toggleTheme: () => Ref<boolean>;
+  copyCode: (value: Array<string>) => void;
+}
+
+export type CodeBlockHeaderRenderer =
+  | ((props: CodeBlockExpose) => VNode)
+  | Component;
+
+export interface CodeBlockHeaderExpose {
+  codeHeader?: CodeBlockHeaderRenderer;
+  codeHeaderLanguage?: CodeBlockHeaderRenderer;
+  codeHeaderControl?: CodeBlockHeaderRenderer;
+}
+
+let copyCodeTimer: ReturnType<typeof setTimeout> | null = null;
+
+// 记录当前是否暗色模式
+export const isDark = ref(document.body.classList.contains('dark'));
 
 /* ----------------------------------- 按钮组 ---------------------------------- */
 
@@ -61,9 +81,9 @@ export function languageEle(language: string) {
  * @author tingfeng
  *
  * @export
- * @param codeText
+ * @param {() => void} copy
  */
-export function controlEle(codeText: string[]) {
+export function controlEle(copy: () => void) {
   return h(
     ElSpace,
     {
@@ -71,13 +91,13 @@ export function controlEle(codeText: string[]) {
       direction: 'horizontal'
     },
     {
-      default: () => [toggleThemeEle(), copyBtnEle(codeText)]
+      default: () => [
+        toggleThemeEle(),
+        h(CopyCodeButton, { onCopy: copy }) // ✅ 改为组件形式
+      ]
     }
   );
 }
-
-// 记录当前是否暗色模式
-export const isDark = ref(document.body.classList.contains('dark'));
 
 /**
  * @description 描述 主题按钮
@@ -99,32 +119,6 @@ export function toggleThemeEle() {
       default: () =>
         h(!isDark.value ? Moon : Sunny, {
           class: 'markdown-language-header-toggle'
-        })
-    }
-  );
-}
-
-/**
- * @description 描述 复制按钮
- * @date 2025-06-25 17:50:05
- * @author tingfeng
- *
- * @export
- * @param codeText
- */
-export function copyBtnEle(codeText: string[]) {
-  return h(
-    ElButton,
-    {
-      class: `shiki-header-button markdown-language-header-button`,
-      onClick: () => {
-        copyCode(codeText);
-      }
-    },
-    {
-      default: () =>
-        h(CopyDocument, {
-          class: `markdown-language-header-button-text`
         })
     }
   );
@@ -221,9 +215,7 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
   for (let i = 0; i < lines.length; i++) {
     container.innerHTML = lines[i];
     const text = container.textContent?.trimEnd();
-    if (text && text.trim() !== '') {
-      output.push(text);
-    }
+    output.push(text ?? '');
   }
 
   container.remove();
@@ -243,15 +235,13 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
  */
 export function toggleExpand(ev: MouseEvent) {
   const ele = ev.currentTarget as HTMLElement;
-  const divBox = ele.parentElement as HTMLElement;
-  if (divBox) {
-    if (divBox?.parentElement) {
-      const has = divBox.parentElement.classList.contains('is-expanded');
-      if (has) {
-        collapse(divBox.parentElement);
-      } else {
-        expand(divBox.parentElement);
-      }
+  const preMd = ele.closest('.pre-md') as HTMLElement | null;
+
+  if (preMd) {
+    if (preMd.classList.contains('is-expanded')) {
+      collapse(preMd);
+    } else {
+      expand(preMd);
     }
   }
 }
@@ -283,6 +273,19 @@ export function toggleTheme() {
  * @param codeText
  */
 export function copyCode(codeText: string[]) {
-  const code = extractCodeFromHtmlLines(codeText);
-  copy(code);
+  try {
+    if (copyCodeTimer) return false; // 阻止重复点击
+
+    const code = extractCodeFromHtmlLines(codeText);
+    copy(code);
+
+    copyCodeTimer = setTimeout(() => {
+      copyCodeTimer = null;
+    }, 800);
+
+    return true;
+  } catch (error) {
+    console.log('🚀 ~ copyCode ~ error:', error);
+    return false;
+  }
 }
