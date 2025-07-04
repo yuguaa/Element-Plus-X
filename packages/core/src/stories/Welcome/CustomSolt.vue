@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import type { WelcomeProps } from '@components/Welcome/types';
-import { defineProps } from 'vue';
 import { Welcome } from '../../components';
 
 const props = defineProps<
