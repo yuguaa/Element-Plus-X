@@ -1,4 +1,4 @@
-import type { InitShikiOptions } from '@components/MarkdownCore/shared';
+import type { InitShikiOptions } from '../MarkdownCore/shared';
 
 export const MARKDOWN_PROVIDER_KEY = Symbol(
   'vue-element-plus-x-markdown-provider'

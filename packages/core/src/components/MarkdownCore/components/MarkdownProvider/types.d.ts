@@ -1,5 +1,5 @@
-import type { InitShikiOptions } from '@components/MarkdownCore/shared';
 import type { ThemeRegistrationResolved } from 'shiki';
+import type { InitShikiOptions } from '../../shared';
 
 export interface MarkdownContext {
   // markdown 字符串内容

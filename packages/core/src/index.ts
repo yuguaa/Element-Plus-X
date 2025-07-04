@@ -7,7 +7,6 @@ import Conversations from './components/Conversations/index.vue';
 import FilesCard from './components/FilesCard/index.vue';
 import Markdown from './components/Markdown/index.vue';
 import MarkdownAsync from './components/MarkdownAsync/index.vue';
-import MarkdownProvider from './components/MarkdownProvider/index.vue';
 import MentionSender from './components/MentionSender/index.vue';
 import Prompts from './components/Prompts/index.vue';
 import Sender from './components/Sender/index.vue';
@@ -29,7 +28,6 @@ const ElementPlusX: Plugin = {
     app.component('FilesCard', FilesCard);
     app.component('Markdown', Markdown);
     app.component('MarkdownAsync', MarkdownAsync);
-    app.component('MarkdownProvider', MarkdownProvider);
     app.component('MentionSender', MentionSender);
     app.component('Prompts', Prompts);
     app.component('Sender', Sender);

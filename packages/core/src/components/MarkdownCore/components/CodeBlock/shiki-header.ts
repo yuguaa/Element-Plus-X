@@ -1,6 +1,6 @@
 import type { Component, VNode } from 'vue';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
-import { ElButton, ElSpace } from 'element-plus';
+import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h } from 'vue';
 import CopyCodeButton from './copy-code-button.vue';
 

@@ -7,7 +7,6 @@ export { default as Conversations } from './components/Conversations/index.vue';
 export { default as FilesCard } from './components/FilesCard/index.vue';
 export { default as Markdown } from './components/Markdown/index.vue';
 export { default as MarkdownAsync } from './components/MarkdownAsync/index.vue';
-export { default as MarkdownProvider } from './components/MarkdownProvider/index.vue';
 export { default as MentionSender } from './components/MentionSender/index.vue';
 export { default as Prompts } from './components/Prompts/index.vue';
 export { default as Sender } from './components/Sender/index.vue';

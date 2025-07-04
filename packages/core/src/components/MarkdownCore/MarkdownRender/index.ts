@@ -5,7 +5,7 @@ import {
 } from '../components/MarkdownProvider';
 import { VueMarkdown, VueMarkdownAsync } from '../core';
 import { useComponents } from '../hooks';
-import { MarkdownProps } from '../shared';
+import { MARKDOWN_CORE_PROPS } from '../shared/constants';
 
 const InnerRenderer = defineComponent({
   name: 'InnerMarkdownRenderer',
@@ -36,7 +36,7 @@ const InnerRendererAsync = defineComponent({
 
 const MarkdownRenderer = defineComponent({
   name: 'MarkdownRenderer',
-  props: MarkdownProps,
+  props: MARKDOWN_CORE_PROPS,
   setup(props, { slots }) {
     return () =>
       h(MarkdownProvider, props, {
@@ -47,7 +47,7 @@ const MarkdownRenderer = defineComponent({
 
 const MarkdownRendererAsync = defineComponent({
   name: 'MarkdownRendererAsync',
-  props: MarkdownProps,
+  props: MARKDOWN_CORE_PROPS,
   setup(props, { slots }) {
     return () =>
       h(MarkdownProvider, props, {

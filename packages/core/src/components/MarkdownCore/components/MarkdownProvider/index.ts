@@ -1,17 +1,18 @@
 import type { Ref } from 'vue';
 import type { MarkdownContext } from './types';
 
-import { useGlobalShikiHighlighter } from '@components/MarkdownCore/hooks/useShikiColors';
 import deepmerge from 'deepmerge';
 import { computed, defineComponent, h, inject, provide } from 'vue';
 import { usePlugins } from '../../hooks';
+import { useGlobalShikiHighlighter } from '../../hooks/useShikiColors';
 
-import { MARKDOWN_PROVIDER_KEY, MarkdownProps } from '../../shared';
+import { MARKDOWN_PROVIDER_KEY } from '../../shared';
+import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
 import '../../../../assets/style/katex.min.css';
 
 const MarkdownProvider = defineComponent({
   name: 'MarkdownProvider',
-  props: MarkdownProps,
+  props: MARKDOWN_CORE_PROPS,
   setup(props, { slots, attrs }) {
     const { rehypePlugins, remarkPlugins } = usePlugins(props);
 

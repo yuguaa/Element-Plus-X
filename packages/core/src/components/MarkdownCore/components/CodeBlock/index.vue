@@ -2,10 +2,6 @@
 import type { BundledLanguage } from 'shiki';
 import type { RawProps } from './types';
 import {
-  SHIKI_SUPPORT_LANGS,
-  shikiThemeDefault
-} from '@components/MarkdownCore/shared';
-import {
   transformerNotationDiff,
   transformerNotationErrorLevel,
   transformerNotationFocus,
@@ -14,6 +10,7 @@ import {
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
 import { computed, h, ref, toValue, watch } from 'vue';
+import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import {
   controlEle,

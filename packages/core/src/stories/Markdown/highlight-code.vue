@@ -4,7 +4,7 @@ import type {
   CodeBlockHeaderExpose
 } from '@components/MarkdownCore/components/CodeBlock/shiki-header';
 import Markdown from '@components/Markdown/index.vue';
-import { ElButton, ElTooltip } from 'element-plus';
+import { ElButton, ElSpace, ElTooltip } from 'element-plus';
 import { h } from 'vue';
 import CodeHeader from './CodeHeader.vue';
 

@@ -1,9 +1,5 @@
 <script lang="ts">
 import {
-  SHIKI_SUPPORT_LANGS,
-  shikiThemeDefault
-} from '@components/MarkdownCore/shared';
-import {
   transformerNotationDiff,
   transformerNotationErrorLevel,
   transformerNotationFocus,
@@ -12,6 +8,7 @@ import {
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
 import { defineComponent, h, ref, toValue, watch } from 'vue';
+import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import {
   controlEle,
@@ -138,7 +135,8 @@ export default defineComponent({
               (codeXSlot?.codeHeaderLanguage && render('codeHeaderLanguage')) ??
                 languageEle(props.raw.language),
               (codeXSlot?.codeHeaderControl && render('codeHeaderControl')) ??
-                controlEle(renderLines.value)
+                // controlEle(renderLines.value)
+                controlEle(() => {})
             ]
           ),
           h(

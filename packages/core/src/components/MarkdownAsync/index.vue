@@ -1,13 +1,8 @@
 <script lang="ts" setup>
-import type { MarkdownProps } from '@components/MarkdownProvider/types';
-
-import { MarkdownRendererAsync } from '@components/MarkdownCore';
-
-import {
-  DEFAULT_PROPS,
-  useMarkdownContext
-} from '@components/MarkdownProvider/hooks';
-
+import type { MarkdownProps } from '../MarkdownCore/shared/types';
+import { MarkdownRendererAsync } from '../MarkdownCore';
+import { useMarkdownContext } from '../MarkdownCore/components/MarkdownProvider';
+import { DEFAULT_PROPS } from '../MarkdownCore/shared/constants';
 import '../../assets/style/katex.min.css';
 
 const props = withDefaults(defineProps<MarkdownProps>(), DEFAULT_PROPS);
