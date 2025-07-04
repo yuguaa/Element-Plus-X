@@ -37,14 +37,12 @@ async function generateAutoEntry() {
   const entryContent = [
     '// Auto-Element-Plus-X by auto-export-all-components script',
     ...components.map(c => `export { default as ${c.name} } from '${c.path}'`),
-    `export * from './components/Markdown'`,
     ''
   ].join('\n');
 
   // 生成安装文件内容
   const installContent = [
     `import type { App, Plugin } from 'vue'`,
-    `import { MarkdownRenderer, MarkdownRendererAsync } from './components/Markdown'`,
     ...components.map(c => `import ${c.name} from '${c.path}'`),
     '',
     `export * from './components'`,
@@ -53,8 +51,6 @@ async function generateAutoEntry() {
     'const ElementPlusX: Plugin = {',
     'install(app: App) {',
     ...components.map(c => `app.component('${c.name}', ${c.name})`),
-    `app.component('MarkdownRenderer', MarkdownRenderer)`,
-    `app.component('MarkdownRendererAsync', MarkdownRendererAsync)`,
     '}',
     '}',
     '',
