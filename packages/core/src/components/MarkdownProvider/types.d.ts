@@ -5,8 +5,8 @@ export type MarkdownProps = {
   allowHtml?: boolean;
   enableLatex?: boolean;
   enableBreaks?: boolean;
-  codeXRender?: unknown;
-  codeXSlot?: unknown;
+  codeXRender?: Record<string, any>;
+  codeXSlot?: Record<string, any>;
   codeHighlightTheme?: BuiltinTheme | null;
   remarkPluginsAhead?: PluggableList;
   rehypePluginsAhead?: PluggableList;

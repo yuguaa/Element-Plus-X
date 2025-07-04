@@ -1,10 +1,7 @@
 <script setup lang="ts">
+import Markdown from '@components/Markdown/index.vue';
 import { ElButton, ElTooltip } from 'element-plus';
 import { h } from 'vue';
-import {
-  MarkdownRenderer
-  // MarkdownRendererAsync
-} from '../../components/MarkdownCore/index';
 import CodeHeader from './CodeHeader.vue';
 
 const props = defineProps<{
@@ -120,7 +117,7 @@ onMounted(() => {
   <ElButton @click="redo"> 重新开始 </ElButton>
   <div class="component-container">
     <h4>默认插槽</h4>
-    <MarkdownRenderer
+    <Markdown
       v-bind="$attrs"
       :markdown="content"
       :custom-attrs="{
@@ -137,13 +134,13 @@ onMounted(() => {
       }"
     />
     <h4>函数自定义插槽以及使用暴露出来的方法</h4>
-    <MarkdownRenderer
+    <Markdown
       v-bind="$attrs"
       :markdown="content"
       :code-x-slot="codeXSlotConfig"
     />
     <h4>组件插槽</h4>
-    <MarkdownRenderer
+    <Markdown
       v-bind="$attrs"
       :markdown="content"
       :code-x-slot="codeXSlotComponentsConfig"
