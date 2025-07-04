@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type {
+  CodeBlockExpose,
+  CodeBlockHeaderExpose
+} from '@components/MarkdownCore/components/CodeBlock/shiki-header';
 import Markdown from '@components/Markdown/index.vue';
 import { ElButton, ElTooltip } from 'element-plus';
 import { h } from 'vue';
@@ -29,8 +33,8 @@ const content = computed(() => {
   return props.markdown.slice(0, index.value);
 });
 
-const codeXSlotConfig = {
-  codeHeaderLanguage: (props: any) => {
+const codeXSlotConfig: CodeBlockHeaderExpose = {
+  codeHeaderLanguage: (props: CodeBlockExpose) => {
     return h(
       'span',
       { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
@@ -39,7 +43,7 @@ const codeXSlotConfig = {
       }
     );
   },
-  codeHeaderControl: (props: any) => {
+  codeHeaderControl: (props: CodeBlockExpose) => {
     return h(
       ElSpace,
       {
@@ -94,7 +98,7 @@ const codeXSlotConfig = {
   }
 };
 
-const codeXSlotComponentsConfig = {
+const codeXSlotComponentsConfig: CodeBlockHeaderExpose = {
   codeHeaderLanguage: CodeHeader
 };
 

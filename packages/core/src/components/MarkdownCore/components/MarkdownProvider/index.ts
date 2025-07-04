@@ -1,21 +1,12 @@
-import type {
-  BundledLanguage,
-  BundledTheme,
-  HighlighterGeneric,
-  ThemeRegistrationResolved
-} from 'shiki';
 import type { Ref } from 'vue';
-import type { InitShikiOptions } from '../../shared';
 import type { MarkdownContext } from './types';
+
+import { useGlobalShikiHighlighter } from '@components/MarkdownCore/hooks/useShikiColors';
 import deepmerge from 'deepmerge';
-import { createHighlighter } from 'shiki';
 import { computed, defineComponent, h, inject, provide } from 'vue';
-import { useDarkModeWatcher, usePlugins } from '../../hooks';
-import {
-  MARKDOWN_PROVIDER_KEY,
-  MarkdownProps,
-  shikiThemeDefault
-} from '../../shared';
+import { usePlugins } from '../../hooks';
+
+import { MARKDOWN_PROVIDER_KEY, MarkdownProps } from '../../shared';
 import '../../../../assets/style/katex.min.css';
 
 const MarkdownProvider = defineComponent({
@@ -23,62 +14,27 @@ const MarkdownProvider = defineComponent({
   props: MarkdownProps,
   setup(props, { slots, attrs }) {
     const { rehypePlugins, remarkPlugins } = usePlugins(props);
-    /* ------------------ 根据用户传递的shiki主题获取对应的shiki主题的颜色 全局注册给子级 ----------------- */
-    const highlighterTheme = computed(() => props.themes);
-    const { isDark } = useDarkModeWatcher();
-    const oldHighlighterTheme = ref<InitShikiOptions['themes']>();
-    const shikiThemeColor = ref<ThemeRegistrationResolved>();
-    const highlighter =
-      ref<HighlighterGeneric<BundledLanguage, BundledTheme>>();
 
-    const themeArr = computed(() => {
-      if (highlighterTheme.value) {
-        return Object.keys(highlighterTheme.value).map(
-          key => highlighterTheme.value[key]
-        );
-      }
-      return [shikiThemeDefault.light, shikiThemeDefault.dark];
+    const { shikiThemeColor, init, destroy, isDark } =
+      useGlobalShikiHighlighter({
+        themes: props.themes
+      });
+
+    onMounted(() => {
+      init();
     });
 
-    watch(
-      () => [highlighterTheme.value, isDark.value],
-      ([highlighterTheme, isDark]) => {
-        if (highlighterTheme !== oldHighlighterTheme.value) {
-          oldHighlighterTheme.value =
-            highlighterTheme as InitShikiOptions['themes'];
-          createHighlighter({
-            themes: [...themeArr.value] as any[],
-            langs: ['javascript']
-          }).then(res => {
-            if (highlighter.value) {
-              highlighter.value.dispose();
-            }
-            highlighter.value = res;
-            shikiThemeColor.value = res.getTheme(
-              isDark ? (themeArr.value[1] as any) : (themeArr.value[0] as any)
-            );
-          });
-        }
+    onUnmounted(() => {
+      destroy();
+    });
 
-        if (highlighter.value) {
-          shikiThemeColor.value = highlighter.value.getTheme(
-            isDark ? (themeArr.value[1] as any) : (themeArr.value[0] as any)
-          );
-        }
-      },
-      {
-        immediate: true,
-        deep: 1
-      }
-    );
-    /* ------------------ 根据用户传递的shiki主题获取对应的shiki主题的颜色 全局注册给子级 ----------------- */
     const contextProps = computed(() => {
       return deepmerge(
         {
           rehypePlugins: toValue(rehypePlugins),
           remarkPlugins: toValue(remarkPlugins),
-          isDarkMode: toValue(isDark.value),
-          themeColors: toValue(shikiThemeColor.value)
+          isDarkMode: toValue(isDark),
+          themeColors: toValue(shikiThemeColor)
         },
         props
       );
