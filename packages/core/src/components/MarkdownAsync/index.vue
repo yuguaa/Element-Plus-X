@@ -7,6 +7,7 @@ import type {
   HighlighterGeneric,
   ThemeRegistrationResolved
 } from 'shiki';
+import { MarkdownRendererAsync } from '@components/MarkdownCore';
 import { useDarkModeWatcher, usePlugins } from '@components/MarkdownCore/hooks';
 import {
   DEFAULT_PROPS,
@@ -15,7 +16,6 @@ import {
 import { shikiThemeDefault } from '@components/MarkdownProvider/shiki';
 import deepmerge from 'deepmerge';
 import { createHighlighter } from 'shiki';
-import { VueMarkdownAsync } from '../MarkdownCore';
 import '../../assets/style/katex.min.css';
 
 const props = withDefaults(defineProps<MarkdownProps>(), DEFAULT_PROPS);
@@ -87,7 +87,7 @@ const contextProps = computed(() => {
 
 <template>
   <MarkdownProvider>
-    <VueMarkdownAsync v-bind="contextProps">
+    <MarkdownRendererAsync v-bind="contextProps">
       <template
         v-for="(slot, name) in customComponents"
         :key="name"
@@ -98,6 +98,6 @@ const contextProps = computed(() => {
       <template v-for="(_, name) in slots" :key="name" #[name]="slotProps">
         <slot :name="name" v-bind="slotProps" />
       </template>
-    </VueMarkdownAsync>
+    </MarkdownRendererAsync>
   </MarkdownProvider>
 </template>
