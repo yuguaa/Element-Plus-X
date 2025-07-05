@@ -30,7 +30,7 @@ yarn add vue-element-plus-x --save
 ```html
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
-<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@1.2.0/dist/umd/index.js"></script>
 ```
 
 #### **三、验证安装**
@@ -40,7 +40,7 @@ yarn add vue-element-plus-x --save
    ```json
    {
      "dependencies": {
-       "vue-element-plus-x": "^1.0.81"
+       "vue-element-plus-x": "^1.2.0"
      }
    }
    ```
@@ -60,16 +60,19 @@ yarn add vue-element-plus-x --save
 ```vue
 <script>
 import { BubbleList, Sender } from 'vue-element-plus-x';
+
 const list = [
   {
     content: 'Hello, Element Plus X',
-    role: 'user',
-  },
+    role: 'user'
+  }
 ];
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;">
+  <div
+    style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
+  >
     <BubbleList :list="list" />
     <Sender />
   </div>

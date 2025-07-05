@@ -44,14 +44,17 @@ const MarkdownProvider = defineComponent({
     return () =>
       h(
         'div',
-        { class: 'elx-markdown-container', ...attrs },
+        { class: 'elx-xmarkdown-container', ...attrs },
         slots.default && slots.default()
       );
   }
 });
 
 function useMarkdownContext(): Ref<MarkdownContext> {
-  const context = inject<Ref<MarkdownContext>>(MARKDOWN_PROVIDER_KEY);
+  const context = inject<Ref<MarkdownContext>>(
+    MARKDOWN_PROVIDER_KEY,
+    computed(() => ({}))
+  );
   if (!context) {
     return computed(() => ({})) as unknown as Ref<MarkdownContext>;
   }

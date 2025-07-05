@@ -13,7 +13,7 @@ import XMarkdown from './index.vue';
 import MermaidSlot from './mermaid-slot.vue';
 
 const meta = {
-  title: 'Example/XMarkdown 组件 📜',
+  title: 'Example/XMarkdown 渲染组件 📜',
   component: XMarkdown,
   tags: ['autodocs'],
   argTypes: {

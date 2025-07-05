@@ -8,10 +8,6 @@ title: 内置 markdown-it-mermaid 插件 渲染简单的图表
 通过 `highlight` 函数，传入 Prism 的高亮函数，或者其他高亮库，作用在 `markdown-it` 中使用 Prism 的高亮功能。
 
 详细 Mermaid 格式 参见：[Mermaid.js](https://mermaid.js.org/syntax/pie.html)
-
-::: warning
-md 渲染这一块暂时这样处理，后续有计划做成 豆包那种，目前没有内置样式。请耐心等待。。。🐒预计5月底至6月初上
-:::
 </docs>
 
 <script setup lang="ts">

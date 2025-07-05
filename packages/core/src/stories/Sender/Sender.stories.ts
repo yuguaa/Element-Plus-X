@@ -110,7 +110,7 @@ const meta: Meta<typeof SenderSource> = {
     triggerPopoverOffset: {
       defaultValue: 8,
       control: 'number',
-      description: '触发指令的弹框的左边距。只能是数字类型，单位 px。'
+      description: '触发指令的弹框的间距。只能是数字类型，单位 px。'
     },
     triggerPopoverPlacement: {
       defaultValue: 'top-start',

@@ -10,14 +10,6 @@
 🐵 此温馨提示更新时间：`2025-04-16`
 :::
 
-::: danger
-`1.0.81 版本` ，以及更早版本。使用 `v-model:value` 绑定是有响应式问题的，请升级最新版本。
-
-最新版本写法，直接使用 `v-model` 进行双向绑定。
-
-此警告更新时间：`2025-04-06`
-:::
-
 ## 介绍
 
 `Sender` 是用于聊天的输入框组件。具备丰富的交互功能和自定义特性。它支持语音输入、清空输入内容、多种提交方式，并且允许用户自定义头部、前缀和操作列表等内容。同时，组件提供了焦点控制、提交回调等功能，可满足多样化的输入场景需求。
@@ -88,6 +80,10 @@
 
 <demo src="./demos/trigger.vue"></demo>
 
+### 自定义指令弹框
+
+<demo src="./demos/trigger-popover.vue"></demo>
+
 ### 输入框聚焦控制
 
 <demo src="./demos/focus.vue"></demo>
@@ -115,7 +111,7 @@
 | `triggerPopoverVisible`   | Boolean              | 否       | false                      | 触发指令的 `弹框` 是否可见。需要使用 `v-model:triggerPopoverVisible` 进行控制。                                                                                                                                            |
 | `triggerPopoverWidth`     | String               | 否       | 'fit-content'              | 触发指令的 `弹框` 的宽度。可使用百分比等css单位。                                                                                                                                                                          |
 | `triggerPopoverLeft`      | String               | 否       | '0px'                      | 触发指令的 `弹框` 的左边距。可使用百分比等css单位。                                                                                                                                                                        |
-| `triggerPopoverOffset`    | Number               | 否       | 8                          | 触发指令的 `弹框` 的左边距。只能是数字类型，单位px                                                                                                                                                                         |
+| `triggerPopoverOffset`    | Number               | 否       | 8                          | 触发指令的 `弹框` 的间距。只能是数字类型，单位px                                                                                                                                                                           |
 | `triggerPopoverPlacement` | String               | 否       | 'top-start'                | 触发指令的 `弹框` 的位置。取值：`'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
 
 ## 事件
