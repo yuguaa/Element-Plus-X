@@ -330,6 +330,12 @@ function handleTabClickEvent(pane: TabClickEvent) {
         border-bottom: none;
       }
 
+      :deep(.el-tabs__nav) {
+        background: #dddee1;
+        padding: 2px;
+        border-radius: 10px;
+      }
+
       :deep(.el-tabs__nav-wrap) {
         &::after {
           display: none;
@@ -340,18 +346,27 @@ function handleTabClickEvent(pane: TabClickEvent) {
         height: 32px;
         line-height: 32px;
         padding: 0 12px;
-        font-size: 14px;
+        font-size: 12px;
         border: none;
         color: var(--tab-text-color, var(--el-text-color-regular));
+        width: 60px;
+        text-align: center;
+        box-sizing: border-box;
 
         &.is-active {
           color: var(--tab-text-color, var(--el-text-color-primary));
           background: var(--tab-active-bg, rgba(255, 255, 255, 0.8));
           border-radius: 10px;
+
+          &:hover {
+            font-weight: bold;
+          }
         }
 
         &:hover:not(.is-active) {
           color: var(--tab-text-color, var(--el-text-color-primary));
+          background: #d1d2d5;
+          border-radius: 10px;
         }
       }
 
@@ -379,8 +394,20 @@ function handleTabClickEvent(pane: TabClickEvent) {
       position: relative;
 
       &:hover:not(.disabled) {
-        background: var(--custom-hover-bg, var(--el-fill-color-light));
         color: var(--custom-icon-color, var(--el-text-color-primary));
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 24px;
+          height: 24px;
+          background: #dddee1;
+          border-radius: 4px;
+          z-index: -1;
+        }
       }
 
       &:active:not(.disabled) {
