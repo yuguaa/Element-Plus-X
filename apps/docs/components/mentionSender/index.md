@@ -157,17 +157,18 @@
 | `triggerPopoverVisible`   | Boolean              | 否       | false                      | 触发指令的 `弹框` 是否可见。需要使用 `v-model:triggerPopoverVisible` 进行控制。                                                                                                                                            |
 | `triggerPopoverWidth `    | String               | 否       | 'fit-content'              | 触发指令的 `弹框` 的宽度。可使用百分比等css单位。                                                                                                                                                                          |
 | `triggerPopoverLeft`      | String               | 否       | '0px'                      | 触发指令的 `弹框` 的左边距。可使用百分比等css单位。                                                                                                                                                                        |
-| `triggerPopoverOffset`    | Number               | 否       | 8                          | 触发指令的 `弹框` 的左边距。只能是数字类型，单位px                                                                                                                                                                         |
+| `triggerPopoverOffset`    | Number               | 否       | 8                          | 触发指令的 `弹框` 的间距。只能是数字类型，单位px                                                                                                                                                                           |
 | `triggerPopoverPlacement` | String               | 否       | 'top-start'                | 触发指令的 `弹框` 的位置。取值：`'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
 
 ## 事件
 
-| 事件名            | 说明                                  | 回调参数                                                                        |
-| ----------------- | ------------------------------------- | ------------------------------------------------------------------------------- |
-| `submit`          | 内置 `提交按钮` 提交时触发的事件。    | 无                                                                              |
-| `cancel`          | 内置 `loading按钮` 点击时触发的事件。 | 无                                                                              |
-| `recordingChange` | 内置语音识别状态变化时触发的事件。    | 无                                                                              |
-| `trigger`         | 指令弹框发生变化时触发的事件。        | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }` |
+| 事件名            | 说明                                  | 回调参数                              |
+| ----------------- | ------------------------------------- | ------------------------------------- |
+| `submit`          | 内置 `提交按钮` 提交时触发的事件。    | 无                                    |
+| `cancel`          | 内置 `loading按钮` 点击时触发的事件。 | 无                                    |
+| `recordingChange` | 内置语音识别状态变化时触发的事件。    | 无                                    |
+| `select`          | 按下触发字段时触发                    | `option: MentionOption`               |
+| `search`          | 当用户选择选项时触发                  | `searchValue: string, prefix: string` |
 
 ## Ref 实例方法
 

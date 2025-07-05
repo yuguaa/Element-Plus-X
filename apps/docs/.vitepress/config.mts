@@ -78,6 +78,12 @@ export default defineConfig({
     sidebar: {
       '/components/': [
         {
+          text: '上新',
+          items: [
+            { text: 'XMarkdown 渲染组件 📜', link: '/components/xmarkdown/' },
+          ],
+        },
+        {
           text: '通用',
           items: [
             // 自定义组件
