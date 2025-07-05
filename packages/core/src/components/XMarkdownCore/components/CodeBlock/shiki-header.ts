@@ -1,4 +1,4 @@
-import type { Component, VNode } from 'vue';
+import type { Component, Ref, VNode } from 'vue';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h } from 'vue';

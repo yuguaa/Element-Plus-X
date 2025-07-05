@@ -6,7 +6,10 @@ import type {
 } from 'shiki';
 import type { InitShikiOptions } from './shiki';
 import type { MarkdownProps } from './types';
-import { useDarkModeWatcher, usePlugins } from '@components/MarkdownCore/hooks';
+import {
+  useDarkModeWatcher,
+  usePlugins
+} from '@components/XMarkdownCore/hooks';
 import deepmerge from 'deepmerge';
 import { createHighlighter } from 'shiki';
 import { MARKDOWN_PROVIDER_KEY, shikiThemeDefault } from './constants';

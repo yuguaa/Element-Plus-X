@@ -6,15 +6,15 @@ import {
   mdContent,
   mermaidMdContent
 } from '@assets/mock';
-import { shikiThemeDefault } from '@components/MarkdownCore/shared';
+import { shikiThemeDefault } from '@components/XMarkdownCore/shared';
 import CustomAttrs from './customAttrs.vue';
 import HighlightCodeDemo from './highlight-code.vue';
-import Markdown from './index.vue';
+import XMarkdown from './index.vue';
 import MermaidSlot from './mermaid-slot.vue';
 
 const meta = {
-  title: 'Example/Markdown 组件 ',
-  component: Markdown,
+  title: 'Example/XMarkdown 组件 📜',
+  component: XMarkdown,
   tags: ['autodocs'],
   argTypes: {
     markdown: { control: 'text' },

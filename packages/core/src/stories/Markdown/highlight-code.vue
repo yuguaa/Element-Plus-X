@@ -2,8 +2,8 @@
 import type {
   CodeBlockExpose,
   CodeBlockHeaderExpose
-} from '@components/MarkdownCore/components/CodeBlock/shiki-header';
-import Markdown from '@components/Markdown/index.vue';
+} from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
+import XMarkdown from '@components/XMarkdown/index.vue';
 import { ElButton, ElSpace, ElTooltip } from 'element-plus';
 import { h } from 'vue';
 import CodeHeader from './CodeHeader.vue';
@@ -122,7 +122,7 @@ onMounted(() => {
   <ElButton @click="redo"> 重新开始 </ElButton>
   <div class="component-container">
     <h4>默认插槽</h4>
-    <Markdown
+    <XMarkdown
       v-bind="$attrs"
       :markdown="content"
       :custom-attrs="{
@@ -139,13 +139,13 @@ onMounted(() => {
       }"
     />
     <h4>函数自定义插槽以及使用暴露出来的方法</h4>
-    <Markdown
+    <XMarkdown
       v-bind="$attrs"
       :markdown="content"
       :code-x-slot="codeXSlotConfig"
     />
     <h4>组件插槽</h4>
-    <Markdown
+    <XMarkdown
       v-bind="$attrs"
       :markdown="content"
       :code-x-slot="codeXSlotComponentsConfig"

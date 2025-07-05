@@ -1,5 +1,5 @@
-import type { TVueMarkdownProps } from '@components/MarkdownCore';
-import type { CodeBlockHeaderExpose } from '@components/MarkdownCore/components/CodeBlock/shiki-header';
+import type { TVueMarkdownProps } from '@components/XMarkdownCore';
+import type { CodeBlockHeaderExpose } from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
 import type { InitShikiOptions } from './shikiHighlighter';
 
 export type MarkdownProps = {

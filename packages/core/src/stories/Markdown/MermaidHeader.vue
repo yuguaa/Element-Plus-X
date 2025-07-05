@@ -1,28 +1,31 @@
 <script setup lang="ts">
 import { ElMessage } from 'element-plus';
-
 // 定义组件接收的 props，这些是从 Mermaid 组件暴露的方法和状态
-const props = defineProps<{
-  // 暴露的方法
-  zoomIn: () => void;
-  zoomOut: () => void;
-  reset: () => void;
-  fullscreen: () => void;
-  toggleCode: () => void;
-  copyCode: () => void;
-  download: () => void;
+// const props = defineProps<{
+//   // 暴露的方法
+//   zoomIn: () => void;
+//   zoomOut: () => void;
+//   reset: () => void;
+//   fullscreen: () => void;
+//   toggleCode: () => void;
+//   copyCode: () => void;
+//   download: () => void;
 
-  // 暴露的状态
-  showSourceCode: boolean;
-  svg?: string;
-  rawContent?: string;
-  toolbarConfig?: any;
-}>();
+//   // 暴露的状态
+//   showSourceCode: boolean;
+//   svg?: string;
+//   rawContent?: string;
+//   toolbarConfig?: any;
+// }>();
+
+const attrs = useAttrs();
+
+console.log('attrs', attrs);
 
 // 🎯 用户自定义复制逻辑演示
 async function handleCustomCopy() {
   try {
-    const customContent = `🧩 组件插槽自定义：\n\n${props.rawContent}\n\n✨ 使用 Element Plus X 组件`;
+    const customContent = `🧩 组件插槽自定义：\n\n${attrs.rawContent}\n\n✨ 使用 Element Plus X 组件`;
     await navigator.clipboard.writeText(customContent);
     ElMessage.success('🎉 组件插槽自定义复制成功！');
   } catch (err) {
@@ -31,21 +34,13 @@ async function handleCustomCopy() {
 }
 </script>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'MermaidHeader'
-});
-</script>
-
 <template>
   <div class="mermaid-header">
     <div class="header-left">
       <span class="icon">🧩</span>
       <span class="title">组件插槽</span>
       <span class="mode-badge">
-        {{ showSourceCode ? '📝 源码' : '📊 图表' }}
+        {{ $attrs.showSourceCode ? '📝 源码' : '📊 图表' }}
       </span>
     </div>
 
@@ -55,7 +50,7 @@ export default defineComponent({
           class="header-btn zoom-btn"
           size="small"
           type="primary"
-          @click="zoomIn"
+          @click="$attrs.zoomIn"
         >
           🔍
         </el-button>
@@ -66,7 +61,7 @@ export default defineComponent({
           class="header-btn zoom-btn"
           size="small"
           type="primary"
-          @click="zoomOut"
+          @click="$attrs.zoomOut"
         >
           🔍-
         </el-button>
@@ -77,7 +72,7 @@ export default defineComponent({
           class="header-btn reset-btn"
           size="small"
           type="warning"
-          @click="reset"
+          @click="$attrs.reset"
         >
           🔄
         </el-button>
@@ -88,9 +83,9 @@ export default defineComponent({
           class="header-btn toggle-btn"
           size="small"
           type="info"
-          @click="toggleCode"
+          @click="$attrs.toggleCode"
         >
-          {{ showSourceCode ? '👁️' : '📝' }}
+          {{ $attrs.showSourceCode ? '👁️' : '📝' }}
         </el-button>
       </el-tooltip>
 
@@ -110,7 +105,7 @@ export default defineComponent({
           class="header-btn download-btn"
           size="small"
           type="success"
-          @click="download"
+          @click="$attrs.download"
         >
           💾
         </el-button>
