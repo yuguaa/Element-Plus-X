@@ -69,7 +69,7 @@ $$
 
 // md 代码块高亮
 export const highlightMdContent = `
-###### 非commonMark语法，dom多个
+###### 非\`commonMark\`语法，dom多个
 <pre>
 <code class="language-java">
 public class HelloWorld {

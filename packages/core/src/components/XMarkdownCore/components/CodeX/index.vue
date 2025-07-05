@@ -1,6 +1,6 @@
 <script lang="ts">
-import { defineComponent, h } from 'vue';
-import { CodeBlock, Mermaid } from '../index';
+import { defineComponent, h, toValue } from 'vue';
+import { CodeBlock, CodeLine, Mermaid } from '../index';
 import { useMarkdownContext } from '../MarkdownProvider';
 
 export default defineComponent({
@@ -12,7 +12,7 @@ export default defineComponent({
   },
   setup(props) {
     const context = useMarkdownContext();
-    const { codeXRender, customAttrs } = toValue(context);
+    const { codeXRender } = toValue(context);
     return (): ReturnType<typeof h> | null => {
       if (props.raw.inline) {
         if (codeXRender && codeXRender.inline) {
@@ -22,11 +22,7 @@ export default defineComponent({
           }
           return h(renderer, props);
         }
-        const codeAttrs =
-          typeof customAttrs?.code === 'function'
-            ? customAttrs.code(props.raw)
-            : customAttrs?.code || {};
-        return h('code', { ...codeAttrs }, props.raw.content);
+        return h(CodeLine, { raw: props.raw });
       }
       const { language } = props.raw;
       if (codeXRender && codeXRender[language]) {
@@ -39,6 +35,7 @@ export default defineComponent({
       if (language === 'mermaid') {
         return h(Mermaid, props);
       }
+
       return h(CodeBlock, props);
     };
   }
