@@ -13,51 +13,20 @@ pnpm install # 推荐使用 PNPM 管理依赖
 
 #### **三、项目结构**
 
-- docs 文档：由于该文档目前还存在架构问题，目前没有放在开源项目中，后续弄好会放在源码中开源
-
-- playground：暂定的代码测试及演示地方，项目初期，为了方便大家提交 pr ，也为了方便项目的简洁。不考虑做测试用例。
-
-- packages/components：组件库项目源码，在调试前需要 **先构建此项目才能生效** ，或直接在 playground 的 演示 vue 文件中使用 文件 **路经访问** 该项目
-
-  ```js
-  // 在 playground/src/components/XXXDemo.vue 文件中
-  // 例如，这样用绝对路经引入就不需要构建，直接访问，每次热更新都能立马看到效果，方便你本地调试开发
-
-  import Bubble from 'vue-element-plus-x/src/components/Bubble/index.vue';
-  ```
-
-以下是主要的 **`项目目录结构`** 请先对照查看，方便你对项目目录有所了解
-
-```plaintext
-├── .github                     # CI/CD 配置
-├── apps
-|   ├── docs                    # 文档源码（基于 VitePress）
-|   ├── playground              # 演示源码
-├── packages
-│   └── components              # 组件源码
-|       ├──.build               # 自动化构建处理
-|       └──src
-|          ├──— components      # 组件核心源码
-|          |    ├── Bubble      # 气泡组件
-|          |    ├── BubbleList  # 气泡列表
-|          |    ├── sender      # 输入框
-|          |    ├── Typewriter  # 打字器组件
-|          |    └── ...         # 更多组件
-|          └── hooks            # 核心 Hooks 源码
-|
-|
-└── package.json                # 项目配置
-```
+:::warning
+等 md 组件的 `beta` 版本通过后，我们会用 `storybook` 分支替换当前的 `main` 分支。
+在此之前，暂时请加入交流群或者联系作者，开放pr
+:::
 
 #### **四、开发命令**
 
 **请先构建好组件在执行预览**
 
-| 命令                    | 说明                                                                            |
-| ----------------------- | ------------------------------------------------------------------------------- |
-| `pnpm build:components` | 在本地构建生产版本                                                              |
-| `pnpm dev:playground`   | 启动组件测试使用预览                                                            |
-| `pnpm dev:docs`         | 本地预览文档 (文档暂未集成在开源中... 预计在 5月中旬会优化好项目架构，开源出来) |
+| 命令            | 说明                           |
+| --------------- | ------------------------------ |
+| `pnpm build`    | 在本地构建生产版本             |
+| `pnpm dev:core` | 启动组件测试使用 storybook预览 |
+| `pnpm dev:docs` | 本地预览文档                   |
 
 #### **五、成为贡献者**
 
@@ -78,7 +47,6 @@ pnpm install # 推荐使用 PNPM 管理依赖
 2. **代码规范**：
 
    请在执行完开发命令后，安装并打开 **Vs Code 的 `ESLint` 插件** 使用 `ESLint.9x` 格式化代码（保存代码时自动检查）
-
    - 组件命名遵循 `PascalCase` 规范
 
    - 每个组件包含：
@@ -86,11 +54,11 @@ pnpm install # 推荐使用 PNPM 管理依赖
    ```plaintext
    ├── components      # 组件涉及到的子组件 （可选）
    ├── index.vue       # 组件实现
-   └── types.d.ts      # 类型定义
+   ├── types.d.ts      # 类型定义
+   └── style.scss      # 样式文件
    ```
 
 3. **提交 PR**：
-
    - 标题格式：`feat(component): 新增打字机组件`
    - 描述包含：功能说明、使用示例、变更影响
 
@@ -118,11 +86,10 @@ pnpm dev:playground
 2. **类型错误**：
    - 暂无
 3. **语音功能异常**：
-
    - 检查浏览器权限设置
 
 4. **版本问题**：
 
-   Vue 版本过低导致，请升级 Vue3.2+ 或最新版本
+   Vue 版本过低导致，请升级 Vue3.3+ 或最新版本
 
    pnpm 版本过低，请升级 10+ 或最新版本
