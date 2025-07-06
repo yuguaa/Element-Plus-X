@@ -61,7 +61,7 @@ const code = "Element-Plus-X";
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <XMarkdown :markdown="markdown" />
+    <XMarkdown :markdown="markdown" class="markdown-body" />
   </div>
 </template>
 

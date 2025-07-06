@@ -65,6 +65,7 @@ yarn install vue-element-plus-x
 ```vue
 <script>
 import { BubbleList, Sender } from 'vue-element-plus-x';
+
 const list = [
   {
     content: 'Hello, Element Plus X',
