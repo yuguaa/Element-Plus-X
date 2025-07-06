@@ -352,15 +352,12 @@ function handleTabClickEvent(pane: TabClickEvent) {
         width: 60px;
         text-align: center;
         box-sizing: border-box;
+        font-weight: 700;
 
         &.is-active {
           color: var(--tab-text-color, var(--el-text-color-primary));
           background: var(--tab-active-bg, rgba(255, 255, 255, 0.8));
           border-radius: 10px;
-
-          &:hover {
-            font-weight: bold;
-          }
         }
 
         &:hover:not(.is-active) {
