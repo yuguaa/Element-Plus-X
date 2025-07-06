@@ -21,7 +21,7 @@ import {
   toggleExpand,
   toggleTheme
 } from './shiki-header';
-import '../../../../assets/style/shiki.scss';
+import '../../style/shiki.scss';
 
 const props = withDefaults(
   defineProps<{
