@@ -21,8 +21,7 @@ import {
   toggleExpand,
   toggleTheme
 } from './shiki-header';
-// import '../../../../assets/style/shiki.scss';
-import '../../style/shiki.scss';
+import '../../../../assets/style/shiki.scss';
 
 const props = withDefaults(
   defineProps<{
@@ -137,7 +136,7 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
     :style="preStyle"
     @vue:updated="handleUpdated"
   >
-    <div class="markdown-language-header-div el-card is-always-shadow">
+    <div class="markdown-language-header-div is-always-shadow">
       <component
         :is="renderSlot('codeHeader')"
         v-if="codeXSlot?.codeHeader && renderSlot('codeHeader')"
