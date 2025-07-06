@@ -33,12 +33,14 @@ const { codeXSlot } = toValue(context);
 
 // 计算工具栏配置，合并默认值
 const toolbarConfig = computed(() => {
+  const contextMermaidConfig = toValue(context)?.mermaidConfig || {};
   return {
     showToolbar: true,
     showFullscreen: true,
     showZoomIn: true,
     showZoomOut: true,
     showReset: true,
+    ...contextMermaidConfig,
     ...props.toolbarConfig
   };
 });
@@ -247,8 +249,9 @@ onMounted(() => {
       @after-enter="onContentTransitionEnter"
     >
       <pre v-if="showSourceCode" key="source" class="mermaid-source-code">
-        {{ props.raw.content }}
-      </pre>
+    {{ props.raw.content }}
+  </pre
+      >
       <div v-else class="mermaid-content" v-html="svg" />
     </Transition>
     <!-- <div :key="props.raw.key" class="markdown-mermaid" v-html="svg" /> -->

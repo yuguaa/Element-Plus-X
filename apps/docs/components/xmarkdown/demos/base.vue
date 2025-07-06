@@ -3,7 +3,7 @@
 title: 基础用法
 ---
 
-快速渲染一个 Markdown 基础的文本，如果是块级代码块的渲染
+快速渲染一个 Markdown 基础的文本。内置了行内代码、代码块、数学公式函数（行/块）、mermaid 图表等基础样式。
 </docs>
 
 <script setup lang="ts">
@@ -50,18 +50,43 @@ _这也是斜体文本_
 | 张三 | 25   | 工程师 |
 | 李四 | 30   | 设计师 |
 
-行内代码用 \`ElmentPlusX\` 表示 行内块代码用 \`\` 语句
+### 行内代码
+
+用 \`ElmentPlusX\` 表示 行内块代码用 \`\` 语句
+
+### 代码块
 
 \`\`\`javascript
 const code = "Element-Plus-X";
-\`\`\`;
+\`\`\`
+
+### 行内公式
+$e^{i\\pi} + 1 = 0$
+
+### 块级公式
+$$
+F(\\omega) = \\int_{-\\infty}^{\\infty} f(t) e^{-i\\omega t} dt
+$$
+
+### mermaid 饼状图
+
+\`\`\`mermaid
+pie
+    "传媒及文化相关" : 35
+    "广告与市场营销" : 8
+    "游戏开发" : 15
+    "影视动画与特效" : 12
+    "互联网产品设计" : 10
+    "VR/AR开发" : 5
+    "其他" : 15
+\`\`\`
 
 `;
 </script>
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <XMarkdown :markdown="markdown" class="markdown-body" />
+    <XMarkdown :markdown="markdown" />
   </div>
 </template>
 
