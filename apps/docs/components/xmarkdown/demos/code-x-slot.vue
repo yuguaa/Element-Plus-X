@@ -37,8 +37,8 @@ interface CodeBlockHeaderExpose {
 </docs>
 
 <script setup lang="ts">
-// 这个 ts 类型还未成功导出，需要后续优化
-// import type { CodeBlockHeaderExpose, CodeBlockExpose } from 'vue-element-plus-x/types/XMarkdownCore/index.d.ts';
+// 这个 ts 类型还未成功导出，还有 props 类型目前暂时使用 any，需要后续优化
+// import type { CodeBlockHeaderExpose, CodeBlockExpose } from 'vue-element-plus-x/types/components/XMarkdownCore/components/CodeBlock/shiki-header.d.ts';
 import { h } from 'vue';
 
 const markdown = `
