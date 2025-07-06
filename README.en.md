@@ -141,7 +141,7 @@ We welcome:
 
 ## 👥 Community Support
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-06-30.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-07-07.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
 <p>Join the WeChat communication group to get the latest news and technical support</p>
 
 <p>If the group link expires, scan the author's QR code:</p>
