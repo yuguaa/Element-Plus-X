@@ -8,7 +8,7 @@ import { useGlobalShikiHighlighter } from '../../hooks/useShikiColors';
 
 import { MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
-import '../../../../assets/style/katex.min.css';
+import '../../style/katex.min.css';
 
 const MarkdownProvider = defineComponent({
   name: 'MarkdownProvider',
