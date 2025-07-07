@@ -4,10 +4,14 @@ title: 基础用法
 ---
 
 快速渲染一个 Markdown 基础的文本。内置了行内代码、代码块、数学公式函数（行/块）、mermaid 图表等基础样式。
+
+:::warning
+支持增量更新，可以在控制台查看节点的更新变化。
+:::
 </docs>
 
 <script setup lang="ts">
-const markdown = `
+const markdown = ref(`
 # 一级标题
 ## 二级标题
 ### 三级标题
@@ -81,12 +85,53 @@ pie
     "其他" : 15
 \`\`\`
 
-`;
+`);
+
+const timer = ref();
+const index = ref(0);
+
+const content = computed(() => {
+  return markdown.value.slice(0, index.value);
+});
+
+function start() {
+  timer.value = setInterval(() => {
+    index.value += 5;
+    if (index.value > markdown.value.length) {
+      clearInterval(timer.value);
+      index.value = markdown.value.length;
+    }
+  }, 100);
+}
+function pause() {
+  if (timer.value) {
+    clearInterval(timer.value);
+    timer.value = null;
+  }
+}
+
+function redo() {
+  index.value = 0;
+  if (timer.value) {
+    clearInterval(timer.value);
+    timer.value = null;
+  }
+  start();
+}
+onMounted(() => {
+  start();
+});
 </script>
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <XMarkdown :markdown="markdown" />
+    <span style="font-size: 20px; font-weight: 700">控制台查看增量渲染</span>
+    <div style="display: flex; gap: 8px">
+      <el-button @click="start"> 开始 </el-button>
+      <el-button @click="pause"> 暂停 </el-button>
+      <el-button @click="redo"> 重新开始 </el-button>
+    </div>
+    <XMarkdown :markdown="content" />
   </div>
 </template>
 

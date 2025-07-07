@@ -72,10 +72,10 @@ pnpm install # 推荐使用 PNPM 管理依赖
 
 ```bash
 # 先本地构建
-pnpm build:components
+pnpm build
 
 # 示例项目执行
-pnpm dev:playground
+pnpm run dev:core
 ```
 
 #### 七、**常见问题**
