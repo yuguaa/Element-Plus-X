@@ -76,6 +76,7 @@
     "vueuse",
     "wenyan",
     "wgsl",
+    "xmarkdown",
     "zenscript"
   ],
   "eslint.nodePath": "node_modules",
