@@ -81,23 +81,29 @@ async function renderMermaid() {
   }
 }
 
-// // 防抖渲染
-// const scheduleRender = debounce({ delay: 300 }, async () => {
-//   await renderMermaid();
-// });
-// 节流渲染
-const scheduleRender = throttle({ interval: 200 }, async () => {
+// 基础节流函数
+const throttledRender = throttle({ interval: 200 }, async () => {
   await renderMermaid();
 });
-// function scheduleRender() {
-//   loading.value = true;
-//   if (debounceTimer)
-//     clearTimeout(debounceTimer);
-//   debounceTimer = setTimeout(() => {
-//     loading.value = false;
-//     renderMermaid();
-//   }, 300);
-// }
+
+// 包装节流函数，确保最后一次调用必须执行
+let lastCallTimeoutId: number | null = null;
+
+function scheduleRender() {
+  // 执行节流函数
+  throttledRender();
+
+  // 清除之前的延迟调用
+  if (lastCallTimeoutId) {
+    clearTimeout(lastCallTimeoutId);
+  }
+
+  // 设置延迟调用，确保最后一次调用会被执行
+  lastCallTimeoutId = setTimeout(async () => {
+    await renderMermaid();
+    lastCallTimeoutId = null;
+  }, 200);
+}
 
 // 工具栏事件处理
 function handleZoomIn() {
