@@ -8,6 +8,7 @@ import { useGlobalShikiHighlighter } from '../../hooks/useShikiColors';
 
 import { MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
+import { initThemeMode } from '../CodeBlock/shiki-header';
 import '../../style/katex.min.css';
 
 const MarkdownProvider = defineComponent({
@@ -16,6 +17,15 @@ const MarkdownProvider = defineComponent({
   setup(props, { slots, attrs }) {
     const { rehypePlugins, remarkPlugins } = usePlugins(props);
 
+    watch(
+      () => props.defaultThemeMode,
+      v => {
+        if (v) {
+          initThemeMode(v);
+        }
+      },
+      { immediate: true }
+    );
     const { shikiThemeColor, init, destroy, isDark } =
       useGlobalShikiHighlighter({
         themes: props.themes

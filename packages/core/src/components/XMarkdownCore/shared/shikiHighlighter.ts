@@ -13,10 +13,34 @@ export interface InitShikiOptions {
   // 主题列表
   themes: Partial<
     Record<
-      string,
+      string | 'light' | 'dark',
       ThemeRegistrationAny | StringLiteralUnion<BundledTheme, string>
     >
   >;
+  /**
+   * 自定义当前主题下的代码颜色配置
+   *
+   * 一个颜色名称到新颜色值的映射表。
+   *
+   * 注意: 颜色的键必须以 `#` 开头，并且应为小写格式 ,否则不生效。
+   *
+   * 如果主题本身也定义了 `colorReplacements`，这个映射会与其合并。
+   *
+   * 最好和当前主题对应着修改
+   *
+   * @template
+   * ```typescript
+   * {
+   *  "vitesse-light": {
+   *    "#ab5959": "#ff66ff"
+   *  },
+   *  "vitesse-dark": {
+   *    "#cb7676": "#ff0066"
+   *  }
+   * }
+   * ```
+   */
+  colorReplacements: Record<string, string | Record<string, string>>;
 }
 
 export const shikiThemeDefault: InitShikiOptions['themes'] = {
