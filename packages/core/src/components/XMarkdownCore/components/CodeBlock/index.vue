@@ -164,8 +164,8 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
     <code
       :class="codeClass"
       :style="{
-        display: 'flex',
-        flexDirection: 'column'
+        display: 'block',
+        overflowX: 'auto'
       }"
       v-bind="codeAttrs"
     >
