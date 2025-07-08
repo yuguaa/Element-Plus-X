@@ -39,6 +39,7 @@ const firstRender = ref(true);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
+const colorReplacements = computed(() => context?.value?.colorReplacements);
 const codeAttrs =
   typeof customAttrs?.code === 'function'
     ? customAttrs.code(props.raw)
@@ -58,6 +59,7 @@ async function generateHtml() {
     language = 'text';
   }
   const html = await codeToHtml(content, {
+    colorReplacements: colorReplacements.value,
     lang: language as BundledLanguage,
     themes: themes.value,
     transformers: shikiTransformers

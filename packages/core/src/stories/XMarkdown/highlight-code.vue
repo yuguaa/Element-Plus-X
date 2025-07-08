@@ -125,6 +125,17 @@ onMounted(() => {
     <XMarkdown
       v-bind="$attrs"
       :markdown="content"
+      :color-replacements="{
+        // 这里传一个默认值 使其不受到其他 colorReplacements 的影响
+        'vitesse-light': {
+          '#ab5959': '#ab5959',
+          '#1e754f': '#1e754f'
+        },
+        'vitesse-dark': {
+          '#cb7676': '#cb7676',
+          '#4d9375': '#4d9375'
+        }
+      }"
       :custom-attrs="{
         code: () => {
           return {
@@ -138,7 +149,7 @@ onMounted(() => {
         })
       }"
     />
-    <h4>函数自定义插槽以及使用暴露出来的方法</h4>
+    <h4>函数插槽以及使用暴露出来的方法 和 自定义当前主题的颜色</h4>
     <XMarkdown
       v-bind="$attrs"
       :markdown="content"

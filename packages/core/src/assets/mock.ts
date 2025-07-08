@@ -78,7 +78,6 @@ public class HelloWorld {
   }
 }
 </code>
-<code class="language-javascript">console.log('Hello, world!');</code>
 </pre>
 \`\`\`echarts
 use codeXRender for echarts render

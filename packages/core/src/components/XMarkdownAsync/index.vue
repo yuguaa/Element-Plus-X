@@ -9,11 +9,17 @@ const props = withDefaults(defineProps<MarkdownProps>(), DEFAULT_PROPS);
 
 const slots = useSlots();
 const customComponents = useMarkdownContext();
+const colorReplacementsComputed = computed(() => {
+  return props.colorReplacements;
+});
 </script>
 
 <template>
   <div class="elx-xmarkdown-container">
-    <MarkdownRendererAsync v-bind="props">
+    <MarkdownRendererAsync
+      v-bind="props"
+      :color-replacements="colorReplacementsComputed"
+    >
       <template
         v-for="(slot, name) in customComponents"
         :key="name"

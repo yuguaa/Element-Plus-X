@@ -27,8 +27,9 @@ export const DEFAULT_PROPS = {
   sanitizeOptions: () => ({}),
   mermaidConfig: () => ({}),
   langs: () => [],
-  defaultThemeMode: 'light',
-  themes: () => ({ ...shikiThemeDefault })
+  defaultThemeMode: 'light' as 'light' | 'dark',
+  themes: () => ({ ...shikiThemeDefault }),
+  colorReplacements: () => ({})
 };
 
 export const MARKDOWN_CORE_PROPS = {
@@ -104,12 +105,15 @@ export const MARKDOWN_CORE_PROPS = {
     type: String as PropType<'light' | 'dark'>,
     default: 'light'
   },
-
   themes: {
     type: Object as PropType<InitShikiOptions['themes']>,
     default: () =>
       ({
         ...shikiThemeDefault
       }) satisfies InitShikiOptions['themes']
+  },
+  colorReplacements: {
+    type: Object as PropType<InitShikiOptions['colorReplacements']>,
+    default: () => ({})
   }
 };

@@ -25,12 +25,24 @@ const meta = {
       }
     },
     defaultThemeMode: { control: 'select', options: ['light', 'dark'] },
+    colorReplacements: { control: 'object' },
     mermaidConfig: { control: 'object' }
   },
   args: {
     markdown: mdContent,
     themes: {
       ...shikiThemeDefault
+    },
+    defaultThemeMode: 'light',
+    colorReplacements: {
+      'vitesse-light': {
+        '#ab5959': '#ff66ff',
+        '#1e754f': '#029c99'
+      },
+      'vitesse-dark': {
+        '#cb7676': '#ff0066',
+        '#4d9375': '#952189'
+      }
     },
     mermaidConfig: {
       showToolbar: true,

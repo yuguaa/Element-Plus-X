@@ -40,4 +40,6 @@ export interface MarkdownContext {
   isDarkMode?: boolean;
   // 代码高亮主题颜色的配置
   themeColors?: ThemeRegistrationResolved;
+  // 自定义当前主题下的代码颜色配置
+  colorReplacements?: InitShikiOptions['colorReplacements'];
 }
