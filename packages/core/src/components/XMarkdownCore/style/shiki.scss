@@ -248,11 +248,20 @@ body.dark .shiki span {
       flex: 1;
       box-sizing: border-box;
       width: 100%;
-      overflow: auto;
       height: 0;
       overflow: hidden;
-      span {
-        display: inline-block;
+
+      & > span {
+        width: max-content;
+        display: block;
+        .line {
+          width: max-content;
+          display: inline-block;
+          white-space: pre;
+          span {
+            display: inline-block;
+          }
+        }
       }
 
       &::-webkit-scrollbar {
