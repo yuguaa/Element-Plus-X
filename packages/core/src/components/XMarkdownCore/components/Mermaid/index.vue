@@ -26,7 +26,17 @@ const props = withDefaults(defineProps<MermaidProps>(), {
   raw: () => ({}),
   toolbarConfig: () => ({})
 });
-
+// should provide a element with class `elx-markdown-mermaid-container` for mermaid to render?
+// let merMaindContainer = document.querySelector('.elx-markdown-mermaid-container') as HTMLElement;
+// if (!merMaindContainer) {
+//   merMaindContainer = document.createElement('div') as HTMLElement;
+//   merMaindContainer.ariaHidden = 'true'
+//   merMaindContainer.style.maxHeight = '0'
+//   merMaindContainer.style.opacity = '0'
+//   merMaindContainer.style.overflow = 'hidden'
+//   merMaindContainer.classList.add('elx-markdown-mermaid-container');
+//   document.body.append(merMaindContainer)
+// }
 // 获取插槽上下文
 const context = useMarkdownContext();
 const { codeXSlot } = toValue(context);
@@ -66,6 +76,8 @@ async function renderMermaid() {
     const valid = await mermaid.parse(props.raw.content);
     if (valid) {
       mermaid.initialize({
+        suppressErrorRendering: true,
+        startOnLoad: false,
         securityLevel: 'loose'
       });
       const id = `mermaid-${`${valid.diagramType}-${Math.random().toString(36).substr(2, 9)}`}`;
