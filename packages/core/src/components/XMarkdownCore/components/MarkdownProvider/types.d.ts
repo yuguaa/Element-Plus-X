@@ -34,6 +34,8 @@ export interface MarkdownContext {
   mermaidConfig?: Record<string, any>;
   // 主题配置
   themes?: InitShikiOptions['themes'];
+  // 默认主题模式
+  defaultThemeMode?: 'light' | 'dark';
   // 是否是暗黑模式(代码高亮块)
   isDarkMode?: boolean;
   // 代码高亮主题颜色的配置

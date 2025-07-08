@@ -24,6 +24,7 @@ const meta = {
         ...shikiThemeDefault
       }
     },
+    defaultThemeMode: { control: 'select', options: ['light', 'dark'] },
     mermaidConfig: { control: 'object' }
   },
   args: {

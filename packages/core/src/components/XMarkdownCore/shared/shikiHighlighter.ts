@@ -13,7 +13,7 @@ export interface InitShikiOptions {
   // 主题列表
   themes: Partial<
     Record<
-      string,
+      string | 'light' | 'dark',
       ThemeRegistrationAny | StringLiteralUnion<BundledTheme, string>
     >
   >;
