@@ -153,11 +153,12 @@ body.dark .shiki span {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
       padding: 5px 5px 5px 8px;
       border-radius: var(--shiki-custom-brr-mini);
       -webkit-backdrop-filter: blur(var(--shiki-custom-blur));
       backdrop-filter: blur(var(--shiki-custom-blur));
-      margin: 0 0 5px 0;
+      margin: 0;
       box-sizing: border-box;
       background-color: var(--shiki-code-header-bg);
       span {
@@ -247,11 +248,20 @@ body.dark .shiki span {
       flex: 1;
       box-sizing: border-box;
       width: 100%;
-      overflow: auto;
       height: 0;
       overflow: hidden;
-      span {
-        display: inline-block;
+
+      & > span {
+        width: max-content;
+        display: block;
+        .line {
+          width: max-content;
+          display: inline-block;
+          white-space: pre;
+          span {
+            display: inline-block;
+          }
+        }
       }
 
       &::-webkit-scrollbar {

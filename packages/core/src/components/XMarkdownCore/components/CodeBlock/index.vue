@@ -21,7 +21,7 @@ import {
   toggleExpand,
   toggleTheme
 } from './shiki-header';
-import '../../../../assets/style/shiki.scss';
+import '../../style/shiki.scss';
 
 const props = withDefaults(
   defineProps<{
@@ -39,6 +39,7 @@ const firstRender = ref(true);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
+const colorReplacements = computed(() => context?.value?.colorReplacements);
 const codeAttrs =
   typeof customAttrs?.code === 'function'
     ? customAttrs.code(props.raw)
@@ -58,6 +59,7 @@ async function generateHtml() {
     language = 'text';
   }
   const html = await codeToHtml(content, {
+    colorReplacements: colorReplacements.value,
     lang: language as BundledLanguage,
     themes: themes.value,
     transformers: shikiTransformers
@@ -136,7 +138,7 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
     :style="preStyle"
     @vue:updated="handleUpdated"
   >
-    <div class="markdown-language-header-div el-card is-always-shadow">
+    <div class="markdown-language-header-div is-always-shadow">
       <component
         :is="renderSlot('codeHeader')"
         v-if="codeXSlot?.codeHeader && renderSlot('codeHeader')"
@@ -164,8 +166,8 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
     <code
       :class="codeClass"
       :style="{
-        display: 'flex',
-        flexDirection: 'column'
+        display: 'block',
+        overflowX: 'auto'
       }"
       v-bind="codeAttrs"
     >

@@ -11,8 +11,9 @@ export type MarkdownProps = {
   codeHighlightTheme?: BuiltinTheme | null;
   remarkPluginsAhead?: PluggableList;
   rehypePluginsAhead?: PluggableList;
+  defaultThemeMode?: 'light' | 'dark';
   mermaidConfig?: Partial<MermaidToolbarConfig>;
-} & Partial<Pick<InitShikiOptions, 'langs' | 'themes'>> &
+} & Partial<Pick<InitShikiOptions, 'langs' | 'themes' | 'colorReplacements'>> &
   Pick<
     TVueMarkdownProps,
     | 'markdown'

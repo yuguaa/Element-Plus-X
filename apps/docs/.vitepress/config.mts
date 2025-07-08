@@ -70,7 +70,7 @@ export default defineConfig({
       { text: '🎀 开发计划', link: '/roadmap' },
       { text: '📆 更新日志', link: '/update-log' },
       { text: '🧭 指南', link: '/guide/install/' },
-      { text: '🎨 组件', link: '/components/typewriter/' },
+      { text: '🎨 组件', link: '/components/xmarkdown/' },
       // { text: '工具', link: '/utils/' },
     ],
     // 我们将sidebar变成一个对象，然后我们将nav中的link做为key，这个key对应的value就是数组

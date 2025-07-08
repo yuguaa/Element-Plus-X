@@ -52,7 +52,7 @@ export function languageEle(language: string) {
         h(
           'span',
           {
-            class: 'markdown-language-header-span el-card is-always-shadow'
+            class: 'markdown-language-header-span is-always-shadow'
           },
           language || ''
         ),
@@ -262,6 +262,26 @@ export function toggleTheme() {
     document.body.classList.remove('dark');
   }
   return isDark.value;
+}
+
+/**
+ * @description 描述 初始化主题模式
+ * @date 2025-07-08 13:43:19
+ * @author tingfeng
+ *
+ * @export
+ * @param defaultThemeMode
+ */
+export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
+  const theme = document.body.classList.contains('dark') ? 'dark' : 'light';
+  if (theme !== defaultThemeMode) {
+    isDark.value = defaultThemeMode === 'dark';
+    if (defaultThemeMode === 'dark') {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
+  }
 }
 
 /**

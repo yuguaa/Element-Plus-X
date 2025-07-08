@@ -19,7 +19,7 @@ import {
   toggleExpand,
   toggleTheme
 } from './shiki-header';
-import '../../../../assets/style/shiki.scss';
+import '../../style/shiki.scss';
 
 export default defineComponent({
   props: {
@@ -129,7 +129,7 @@ export default defineComponent({
           h(
             'div',
             {
-              class: `markdown-language-header-div el-card is-always-shadow`
+              class: `markdown-language-header-div is-always-shadow`
             },
             (codeXSlot?.codeHeader && render('codeHeader')) ?? [
               (codeXSlot?.codeHeaderLanguage && render('codeHeaderLanguage')) ??

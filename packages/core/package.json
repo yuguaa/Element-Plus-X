@@ -1,6 +1,6 @@
 {
   "name": "vue-element-plus-x",
-  "version": "1.2.21-beta",
+  "version": "1.2.26-beta",
   "license": "MIT",
   "homepage": "https://element-plus-x.com",
   "repository": {
@@ -49,7 +49,10 @@
     "README.md",
     "dist",
     "types/components",
-    "types/hooks"
+    "types/components.d.ts",
+    "types/dom-speech-recognition-env.d.ts",
+    "types/hooks",
+    "types/index.d.ts"
   ],
   "scripts": {
     "build:es": "vue-tsc -b && vite build",

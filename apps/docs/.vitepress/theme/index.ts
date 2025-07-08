@@ -5,6 +5,7 @@ import { h } from 'vue';
 // https://vitepress.dev/guide/custom-theme
 import 'virtual:group-icons.css';
 import './style.css';
+import './markdown.css';
 
 export default {
   extends: DefaultTheme,
@@ -16,5 +17,5 @@ export default {
   enhanceApp({ app }) {
     // ...
     app.component('demo', AntdTheme);
-  },
+  }
 } satisfies Theme;
