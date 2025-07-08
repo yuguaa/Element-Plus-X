@@ -84,8 +84,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="eatchs-wrap">
-    <span class="eatchs-titlt">这是我自己定义的 eatchs 组件</span>
+  <div class="echarts-wrap">
+    <span class="echarts-titlt">这是我自己定义的 echarts 组件</span>
     <div
       ref="refEle"
       :style="{
@@ -97,10 +97,10 @@ onUnmounted(() => {
 </template>
 
 <style scoped lang="less">
-.eatchs-wrap {
+.echarts-wrap {
   position: relative;
 
-  .eatchs-titlt {
+  .echarts-titlt {
     position: absolute;
     width: fit-content;
     margin-left: 20px;

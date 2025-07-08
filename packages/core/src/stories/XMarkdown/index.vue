@@ -13,7 +13,7 @@ function start() {
       clearInterval(timer.value);
       index.value = props.markdown.length;
     }
-  }, 100);
+  }, 80);
 }
 function pause() {
   if (timer.value) {
