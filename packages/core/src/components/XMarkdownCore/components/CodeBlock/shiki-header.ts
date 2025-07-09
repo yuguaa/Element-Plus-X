@@ -3,6 +3,7 @@ import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h } from 'vue';
 import CopyCodeButton from './copy-code-button.vue';
+import RunCodeButton from './run-code-button.vue';
 
 export interface CodeBlockExpose {
   renderLines: Array<string>;
@@ -92,6 +93,31 @@ export function controlEle(copy: () => void) {
     },
     {
       default: () => [
+        toggleThemeEle(),
+        h(CopyCodeButton, { onCopy: copy }) // ✅ 改为组件形式
+      ]
+    }
+  );
+}
+
+/**
+ * @description 描述 语言头部操作按钮(带预览代码按钮)
+ * @date 2025-07-09 11:15:27
+ * @author tingfeng
+ *
+ * @export
+ * @param copy
+ */
+export function controlHasRunCodeEle(copy: () => void, view: () => void) {
+  return h(
+    ElSpace,
+    {
+      class: `markdown-language-header-space`,
+      direction: 'horizontal'
+    },
+    {
+      default: () => [
+        h(RunCodeButton, { onView: view }),
         toggleThemeEle(),
         h(CopyCodeButton, { onCopy: copy }) // ✅ 改为组件形式
       ]

@@ -69,6 +69,290 @@ $$
 
 // md 代码块高亮
 export const highlightMdContent = `
+\`\`\`html
+<div class="product-card">
+  <div class="badge">新品</div>
+  <img src="https://picsum.photos/300/200?product" alt="产品图片">
+
+  <div class="content">
+    <h3>无线蓝牙耳机 Pro</h3>
+    <p class="description">主动降噪技术，30小时续航，IPX5防水等级</p>
+
+    <div class="rating">
+      <span>★★★★☆</span>
+      <span class="reviews">(124条评价)</span>
+    </div>
+
+    <div class="price-container">
+      <span class="price">¥499</span>
+      <span class="original-price">¥699</span>
+      <span class="discount">7折</span>
+    </div>
+
+    <div class="actions">
+      <button class="cart-btn">加入购物车</button>
+      <button class="fav-btn">❤️</button>
+    </div>
+
+    <div class="meta">
+      <span>✓ 次日达</span>
+      <span>✓ 7天无理由</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .product-card {
+    width: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: relative;
+    background: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #ff6b6b;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 12px;
+    z-index: 2;
+  }
+
+  img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  h3 {
+    margin: 8px 0;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .description {
+    color: #666;
+    font-size: 14px;
+    margin: 8px 0 12px;
+    line-height: 1.4;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    color: #ffb300;
+  }
+
+  .reviews {
+    font-size: 13px;
+    color: #888;
+    margin-left: 8px;
+  }
+
+  .price-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ff4757;
+  }
+
+  .original-price {
+    font-size: 14px;
+    color: #999;
+    text-decoration: line-through;
+  }
+
+  .discount {
+    background: #fff200;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
+  .actions {
+    display: flex;
+    gap: 8px;
+    margin: 16px 0 12px;
+  }
+
+  .cart-btn {
+    flex: 1;
+    background: #5352ed;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .cart-btn:hover {
+    background: #3742fa;
+  }
+
+  .fav-btn {
+    width: 42px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .fav-btn:hover {
+    border-color: #ff6b6b;
+    color: #ff6b6b;
+  }
+
+  .meta {
+    display: flex;
+    gap: 15px;
+    font-size: 13px;
+    color: #2ed573;
+    margin-top: 8px;
+  }
+</style>
+\`\`\`
+\`\`\`html
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易课程表</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0 auto;
+        }
+        th, td {
+            padding: 14px 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f9ff;
+        }
+        tr:hover {
+            background-color: #e3f2fd;
+            transition: background 0.3s;
+        }
+        .time-header {
+            background-color: #2980b9;
+        }
+        /* 响应式设计 */
+        @media (max-width: 600px) {
+            th, td {
+                padding: 8px 5px;
+                font-size: 14px;
+            }
+            .container {
+                margin: 10px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 我的课程表</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>时间/日期</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="time-header">08:00-09:30</td>
+                    <td>高等数学</td>
+                    <td>大学英语</td>
+                    <td>数据结构</td>
+                    <td>操作系统</td>
+                    <td>计算机网络</td>
+                </tr>
+                <tr>
+                    <td class="time-header">10:00-11:30</td>
+                    <td>C语言</td>
+                    <td>物理实验</td>
+                    <td>Web开发</td>
+                    <td>算法分析</td>
+                    <td>数据库原理</td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="background-color:#ecf0f1; font-weight:bold">午休</td>
+                </tr>
+                <tr>
+                    <td class="time-header">14:00-15:30</td>
+                    <td>人工智能</td>
+                    <td>软件工程</td>
+                    <td>图形设计</td>
+                    <td>移动开发</td>
+                    <td>网络安全</td>
+                </tr>
+                <tr>
+                    <td class="time-header">16:00-17:30</td>
+                    <td>体育</td>
+                    <td>项目管理</td>
+                    <td>机器学习</td>
+                    <td>大数据分析</td>
+                    <td>毕业设计</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+\`\`\`
 ###### 非\`commonMark\`语法，dom多个
 <pre>
 <code class="language-java">

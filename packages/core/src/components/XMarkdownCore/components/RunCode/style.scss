@@ -1,0 +1,34 @@
+.elx-run-code-dialog,
+.elx-run-code-drawer {
+  width: 800px !important;
+}
+
+.elx-run-code-dialog {
+  .el-dialog__body {
+    overflow: auto;
+    border: 1px solid var(--el-border-color);
+    border-radius: var(--shiki-custom-brr);
+  }
+}
+
+.elx-run-code-drawer {
+  .el-drawer__body {
+    overflow: auto;
+    border-radius: var(--shiki-custom-brr);
+  }
+  .el-drawer__header {
+    margin-bottom: 0 !important;
+  }
+}
+
+.elx-run-code-dialog-view {
+  .el-dialog__body {
+    border: 1px solid transparent !important;
+  }
+}
+
+.elx-run-code-dialog-view {
+  .el-drawer__body {
+    border: 1px solid transparent !important;
+  }
+}
