@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import {
-  MarkdownRenderer
-  // MarkdownRendererAsync
-} from '../../components/XMarkdownCore/index';
+import XMarkdown from '@components/XMarkdown/index.vue';
 
 const props = defineProps<{
   markdown: string;
@@ -48,7 +45,7 @@ onMounted(() => {
   <el-button @click="redo"> 重新开始 </el-button>
   <div class="component-container">
     <h4>自定义属性</h4>
-    <MarkdownRenderer v-bind="$attrs" :markdown="content" />
+    <XMarkdown v-bind="$attrs" :markdown="content" />
   </div>
 </template>
 

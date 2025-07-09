@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import type { MermaidToolbarConfig } from '../../components/XMarkdownCore/components/Mermaid/types';
+import XMarkdown from '@components/XMarkdown/index.vue';
 import { ElButton, ElMessage, ElTooltip } from 'element-plus';
 import { computed, h, onMounted, ref } from 'vue';
-import {
-  MarkdownRenderer
-  // MarkdownRendererAsync
-} from '../../components/XMarkdownCore/index';
 import MermaidHeader from './MermaidHeader.vue';
 
 const props = defineProps<{
@@ -253,7 +250,7 @@ onMounted(() => {
   <div class="component-container">
     <div class="demo-section">
       <h4>1. 📋 通过mermaidConfig 配置</h4>
-      <MarkdownRenderer
+      <XMarkdown
         :markdown="mermaidCode"
         :mermaid-config="mermaidConfig"
         :themes="themes"
@@ -262,7 +259,7 @@ onMounted(() => {
 
     <div class="demo-section">
       <h4>2. 🔧 函数式插槽</h4>
-      <MarkdownRenderer
+      <XMarkdown
         :markdown="mermaidCode"
         :code-x-slot="slotRenderConfig"
         :themes="themes"
@@ -271,7 +268,7 @@ onMounted(() => {
 
     <div class="demo-section">
       <h4>3. 🧩 组件插槽</h4>
-      <MarkdownRenderer
+      <XMarkdown
         :markdown="mermaidCode"
         :code-x-slot="slotComponentsConfig"
         :themes="themes"
