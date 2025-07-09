@@ -61,7 +61,7 @@ body.dark .shiki span {
 }
 
 .elx-xmarkdown-container {
-  background-color: var(--el-fill-color);
+  // background-color: var(--el-fill-color);
   color: black;
   padding: 5px 10px;
   border-radius: var(--shiki-custom-brr);
@@ -93,16 +93,8 @@ body.dark .shiki span {
     }
 
     tr:nth-child(odd) {
-      background-color: var(--el-fill-color);
+      background-color: var(--el-fill-color-lighter);
     }
-
-    tr:hover {
-      background-color: #ddd;
-    }
-  }
-
-  code:not(pre code) {
-    background-color: #8481816a;
   }
 
   pre,
@@ -143,9 +135,10 @@ body.dark .shiki span {
     }
   }
 
-  pre div {
+  pre div.pre-md {
     position: relative;
-    border-radius: var(--shiki-custom-brr);
+    border-radius: var(--shiki-custom-brr-mini);
+    border: 1px solid var(--el-border-color);
     .markdown-language-header-div {
       position: sticky;
       top: 0;
