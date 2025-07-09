@@ -27,16 +27,18 @@ const props = withDefaults(defineProps<MermaidProps>(), {
   toolbarConfig: () => ({})
 });
 // should provide a element with class `elx-markdown-mermaid-container` for mermaid to render?
-// let merMaindContainer = document.querySelector('.elx-markdown-mermaid-container') as HTMLElement;
-// if (!merMaindContainer) {
-//   merMaindContainer = document.createElement('div') as HTMLElement;
-//   merMaindContainer.ariaHidden = 'true'
-//   merMaindContainer.style.maxHeight = '0'
-//   merMaindContainer.style.opacity = '0'
-//   merMaindContainer.style.overflow = 'hidden'
-//   merMaindContainer.classList.add('elx-markdown-mermaid-container');
-//   document.body.append(merMaindContainer)
-// }
+let merMaindContainer = document.querySelector(
+  '.elx-markdown-mermaid-container'
+) as HTMLElement;
+if (!merMaindContainer) {
+  merMaindContainer = document.createElement('div') as HTMLElement;
+  merMaindContainer.ariaHidden = 'true';
+  merMaindContainer.style.maxHeight = '0';
+  merMaindContainer.style.opacity = '0';
+  merMaindContainer.style.overflow = 'hidden';
+  merMaindContainer.classList.add('elx-markdown-mermaid-container');
+  document.body.append(merMaindContainer);
+}
 // 获取插槽上下文
 const context = useMarkdownContext();
 const { codeXSlot } = toValue(context);
@@ -81,7 +83,11 @@ async function renderMermaid() {
         securityLevel: 'loose'
       });
       const id = `mermaid-${`${valid.diagramType}-${Math.random().toString(36).substr(2, 9)}`}`;
-      const { svg: renderedSvg } = await mermaid.render(id, props.raw.content);
+      const { svg: renderedSvg } = await mermaid.render(
+        id,
+        props.raw.content,
+        merMaindContainer
+      );
       svg.value = renderedSvg;
       // SVG 渲染完成后，手动触发缩放功能初始化
       setTimeout(() => {

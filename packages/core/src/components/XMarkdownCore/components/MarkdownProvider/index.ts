@@ -9,7 +9,7 @@ import { useGlobalShikiHighlighter } from '../../hooks/useShikiColors';
 import { MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
 import { initThemeMode } from '../CodeBlock/shiki-header';
-import '../../style/katex.min.css';
+import '../../style/index.scss';
 
 const MarkdownProvider = defineComponent({
   name: 'MarkdownProvider',
