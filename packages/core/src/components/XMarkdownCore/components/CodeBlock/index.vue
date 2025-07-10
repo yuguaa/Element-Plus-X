@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { BundledLanguage } from 'shiki';
+import type { ElxRunCodeProps } from '../RunCode/type';
 import type { RawProps } from './types';
 import {
   transformerNotationDiff,
@@ -12,8 +13,10 @@ import { codeToHtml } from 'shiki';
 import { computed, h, ref, toValue, watch } from 'vue';
 import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
+import RunCode from '../RunCode/index.vue';
 import {
   controlEle,
+  controlHasRunCodeEle,
   copyCode,
   expand,
   isDark,
@@ -40,6 +43,8 @@ const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
 const colorReplacements = computed(() => context?.value?.colorReplacements);
+const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn);
+const nowCodeLanguage = ref<BundledLanguage>();
 const codeAttrs =
   typeof customAttrs?.code === 'function'
     ? customAttrs.code(props.raw)
@@ -58,6 +63,7 @@ async function generateHtml() {
   if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
     language = 'text';
   }
+  nowCodeLanguage.value = language as BundledLanguage;
   const html = await codeToHtml(content, {
     colorReplacements: colorReplacements.value,
     lang: language as BundledLanguage,
@@ -99,6 +105,37 @@ function handleUpdated(vnode: any) {
   }
 }
 
+const runCodeOptions = reactive<ElxRunCodeProps>({
+  code: [],
+  content: '',
+  visible: false,
+  lang: '',
+  preClass: '',
+  preStyle: {}
+});
+function viewCode(renderLines: string[]) {
+  if (!renderLines?.length) return;
+
+  Object.assign(runCodeOptions, {
+    code: renderLines,
+    content: props.raw?.content ?? '',
+    lang: nowCodeLanguage.value || 'html',
+    preClass: preClass.value || 'pre-md',
+    preStyle: preStyle.value || {},
+    visible: true
+  });
+}
+
+watch(
+  () => renderLines.value,
+  val => {
+    if (runCodeOptions.visible) {
+      runCodeOptions.code = val;
+      runCodeOptions.content = props.raw.content ?? '';
+    }
+  }
+);
+
 // 渲染插槽函数
 function renderSlot(slotName: string) {
   if (!codeXSlot) {
@@ -110,9 +147,11 @@ function renderSlot(slotName: string) {
       ...props,
       renderLines: renderLines.value,
       isDark,
+      nowViewBtnShow: nowViewBtnShow.value,
       toggleExpand,
       toggleTheme,
-      copyCode
+      copyCode,
+      viewCode
     });
   }
 
@@ -120,15 +159,46 @@ function renderSlot(slotName: string) {
     ...props,
     renderLines: renderLines.value,
     isDark,
+    nowViewBtnShow: nowViewBtnShow.value,
     toggleExpand,
     toggleTheme,
-    copyCode
+    copyCode,
+    viewCode
   });
 }
 
 // 计算属性
 const computedClass = computed(() => `pre-md ${preClass.value}`);
 const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
+const RunCodeComputed = computed(() => {
+  return nowCodeLanguage.value === 'html' && nowViewBtnShow.value
+    ? RunCode
+    : undefined;
+});
+const codeControllerEleComputed = computed(() => {
+  if (nowCodeLanguage.value === 'html' && nowViewBtnShow.value) {
+    return controlHasRunCodeEle(
+      () => {
+        copyCode(renderLines.value);
+      },
+      () => {
+        viewCode(renderLines.value);
+      }
+    );
+  }
+  return controlEle(() => {
+    copyCode(renderLines.value);
+  });
+});
+
+watch(
+  () => nowViewBtnShow.value,
+  v => {
+    if (!v) {
+      runCodeOptions.visible = false;
+    }
+  }
+);
 </script>
 
 <template>
@@ -155,9 +225,7 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
           :is="
             codeXSlot?.codeHeaderControl
               ? renderSlot('codeHeaderControl')
-              : controlEle(() => {
-                  copyCode(renderLines);
-                })
+              : codeControllerEleComputed
           "
         />
       </template>
@@ -173,5 +241,11 @@ const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
     >
       <span v-for="(line, index) in renderLines" :key="index" v-html="line" />
     </code>
+    <!-- run-code -->
+    <component
+      :is="RunCodeComputed"
+      v-bind="runCodeOptions"
+      v-model:visible="runCodeOptions.visible"
+    />
   </div>
 </template>

@@ -12,6 +12,9 @@ const customComponents = useMarkdownContext();
 const colorReplacementsComputed = computed(() => {
   return props.colorReplacements;
 });
+const needViewCodeBtnComputed = computed(() => {
+  return props.needViewCodeBtn;
+});
 </script>
 
 <template>
@@ -19,6 +22,7 @@ const colorReplacementsComputed = computed(() => {
     <MarkdownRenderer
       v-bind="props"
       :color-replacements="colorReplacementsComputed"
+      :need-view-code-btn="needViewCodeBtnComputed"
     >
       <template
         v-for="(slot, name) in customComponents"

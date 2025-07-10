@@ -29,7 +29,8 @@ export const DEFAULT_PROPS = {
   langs: () => [],
   defaultThemeMode: 'light' as 'light' | 'dark',
   themes: () => ({ ...shikiThemeDefault }),
-  colorReplacements: () => ({})
+  colorReplacements: () => ({}),
+  needViewCodeBtn: true
 };
 
 export const MARKDOWN_CORE_PROPS = {
@@ -115,5 +116,9 @@ export const MARKDOWN_CORE_PROPS = {
   colorReplacements: {
     type: Object as PropType<InitShikiOptions['colorReplacements']>,
     default: () => ({})
+  },
+  needViewCodeBtn: {
+    type: Boolean,
+    default: true
   }
 };
