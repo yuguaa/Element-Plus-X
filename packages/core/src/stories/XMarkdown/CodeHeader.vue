@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const props = defineProps<{
-  toggleExpand: (ev: MouseEvent) => void;
-}>();
+import type { CodeBlockExpose } from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
+
+const props = defineProps<CodeBlockExpose>();
 </script>
 
 <template>

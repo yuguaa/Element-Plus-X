@@ -1,18 +1,9 @@
 <script lang="ts" setup>
-import type { ElxRunCodeProps } from '../type';
-import type { ElxRunCodeHeaderTypes } from './run-code-header.vue';
+import type { ElxRunCodeContentProps } from '../type';
 import DOMPurify from 'dompurify';
 import _ from 'lodash';
 import CustomLoading from './custom-loading.vue';
 import { SELECT_OPTIONS_ENUM } from './options';
-
-export interface ElxRunCodeContentProps
-  extends Omit<
-    ElxRunCodeProps,
-    'visible' | 'customClass' | 'dialogOptions' | 'drawerOptions'
-  > {
-  nowView: ElxRunCodeHeaderTypes['options'];
-}
 
 const props = defineProps<ElxRunCodeContentProps>();
 
@@ -61,7 +52,7 @@ function doRenderIframe() {
   const onLoad = () => {
     setTimeout(() => {
       isLoading.value = false;
-    }, 150);
+    }, 300);
     iframe.removeEventListener('load', onLoad);
   };
   iframe.addEventListener('load', onLoad);
@@ -69,7 +60,7 @@ function doRenderIframe() {
 
 const renderIframe = _.debounce(() => {
   doRenderIframe();
-}, 100);
+}, 300);
 
 function startRender() {
   if (props.nowView === SELECT_OPTIONS_ENUM.VIEW) {
@@ -94,7 +85,9 @@ watch(
 );
 
 onMounted(() => {
-  startRender();
+  nextTick(() => {
+    startRender();
+  });
 });
 </script>
 
@@ -137,12 +130,13 @@ onMounted(() => {
       <div v-if="isLoading" class="iframe-loading-mask">
         <CustomLoading />
       </div>
-      <iframe
-        v-show="!isLoading"
-        ref="iframeRef"
-        sandbox="allow-scripts"
-        style="border: 0; width: 100%; height: 79.5vh"
-      />
+      <div v-show="!isLoading" class="elx-run-code-content-view-iframe">
+        <iframe
+          ref="iframeRef"
+          sandbox="allow-scripts"
+          style="border: 0; width: 100%; height: 79.5vh"
+        />
+      </div>
     </div>
   </el-scrollbar>
 </template>

@@ -1,6 +1,63 @@
 .elx-run-code-dialog,
 .elx-run-code-drawer {
-  width: 800px !important;
+  width: 70% !important;
+  background-color: var(--shiki-code-header-bg);
+  .el-dialog__body {
+    overflow: auto;
+    border-radius: var(--shiki-custom-brr);
+  }
+  .el-drawer__body {
+    overflow: auto;
+    border-radius: var(--shiki-custom-brr);
+  }
+  .el-drawer__header {
+    position: relative;
+    margin-bottom: 0 !important;
+  }
+  .el-dialog__headerbtn,
+  .el-drawer__close-btn {
+    color: var(--shiki-code-header-span-color);
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    box-sizing: border-box;
+    right: 10px;
+    top: 15px;
+    font-size: 20px;
+    border-radius: var(--shiki-custom-brr);
+    &:hover {
+      background-color: var(--shiki-code-header-btn-bg);
+    }
+  }
+
+  .view-code-close-btn {
+    span {
+      color: var(--shiki-code-header-span-color);
+      width: 32px;
+      height: 32px;
+      &:hover {
+        color: var(--el-color-primary);
+      }
+    }
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    padding: 5px;
+    box-sizing: border-box;
+    right: 10px;
+    top: 15px;
+    font-size: 20px;
+    border-radius: var(--shiki-custom-brr);
+    &:hover {
+      background-color: var(--shiki-code-header-btn-bg);
+    }
+  }
+
+  .customCloseBtn {
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
 }
 
 // 媒体查询
@@ -12,32 +69,15 @@
   }
 }
 
-.elx-run-code-dialog {
-  background-color: var(--shiki-code-header-bg);
-  .el-dialog__body {
-    overflow: auto;
-    border-radius: var(--shiki-custom-brr);
-  }
-}
-
-.elx-run-code-drawer {
-  background-color: var(--shiki-code-header-bg);
-  .el-drawer__body {
-    overflow: auto;
-    border-radius: var(--shiki-custom-brr);
-  }
-  .el-drawer__header {
-    margin-bottom: 0 !important;
-  }
+.elx-run-code-content-view-iframe {
+  height: 713px;
+  overflow: hidden;
 }
 
 .elx-run-code-dialog-view {
   .el-dialog__body {
     border: 1px solid transparent !important;
   }
-}
-
-.elx-run-code-dialog-view {
   .el-drawer__body {
     border: 1px solid transparent !important;
   }

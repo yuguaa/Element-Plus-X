@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import type {
-  CodeBlockExpose,
-  CodeBlockHeaderExpose
+  CodeBlockHeaderExpose,
+  CodeBlockHeaderFunctionExpose
 } from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
 import XMarkdown from '@components/XMarkdown/index.vue';
+import { SELECT_OPTIONS_ENUM } from '@components/XMarkdownCore/components/RunCode/components/options';
 import { ElButton, ElSpace, ElTooltip } from 'element-plus';
 import { h } from 'vue';
 import CodeHeader from './CodeHeader.vue';
@@ -15,7 +16,7 @@ const timer = ref();
 const index = ref(0);
 function start() {
   timer.value = setInterval(() => {
-    index.value += 100;
+    index.value += 10;
     if (index.value > props.markdown.length) {
       clearInterval(timer.value);
       index.value = props.markdown.length;
@@ -33,8 +34,8 @@ const content = computed(() => {
   return props.markdown.slice(0, index.value);
 });
 
-const codeXSlotConfig: CodeBlockHeaderExpose = {
-  codeHeaderLanguage: (props: CodeBlockExpose) => {
+const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
+  codeHeaderLanguage: props => {
     return h(
       'span',
       { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
@@ -43,7 +44,7 @@ const codeXSlotConfig: CodeBlockHeaderExpose = {
       }
     );
   },
-  codeHeaderControl: (props: CodeBlockExpose) => {
+  codeHeaderControl: props => {
     return h(
       ElSpace,
       {
@@ -52,6 +53,27 @@ const codeXSlotConfig: CodeBlockHeaderExpose = {
       },
       {
         default: () => [
+          props.nowViewBtnShow &&
+            h(
+              ElTooltip,
+              {
+                content: '预览代码',
+                placement: 'top'
+              },
+              {
+                default: () =>
+                  h(
+                    ElButton,
+                    {
+                      class: 'shiki-header-button',
+                      onClick: () => {
+                        props.viewCode(props.renderLines);
+                      }
+                    },
+                    { default: () => '👀' }
+                  )
+              }
+            ),
           h(
             ElTooltip,
             {
@@ -69,7 +91,7 @@ const codeXSlotConfig: CodeBlockHeaderExpose = {
                       console.log('isDark', props.isDark.value);
                     }
                   },
-                  { default: () => (props.isDark.value ? '🌞' : '🌙') }
+                  { default: () => (props.isDark.value ? '🍪' : '🌙') }
                 )
             }
           ),
@@ -94,6 +116,44 @@ const codeXSlotConfig: CodeBlockHeaderExpose = {
             }
           )
         ]
+      }
+    );
+  },
+  viewCodeHeader: props => {
+    return h(
+      'div',
+      {
+        onClick: () => {
+          if (props.value === SELECT_OPTIONS_ENUM.VIEW) {
+            props.changeSelectValue(SELECT_OPTIONS_ENUM.CODE);
+          } else {
+            props.changeSelectValue(SELECT_OPTIONS_ENUM.VIEW);
+          }
+        }
+      },
+      {
+        default: () => `自定义切换 ${props.value}`
+      }
+    );
+  },
+  viewCodeContent: props => {
+    return h(
+      'div',
+      {},
+      {
+        default: () =>
+          `自定义内容区域 渲染代码长度 ${props.content.length} 当前视图 ${props.value}`
+      }
+    );
+  },
+  viewCodeCloseBtn: props => {
+    return h(
+      'span',
+      {
+        onClick: () => props.close()
+      },
+      {
+        default: () => `❎`
       }
     );
   }

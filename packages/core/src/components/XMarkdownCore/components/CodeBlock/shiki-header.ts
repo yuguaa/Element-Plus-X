@@ -1,4 +1,9 @@
 import type { Component, Ref, VNode } from 'vue';
+import type {
+  ElxRunCodeCloseBtnExposeProps,
+  ElxRunCodeContentExposeProps,
+  ElxRunCodeExposeProps
+} from '../RunCode/type';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h } from 'vue';
@@ -6,21 +11,126 @@ import CopyCodeButton from './copy-code-button.vue';
 import RunCodeButton from './run-code-button.vue';
 
 export interface CodeBlockExpose {
+  /**
+   * 渲染的行
+   */
   renderLines: Array<string>;
+  /**
+   * 当前主题色是否是暗色
+   */
   isDark: Ref<boolean>;
+  /**
+   * 是否显示预览代码按钮
+   */
+  nowViewBtnShow: boolean;
+  /**
+   * 切换展开折叠
+   * @param ev MouseEvent
+   * @returns
+   */
   toggleExpand: (ev: MouseEvent) => void;
+  /**
+   * 切换主题
+   * @returns
+   */
   toggleTheme: () => Ref<boolean>;
-  copyCode: (value: Array<string>) => void;
+  /**
+   * 复制代码
+   * @param value
+   */
+  copyCode: (value: string | Array<string>) => void;
+  /**
+   * 查看代码
+   * @param value
+   */
+  viewCode: (value: Array<string>) => void;
 }
 
-export type CodeBlockHeaderRenderer =
-  | ((props: CodeBlockExpose) => VNode)
-  | Component;
+export type ComponentRenderer<T> = Component<T>;
+
+export type ComponentFunctionRenderer<T> = (props: T) => VNode;
+
+/**
+ * @description 代码块头部渲染器
+ */
+export type CodeBlockHeaderRenderer = ComponentRenderer<CodeBlockExpose>;
+export type CodeBlockHeaderFunctionRenderer =
+  ComponentFunctionRenderer<CodeBlockExpose>;
+/**
+ * @description 查看代码头部渲染器
+ */
+export type ViewCodeHeadRender = ComponentRenderer<ElxRunCodeExposeProps>;
+export type ViewCodeHeadFunctionRender =
+  ComponentFunctionRenderer<ElxRunCodeExposeProps>;
+/**
+ * @description 查看代码头部关闭按钮渲染器
+ */
+export type ViewCodeCloseBtnRender =
+  ComponentRenderer<ElxRunCodeCloseBtnExposeProps>;
+export type ViewCodeCloseBtnFunctionRender =
+  ComponentFunctionRenderer<ElxRunCodeCloseBtnExposeProps>;
+/**
+ * @description 查看代码内容渲染器
+ */
+export type ViewCodeContentRender =
+  ComponentRenderer<ElxRunCodeContentExposeProps>;
+export type ViewCodeContentFunctionRender =
+  ComponentFunctionRenderer<ElxRunCodeContentExposeProps>;
 
 export interface CodeBlockHeaderExpose {
+  /**
+   * 代码块自定义头部（包括语言和复制按钮等）
+   * 当有此属性时，将不会显示默认的代码头部 和 codeHeaderLanguage codeHeaderControl 插槽里面的内容
+   */
   codeHeader?: CodeBlockHeaderRenderer;
+  /**
+   * 代码块语言插槽
+   */
   codeHeaderLanguage?: CodeBlockHeaderRenderer;
+  /**
+   * 代码块右侧插槽
+   */
   codeHeaderControl?: CodeBlockHeaderRenderer;
+  /**
+   * 代码块查看代码弹窗的头部插槽
+   */
+  viewCodeHeader?: ViewCodeHeadRender;
+  /**
+   * 代码块查看代码弹窗的关闭按钮插槽
+   */
+  viewCodeCloseBtn?: ViewCodeCloseBtnRender;
+  /**
+   * 代码块查看代码弹窗的代码内容插槽
+   */
+  viewCodeContent?: ViewCodeContentRender;
+}
+
+export interface CodeBlockHeaderFunctionExpose {
+  /**
+   * 代码块自定义头部（包括语言和复制按钮等）
+   * 当有此属性时，将不会显示默认的代码头部 和 codeHeaderLanguage codeHeaderControl 插槽里面的内容
+   */
+  codeHeader?: CodeBlockHeaderFunctionRenderer;
+  /**
+   * 代码块语言插槽
+   */
+  codeHeaderLanguage?: CodeBlockHeaderFunctionRenderer;
+  /**
+   * 代码块右侧插槽
+   */
+  codeHeaderControl?: CodeBlockHeaderFunctionRenderer;
+  /**
+   * 代码块查看代码弹窗的头部插槽
+   */
+  viewCodeHeader?: ViewCodeHeadFunctionRender;
+  /**
+   * 代码块查看代码弹窗的关闭按钮插槽
+   */
+  viewCodeCloseBtn?: ViewCodeCloseBtnFunctionRender;
+  /**
+   * 代码块查看代码弹窗的代码内容插槽
+   */
+  viewCodeContent?: ViewCodeContentFunctionRender;
 }
 
 let copyCodeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -318,12 +428,16 @@ export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
  * @export
  * @param codeText
  */
-export function copyCode(codeText: string[]) {
+export function copyCode(codeText: string | string[]) {
   try {
     if (copyCodeTimer) return false; // 阻止重复点击
 
-    const code = extractCodeFromHtmlLines(codeText);
-    copy(code);
+    if (Array.isArray(codeText)) {
+      const code = extractCodeFromHtmlLines(codeText);
+      copy(code);
+    } else {
+      copy(codeText);
+    }
 
     copyCodeTimer = setTimeout(() => {
       copyCodeTimer = null;

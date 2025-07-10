@@ -43,6 +43,7 @@ const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
 const colorReplacements = computed(() => context?.value?.colorReplacements);
+const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn);
 const nowCodeLanguage = ref<BundledLanguage>();
 const codeAttrs =
   typeof customAttrs?.code === 'function'
@@ -146,9 +147,11 @@ function renderSlot(slotName: string) {
       ...props,
       renderLines: renderLines.value,
       isDark,
+      nowViewBtnShow: nowViewBtnShow.value,
       toggleExpand,
       toggleTheme,
-      copyCode
+      copyCode,
+      viewCode
     });
   }
 
@@ -156,17 +159,24 @@ function renderSlot(slotName: string) {
     ...props,
     renderLines: renderLines.value,
     isDark,
+    nowViewBtnShow: nowViewBtnShow.value,
     toggleExpand,
     toggleTheme,
-    copyCode
+    copyCode,
+    viewCode
   });
 }
 
 // 计算属性
 const computedClass = computed(() => `pre-md ${preClass.value}`);
 const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
+const RunCodeComputed = computed(() => {
+  return nowCodeLanguage.value === 'html' && nowViewBtnShow.value
+    ? RunCode
+    : undefined;
+});
 const codeControllerEleComputed = computed(() => {
-  if (nowCodeLanguage.value === 'html') {
+  if (nowCodeLanguage.value === 'html' && nowViewBtnShow.value) {
     return controlHasRunCodeEle(
       () => {
         copyCode(renderLines.value);
@@ -180,6 +190,15 @@ const codeControllerEleComputed = computed(() => {
     copyCode(renderLines.value);
   });
 });
+
+watch(
+  () => nowViewBtnShow.value,
+  v => {
+    if (!v) {
+      runCodeOptions.visible = false;
+    }
+  }
+);
 </script>
 
 <template>
@@ -223,6 +242,10 @@ const codeControllerEleComputed = computed(() => {
       <span v-for="(line, index) in renderLines" :key="index" v-html="line" />
     </code>
     <!-- run-code -->
-    <RunCode v-bind="runCodeOptions" v-model:visible="runCodeOptions.visible" />
+    <component
+      :is="RunCodeComputed"
+      v-bind="runCodeOptions"
+      v-model:visible="runCodeOptions.visible"
+    />
   </div>
 </template>

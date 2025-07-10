@@ -42,4 +42,6 @@ export interface MarkdownContext {
   themeColors?: ThemeRegistrationResolved;
   // 自定义当前主题下的代码颜色配置
   colorReplacements?: InitShikiOptions['colorReplacements'];
+  // 是否显示查看代码按钮
+  needViewCodeBtn?: boolean;
 }

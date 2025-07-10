@@ -1,10 +1,7 @@
 <script lang="ts" setup>
+import type { ElxRunCodeHeaderTypes } from '../type';
 import { useVModel } from '@vueuse/core';
 import { SELECT_OPTIONS_ENUM } from './options';
-
-export interface ElxRunCodeHeaderTypes {
-  options: SELECT_OPTIONS_ENUM.CODE | SELECT_OPTIONS_ENUM.VIEW;
-}
 
 interface ElxRunCodeProps {
   value: ElxRunCodeHeaderTypes['options'];
