@@ -69,542 +69,126 @@ $$
 
 // md 代码块高亮
 export const highlightMdContent = `
+#### 切换右侧的secureViewCode进行安全预览或者不启用安全预览模式下 会呈现不同的网页预览效果
 \`\`\`html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>炫酷HTML示例</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#6366F1',
-            secondary: '#EC4899',
-            dark: '#1E293B',
-            light: '#F8FAFC'
-          },
-          fontFamily: {
-            inter: ['Inter', 'sans-serif'],
-          },
-        },
-      }
-    }
-  </script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-      .text-shadow {
-        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      }
-      .text-shadow-lg {
-        text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08);
-      }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      .animate-pulse-slow {
-        animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-      .gradient-text {
-        background-clip: text;
-        -webkit-background-clip: text;
-        color: transparent;
-      }
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-      100% { transform: translateY(0px); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫酷文字动效</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            margin: 0;
+            color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeIn 3s forwards 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-dark to-slate-800 text-light min-h-screen font-inter">
-  <!-- 导航栏 -->
-  <nav class="fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <a href="#" class="text-2xl font-bold gradient-text bg-gradient-to-r from-primary to-secondary">
-        <i class="fa fa-bolt mr-2"></i>CodeFusion
-      </a>
-      <div class="hidden md:flex space-x-8">
-        <a href="#home" class="hover:text-primary transition-colors duration-300">首页</a>
-        <a href="#features" class="hover:text-primary transition-colors duration-300">特性</a>
-        <a href="#gallery" class="hover:text-primary transition-colors duration-300">画廊</a>
-        <a href="#contact" class="hover:text-primary transition-colors duration-300">联系</a>
-      </div>
-      <button class="md:hidden text-2xl">
-        <i class="fa fa-bars"></i>
-      </button>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="text-container">
+        <h1 id="main-text">AWESOME TEXT</h1>
     </div>
-  </nav>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const text = document.getElementById('main-text');
 
-  <!-- 英雄区 -->
-  <section id="home" class="min-h-screen flex items-center justify-center relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://picsum.photos/id/1/1920/1080')] bg-cover bg-center opacity-20"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/80 to-transparent"></div>
-
-    <!-- 粒子背景 -->
-    <div id="particles-js" class="absolute inset-0"></div>
-
-    <div class="container mx-auto px-4 z-10 text-center">
-      <h1 class="text-[clamp(2.5rem,8vw,5rem)] font-bold mb-6 text-shadow-lg">
-        <span class="block gradient-text bg-gradient-to-r from-primary to-secondary">探索数字世界</span>
-        <span class="block mt-2">的无限可能</span>
-      </h1>
-      <p class="text-[clamp(1rem,3vw,1.5rem)] max-w-2xl mx-auto mb-10 text-gray-300">
-        结合创意与技术，打造令人惊叹的数字体验
-      </p>
-      <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <button class="px-8 py-3 bg-primary hover:bg-primary/90 text-white rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-primary/30">
-          开始探索
-        </button>
-        <button class="px-8 py-3 bg-transparent border-2 border-white hover:border-primary hover:text-primary rounded-full transition-all duration-300 transform hover:scale-105">
-          了解更多
-        </button>
-      </div>
-
-      <!-- 向下滚动指示器 -->
-      <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <i class="fa fa-angle-down text-3xl"></i>
-      </div>
-    </div>
-  </section>
-
-  <!-- 特性区 -->
-  <section id="features" class="py-24 bg-slate-900 relative">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4 gradient-text bg-gradient-to-r from-primary to-secondary">
-          令人惊叹的特性
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          我们提供一系列创新功能，帮助你打造出色的数字产品
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- 特性卡片 1 -->
-        <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group">
-          <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-colors duration-300">
-            <i class="fa fa-code text-2xl text-primary"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-3">现代前端技术</h3>
-          <p class="text-gray-400">
-            利用最新的前端框架和库，创建高性能、响应式的用户界面，提供卓越的用户体验。
-          </p>
-        </div>
-
-        <!-- 特性卡片 2 -->
-        <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group">
-          <div class="w-16 h-16 bg-secondary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-secondary/30 transition-colors duration-300">
-            <i class="fa fa-paint-brush text-2xl text-secondary"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-3">精美视觉设计</h3>
-          <p class="text-gray-400">
-            精心设计的视觉元素和动效，打造具有深度和层次感的界面，让用户沉浸其中。
-          </p>
-        </div>
-
-        <!-- 特性卡片 3 -->
-        <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 hover:border-primary/50 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 group">
-          <div class="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/30 transition-colors duration-300">
-            <i class="fa fa-cubes text-2xl text-primary"></i>
-          </div>
-          <h3 class="text-xl font-bold mb-3">模块化结构</h3>
-          <p class="text-gray-400">
-            采用模块化设计理念，使代码更易于维护和扩展，提高开发效率和代码质量。
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 画廊区 -->
-  <section id="gallery" class="py-24 relative">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4 gradient-text bg-gradient-to-r from-primary to-secondary">
-          创意作品集
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          浏览我们的精选作品，感受设计与技术的完美结合
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- 作品 1 -->
-        <div class="group relative overflow-hidden rounded-2xl">
-          <img src="https://picsum.photos/id/237/600/400" alt="创意设计作品" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-          <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-            <div>
-              <h3 class="text-xl font-bold mb-2">交互设计展示</h3>
-              <p class="text-gray-300">探索现代UI设计的无限可能</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 作品 2 -->
-        <div class="group relative overflow-hidden rounded-2xl">
-          <img src="https://picsum.photos/id/119/600/400" alt="网页设计作品" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-          <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-            <div>
-              <h3 class="text-xl font-bold mb-2">响应式网站</h3>
-              <p class="text-gray-300">在任何设备上都能完美展示</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 作品 3 -->
-        <div class="group relative overflow-hidden rounded-2xl">
-          <img src="https://picsum.photos/id/26/600/400" alt="移动应用设计" class="w-full h-80 object-cover transition-transform duration-700 group-hover:scale-110">
-          <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-6">
-            <div>
-              <h3 class="text-xl font-bold mb-2">移动应用界面</h3>
-              <p class="text-gray-300">直观易用的移动应用体验</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 数据可视化区 -->
-  <section class="py-24 bg-slate-900 relative">
-    <div class="container mx-auto px-4">
-      <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4 gradient-text bg-gradient-to-r from-primary to-secondary">
-          数据可视化
-        </h2>
-        <p class="text-gray-400 max-w-2xl mx-auto">
-          通过交互式图表直观展示数据趋势
-        </p>
-      </div>
-
-      <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 shadow-xl">
-        <canvas id="dataChart" height="300"></canvas>
-      </div>
-    </div>
-  </section>
-
-  <!-- 联系区 -->
-  <section id="contact" class="py-24 relative">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-6 gradient-text bg-gradient-to-r from-primary to-secondary">
-            与我们联系
-          </h2>
-          <p class="text-gray-400 mb-8">
-            无论你有什么问题或需求，我们都很乐意听取你的意见。填写表单，我们会尽快回复你。
-          </p>
-
-          <div class="space-y-6">
-            <div class="flex items-start">
-              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <i class="fa fa-map-marker text-primary"></i>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold mb-1">地址</h3>
-                <p class="text-gray-400">北京市海淀区中关村大街1号</p>
-              </div>
-            </div>
-
-            <div class="flex items-start">
-              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <i class="fa fa-envelope text-primary"></i>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold mb-1">邮箱</h3>
-                <p class="text-gray-400">contact@example.com</p>
-              </div>
-            </div>
-
-            <div class="flex items-start">
-              <div class="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <i class="fa fa-phone text-primary"></i>
-              </div>
-              <div>
-                <h3 class="text-lg font-bold mb-1">电话</h3>
-                <p class="text-gray-400">+86 10 1234 5678</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-10">
-            <h3 class="text-lg font-bold mb-4">关注我们</h3>
-            <div class="flex space-x-4">
-              <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
-                <i class="fa fa-facebook"></i>
-              </a>
-              <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
-                <i class="fa fa-twitter"></i>
-              </a>
-              <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
-                <i class="fa fa-instagram"></i>
-              </a>
-              <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors duration-300">
-                <i class="fa fa-linkedin"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-slate-800/50 backdrop-blur-sm p-8 rounded-2xl border border-slate-700 shadow-xl">
-          <form>
-            <div class="mb-6">
-              <label for="name" class="block text-sm font-medium text-gray-300 mb-2">姓名</label>
-              <input type="text" id="name" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300" placeholder="请输入你的姓名">
-            </div>
-
-            <div class="mb-6">
-              <label for="email" class="block text-sm font-medium text-gray-300 mb-2">邮箱</label>
-              <input type="email" id="email" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300" placeholder="请输入你的邮箱">
-            </div>
-
-            <div class="mb-6">
-              <label for="message" class="block text-sm font-medium text-gray-300 mb-2">留言</label>
-              <textarea id="message" rows="5" class="w-full px-4 py-3 bg-slate-900 border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all duration-300" placeholder="请输入你的留言"></textarea>
-            </div>
-
-            <button type="submit" class="w-full px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-primary/30">
-              发送留言
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 页脚 -->
-  <footer class="bg-slate-900 py-12 border-t border-slate-800">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div>
-          <h3 class="text-xl font-bold mb-4 gradient-text bg-gradient-to-r from-primary to-secondary">
-            CodeFusion
-          </h3>
-          <p class="text-gray-400 mb-6">
-            创意与技术的完美结合，打造令人惊叹的数字体验。
-          </p>
-          <p class="text-gray-500 text-sm">
-            &copy; 2025 CodeFusion. 保留所有权利。
-          </p>
-        </div>
-
-        <div>
-          <h4 class="text-lg font-bold mb-4">快速链接</h4>
-          <ul class="space-y-2">
-            <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors duration-300">首页</a></li>
-            <li><a href="#features" class="text-gray-400 hover:text-primary transition-colors duration-300">特性</a></li>
-            <li><a href="#gallery" class="text-gray-400 hover:text-primary transition-colors duration-300">画廊</a></li>
-            <li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">联系</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-lg font-bold mb-4">服务</h4>
-          <ul class="space-y-2">
-            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">网页设计</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">应用开发</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">UI/UX设计</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">品牌设计</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h4 class="text-lg font-bold mb-4">订阅更新</h4>
-          <p class="text-gray-400 mb-4">
-            订阅我们的通讯，获取最新的产品更新和优惠信息。
-          </p>
-          <form class="flex">
-            <input type="email" placeholder="你的邮箱地址" class="px-4 py-2 bg-slate-800 border border-slate-700 rounded-l-lg focus:outline-none focus:ring-1 focus:ring-primary/50 w-full">
-            <button type="submit" class="bg-primary hover:bg-primary/90 text-white px-4 rounded-r-lg transition-colors duration-300">
-              <i class="fa fa-paper-plane"></i>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- 回到顶部按钮 -->
-  <button id="backToTop" class="fixed bottom-8 right-8 bg-primary hover:bg-primary/90 text-white w-12 h-12 rounded-full flex items-center justify-center shadow-lg transform transition-all duration-300 translate-y-20 opacity-0">
-    <i class="fa fa-arrow-up"></i>
-  </button>
-
-  <!-- 粒子效果JS -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-  <script>
-    // 粒子背景初始化
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 80, density: { enable: true, value_area: 800 } },
-        color: { value: "#6366F1" },
-        shape: { type: "circle" },
-        opacity: { value: 0.5, random: true },
-        size: { value: 3, random: true },
-        line_linked: {
-          enable: true,
-          distance: 150,
-          color: "#6366F1",
-          opacity: 0.2,
-          width: 1
-        },
-        move: {
-          enable: true,
-          speed: 1,
-          direction: "none",
-          random: true,
-          straight: false,
-          out_mode: "out",
-          bounce: false
-        }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "grab" },
-          onclick: { enable: true, mode: "push" },
-          resize: true
-        },
-        modes: {
-          grab: { distance: 140, line_linked: { opacity: 0.5 } },
-          push: { particles_nb: 3 }
-        }
-      },
-      retina_detect: true
-    });
-
-    // 导航栏滚动效果
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('bg-dark/80', 'backdrop-blur-md', 'shadow-lg');
-      } else {
-        navbar.classList.remove('bg-dark/80', 'backdrop-blur-md', 'shadow-lg');
-      }
-    });
-
-    // 回到顶部按钮
-    const backToTopBtn = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.remove('translate-y-20', 'opacity-0');
-        backToTopBtn.classList.add('translate-y-0', 'opacity-100');
-      } else {
-        backToTopBtn.classList.add('translate-y-20', 'opacity-0');
-        backToTopBtn.classList.remove('translate-y-0', 'opacity-100');
-      }
-    });
-
-    backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-
-    // 平滑滚动
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-          targetElement.scrollIntoView({
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-
-    // 数据图表
-    const ctx = document.getElementById('dataChart').getContext('2d');
-    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, 'rgba(99, 102, 241, 0.4)');
-    gradient.addColorStop(1, 'rgba(99, 102, 241, 0.05)');
-
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['一月', '二月', '三月', '四月', '五月', '六月', '七月'],
-        datasets: [{
-          label: '用户增长',
-          data: [12, 19, 15, 28, 22, 35, 42],
-          borderColor: '#6366F1',
-          backgroundColor: gradient,
-          tension: 0.4,
-          fill: true,
-          pointBackgroundColor: '#6366F1',
-          pointBorderColor: '#fff',
-          pointBorderWidth: 2,
-          pointRadius: 5,
-          pointHoverRadius: 7
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            display: false
-          },
-          tooltip: {
-            backgroundColor: 'rgba(30, 41, 59, 0.9)',
-            titleColor: '#fff',
-            bodyColor: '#e2e8f0',
-            borderColor: '#6366F1',
-            borderWidth: 1,
-            padding: 12,
-            displayColors: false,
-            callbacks: {
-              label: function(context) {
-                return \`用户数: context.raw\`;
-              }
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = \`hsl(\${Math.random() * 360}, 70%, 60%)\`;
             }
-          }
-        },
-        scales: {
-          x: {
-            grid: {
-              display: false,
-              drawBorder: false
-            },
-            ticks: {
-              color: '#94a3b8'
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
             }
-          },
-          y: {
-            grid: {
-              color: 'rgba(148, 163, 184, 0.1)',
-              drawBorder: false
-            },
-            ticks: {
-              color: '#94a3b8',
-              callback: function(value) {
-                return value + 'k';
-              }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
             }
-          }
         }
-      }
-    });
-  </script>
+
+        let particles = [];
+        function init() {
+            particles = [];
+            for (let i = 0; i < 200; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = \`rgba(255,255,255,\${0.1 - distance/1000})\`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 自定义文字功能
+        text.addEventListener('click', () => {
+            const newText = prompt('输入新文字:', text.textContent);
+            if (newText) {
+                text.textContent = newText;
+                text.style.opacity = 0;
+                setTimeout(() => {
+                    text.style.opacity = 1;
+                }, 50);
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
 \`\`\`
 \`\`\`html
 <div class="product-card">

@@ -26,35 +26,61 @@ const isSafeViewCode = computed(() => {
   return context.value.secureViewCode;
 });
 
-// 核心渲染函数
 function doRenderIframe() {
   const iframe = iframeRef.value;
   if (!iframe) return;
 
   isLoading.value = true;
-  let finalHtml = allHtml.value;
 
+  const rawHtml = allHtml.value || '';
+  let sanitizedHtml = rawHtml;
+
+  // 安全模式过滤
   if (isSafeViewCode.value) {
-    const safeHTML = DOMPurify.sanitize(allHtml.value, {
+    sanitizedHtml = DOMPurify.sanitize(rawHtml, {
       WHOLE_DOCUMENT: true,
       FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
       FORBID_ATTR: ['onerror', 'onclick', 'onload', 'style']
     });
+  }
 
-    // 防止乱码
-    let htmlWithCharset = safeHTML;
-    if (!/charset=/i.test(safeHTML)) {
-      htmlWithCharset = safeHTML.replace(
+  // 检查 <head> 中是否有 UTF-8 charset
+  let finalHtml = sanitizedHtml;
+  const hasHead = /<head[^>]*>/i.test(sanitizedHtml);
+  const hasUtf8Meta =
+    /<head[^>]*>[\s\S]*?<meta\s[^>]*charset=["']?utf-8["']?/i.test(
+      sanitizedHtml
+    );
+
+  if (hasHead) {
+    if (!hasUtf8Meta) {
+      finalHtml = sanitizedHtml.replace(
         /<head[^>]*>/i,
         match => `${match}<meta charset="UTF-8">`
       );
     }
-    finalHtml = htmlWithCharset;
+  } else {
+    // 没有 <head>，插入 <head><meta charset="UTF-8"></head> 到 <html> 或最前
+    if (/<html[^>]*>/i.test(sanitizedHtml)) {
+      finalHtml = sanitizedHtml.replace(
+        /<html[^>]*>/i,
+        match => `${match}<head><meta charset="UTF-8"></head>`
+      );
+    } else {
+      // 甚至没有 <html>，包一层完整结构
+      finalHtml = `
+        <!DOCTYPE html>
+        <html>
+          <head><meta charset="UTF-8"></head>
+          <body>${sanitizedHtml}</body>
+        </html>
+      `;
+    }
   }
 
   const blob = new Blob([finalHtml], { type: 'text/html' });
 
-  if (iframe.src.startsWith('blob:')) {
+  if (iframe.src && iframe.src.startsWith('blob:')) {
     URL.revokeObjectURL(iframe.src);
   }
 
@@ -81,7 +107,7 @@ function startRender() {
 }
 
 watch(
-  () => props.nowView,
+  () => [props.nowView, isSafeViewCode.value],
   () => {
     startRender();
   },
