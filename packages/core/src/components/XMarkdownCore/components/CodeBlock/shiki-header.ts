@@ -12,6 +12,9 @@ import CopyCodeButton from './copy-code-button.vue';
 import RunCodeButton from './run-code-button.vue';
 
 export interface CodeBlockExpose {
+  /**
+   * 代码块传入的代码原始数据属性
+   */
   raw: RawProps;
   /**
    * 渲染的行
