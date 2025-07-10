@@ -13,6 +13,7 @@ export type MarkdownProps = {
   rehypePluginsAhead?: PluggableList;
   defaultThemeMode?: 'light' | 'dark';
   needViewCodeBtn?: boolean;
+  secureViewCode?: boolean;
   mermaidConfig?: Partial<MermaidToolbarConfig>;
 } & Partial<Pick<InitShikiOptions, 'langs' | 'themes' | 'colorReplacements'>> &
   Pick<

@@ -69,6 +69,127 @@ $$
 
 // md 代码块高亮
 export const highlightMdContent = `
+#### 切换右侧的secureViewCode进行安全预览或者不启用安全预览模式下 会呈现不同的网页预览效果
+\`\`\`html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫酷文字动效</title>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        .text-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            pointer-events: none;
+        }
+        h1 {
+            font-family: Arial, sans-serif;
+            font-size: clamp(2rem, 8vw, 5rem);
+            margin: 0;
+            color: white;
+            text-shadow: 0 0 10px rgba(0,0,0,0.3);
+            opacity: 0;
+            animation: fadeIn 3s forwards 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="text-container">
+        <h1 id="main-text">AWESOME TEXT</h1>
+    </div>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const text = document.getElementById('main-text');
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+                this.color = \`hsl(\${Math.random() * 360}, 70%, 60%)\`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        let particles = [];
+        function init() {
+            particles = [];
+            for (let i = 0; i < 200; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = \`rgba(255,255,255,\${0.1 - distance/1000})\`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // 自定义文字功能
+        text.addEventListener('click', () => {
+            const newText = prompt('输入新文字:', text.textContent);
+            if (newText) {
+                text.textContent = newText;
+                text.style.opacity = 0;
+                setTimeout(() => {
+                    text.style.opacity = 1;
+                }, 50);
+            }
+        });
+    </script>
+</body>
+</html>
+\`\`\`
 \`\`\`html
 <div class="product-card">
   <div class="badge">新品</div>

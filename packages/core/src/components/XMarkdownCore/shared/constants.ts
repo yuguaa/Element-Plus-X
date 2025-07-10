@@ -30,7 +30,8 @@ export const DEFAULT_PROPS = {
   defaultThemeMode: 'light' as 'light' | 'dark',
   themes: () => ({ ...shikiThemeDefault }),
   colorReplacements: () => ({}),
-  needViewCodeBtn: true
+  needViewCodeBtn: true,
+  secureViewCode: false
 };
 
 export const MARKDOWN_CORE_PROPS = {
@@ -120,5 +121,9 @@ export const MARKDOWN_CORE_PROPS = {
   needViewCodeBtn: {
     type: Boolean,
     default: true
+  },
+  secureViewCode: {
+    type: Boolean,
+    default: false
   }
 };

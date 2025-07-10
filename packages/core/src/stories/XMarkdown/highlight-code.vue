@@ -67,6 +67,10 @@ const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
                     {
                       class: 'shiki-header-button',
                       onClick: () => {
+                        if (props.raw.language !== 'html') {
+                          ElMessage.warning('当前语言不支持预览代码');
+                          return;
+                        }
                         props.viewCode(props.renderLines);
                       }
                     },

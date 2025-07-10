@@ -25,6 +25,7 @@ const meta = {
       }
     },
     needViewCodeBtn: { control: 'boolean', defaultValue: true },
+    secureViewCode: { control: 'boolean', defaultValue: false },
     defaultThemeMode: { control: 'select', options: ['light', 'dark'] },
     colorReplacements: { control: 'object' },
     mermaidConfig: { control: 'object' }
@@ -35,6 +36,7 @@ const meta = {
       ...shikiThemeDefault
     },
     needViewCodeBtn: true,
+    secureViewCode: false,
     defaultThemeMode: 'light',
     colorReplacements: {
       'vitesse-light': {
