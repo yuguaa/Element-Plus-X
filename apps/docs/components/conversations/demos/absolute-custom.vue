@@ -13,71 +13,71 @@ const menuTestItems1 = ref([
   {
     key: 'm1',
     label: '菜单测试项目 1 - 长文本效果演示文本长度溢出效果测试'.repeat(2),
-    group: '工作',
+    group: '工作'
   },
   {
     key: 'm2',
     label: '菜单测试项目 2',
     disabled: true,
-    group: '工作',
+    group: '工作'
   },
   {
     key: 'm3',
     label: '菜单测试项目 3',
-    group: '工作',
+    group: '工作'
   },
   {
     key: 'm4',
     label: '菜单测试项目 4',
-    group: '学习',
+    group: '学习'
   },
   {
     key: 'm5',
     label: '菜单测试项目 5',
-    group: '学习',
+    group: '学习'
   },
   {
     key: 'm6',
     label: '菜单测试项目 6',
-    group: '学习',
+    group: '学习'
   },
   {
     key: 'm7',
     label: '菜单测试项目 7',
-    group: '学习',
+    group: '学习'
   },
   {
     key: 'm8',
     label: '菜单测试项目 8',
-    group: '个人',
+    group: '个人'
   },
   {
     key: 'm9',
     label: '菜单测试项目 9',
-    group: '个人',
+    group: '个人'
   },
   {
     key: 'm10',
     label: '菜单测试项目 10',
-    group: '个人',
+    group: '个人'
   },
   {
     key: 'm11',
     label: '菜单测试项目 11',
-    group: '个人',
+    group: '个人'
   },
   {
     key: 'm12',
-    label: '菜单测试项目 12',
+    label: '菜单测试项目 12'
   },
   {
     key: 'm13',
-    label: '菜单测试项目 13',
+    label: '菜单测试项目 13'
   },
   {
     key: 'm14',
-    label: '菜单测试项目 14',
-  },
+    label: '菜单测试项目 14'
+  }
 ]);
 const conversationMenuItems1 = [
   {
@@ -87,22 +87,22 @@ const conversationMenuItems1 = [
     command: {
       self_id: '1',
       self_message: '编辑',
-      self_type: 'text',
-    },
+      self_type: 'text'
+    }
   },
   {
     key: 'delete',
     label: '删除',
     icon: '🍎',
     disabled: true,
-    divided: true,
+    divided: true
   },
   {
     key: 'share',
     label: '分享',
     icon: '🍆',
-    command: 'share',
-  },
+    command: 'share'
+  }
 ];
 
 const activeKey5 = ref('m1');
@@ -111,11 +111,16 @@ const activeKey5 = ref('m1');
 const customGroupOptions: GroupableOptions = {
   // 自定义分组排序，学习 > 工作 > 个人 > 未分组
   sort: (a: any, b: any) => {
-    const order: Record<string, number> = { 学习: 0, 工作: 1, 个人: 2, 未分组: 3 };
+    const order: Record<string, number> = {
+      学习: 0,
+      工作: 1,
+      个人: 2,
+      未分组: 3
+    };
     const orderA = order[a] !== undefined ? order[a] : 999;
     const orderB = order[b] !== undefined ? order[b] : 999;
     return orderA - orderB;
-  },
+  }
 };
 
 // 处理菜单点击
@@ -140,7 +145,7 @@ function handleMenuClick(menuKey: string, item: any) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px; height: 420px;">
+  <div style="display: flex; flex-direction: column; gap: 12px; height: 420px">
     <Conversations
       v-model:active="activeKey5"
       :items="menuTestItems1"
@@ -160,25 +165,25 @@ function handleMenuClick(menuKey: string, item: any) {
         boxShadow: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
         transition: 'all 0.3s',
         marginBottom: '20px',
-        border: '2px dashed transparent',
+        border: '2px dashed transparent'
       }"
       :items-hover-style="{
         background: '#FAFAD2',
-        border: '2px dashed #006400',
+        border: '2px dashed #006400'
       }"
       :items-active-style="{
         background: '#006400',
         color: '#FFFAFA',
-        border: '2px dashed transparent',
+        border: '2px dashed transparent'
       }"
       :items-menu-opened-style="{
-        border: '2px dashed transparent',
+        border: '2px dashed transparent'
       }"
       :menu-style="{
         backgroundColor: 'red',
         boxShadow: '0 2px 12px 0 rgba(0, 0, 0, 0.1)',
         padding: '10px 20px',
-        height: '200px',
+        height: '200px'
       }"
     >
       <template #label="{ item }">
@@ -198,7 +203,9 @@ function handleMenuClick(menuKey: string, item: any) {
         </div>
       </template>
 
-      <template #more-filled="{ item, isHovered, isActive, isMenuOpened, isDisabled }">
+      <template
+        #more-filled="{ item, isHovered, isActive, isMenuOpened, isDisabled }"
+      >
         <span v-if="isHovered">✍️</span>
         <span v-if="isActive">✅</span>
         <span v-if="isMenuOpened">🥰</span>
@@ -212,7 +219,7 @@ function handleMenuClick(menuKey: string, item: any) {
             fontSize: '12px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
+            justifyContent: 'center'
           }"
         >
           🫥是否禁用：{{ item?.disabled }}
@@ -236,7 +243,7 @@ function handleMenuClick(menuKey: string, item: any) {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .custom-group-title {
   display: flex;
   align-items: center;

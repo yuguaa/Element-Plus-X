@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <span>设置 name 属性, 且 name 没有后缀。name="测试文件"</span>
     <FilesCard ref="filesCardRef" name="测试文件" />
     <span>设置 name 属性，有文件后缀。name="测试文件.pdf"</span>
@@ -58,7 +58,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .files-card-container {
   display: flex;
   flex-wrap: wrap;

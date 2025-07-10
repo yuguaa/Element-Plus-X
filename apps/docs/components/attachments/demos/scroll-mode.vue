@@ -7,7 +7,10 @@ title: 滚动模式
 </docs>
 
 <script setup lang="ts">
-import type { FilesCardProps, FilesType } from 'vue-element-plus-x/types/FilesCard';
+import type {
+  FilesCardProps,
+  FilesType
+} from 'vue-element-plus-x/types/FilesCard';
 import { ref } from 'vue';
 
 type SelfFilesCardProps = FilesCardProps & {
@@ -30,7 +33,7 @@ const colorMap: Record<FilesType, string> = {
   link: '#5D7CBA',
   zip: '#8B5E3C',
   file: '#AAB2BF',
-  unknown: '#888888',
+  unknown: '#888888'
 };
 
 const files = ref<SelfFilesCardProps[]>([]);
@@ -43,12 +46,14 @@ onMounted(() => {
       uid: index,
       name: `文件${index}`,
       fileSize: 1024 * 2,
-      fileType: typeList[Math.floor(Math.random() * typeList.length)] as FilesType,
+      fileType: typeList[
+        Math.floor(Math.random() * typeList.length)
+      ] as FilesType,
       // description: `描述 ${index}`,
       url: 'https://www.baidu.com',
       thumbUrl: 'https://www.baidu.com',
       imgFile: new File([], 'test.txt'),
-      showDelIcon: true,
+      showDelIcon: true
     });
   }
 });
@@ -89,7 +94,7 @@ async function handleHttpRequest(options: any) {
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
-      imgFile: options.file,
+      imgFile: options.file
     };
     files.value.push({
       id: files.value.length,
@@ -98,7 +103,7 @@ async function handleHttpRequest(options: any) {
       fileSize: res.fileSize,
       imgFile: res.imgFile,
       showDelIcon: true,
-      imgVariant: 'square',
+      imgVariant: 'square'
     });
     ElMessage.success('上传成功');
   }, 1000);
@@ -112,7 +117,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <div>scrollX</div>
     <Attachments
       :file-list="files"
@@ -153,5 +158,4 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

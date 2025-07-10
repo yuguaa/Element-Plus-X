@@ -109,7 +109,7 @@ function handleCancel() {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .action-list-self-wrap {
   display: flex;
   align-items: center;

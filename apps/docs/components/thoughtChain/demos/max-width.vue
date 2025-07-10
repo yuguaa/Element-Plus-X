@@ -26,14 +26,16 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isDefaultExpand: true,
     title: '成功-主标题',
     thinkTitle: '思考内容标题-默认展开',
-    thinkContent: '进行搜索文字'.repeat(20),
-  },
+    thinkContent: '进行搜索文字'.repeat(20)
+  }
 ];
 </script>
 
 <template>
-  <ThoughtChain :thinking-items="thinkingItems" max-width="calc(100% - 300px)" />
+  <ThoughtChain
+    :thinking-items="thinkingItems"
+    max-width="calc(100% - 300px)"
+  />
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

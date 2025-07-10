@@ -29,7 +29,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isDefaultExpand: true,
     title: '成功-主标题',
     thinkTitle: '思考内容标题-默认展开',
-    thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '2',
@@ -38,7 +38,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: false,
     thinkTitle: '思考内容标题',
-    thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '3',
@@ -47,7 +47,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: false,
     thinkTitle: '思考内容标题',
-    thinkContent: '进行搜索文字'.repeat(10),
+    thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '4',
@@ -56,8 +56,8 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: true,
     thinkTitle: '思考内容标题',
-    thinkContent: '进行搜索文字'.repeat(10),
-  },
+    thinkContent: '进行搜索文字'.repeat(10)
+  }
 ];
 </script>
 
@@ -65,5 +65,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   <ThoughtChain :thinking-items="thinkingItems" row-key="codeId" />
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

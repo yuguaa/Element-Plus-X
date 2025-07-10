@@ -35,4 +35,4 @@ title: variant 属性
   </div>
 </template>
 
-<style scoped lang="less"></style>
+<style module lang="less"></style>
