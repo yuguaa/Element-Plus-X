@@ -15,21 +15,19 @@ const colorReplacementsComputed = computed(() => {
 </script>
 
 <template>
-  <div class="elx-xmarkdown-container">
-    <MarkdownRendererAsync
-      v-bind="props"
-      :color-replacements="colorReplacementsComputed"
+  <MarkdownRendererAsync
+    v-bind="props"
+    :color-replacements="colorReplacementsComputed"
+  >
+    <template
+      v-for="(slot, name) in customComponents"
+      :key="name"
+      #[name]="slotProps"
     >
-      <template
-        v-for="(slot, name) in customComponents"
-        :key="name"
-        #[name]="slotProps"
-      >
-        <component :is="slot" v-bind="slotProps" />
-      </template>
-      <template v-for="(_, name) in slots" :key="name" #[name]="slotProps">
-        <slot :name="name" v-bind="slotProps" />
-      </template>
-    </MarkdownRendererAsync>
-  </div>
+      <component :is="slot" v-bind="slotProps" />
+    </template>
+    <template v-for="(_, name) in slots" :key="name" #[name]="slotProps">
+      <slot :name="name" v-bind="slotProps" />
+    </template>
+  </MarkdownRendererAsync>
 </template>
