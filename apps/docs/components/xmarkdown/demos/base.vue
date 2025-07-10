@@ -6,7 +6,7 @@ title: 基础用法
 快速渲染一个 Markdown 基础的文本。内置了行内代码、代码块、数学公式函数（行/块）、mermaid 图表等基础样式。
 
 :::warning
-支持增量更新，可以在控制台查看节点的更新变化。
+支持增量更新，可以在控制台查看节点的更新变化。以下代码示例为展示增量更新效果，模拟流式接收字符的逻辑。
 :::
 </docs>
 
@@ -88,7 +88,7 @@ pie
 `);
 
 const timer = ref();
-const index = ref(0);
+const index = ref(markdown.value.length); // 默认显示所有内容
 
 const content = computed(() => {
   return markdown.value.slice(0, index.value);

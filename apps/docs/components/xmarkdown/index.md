@@ -6,6 +6,12 @@
 
 :::warning
 该组件支持**增量更新**，**支持自定义**。更多的样式内置和组件的自定义🥰
+目前该组件正在最新的 `1.2.27-beta` 版本，请使用以下命令安装
+
+```npm
+pnpm add vue-element-plus-x@1.2.27-beta
+```
+
 :::
 
 ## 代码演示
@@ -14,13 +20,31 @@
 
 <demo src="./demos/base.vue"></demo>
 
-### 覆盖样式
+### 设置默认 高亮/暗黑
+
+<demo src="./demos/default-theme-mode.vue"></demo>
+
+### 内置 shiki 主题
+
+代码块高亮内置了多套主题供选择。
+
+<demo src="./demos/shiki-style.vue"></demo>
+
+### 单独定义代码块高亮样式
+
+<demo src="./demos/color-replacements.vue"></demo>
+
+### 统一覆盖样式
 
 <demo src="./demos/base-style.vue"></demo>
+
+下面使用 `github` 样式文件统一覆盖样式做一个示例
 
 ### github 样式
 
 <demo src="./demos/github-style.vue"></demo>
+
+如果你想单独控制代码块高亮的样式，可以这样：
 
 ### allowHtml
 
@@ -55,6 +79,10 @@
 ### 插槽 标签拦截
 
 <demo src="./demos/slot.vue"></demo>
+
+### 内置的代码块语言
+
+<demo src="./demos/lang.vue"></demo>
 
 ## 属性
 
