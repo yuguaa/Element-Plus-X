@@ -1,10 +1,12 @@
 import type { Component, Ref, VNode } from 'vue';
+import type { RawProps } from './types';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h } from 'vue';
 import CopyCodeButton from './copy-code-button.vue';
 
 export interface CodeBlockExpose {
+  raw: RawProps;
   renderLines: Array<string>;
   isDark: Ref<boolean>;
   toggleExpand: (ev: MouseEvent) => void;
