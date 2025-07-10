@@ -145,6 +145,20 @@ pie
 export const mathMdContent = `
 ### mermaid 流程图
 \`\`\`mermaid
+graph LR
+    1 --> 2
+    2 --> 3
+    3 --> 4
+    2 --> 1
+    2-3 --> 1-3
+\`\`\`
+\`\`\`mermaid
+flowchart TD
+    Start[开始] --> Check[是否通过？]
+    Check -- 是 --> Pass[流程继续]
+    Check -- 否 --> Reject[流程结束]
+\`\`\`
+\`\`\`mermaid
 flowchart TD
     %% 前端专项四层结构
     A["战略层
