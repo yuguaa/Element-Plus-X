@@ -166,7 +166,7 @@ function handleRecordingChange() {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .sender-wrapper {
   width: 100%;
   height: 95vh;

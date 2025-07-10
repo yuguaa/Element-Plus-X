@@ -259,4 +259,4 @@ const selfMermaidConfig = {
   </div>
 </template>
 
-<style scoped lang="less"></style>
+<style module lang="less"></style>

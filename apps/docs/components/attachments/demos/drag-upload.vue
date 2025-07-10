@@ -22,16 +22,19 @@ const isFull = ref(false);
 
 const dragArea = ref();
 
-watch(() => isFull.value, () => {
-  console.log('isFull.value', isFull.value);
+watch(
+  () => isFull.value,
+  () => {
+    console.log('isFull.value', isFull.value);
 
-  if (isFull.value) {
-    dragArea.value = document.body;
-  }
-  else {
-    dragArea.value = 'drag-area';
-  }
-}, { immediate: true, deep: true });
+    if (isFull.value) {
+      dragArea.value = document.body;
+    } else {
+      dragArea.value = 'drag-area';
+    }
+  },
+  { immediate: true, deep: true }
+);
 
 function handleBeforUpload(file: any) {
   console.log('befor', file);
@@ -69,7 +72,7 @@ async function handleHttpRequest(options: any) {
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
-      imgFile: options.file,
+      imgFile: options.file
     };
     files.value.push({
       id: files.value.length,
@@ -78,7 +81,7 @@ async function handleHttpRequest(options: any) {
       fileSize: res.fileSize,
       imgFile: res.imgFile,
       showDelIcon: true,
-      imgVariant: 'square',
+      imgVariant: 'square'
     });
     ElMessage.success('上传成功');
   }, 1000);
@@ -92,7 +95,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <p>设置全屏拖拽上传：<el-switch v-model="isFull" /></p>
     <Attachments
       :file-list="files"
@@ -106,11 +109,21 @@ function handleDeleteCard(item: SelfFilesCardProps) {
       @delete-card="handleDeleteCard"
     />
 
-    <div id="drag-area" style="border: 2px dashed #ccc; padding: 20px; height: 250px; text-align: center; display: flex; align-items: center; justify-content: center;">
+    <div
+      id="drag-area"
+      style="
+        border: 2px dashed #ccc;
+        padding: 20px;
+        height: 250px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      "
+    >
       在此处拖拽文件上传
     </div>
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

@@ -28,8 +28,8 @@ function focus(type = 'all') {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex">
       <el-button dark type="success" plain @click="focus('start')">
         文本最前方
       </el-button>
@@ -39,15 +39,13 @@ function focus(type = 'all') {
       <el-button dark type="success" plain @click="focus('all')">
         整个文本
       </el-button>
-      <el-button dark type="success" plain @click="blur">
-        失去焦点
-      </el-button>
+      <el-button dark type="success" plain @click="blur"> 失去焦点 </el-button>
     </div>
     <Sender ref="senderRef" v-model="senderValue" />
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .header-self-wrap {
   display: flex;
   flex-direction: column;

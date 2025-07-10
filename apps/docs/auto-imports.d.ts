@@ -18,7 +18,6 @@ declare global {
   const effectScope: (typeof import('vue'))['effectScope'];
   const getCurrentInstance: (typeof import('vue'))['getCurrentInstance'];
   const getCurrentScope: (typeof import('vue'))['getCurrentScope'];
-  const h: (typeof import('vue'))['h'];
   const inject: (typeof import('vue'))['inject'];
   const isProxy: (typeof import('vue'))['isProxy'];
   const isReactive: (typeof import('vue'))['isReactive'];
@@ -61,7 +60,6 @@ declare global {
   const useModel: (typeof import('vue'))['useModel'];
   const useSlots: (typeof import('vue'))['useSlots'];
   const useTemplateRef: (typeof import('vue'))['useTemplateRef'];
-  const vueH: (typeof import('vue'))['h'];
   const watch: (typeof import('vue'))['watch'];
   const watchEffect: (typeof import('vue'))['watchEffect'];
   const watchPostEffect: (typeof import('vue'))['watchPostEffect'];

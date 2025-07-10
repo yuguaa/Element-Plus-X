@@ -52,7 +52,7 @@ async function handleHttpRequest(options: any) {
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
-      imgFile: options.file,
+      imgFile: options.file
     };
     files.value.push({
       id: files.value.length,
@@ -61,7 +61,7 @@ async function handleHttpRequest(options: any) {
       fileSize: res.fileSize,
       imgFile: res.imgFile,
       showDelIcon: true,
-      imgVariant: 'square',
+      imgVariant: 'square'
     });
     ElMessage.success('上传成功');
   }, 1000);
@@ -75,7 +75,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Attachments
       :file-list="files"
       :http-request="handleHttpRequest"
@@ -88,11 +88,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
     >
       <template #file-list="{ items }">
         <div class="custom-list">
-          <div
-            v-for="(item, index) in items"
-            :key="index"
-            class="custom-item"
-          >
+          <div v-for="(item, index) in items" :key="index" class="custom-item">
             <div class="custom-item-name">
               {{ item.name }}
             </div>
@@ -103,7 +99,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .custom-list {
   display: flex;
   gap: 12px;

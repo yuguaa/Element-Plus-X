@@ -6,8 +6,7 @@ title: content 属性
 通过 `content` 属性可以设置内容展示
 </docs>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div>
@@ -15,5 +14,4 @@ title: content 属性
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

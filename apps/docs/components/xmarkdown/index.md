@@ -2,10 +2,19 @@
 
 ## 介绍
 
-`XMarkdown` 这个组件内置了**行内代码**、**代码块**、**数学公式函数（行/块）**、**mermaid 图表**等基础样式。在这个开发文档中，有一些样式的演示可能不是很好，但是应该不会影响集成的使用。如果有集成或一些使用问题，可以进 👉[交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) 获取最新的技术支持。
+`XMarkdown` 这个组件内置了**行内代码**、**代码块**、**数学公式函数（行/块）**、**mermaid 图表**等基础样式。
 
 :::warning
+
+⚠️ 在这个开发文档中，有一些样式的演示可能不是很好，但是应该不会影响集成的使用。如果有集成或一些使用问题，可以进 👉[交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) 获取最新的技术支持。
+
 该组件支持**增量更新**，**支持自定义**。更多的样式内置和组件的自定义🥰
+目前该组件正在最新的 `1.2.27-beta` 版本，请使用以下命令安装
+
+```npm
+pnpm add vue-element-plus-x@1.2.27-beta
+```
+
 :::
 
 ## 代码演示
@@ -14,13 +23,31 @@
 
 <demo src="./demos/base.vue"></demo>
 
-### 覆盖样式
+### 设置默认 高亮/暗黑
+
+<demo src="./demos/default-theme-mode.vue"></demo>
+
+### 内置 shiki 主题
+
+代码块高亮内置了多套主题供选择。
+
+<demo src="./demos/shiki-style.vue"></demo>
+
+### 单独定义代码块高亮样式
+
+<demo src="./demos/color-replacements.vue"></demo>
+
+### 统一覆盖样式
 
 <demo src="./demos/base-style.vue"></demo>
+
+下面使用 `github` 样式文件统一覆盖样式做一个示例
 
 ### github 样式
 
 <demo src="./demos/github-style.vue"></demo>
+
+如果你想单独控制代码块高亮的样式，可以这样：
 
 ### allowHtml
 
@@ -33,6 +60,10 @@
 ### enableBreaks
 
 <demo src="./demos/enable-breaks.vue"></demo>
+
+<!-- ### 预览 html 代码块（内测）
+
+<demo src="./demos/view-html.vue"></demo> -->
 
 ### 自定义代码块渲染
 
@@ -55,6 +86,10 @@
 ### 插槽 标签拦截
 
 <demo src="./demos/slot.vue"></demo>
+
+### 内置的代码块语言
+
+<demo src="./demos/lang.vue"></demo>
 
 ## 属性
 

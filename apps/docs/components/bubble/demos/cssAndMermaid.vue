@@ -8,7 +8,8 @@ title: 渲染 markdown 文本内容
 
 <script setup lang="ts">
 const avatarUser = 'https://avatars.githubusercontent.com/u/76239030?v=4';
-const markdownText = ref(`#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n \`\`\`mermaid
+const markdownText =
+  ref(`#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n \`\`\`mermaid
  pie title Pets adopted by volunteers
     "Dogs" : 386
     "Cats" : 85
@@ -30,19 +31,16 @@ const markdownText = ref(`#### 标题 \n 这是一个 Markdown 示例。\n - 列
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Bubble :content="markdownText" typing is-markdown>
       <template #avatar>
-        <el-avatar
-          :size="32"
-          :src="avatarUser"
-        />
+        <el-avatar :size="32" :src="avatarUser" />
       </template>
     </Bubble>
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 :deep(.markdown-body) {
   background-color: transparent;
 }

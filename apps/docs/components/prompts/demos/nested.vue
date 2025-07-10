@@ -22,10 +22,10 @@ onMounted(() => {
       disabled: false,
       itemStyle: {
         width: `calc(100% / ${3} - 43px)`,
-        backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`,
+        backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`
       },
       itemHoverStyle: {
-        cursor: 'unset',
+        cursor: 'unset'
         // background: '#409EFF',
         // color: '#fff',
       },
@@ -41,10 +41,10 @@ onMounted(() => {
           disabled: false,
           itemStyle: {
             backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`,
-            border: '1px solid #FFF',
+            border: '1px solid #FFF'
           },
           itemHoverStyle: {
-            cursor: 'unset',
+            cursor: 'unset'
           },
           children: [
             {
@@ -54,8 +54,8 @@ onMounted(() => {
               disabled: false,
               itemStyle: {
                 background: 'rgba(255,255,255,0.45)',
-                border: '1px solid #FFF',
-              },
+                border: '1px solid #FFF'
+              }
             },
             {
               key: `${index}-1-2`,
@@ -64,8 +64,8 @@ onMounted(() => {
               disabled: false,
               itemStyle: {
                 background: 'rgba(255,255,255,0.45)',
-                border: '1px solid #',
-              },
+                border: '1px solid #'
+              }
             },
             {
               key: `${index}-1-3`,
@@ -74,10 +74,10 @@ onMounted(() => {
               disabled: false,
               itemStyle: {
                 background: 'rgba(255,255,255,0.45)',
-                border: '1px solid #FFF',
-              },
-            },
-          ],
+                border: '1px solid #FFF'
+              }
+            }
+          ]
         },
         {
           key: `${index}-2`,
@@ -86,8 +86,8 @@ onMounted(() => {
           disabled: false,
           itemStyle: {
             background: 'rgba(255,255,255,0.45)',
-            border: '1px solid #FFF',
-          },
+            border: '1px solid #FFF'
+          }
         },
         {
           key: `${index}-3`,
@@ -96,10 +96,10 @@ onMounted(() => {
           disabled: false,
           itemStyle: {
             background: 'rgba(255,255,255,0.45)',
-            border: '1px solid #FFF',
-          },
-        },
-      ],
+            border: '1px solid #FFF'
+          }
+        }
+      ]
     });
   }
 });
@@ -110,7 +110,7 @@ function handleItemClick(item: PromptsItemsProps) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Prompts
       title="🐛 提示集组件标题"
       :items="items"
@@ -120,5 +120,4 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>
