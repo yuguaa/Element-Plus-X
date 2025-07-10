@@ -4,6 +4,7 @@ import type {
   ElxRunCodeContentExposeProps,
   ElxRunCodeExposeProps
 } from '../RunCode/type';
+import type { RawProps } from './types';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h } from 'vue';
@@ -11,6 +12,7 @@ import CopyCodeButton from './copy-code-button.vue';
 import RunCodeButton from './run-code-button.vue';
 
 export interface CodeBlockExpose {
+  raw: RawProps;
   /**
    * 渲染的行
    */

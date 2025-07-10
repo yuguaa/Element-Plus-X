@@ -40,7 +40,7 @@ const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
       'span',
       { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
       {
-        default: () => '点击切换折叠状态'
+        default: () => `点击切换折叠状态--${props.raw.language}`
       }
     );
   },
