@@ -13,10 +13,9 @@ function handleDel() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <FilesCard name="删除测试文件.md" show-del-icon @delete="handleDel" />
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

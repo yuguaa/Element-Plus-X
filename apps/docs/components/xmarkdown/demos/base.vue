@@ -131,8 +131,8 @@ onMounted(() => {
       <el-button @click="pause"> 暂停 </el-button>
       <el-button @click="redo"> 重新开始 </el-button>
     </div>
-    <XMarkdown :markdown="content" />
+    <XMarkdown :markdown="content" class="vp-raw" />
   </div>
 </template>
 
-<style scoped lang="less"></style>
+<style module lang="less"></style>

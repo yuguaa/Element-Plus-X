@@ -29,4 +29,4 @@ title: 基础用法
   </div>
 </template>
 
-<style scoped lang="less"></style>
+<style module lang="less"></style>

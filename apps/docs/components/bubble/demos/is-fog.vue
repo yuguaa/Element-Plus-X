@@ -10,7 +10,9 @@ title: 雾化效果
 
 <script setup lang="ts">
 const avatarUser = 'https://avatars.githubusercontent.com/u/76239030?v=4';
-const content = ref(`## 🔥Element-Plus-X \n 🥰 感谢使用 Element-Plus-X! \n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n`);
+const content = ref(
+  `## 🔥Element-Plus-X \n 🥰 感谢使用 Element-Plus-X! \n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n`
+);
 
 function changeContent(type: number) {
   content.value = '';
@@ -18,8 +20,7 @@ function changeContent(type: number) {
   setTimeout(() => {
     if (type === 1) {
       content.value = `## 🔥Element-Plus-X \n 🥰 感谢使用 Element-Plus-X! \n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n`;
-    }
-    else if (type === 2) {
+    } else if (type === 2) {
       content.value = `🔥Element-Plus-X `.repeat(10);
     }
   }, 80);
@@ -27,17 +28,19 @@ function changeContent(type: number) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex; gap: 12px;">
-      <el-button style="width: fit-content;" @click="changeContent(1)">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; gap: 12px">
+      <el-button style="width: fit-content" @click="changeContent(1)">
         雾化 markdown
       </el-button>
-      <el-button style="width: fit-content;" @click="changeContent(2)">
+      <el-button style="width: fit-content" @click="changeContent(2)">
         雾化 text
       </el-button>
     </div>
     <Bubble
-      :content="content" :typing="{ step: 3, interval: 80, suffix: '💩' }" is-markdown
+      :content="content"
+      :typing="{ step: 3, interval: 80, suffix: '💩' }"
+      is-markdown
       :is-fog="{ bgColor: '#f5f5f5' }"
     >
       <template #avatar>
@@ -47,7 +50,7 @@ function changeContent(type: number) {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 :deep(.markdown-body) {
   background-color: transparent;
 }

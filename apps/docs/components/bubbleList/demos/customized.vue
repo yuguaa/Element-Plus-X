@@ -7,7 +7,10 @@ title: 自定义列表展示
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList';
+import type {
+  BubbleListItemProps,
+  BubbleListProps
+} from 'vue-element-plus-x/types/BubbleList';
 import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue';
 
 type listType = BubbleListItemProps & {
@@ -16,9 +19,13 @@ type listType = BubbleListItemProps & {
 };
 
 // 示例调用
-const bubbleItems = ref<BubbleListProps<listType>['list']>(generateFakeItems(5));
+const bubbleItems = ref<BubbleListProps<listType>['list']>(
+  generateFakeItems(5)
+);
 const avatar = ref('https://avatars.githubusercontent.com/u/76239030?v=4');
-const avartAi = ref('https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png');
+const avartAi = ref(
+  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+);
 const switchValue = ref(false);
 const loading = ref(false);
 
@@ -32,7 +39,7 @@ function generateFakeItems(count: number): listType[] {
       key,
       role,
       placement,
-      noStyle: true, // 如果你不想用默认的气泡样式
+      noStyle: true // 如果你不想用默认的气泡样式
     });
   }
   return messages;
@@ -46,16 +53,21 @@ function setLoading(loading: boolean) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; gap: 12px">
       <span>动态设置内容 <el-switch v-model="switchValue" /></span>
-      <span>自定义 loading <el-switch v-model="loading" @change="(value: any) => setLoading(value as boolean)" /></span>
+      <span
+        >自定义 loading
+        <el-switch
+          v-model="loading"
+          @change="(value: any) => setLoading(value as boolean)"
+      /></span>
     </div>
     <BubbleList :list="bubbleItems" max-height="350px">
       <!-- 自定义头像 -->
       <template #avatar="{ item }">
         <div class="avatar-wrapper">
-          <img :src="item.role === 'ai' ? avartAi : avatar" alt="avatar">
+          <img :src="item.role === 'ai' ? avartAi : avatar" alt="avatar" />
         </div>
       </template>
 
@@ -72,7 +84,11 @@ function setLoading(loading: boolean) {
       <template #content="{ item }">
         <div class="content-wrapper">
           <div class="content-text">
-            {{ item.role === 'ai' ? `${switchValue ? `#ai-${item.key}：` : ''} 💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~` : `${switchValue ? `#user-${item.key}：` : ''}哈哈哈，让我试试` }}
+            {{
+              item.role === 'ai'
+                ? `${switchValue ? `#ai-${item.key}：` : ''} 💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~`
+                : `${switchValue ? `#user-${item.key}：` : ''}哈哈哈，让我试试`
+            }}
           </div>
         </div>
       </template>
@@ -84,7 +100,12 @@ function setLoading(loading: boolean) {
             <el-button type="info" :icon="Refresh" size="small" circle />
             <el-button type="success" :icon="Search" size="small" circle />
             <el-button type="warning" :icon="Star" size="small" circle />
-            <el-button color="#626aef" :icon="DocumentCopy" size="small" circle />
+            <el-button
+              color="#626aef"
+              :icon="DocumentCopy"
+              size="small"
+              circle
+            />
           </div>
           <div class="footer-time">
             {{ item.role === 'ai' ? '下午 2:32' : '下午 2:33' }}
@@ -113,7 +134,7 @@ function setLoading(loading: boolean) {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .avatar-wrapper {
   width: 40px;
   height: 40px;

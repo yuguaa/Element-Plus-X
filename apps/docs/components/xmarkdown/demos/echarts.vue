@@ -96,7 +96,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .echarts-wrap {
   position: relative;
 

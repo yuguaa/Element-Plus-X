@@ -17,7 +17,7 @@ themes: {
 :::warning
 重新设置主题后，可能需要刷新页面才会生效。以下列举了所有内置的 `shiki` 样式所对应的 `主题ID`。如果你是 ts 项目，开发中应该可以获取到内置的样式主题的类型推断提示。
 
-<img src="./image1.png" width="100%">
+<img src="https://cdn.element-plus-x.com/shiki-style.png" width="100%">
 :::
 
 | 名称（Name） | 中文翻译 | 对应值（`主题ID`） |
@@ -101,4 +101,4 @@ console.log('hello world');
   </div>
 </template>
 
-<style scoped lang="less"></style>
+<style module lang="less"></style>
