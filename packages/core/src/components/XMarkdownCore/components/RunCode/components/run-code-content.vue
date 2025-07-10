@@ -2,6 +2,7 @@
 import type { ElxRunCodeContentProps } from '../type';
 import DOMPurify from 'dompurify';
 import _ from 'lodash';
+import { useMarkdownContext } from '../../MarkdownProvider';
 import CustomLoading from './custom-loading.vue';
 import { SELECT_OPTIONS_ENUM } from './options';
 
@@ -19,29 +20,39 @@ const codeContainerRef = ref<HTMLElement>();
 
 const isLoading = ref(false);
 
+const context = useMarkdownContext();
+
+const isSafeViewCode = computed(() => {
+  return context.value.secureViewCode;
+});
+
 // 核心渲染函数
 function doRenderIframe() {
   const iframe = iframeRef.value;
   if (!iframe) return;
 
   isLoading.value = true;
+  let finalHtml = allHtml.value;
 
-  const safeHTML = DOMPurify.sanitize(allHtml.value, {
-    WHOLE_DOCUMENT: true,
-    FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
-    FORBID_ATTR: ['onerror', 'onclick', 'onload', 'style']
-  });
+  if (isSafeViewCode.value) {
+    const safeHTML = DOMPurify.sanitize(allHtml.value, {
+      WHOLE_DOCUMENT: true,
+      FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
+      FORBID_ATTR: ['onerror', 'onclick', 'onload', 'style']
+    });
 
-  // 防止乱码
-  let htmlWithCharset = safeHTML;
-  if (!/charset=/i.test(safeHTML)) {
-    htmlWithCharset = safeHTML.replace(
-      /<head[^>]*>/i,
-      match => `${match}<meta charset="UTF-8">`
-    );
+    // 防止乱码
+    let htmlWithCharset = safeHTML;
+    if (!/charset=/i.test(safeHTML)) {
+      htmlWithCharset = safeHTML.replace(
+        /<head[^>]*>/i,
+        match => `${match}<meta charset="UTF-8">`
+      );
+    }
+    finalHtml = htmlWithCharset;
   }
 
-  const blob = new Blob([htmlWithCharset], { type: 'text/html' });
+  const blob = new Blob([finalHtml], { type: 'text/html' });
 
   if (iframe.src.startsWith('blob:')) {
     URL.revokeObjectURL(iframe.src);

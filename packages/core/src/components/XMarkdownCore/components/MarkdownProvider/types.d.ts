@@ -44,4 +44,6 @@ export interface MarkdownContext {
   colorReplacements?: InitShikiOptions['colorReplacements'];
   // 是否显示查看代码按钮
   needViewCodeBtn?: boolean;
+  // 是否是安全模式预览html
+  secureViewCode?: boolean;
 }
