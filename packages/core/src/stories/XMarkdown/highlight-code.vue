@@ -15,7 +15,7 @@ const timer = ref();
 const index = ref(0);
 function start() {
   timer.value = setInterval(() => {
-    index.value += 10;
+    index.value += 100;
     if (index.value > props.markdown.length) {
       clearInterval(timer.value);
       index.value = props.markdown.length;

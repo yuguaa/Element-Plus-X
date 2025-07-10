@@ -3,15 +3,25 @@
   width: 800px !important;
 }
 
+// 媒体查询
+
+@media (max-width: 768px) {
+  .elx-run-code-dialog,
+  .elx-run-code-drawer {
+    width: 100% !important;
+  }
+}
+
 .elx-run-code-dialog {
+  background-color: var(--shiki-code-header-bg);
   .el-dialog__body {
     overflow: auto;
-    border: 1px solid var(--el-border-color);
     border-radius: var(--shiki-custom-brr);
   }
 }
 
 .elx-run-code-drawer {
+  background-color: var(--shiki-code-header-bg);
   .el-drawer__body {
     overflow: auto;
     border-radius: var(--shiki-custom-brr);

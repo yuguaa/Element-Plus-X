@@ -21,6 +21,8 @@ declare module 'vue' {
     Conversations: typeof import('./src/components/Conversations/index.vue')['default']
     copy: typeof import('./src/components/XMarkdownCore/components/CodeBlock/run-code-button copy.vue')['default']
     CopyCodeButton: typeof import('./src/components/XMarkdownCore/components/CodeBlock/copy-code-button.vue')['default']
+    CustomEmpty: typeof import('./src/components/XMarkdownCore/components/RunCode/components/custom-empty.vue')['default']
+    CustomLoading: typeof import('./src/components/XMarkdownCore/components/RunCode/components/custom-loading.vue')['default']
     Database: typeof import('./src/components/FilesCard/fileSvg/database.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']

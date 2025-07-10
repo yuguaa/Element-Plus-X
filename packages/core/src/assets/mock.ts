@@ -241,6 +241,9 @@ export const highlightMdContent = `
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>简易课程表</title>
+    <script>
+     alert('这是一个简单的课程表');
+    </script>
     <style>
         * {
             box-sizing: border-box;

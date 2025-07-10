@@ -3,6 +3,19 @@
   --el-border-radius-base: var(--shiki-custom-brr);
 }
 
+body.dark {
+  .custom-style .el-segmented {
+    --el-segmented-item-selected-bg-color: #409eff;
+    --el-segmented-item-selected-color: white;
+    --el-segmented-item-hover-bg-color: #4e4e4e;
+    --el-segmented-item-active-bg-color: #4e4e4e;
+    --el-fill-color-light: #39393a;
+    .el-segmented__item-label {
+      color: #ffffff;
+    }
+  }
+}
+
 .elx-run-code-content {
   width: 100%;
   height: 80vh !important;
@@ -41,4 +54,12 @@
   .line-content {
     flex: 1;
   }
+}
+
+.iframe-loading-mask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 79.8vh;
 }

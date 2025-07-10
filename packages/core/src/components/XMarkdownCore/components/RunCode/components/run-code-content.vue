@@ -2,6 +2,8 @@
 import type { ElxRunCodeProps } from '../type';
 import type { ElxRunCodeHeaderTypes } from './run-code-header.vue';
 import DOMPurify from 'dompurify';
+import _ from 'lodash';
+import CustomLoading from './custom-loading.vue';
 import { SELECT_OPTIONS_ENUM } from './options';
 
 export interface ElxRunCodeContentProps
@@ -24,61 +26,75 @@ const allHtml = computed(() => props.content);
 
 const codeContainerRef = ref<HTMLElement>();
 
-function scrollToBottom() {
-  nextTick(() => {
-    const el = codeContainerRef.value;
-    if (el) {
-      el.scrollTop = el.scrollHeight;
-    }
+const isLoading = ref(false);
+
+// 核心渲染函数
+function doRenderIframe() {
+  const iframe = iframeRef.value;
+  if (!iframe) return;
+
+  isLoading.value = true;
+
+  const safeHTML = DOMPurify.sanitize(allHtml.value, {
+    WHOLE_DOCUMENT: true,
+    FORBID_TAGS: ['script', 'iframe', 'object', 'embed'],
+    FORBID_ATTR: ['onerror', 'onclick', 'onload', 'style']
   });
+
+  // 防止乱码
+  let htmlWithCharset = safeHTML;
+  if (!/charset=/i.test(safeHTML)) {
+    htmlWithCharset = safeHTML.replace(
+      /<head[^>]*>/i,
+      match => `${match}<meta charset="UTF-8">`
+    );
+  }
+
+  const blob = new Blob([htmlWithCharset], { type: 'text/html' });
+
+  if (iframe.src.startsWith('blob:')) {
+    URL.revokeObjectURL(iframe.src);
+  }
+
+  iframe.src = URL.createObjectURL(blob);
+
+  const onLoad = () => {
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 150);
+    iframe.removeEventListener('load', onLoad);
+  };
+  iframe.addEventListener('load', onLoad);
 }
 
-watch(
-  () => props.code,
-  () => {
-    if (props.nowView === SELECT_OPTIONS_ENUM.CODE) {
-      scrollToBottom();
-    }
+const renderIframe = _.debounce(() => {
+  doRenderIframe();
+}, 100);
+
+function startRender() {
+  if (props.nowView === SELECT_OPTIONS_ENUM.VIEW) {
+    isLoading.value = true;
+    renderIframe();
   }
-);
-
-function renderIframe() {
-  if (!iframeRef.value) return;
-  const iframe = iframeRef.value;
-
-  const safeHTML = DOMPurify.sanitize(allHtml.value, { WHOLE_DOCUMENT: true });
-
-  const doc = iframe.contentDocument || iframe.contentWindow?.document;
-  if (!doc) return;
-
-  doc.open();
-  doc.write(safeHTML);
-  doc.close();
 }
 
 watch(
   () => props.nowView,
-  v => {
-    if (v === SELECT_OPTIONS_ENUM.VIEW) {
-      renderIframe();
-    }
+  () => {
+    startRender();
   },
   { immediate: true }
 );
 watch(
   () => props.code,
   () => {
-    if (props.nowView === SELECT_OPTIONS_ENUM.VIEW) {
-      renderIframe();
-    }
+    startRender();
   },
   { immediate: true }
 );
 
 onMounted(() => {
-  if (props.nowView === SELECT_OPTIONS_ENUM.VIEW) {
-    renderIframe();
-  }
+  startRender();
 });
 </script>
 
@@ -113,12 +129,21 @@ onMounted(() => {
         </div>
     </pre>
     </div>
-    <iframe
+    <div
       v-show="props.nowView === SELECT_OPTIONS_ENUM.VIEW"
-      ref="iframeRef"
-      sandbox="allow-same-origin"
-      style="border: 0; width: 100%; height: 79.5vh"
-    />
+      style="position: relative; width: 100%; height: 100%"
+      class="elx-run-code-content-view"
+    >
+      <div v-if="isLoading" class="iframe-loading-mask">
+        <CustomLoading />
+      </div>
+      <iframe
+        v-show="!isLoading"
+        ref="iframeRef"
+        sandbox="allow-scripts"
+        style="border: 0; width: 100%; height: 79.5vh"
+      />
+    </div>
   </el-scrollbar>
 </template>
 

@@ -9,7 +9,7 @@ import RunCodeHeader from './components/run-code-header.vue';
 const props = withDefaults(defineProps<ElxRunCodeProps>(), {
   code: () => [],
   lang: '',
-  mode: 'drawer'
+  mode: 'dialog'
 });
 const emit = defineEmits<{
   (e: 'update:visible'): void;
