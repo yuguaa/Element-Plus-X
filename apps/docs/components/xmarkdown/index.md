@@ -58,6 +58,10 @@ pnpm add vue-element-plus-x@1.2.27-beta
 
 <demo src="./demos/enable-breaks.vue"></demo>
 
+<!-- ### 预览 html 代码块（内测）
+
+<demo src="./demos/view-html.vue"></demo> -->
+
 ### 自定义代码块渲染
 
 <demo src="./demos/code-x-render.vue"></demo>
