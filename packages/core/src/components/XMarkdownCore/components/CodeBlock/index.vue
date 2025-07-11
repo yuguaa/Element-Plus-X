@@ -220,7 +220,7 @@ watch(
     :style="preStyle"
     @vue:updated="handleUpdated"
   >
-    <div class="markdown-language-header-div is-always-shadow">
+    <div class="markdown-elxLanguage-header-div is-always-shadow">
       <component
         :is="renderSlot('codeHeader')"
         v-if="codeXSlot?.codeHeader && renderSlot('codeHeader')"

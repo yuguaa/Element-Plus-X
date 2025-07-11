@@ -22,12 +22,12 @@ function handleClick() {
 
 <template>
   <ElButton
-    class="shiki-header-button markdown-language-header-button"
+    class="shiki-header-button markdown-elxLanguage-header-button"
     @click="handleClick"
   >
     <component
       :is="copied ? Select : CopyDocument"
-      class="markdown-language-header-button-text"
+      class="markdown-elxLanguage-header-button-text"
       :class="[copied && 'copied']"
     />
   </ElButton>
