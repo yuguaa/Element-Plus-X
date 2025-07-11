@@ -1,6 +1,7 @@
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
+import type { ElxRunCodeOptions } from '../components/RunCode/type';
 import type { CustomAttrs, SanitizeOptions } from '../core';
 import type { InitShikiOptions } from './shikiHighlighter';
 
@@ -31,7 +32,8 @@ export const DEFAULT_PROPS = {
   themes: () => ({ ...shikiThemeDefault }),
   colorReplacements: () => ({}),
   needViewCodeBtn: true,
-  secureViewCode: false
+  secureViewCode: false,
+  viewCodeModalOptions: () => ({})
 };
 
 export const MARKDOWN_CORE_PROPS = {
@@ -125,5 +127,9 @@ export const MARKDOWN_CORE_PROPS = {
   secureViewCode: {
     type: Boolean,
     default: false
+  },
+  viewCodeModalOptions: {
+    type: Object as PropType<ElxRunCodeOptions>,
+    default: () => ({})
   }
 };

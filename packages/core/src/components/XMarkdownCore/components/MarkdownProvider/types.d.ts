@@ -1,5 +1,6 @@
 import type { ThemeRegistrationResolved } from 'shiki';
 import type { InitShikiOptions } from '../../shared';
+import type { ElxRunCodeOptions } from '../RunCode/type';
 
 export interface MarkdownContext {
   // markdown 字符串内容
@@ -46,4 +47,6 @@ export interface MarkdownContext {
   needViewCodeBtn?: boolean;
   // 是否是安全模式预览html
   secureViewCode?: boolean;
+  // 预览代码弹窗部分配置
+  viewCodeModalOptions?: ElxRunCodeOptions;
 }

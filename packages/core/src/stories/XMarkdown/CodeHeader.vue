@@ -5,7 +5,9 @@ const props = defineProps<CodeBlockExpose>();
 </script>
 
 <template>
-  <div @click="(ev: MouseEvent) => props.toggleExpand(ev)">组件插槽</div>
+  <div @click="(ev: MouseEvent) => props.toggleExpand(ev)">
+    组件插槽--{{ props.isExpand.value }}
+  </div>
 </template>
 
 <style scoped lang="scss"></style>

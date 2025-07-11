@@ -72,6 +72,11 @@ export interface ElxRunCodeProps {
   drawerOptions?: DrawerOptions;
 }
 
+export type ElxRunCodeOptions = Pick<
+  ElxRunCodeProps,
+  'mode' | 'customClass' | 'dialogOptions' | 'drawerOptions'
+>;
+
 export type OmitOfElxRunCodeContent = Omit<
   ElxRunCodeProps,
   'visible' | 'customClass' | 'dialogOptions' | 'drawerOptions'
