@@ -25,6 +25,10 @@ export interface CodeBlockExpose {
    */
   isDark: Ref<boolean>;
   /**
+   * 当前代码块是否展开
+   */
+  isExpand: Ref<boolean>;
+  /**
    * 是否显示预览代码按钮
    */
   nowViewBtnShow: boolean;
@@ -33,12 +37,12 @@ export interface CodeBlockExpose {
    * @param ev MouseEvent
    * @returns
    */
-  toggleExpand: (ev: MouseEvent) => void;
+  toggleExpand: (ev: MouseEvent) => { isExpand: boolean };
   /**
    * 切换主题
    * @returns
    */
-  toggleTheme: () => Ref<boolean>;
+  toggleTheme: () => boolean;
   /**
    * 复制代码
    * @param value
@@ -374,17 +378,20 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
  * @export
  * @param ev
  */
-export function toggleExpand(ev: MouseEvent) {
+export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
   const ele = ev.currentTarget as HTMLElement;
   const preMd = ele.closest('.pre-md') as HTMLElement | null;
 
   if (preMd) {
     if (preMd.classList.contains('is-expanded')) {
       collapse(preMd);
+      return { isExpand: false };
     } else {
       expand(preMd);
+      return { isExpand: true };
     }
   }
+  return { isExpand: false };
 }
 
 /**

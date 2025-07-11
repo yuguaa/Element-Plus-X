@@ -1,5 +1,6 @@
 import type { TVueMarkdownProps } from '@components/XMarkdownCore';
 import type { CodeBlockHeaderExpose } from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
+import type { ElxRunCodeOptions } from '../components/RunCode/type';
 import type { InitShikiOptions } from './shikiHighlighter';
 
 export type MarkdownProps = {
@@ -14,6 +15,7 @@ export type MarkdownProps = {
   defaultThemeMode?: 'light' | 'dark';
   needViewCodeBtn?: boolean;
   secureViewCode?: boolean;
+  viewCodeModalOptions?: ElxRunCodeOptions;
   mermaidConfig?: Partial<MermaidToolbarConfig>;
 } & Partial<Pick<InitShikiOptions, 'langs' | 'themes' | 'colorReplacements'>> &
   Pick<

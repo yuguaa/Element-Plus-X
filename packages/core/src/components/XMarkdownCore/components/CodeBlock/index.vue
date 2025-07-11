@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { BundledLanguage } from 'shiki';
 import type { ElxRunCodeProps } from '../RunCode/type';
+import type { CodeBlockExpose } from './shiki-header';
 import type { RawProps } from './types';
 import {
   transformerNotationDiff,
@@ -43,7 +44,11 @@ const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
 const colorReplacements = computed(() => context?.value?.colorReplacements);
-const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn);
+const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn ?? false);
+const viewCodeModalOptions = computed(
+  () => context?.value?.viewCodeModalOptions
+);
+const isExpand = ref(false);
 const nowCodeLanguage = ref<BundledLanguage>();
 const codeAttrs =
   typeof customAttrs?.code === 'function'
@@ -98,6 +103,7 @@ function handleUpdated(vnode: any) {
     const ele = vnode.el as HTMLElement;
     if (ele && firstRender.value) {
       firstRender.value = false;
+      isExpand.value = true;
       setTimeout(() => {
         expand(ele);
       }, 100);
@@ -147,24 +153,30 @@ function renderSlot(slotName: string) {
       ...props,
       renderLines: renderLines.value,
       isDark,
+      isExpand,
       nowViewBtnShow: nowViewBtnShow.value,
       toggleExpand,
       toggleTheme,
       copyCode,
       viewCode
-    });
+    } satisfies CodeBlockExpose);
   }
 
   return h(slotFn as any, {
     ...props,
     renderLines: renderLines.value,
     isDark,
+    isExpand,
     nowViewBtnShow: nowViewBtnShow.value,
     toggleExpand,
     toggleTheme,
     copyCode,
     viewCode
-  });
+  } satisfies CodeBlockExpose);
+}
+
+function handleHeaderLanguageClick() {
+  isExpand.value = !isExpand.value;
 }
 
 // 计算属性
@@ -220,6 +232,7 @@ watch(
               ? renderSlot('codeHeaderLanguage')
               : languageEle(props.raw?.language ?? 'text')
           "
+          @click="handleHeaderLanguageClick"
         />
         <component
           :is="
@@ -244,7 +257,7 @@ watch(
     <!-- run-code -->
     <component
       :is="RunCodeComputed"
-      v-bind="runCodeOptions"
+      v-bind="{ ...viewCodeModalOptions, ...runCodeOptions }"
       v-model:visible="runCodeOptions.visible"
     />
   </div>

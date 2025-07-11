@@ -27,6 +27,7 @@ const meta = {
     needViewCodeBtn: { control: 'boolean', defaultValue: true },
     secureViewCode: { control: 'boolean', defaultValue: false },
     defaultThemeMode: { control: 'select', options: ['light', 'dark'] },
+    viewCodeModalOptions: { control: 'object' },
     colorReplacements: { control: 'object' },
     mermaidConfig: { control: 'object' }
   },
@@ -37,6 +38,18 @@ const meta = {
     },
     needViewCodeBtn: true,
     secureViewCode: false,
+    viewCodeModalOptions: {
+      mode: 'drawer',
+      customClass: '',
+      dialogOptions: {
+        closeOnClickModal: true,
+        closeOnPressEscape: true
+      },
+      drawerOptions: {
+        closeOnClickModal: true,
+        closeOnPressEscape: true
+      }
+    },
     defaultThemeMode: 'light',
     colorReplacements: {
       'vitesse-light': {

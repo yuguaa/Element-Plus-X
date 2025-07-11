@@ -38,9 +38,15 @@ const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
   codeHeaderLanguage: props => {
     return h(
       'span',
-      { onClick: (ev: MouseEvent) => props.toggleExpand(ev) },
       {
-        default: () => `点击切换折叠状态--${props.raw.language}`
+        onClick: (ev: MouseEvent) => {
+          const clickExpand = props.toggleExpand(ev);
+          console.log('当前代码块是否展开', clickExpand.isExpand);
+        }
+      },
+      {
+        default: () =>
+          `点击切换折叠状态--${props.raw.language}-${props.isExpand.value}`
       }
     );
   },
