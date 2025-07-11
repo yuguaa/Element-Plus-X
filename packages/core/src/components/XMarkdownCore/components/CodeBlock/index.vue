@@ -19,7 +19,6 @@ import {
   controlEle,
   controlHasRunCodeEle,
   copyCode,
-  expand,
   isDark,
   languageEle,
   toggleExpand,
@@ -39,7 +38,6 @@ const props = withDefaults(
 const context = useMarkdownContext();
 const { codeXSlot, customAttrs } = toValue(context) || {};
 const renderLines = ref<string[]>([]);
-const firstRender = ref(true);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
 const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
@@ -48,7 +46,7 @@ const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn ?? false);
 const viewCodeModalOptions = computed(
   () => context?.value?.viewCodeModalOptions
 );
-const isExpand = ref(false);
+const isExpand = ref(true);
 const nowCodeLanguage = ref<BundledLanguage>();
 const codeAttrs =
   typeof customAttrs?.code === 'function'
@@ -97,19 +95,6 @@ watch(
   },
   { immediate: true }
 );
-
-function handleUpdated(vnode: any) {
-  if (renderLines.value.length > 0) {
-    const ele = vnode.el as HTMLElement;
-    if (ele && firstRender.value) {
-      firstRender.value = false;
-      isExpand.value = true;
-      setTimeout(() => {
-        expand(ele);
-      }, 100);
-    }
-  }
-}
 
 const runCodeOptions = reactive<ElxRunCodeProps>({
   code: [],
@@ -180,7 +165,7 @@ function handleHeaderLanguageClick() {
 }
 
 // 计算属性
-const computedClass = computed(() => `pre-md ${preClass.value}`);
+const computedClass = computed(() => `pre-md ${preClass.value} is-expanded`);
 const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
 const RunCodeComputed = computed(() => {
   return nowCodeLanguage.value === 'html' && nowViewBtnShow.value
@@ -214,12 +199,7 @@ watch(
 </script>
 
 <template>
-  <div
-    :key="props.raw?.key"
-    :class="computedClass"
-    :style="preStyle"
-    @vue:updated="handleUpdated"
-  >
+  <div :key="props.raw?.key" :class="computedClass" :style="preStyle">
     <div class="markdown-elxLanguage-header-div is-always-shadow">
       <component
         :is="renderSlot('codeHeader')"
