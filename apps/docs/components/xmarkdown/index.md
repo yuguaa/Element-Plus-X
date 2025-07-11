@@ -9,10 +9,10 @@
 ⚠️ 在这个开发文档中，有一些样式的演示可能不是很好，但是应该不会影响集成的使用。如果有集成或一些使用问题，可以进 👉[交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) 获取最新的技术支持。
 
 该组件支持**增量更新**，**支持自定义**。更多的样式内置和组件的自定义🥰
-目前该组件正在最新的 `1.2.27-beta` 版本，请使用以下命令安装
+目前该组件正在最新的 `1.2.28-beta` 版本，请使用以下命令安装
 
 ```npm
-pnpm add vue-element-plus-x@1.2.27-beta
+pnpm add vue-element-plus-x@1.2.28-beta
 ```
 
 :::
@@ -61,9 +61,9 @@ pnpm add vue-element-plus-x@1.2.27-beta
 
 <demo src="./demos/enable-breaks.vue"></demo>
 
-<!-- ### 预览 html 代码块（内测）
+### 预览 html 代码块
 
-<demo src="./demos/view-html.vue"></demo> -->
+<demo src="./demos/view-html.vue"></demo>
 
 ### 自定义代码块渲染
 
@@ -79,7 +79,7 @@ pnpm add vue-element-plus-x@1.2.27-beta
 
 <demo src="./demos/custom-attrs.vue"></demo>
 
-### mermaid 配置
+### mermaid 操作栏配置
 
 <demo src="./demos/mermaid-config.vue"></demo>
 

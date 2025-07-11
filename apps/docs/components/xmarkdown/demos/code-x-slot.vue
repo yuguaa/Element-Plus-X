@@ -11,6 +11,7 @@ title: codeXSlot 代码块顶部插槽自定义渲染
 - `toggleTheme`: props.toggleTheme 切换代码块主题。
 - `renderLines`: props.renderLines 获取这个代码块的内容，你可以用它来传给复制函数。
 - `copyCode`: props.copyCode() 复制代码块(需要传参)。
+- `viewCode`: props.viewCode() 触发内置预览 HTML 代码块弹框(需要传参)。
 
 以下是 mermaid 的代码块头部自定义组件 props 中有可以获取的内置属性：
 - `zoomIn`: props.zoomIn 放大。
