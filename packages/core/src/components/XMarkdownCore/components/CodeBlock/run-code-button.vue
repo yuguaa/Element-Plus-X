@@ -13,7 +13,7 @@ function handleClick() {
 
 <template>
   <ElButton
-    class="shiki-header-button markdown-language-header-button"
+    class="shiki-header-button markdown-elxLanguage-header-button"
     @click="handleClick"
   >
     <View />

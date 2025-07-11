@@ -16,7 +16,7 @@ const timer = ref();
 const index = ref(0);
 function start() {
   timer.value = setInterval(() => {
-    index.value += 50;
+    index.value += 25;
     if (index.value > props.markdown.length) {
       clearInterval(timer.value);
       index.value = props.markdown.length;
@@ -54,7 +54,7 @@ const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
     return h(
       ElSpace,
       {
-        class: `markdown-language-header-space`,
+        class: `markdown-elxLanguage-header-space`,
         direction: 'horizontal'
       },
       {

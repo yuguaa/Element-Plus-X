@@ -161,7 +161,7 @@ export function languageEle(language: string) {
   return h(
     ElSpace,
     {
-      class: `markdown-language-header-space markdown-language-header-space-start markdown-language-header-span`,
+      class: `markdown-elxLanguage-header-space markdown-elxLanguage-header-space-start markdown-elxLanguage-header-span`,
       direction: 'horizontal',
       onClick: (ev: MouseEvent) => {
         toggleExpand(ev);
@@ -172,7 +172,7 @@ export function languageEle(language: string) {
         h(
           'span',
           {
-            class: 'markdown-language-header-span is-always-shadow'
+            class: 'markdown-elxLanguage-header-span is-always-shadow'
           },
           language || ''
         ),
@@ -185,7 +185,7 @@ export function languageEle(language: string) {
             default: () => [
               h(ArrowDownBold, {
                 class:
-                  'markdown-language-header-toggle markdown-language-header-toggle-expand '
+                  'markdown-elxLanguage-header-toggle markdown-elxLanguage-header-toggle-expand '
               })
             ]
           }
@@ -207,7 +207,7 @@ export function controlEle(copy: () => void) {
   return h(
     ElSpace,
     {
-      class: `markdown-language-header-space`,
+      class: `markdown-elxLanguage-header-space`,
       direction: 'horizontal'
     },
     {
@@ -231,7 +231,7 @@ export function controlHasRunCodeEle(copy: () => void, view: () => void) {
   return h(
     ElSpace,
     {
-      class: `markdown-language-header-space`,
+      class: `markdown-elxLanguage-header-space`,
       direction: 'horizontal'
     },
     {
@@ -255,7 +255,7 @@ export function toggleThemeEle() {
   return h(
     ElButton,
     {
-      class: 'shiki-header-button markdown-language-header-toggle',
+      class: 'shiki-header-button markdown-elxLanguage-header-toggle',
       onClick: () => {
         toggleTheme();
       }
@@ -263,7 +263,7 @@ export function toggleThemeEle() {
     {
       default: () =>
         h(!isDark.value ? Moon : Sunny, {
-          class: 'markdown-language-header-toggle'
+          class: 'markdown-elxLanguage-header-toggle'
         })
     }
   );
@@ -280,7 +280,6 @@ export function toggleThemeEle() {
  * @param elem
  */
 export function expand(elem: HTMLElement) {
-  elem.style.height = 'auto';
   elem.classList.add('is-expanded');
 }
 
@@ -293,7 +292,6 @@ export function expand(elem: HTMLElement) {
  * @param elem
  */
 export function collapse(elem: HTMLElement) {
-  elem.style.height = '42px';
   elem.classList.remove('is-expanded');
 }
 
@@ -370,6 +368,8 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
   return output.join('\n');
 }
 
+let isToggling = false;
+
 /**
  * @description 描述 切换展开状态
  * @date 2025-06-26 21:29:50
@@ -379,10 +379,17 @@ export function extractCodeFromHtmlLines(lines: string[]): string {
  * @param ev
  */
 export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
+  if (isToggling) return { isExpand: false }; // 防抖保护
+  isToggling = true;
+
   const ele = ev.currentTarget as HTMLElement;
   const preMd = ele.closest('.pre-md') as HTMLElement | null;
 
   if (preMd) {
+    setTimeout(() => {
+      isToggling = false;
+    }, 250);
+
     if (preMd.classList.contains('is-expanded')) {
       collapse(preMd);
       return { isExpand: false };
@@ -391,6 +398,8 @@ export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
       return { isExpand: true };
     }
   }
+
+  isToggling = false;
   return { isExpand: false };
 }
 
