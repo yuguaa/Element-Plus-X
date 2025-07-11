@@ -54,7 +54,7 @@ const MarkdownProvider = defineComponent({
     return () =>
       h(
         'div',
-        { class: 'elx-xmarkdown-container', ...attrs },
+        { class: 'elx-xmarkdown-provider', ...attrs },
         slots.default && slots.default()
       );
   }
