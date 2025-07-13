@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
-
 import mermaid from 'mermaid';
-import { throttle } from 'radash';
-import { computed, nextTick, onMounted, ref, toValue, watch } from 'vue';
+import useSWRV from 'swrv';
+import { computed, nextTick, ref, toValue, watch } from 'vue';
 import { useMermaidZoom } from '../../hooks';
 import { useMarkdownContext } from '../MarkdownProvider';
 import { copyToClipboard, downloadSvgAsPng } from './composables';
@@ -71,59 +70,46 @@ const zoomControls = useMermaidZoom({
   minScale: 0.1,
   maxScale: 5
 });
-// const id = `mermaid-${`${Math.random().toString(36).substr(2, 9)}`}`;
-
-async function renderMermaid() {
-  try {
-    const valid = await mermaid.parse(props.raw.content);
-    if (valid) {
-      mermaid.initialize({
-        suppressErrorRendering: true,
-        startOnLoad: false,
-        securityLevel: 'loose'
-      });
-      const id = `mermaid-${`${valid.diagramType}-${Math.random().toString(36).substr(2, 9)}`}`;
-      const { svg: renderedSvg } = await mermaid.render(
-        id,
-        props.raw.content,
-        merMaindContainer
-      );
-      svg.value = renderedSvg;
-      // SVG 渲染完成后，手动触发缩放功能初始化
-      setTimeout(() => {
-        if (containerRef.value) {
-          zoomControls.initialize();
-        }
-      }, 100);
-    }
-  } catch (error) {
-    console.log('Mermaid render error:', error);
-  }
-}
-
-// 基础节流函数
-const throttledRender = throttle({ interval: 200 }, async () => {
-  await renderMermaid();
+const cacheKey = computed(() => {
+  return `mermaid-${props.raw.content}`;
 });
-
-// 包装节流函数，确保最后一次调用必须执行
-let lastCallTimeoutId: number | null = null;
-
-function scheduleRender() {
-  // 执行节流函数
-  throttledRender();
-
-  // 清除之前的延迟调用
-  if (lastCallTimeoutId) {
-    clearTimeout(lastCallTimeoutId);
+const { data: cachedSvg } = useSWRV<string>(
+  cacheKey,
+  async () => {
+    try {
+      const valid = await mermaid.parse(props.raw.content);
+      if (valid) {
+        mermaid.initialize({
+          suppressErrorRendering: true,
+          startOnLoad: false,
+          securityLevel: 'loose'
+        });
+        const key = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
+        const { svg } = await mermaid.render(
+          key,
+          props.raw.content,
+          merMaindContainer
+        );
+        return svg;
+      }
+    } catch (error) {
+      console.log('Mermaid parse error:', error);
+    }
+    return '';
+  },
+  {
+    dedupingInterval: 3000,
+    errorRetryCount: 2,
+    revalidateOnFocus: false,
+    revalidateDebounce: 300
   }
+);
 
-  // 设置延迟调用，确保最后一次调用会被执行
-  lastCallTimeoutId = setTimeout(async () => {
-    await renderMermaid();
-    lastCallTimeoutId = null;
-  }, 200);
-}
+watch(cachedSvg, newSvg => {
+  if (newSvg) {
+    svg.value = newSvg as string;
+  }
+});
 
 // 工具栏事件处理
 function handleZoomIn() {
@@ -178,19 +164,6 @@ function onContentTransitionEnter() {
   }
 }
 
-// 监听内容变化
-watch(
-  () => props.raw.content,
-  newContent => {
-    if (newContent) {
-      scheduleRender();
-    } else {
-      // 内容为空时清空显示
-      svg.value = '';
-    }
-  }
-);
-
 // 创建暴露给插槽的方法对象
 const exposedMethods = computed(() => {
   return {
@@ -214,12 +187,6 @@ const exposedMethods = computed(() => {
     // 原始 props（除了重复的 toolbarConfig）
     raw: props.raw
   };
-});
-
-onMounted(() => {
-  if (props.raw.content) {
-    renderMermaid();
-  }
 });
 </script>
 
@@ -266,7 +233,6 @@ onMounted(() => {
         </template>
       </div>
     </Transition>
-    <!-- Mermaid SVG 内容或源码 -->
     <Transition
       name="content"
       mode="out-in"
@@ -278,7 +244,6 @@ onMounted(() => {
       >
       <div v-else class="mermaid-content" v-html="svg" />
     </Transition>
-    <!-- <div :key="props.raw.key" class="markdown-mermaid" v-html="svg" /> -->
   </div>
 </template>
 
