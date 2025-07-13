@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import XMarkdown from '@components/XMarkdown/index.vue';
-
 const props = defineProps<{
   markdown: string;
 }>();

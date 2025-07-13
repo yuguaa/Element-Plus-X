@@ -87,7 +87,7 @@ const conversationMenuItems1 = [
     command: {
       self_id: '1',
       self_message: '编辑',
-      self_type: 'text'
+      self_type: 'primary'
     }
   },
   {

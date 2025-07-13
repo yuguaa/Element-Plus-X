@@ -172,12 +172,17 @@ body.dark .shiki span {
         border-radius: var(--shiki-custom-brr);
         background-color: transparent;
         width: fit-content !important;
-        padding: 5px 6px;
+        padding: 0px 3px;
+        height: 24px;
         opacity: 1;
         transition: color 0.3s ease-in-out;
         cursor: pointer;
         .el-icon {
-          font-size: 16px;
+          font-size: 15px !important;
+        }
+        svg {
+          width: 15px;
+          height: 15px;
         }
         .el-icon,
         span {
@@ -186,11 +191,11 @@ body.dark .shiki span {
         }
         &:hover {
           background-color: var(--shiki-code-header-btn-bg);
-          color: var(--el-color-primary) !important;
-          .el-icon,
-          span {
-            color: var(--el-color-primary) !important;
-          }
+          // color: var(--el-color-primary) !important;
+          // .el-icon,
+          // span {
+          //   color: var(--el-color-primary) !important;
+          // }
         }
       }
       // 按钮图标的大小
