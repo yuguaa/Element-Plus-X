@@ -2,6 +2,7 @@
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
 import mermaid from 'mermaid';
+import { debounce } from 'radash';
 import useSWRV from 'swrv';
 import { computed, nextTick, ref, toValue, watch } from 'vue';
 import { useMermaidZoom } from '../../hooks';
@@ -14,14 +15,6 @@ interface MermaidProps extends MdComponent {
 }
 
 const props = withDefaults(defineProps<MermaidProps>(), {
-  // codeKey: '',
-  // lang: '',
-  // content: '',
-  // codeData: () => ({}),
-  // mermaidConfig: () => ({
-  //   delay: 500,
-  //   securityLevel: 'loose',
-  // }),
   raw: () => ({}),
   toolbarConfig: () => ({})
 });
@@ -55,9 +48,6 @@ const toolbarConfig = computed(() => {
     ...props.toolbarConfig
   };
 });
-// const loading = ref(true);
-// let debounceTimer: ReturnType<typeof setTimeout> | null = null;
-// const id = useId();
 
 const svg = ref('');
 const containerRef = ref<HTMLElement | null>(null);
@@ -105,9 +95,13 @@ const { data: cachedSvg } = useSWRV<string>(
   }
 );
 
+// 使用 radash 防抖函数，确保只在最后一次更新后初始化
+const debouncedInitialize = debounce({ delay: 500 }, onContentTransitionEnter);
+
 watch(cachedSvg, newSvg => {
   if (newSvg) {
     svg.value = newSvg as string;
+    debouncedInitialize();
   }
 });
 
