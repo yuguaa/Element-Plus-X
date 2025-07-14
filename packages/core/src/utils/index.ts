@@ -6,7 +6,10 @@ import { prefix } from '../components/Typewriter/config/index.ts';
 
 /* FileCard 组件相关 开始 */
 // 更据文件后缀名获取文件类型
-export function getFileType(fileExtension: string): { lowerCase: FilesType; upperCase: string } {
+export function getFileType(fileExtension: string): {
+  lowerCase: FilesType;
+  upperCase: string;
+} {
   // 去除后缀名开头的点，并转换为小写
   const cleanExtension = fileExtension.replace('.', '').toLowerCase();
   if (!cleanExtension) {
@@ -18,7 +21,18 @@ export function getFileType(fileExtension: string): { lowerCase: FilesType; uppe
   const pptExtensions = ['ppt', 'pptx'];
   const audioExtensions = ['mp3', 'wav', 'ogg', 'flac'];
   const videoExtensions = ['mp4', 'avi', 'mov', 'mkv'];
-  const codeExtensions = ['js', 'ts', 'html', 'css', 'py', 'java', 'c', 'cpp', 'json', 'php'];
+  const codeExtensions = [
+    'js',
+    'ts',
+    'html',
+    'css',
+    'py',
+    'java',
+    'c',
+    'cpp',
+    'json',
+    'php'
+  ];
   const databaseExtensions = ['sql', 'db', 'sqlite'];
   const zipExtensions = ['zip', 'rar', '7z'];
   const markExtensions = ['md', 'mdx'];
@@ -62,7 +76,11 @@ export function getFileType(fileExtension: string): { lowerCase: FilesType; uppe
   if (zipExtensions.includes(cleanExtension)) {
     return { lowerCase: 'zip', upperCase: 'Zip' };
   }
-  if (cleanExtension === 'obj' || cleanExtension === 'fbx' || cleanExtension === 'glb') {
+  if (
+    cleanExtension === 'obj' ||
+    cleanExtension === 'fbx' ||
+    cleanExtension === 'glb'
+  ) {
     return { lowerCase: 'three', upperCase: '3D' };
   }
   return { lowerCase: 'file', upperCase: 'File' };
@@ -84,10 +102,11 @@ export function getSize(size: number) {
 
 // 通过文件流，生成图片预览
 // Follow code is copy from `antd/components/upload/utils.ts`:
-export const isImageFileType = (type: string): boolean => type.indexOf('image/') === 0;
+export const isImageFileType = (type: string): boolean =>
+  type.indexOf('image/') === 0;
 const MEASURE_SIZE = 200;
 export function previewImage(file: File | Blob): Promise<string> {
-  return new Promise<string>((resolve) => {
+  return new Promise<string>(resolve => {
     if (!file || !file.type || !isImageFileType(file.type)) {
       resolve('');
       return;
@@ -98,8 +117,10 @@ export function previewImage(file: File | Blob): Promise<string> {
       const { width, height } = img;
 
       const ratio = width / height;
-      const MEASURE_SIZE_WIDTH = ratio > 1 ? MEASURE_SIZE : MEASURE_SIZE * ratio;
-      const MEASURE_SIZE_HEIGHT = ratio > 1 ? MEASURE_SIZE / ratio : MEASURE_SIZE;
+      const MEASURE_SIZE_WIDTH =
+        ratio > 1 ? MEASURE_SIZE : MEASURE_SIZE * ratio;
+      const MEASURE_SIZE_HEIGHT =
+        ratio > 1 ? MEASURE_SIZE / ratio : MEASURE_SIZE;
 
       const canvas = document.createElement('canvas');
       canvas.width = MEASURE_SIZE_WIDTH;
@@ -123,8 +144,7 @@ export function previewImage(file: File | Blob): Promise<string> {
         }
       };
       reader.readAsDataURL(file);
-    }
-    else if (file.type.startsWith('image/gif')) {
+    } else if (file.type.startsWith('image/gif')) {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
@@ -132,8 +152,7 @@ export function previewImage(file: File | Blob): Promise<string> {
         }
       };
       reader.readAsDataURL(file);
-    }
-    else {
+    } else {
       img.src = window.URL.createObjectURL(file);
     }
   });
@@ -191,11 +210,10 @@ export const zoomMermaid = (() => {
         isDragging = true;
         startX = event.touches[0].clientX - posX;
         startY = event.touches[0].clientY - posY;
-      }
-      else if (event.touches.length === 2) {
+      } else if (event.touches.length === 2) {
         initialDistance = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
-          event.touches[0].clientY - event.touches[1].clientY,
+          event.touches[0].clientY - event.touches[1].clientY
         );
         initialScale = scale;
       }
@@ -208,19 +226,20 @@ export const zoomMermaid = (() => {
         posX = event.touches[0].clientX - startX;
         posY = event.touches[0].clientY - startY;
         updateTransform();
-      }
-      else if (event.touches.length === 2) {
+      } else if (event.touches.length === 2) {
         const newDistance = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
-          event.touches[0].clientY - event.touches[1].clientY,
+          event.touches[0].clientY - event.touches[1].clientY
         );
         const scaleChange = newDistance / initialDistance;
         const previousScale = scale;
         scale = initialScale * (1 + (scaleChange - 1)); // 调整缩放速度
 
         // 计算双指中心点
-        const centerX = (event.touches[0].clientX + event.touches[1].clientX) / 2;
-        const centerY = (event.touches[0].clientY + event.touches[1].clientY) / 2;
+        const centerX =
+          (event.touches[0].clientX + event.touches[1].clientX) / 2;
+        const centerY =
+          (event.touches[0].clientY + event.touches[1].clientY) / 2;
 
         // 获取内容区域的边界
         const rect = content.getBoundingClientRect();
@@ -248,8 +267,7 @@ export const zoomMermaid = (() => {
 
       if (event.deltaY < 0) {
         scale += scaleAmount;
-      }
-      else {
+      } else {
         scale = Math.max(0.1, scale - scaleAmount);
       }
 
@@ -315,7 +333,7 @@ export const zoomMermaid = (() => {
     options: {
       // customIcon: CustomIconCustomIcon
       customIcon: any;
-    },
+    }
   ) => {
     console.log('handler', containers);
     console.log('options', options);
@@ -367,7 +385,6 @@ export const zoomMermaid = (() => {
     //     removeClick: () => actionDiv.removeEventListener('click', onClick),
     //   })
     // })
-    
 
     // // 返回一个函数，用于注销所有事件（包括 click 和 addEvent）
     // return () => {
