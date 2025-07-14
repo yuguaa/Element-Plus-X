@@ -103,7 +103,7 @@ app.mount('#app');
 ```html
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
-<script src="https://unpkg.com/vue-element-plus-x@1.2.0/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
 ## 🌟 已实现 组件 和 Hooks

@@ -7,24 +7,27 @@ cd Element-Plus-X
 
 #### **二、安装依赖**
 
+**推荐使用 PNPM 管理依赖**
+
 ```bash
-pnpm install # 推荐使用 PNPM 管理依赖
+pnpm install
 ```
 
 #### **三、项目结构**
 
-:::warning
-等 md 组件的 `beta` 版本通过后，我们会用 `storybook` 分支替换当前的 `main` 分支。
-在此之前，暂时请加入交流群或者联系作者，开放pr
-:::
+```plaintext
+   ├── apps\docs              # 文档
+   |     └── components       # 组件库文档
+   └── packages\core          # 核心代码
+         └── src
+            ├── components    # 组件源码
+            └── stories       # 组件演示用例
+
+```
 
 #### **四、开发命令**
 
 **请先构建好组件在执行预览**
-
-:::warning
-目前命令请在 `storybook` 分支使用
-:::
 
 | 命令            | 说明                           |
 | --------------- | ------------------------------ |

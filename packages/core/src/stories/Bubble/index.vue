@@ -15,7 +15,7 @@ const mdPlugins = [
   <ConfigProvider :md-plugins="mdPlugins">
     <div class="component-container">
       <p>
-        1.2.0 版本支持 打字器 雾化效果 使用 Mermaid.js 支持简单的图表和函数公式
+        1.3.0 版本支持 打字器 雾化效果 使用 Mermaid.js 支持简单的图表和函数公式
       </p>
       <p style="color: #ff8c00">
         在这个版本的 md 我们将 markdown-it

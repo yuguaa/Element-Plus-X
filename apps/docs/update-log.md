@@ -1,3 +1,22 @@
+## [v1.3.0] - 2025-07-15
+
+### 🐛 修复
+
+- 修复 **`Typewriter`** 打字组件，完成事件不生效问题
+
+### 🚀 新增功能
+
+- **`XMarkdown `** 渲染组件强势来袭 ，用于渲染内置样式和自定义组件的 `markdown 组件`。增量更新+自定义渲染 双加持
+
+### 📚文档更新
+
+- 开发文档更新，开发计划更新。
+- 修改在线预览为 `storybook` 项目
+
+### 🛠 改进
+
+- 移出 `playground` 文件，新增 `storybook` 实时预览的模式做展示
+
 ## [v1.2.0] - 2025-05-05
 
 ### 💥 破坏性变更
@@ -7,7 +26,8 @@
   以前的写法：太长了
 
   ```vue
-  import { BubbleProps } from 'vue-element-plus-x/types/components/Bubble/types.d.ts'
+  import { BubbleProps } from
+  'vue-element-plus-x/types/components/Bubble/types.d.ts'
   ```
 
   v1.2.0 以后写法：简洁一些
@@ -42,8 +62,8 @@
       dts: 'src/auto-import.d.ts'
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
-    }),
+      resolvers: [ElementPlusResolver()]
+    })
   ];
   ```
 
