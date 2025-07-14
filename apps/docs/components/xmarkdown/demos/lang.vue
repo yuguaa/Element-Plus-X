@@ -9,6 +9,7 @@ title: 内置一些代码块语言的匹配
 其中一些语言我们可以去匹配他的简写，比如 `javascript` 可以使用 `js` 去匹配
 :::
 
+::: details 💝 查看所有语言的支持
 | 语言名称 | 语言匹配ID | 语言匹配简写 |
 | --- | --- | --- |
 | ABAP | abap |  |
@@ -231,6 +232,7 @@ title: 内置一些代码块语言的匹配
 | YAML | yaml | yml |
 | ZenScript | zenscript |  |
 | Zig | zig |  |
+:::
 </docs>
 
 <script setup lang="ts">

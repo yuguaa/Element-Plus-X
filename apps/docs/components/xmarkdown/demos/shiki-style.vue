@@ -20,6 +20,7 @@ themes: {
 <img src="https://cdn.element-plus-x.com/shiki-style.png" width="100%">
 :::
 
+::: details 💝查看所有 主题ID 对照表
 | 名称（Name） | 中文翻译 | 对应值（`主题ID`） |
 | --- | --- | --- |
 | Andromeeda | 仙女座 | andromeeda |
@@ -82,6 +83,7 @@ themes: {
 | Vitesse Black | 极速黑 | vitesse-black |
 | Vitesse Dark | 极速暗色 | vitesse-dark |
 | Vitesse Light | 极速亮色 | vitesse-light |
+:::
 </docs>
 
 <script setup lang="ts">

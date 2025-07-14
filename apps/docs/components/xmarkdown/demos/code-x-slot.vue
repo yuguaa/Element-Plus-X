@@ -6,12 +6,18 @@ title: codeXSlot 代码块顶部插槽自定义渲染
 使用 `codeXSlot` 属性，自定义代码块顶部插槽的渲染。这个属性接受一个对象，对象中的 key 为 CodeBlockHeaderExpose 这个类型的固定的属性，value 为一个函数，函数的参数为代码块的属性，返回值为一个 VNode，意味着你可以用 Vue 的模板语法来渲染代码块的顶部。
 
 你可以在自定义的模版中获取到 props, 并且 props 中有以下属性 （具体属性可以在项目中自行打印查看）：
+- `isExpand`: props.isExpand 是否展开代码块。
 - `toggleExpand`: props.toggleExpand 展开代码块。
 - `isDark`: props.isDark.value 获取当前代码块主题。
 - `toggleTheme`: props.toggleTheme 切换代码块主题。
 - `renderLines`: props.renderLines 获取这个代码块的内容，你可以用它来传给复制函数。
-- `copyCode`: props.copyCode() 复制代码块(需要传参)。
-- `viewCode`: props.viewCode() 触发内置预览 HTML 代码块弹框(需要传参)。
+- `copyCode`: props.copyCode(props.renderLines) 复制代码块(需要传参)。
+- `viewCode`: props.viewCode(props.renderLines) 触发内置预览 HTML 代码块弹框(需要传参)。
+- `value`: props.value 获取这个代码块类型是 '代码' | '预览'。
+- `changeSelectValue`: props.changeSelectValue('代码' | '预览') 切换代码块类型(需要传参)。
+- `changeSelectValue`: props.changeSelectValue('代码' | '预览') 切换代码块类型(需要传参)。
+- `content`: props.content 获取这个代码块内容。
+- `close`: props.close() 关闭内置预览 HTML 弹框(不需要传参)。
 
 以下是 mermaid 的代码块头部自定义组件 props 中有可以获取的内置属性：
 - `zoomIn`: props.zoomIn 放大。
@@ -31,6 +37,12 @@ interface CodeBlockHeaderExpose {
   codeHeaderLanguage?: CodeBlockHeaderRenderer;
   // 自定义渲染代码块的右侧控制按钮
   codeHeaderControl?: CodeBlockHeaderRenderer;
+  // 自定义渲染代码块的右侧预览弹框的标题区域
+  viewCodeHeader?: CodeBlockHeaderRenderer;
+  // 自定义渲染代码块的右侧预览弹框的内容区域
+  viewCodeContent?: CodeBlockHeaderRenderer;
+  // 自定义渲染代码块的右侧预览弹框的关闭按钮
+  viewCodeCloseBtn?: CodeBlockHeaderRenderer;
   // 自定义渲染 mermaid 顶部插槽
   codeMermaidHeaderControl?: CodeBlockHeaderRenderer;
 }
@@ -63,7 +75,8 @@ pie
 
 // 如果你是用了codeHeader 属性，其他两个属性失效
 const selfCodeXSlot1 = {
-  // 自定义渲染整个代码块的头部
+  // 自定义渲染整个代码块的头部 h 函数也可以写成自定义的组件的形式
+  // (props: any) => h(SelfComponent, { selfProps: props }),
   codeHeader: (props: any) =>
     h(
       'div',
