@@ -12,7 +12,7 @@
 目前该组件正在最新的 `1.3.0` 版本，请使用以下命令安装
 
 ```npm
-pnpm add vue-element-plus-x1.3.0
+pnpm add vue-element-plus-x@1.3.0
 ```
 
 :::
