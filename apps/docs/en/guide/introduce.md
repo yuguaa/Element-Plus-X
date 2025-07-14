@@ -30,16 +30,17 @@
 **An out-of-the-box enterprise-level AI component library (based on Vue 3 + Element-Plus)**
 
 ## 📢 Quick Links
-| Resource Type         | <div style="width: 300px;">Link</div>    |
-|-----------------------|-----------------------------------------------|
-| **Documentation**     | [📖 Development Documentation](https://element-plus-x.com)  |
-| **Online Demo**       | [👁️ Online Preview](https://v.element-plus-x.com)                         |
-| **Code Repository**   | [🐙 GitHub](https://github.com/element-plus-x/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)           |
-| **NPM Package**       | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)           |
-| **Issue Feedback**    | [🐛 Submit a Bug](https://github.com/element-plus-x/Element-Plus-X/issues)  |
-| **Community**      | [🐒 Discussion Group](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)  |
-| **Template Project Preview** |  [👀 Online Preview](https://chat.element-plus-x.com/)                       |
-| **Template Project Source Code** | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai)  |
+
+| Resource Type                    | <div style="width: 300px;">Link</div>                                                                                            |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| **Documentation**                | [📖 Development Documentation](https://element-plus-x.com)                                                                       |
+| **Online Demo**                  | [👁️ Online Preview](https://v.element-plus-x.com)                                                                                |
+| **Code Repository**              | [🐙 GitHub](https://github.com/element-plus-x/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)        |
+| **NPM Package**                  | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                       |
+| **Issue Feedback**               | [🐛 Submit a Bug](https://github.com/element-plus-x/Element-Plus-X/issues)                                                       |
+| **Community**                    | [🐒 Discussion Group](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) |
+| **Template Project Preview**     | [👀 Online Preview](https://chat.element-plus-x.com/)                                                                            |
+| **Template Project Source Code** | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai)       |
 
 ## 🛠️ Core Features
 
@@ -149,11 +150,7 @@ We welcome:
 ## 👥 Community Support
 
 <div align="center">
-<<<<<<< HEAD
-<img src="https://cdn.element-plus-x.com/vx-2025-06-23.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
-=======
 <img src="https://cdn.element-plus-x.com/vx-2025-07-14.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
->>>>>>> 958b6ba1c53eda48ad7d931a802f236cc5395a65
 <p>Join the WeChat communication group to get the latest news and technical support</p>
 
 <p>If the group link expires, scan the author's QR code:</p>
