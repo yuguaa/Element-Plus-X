@@ -11,6 +11,8 @@
 </div>
 
 <div align="center">
+<h2>💖项目模版，已经推出💖</h2>
+<img src="https://cdn.element-plus-x.com/chat/1.webp" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;

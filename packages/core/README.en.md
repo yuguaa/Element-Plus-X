@@ -11,10 +11,13 @@
 </div>
 
 <div align="center">
+<h2>💖The project template has been released💖</h2>
+<img src="https://cdn.element-plus-x.com/chat/1.webp" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo3.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo4.webp" calss="element-plus-x-bubble" />&emsp;
+
 </div>
 
 <div align="center">
