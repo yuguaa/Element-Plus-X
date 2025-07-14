@@ -6,7 +6,7 @@ import {
   presetWebFonts,
   transformerDirectives,
   transformerVariantGroup,
-} from 'unocss'
+} from 'unocss';
 
 // https://unocss.dev/guide/config-file
 export default defineConfig({
@@ -29,4 +29,4 @@ export default defineConfig({
     }),
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
-})
+});

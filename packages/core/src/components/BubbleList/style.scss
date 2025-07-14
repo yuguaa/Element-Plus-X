@@ -1,0 +1,134 @@
+.el-bubble-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+  max-height: var(--el-bubble-list-max-height);
+  overflow: auto;
+  scroll-behavior: smooth;
+
+  position: relative;
+
+  /* 默认滚动条样式（透明） */
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    background-color: #0003;
+    border-radius: 10px;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: transparent;
+  }
+
+  /* 悬停时显示滚动条 */
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #a8a8a8;
+    }
+  }
+
+  /* 始终显示滚动条模式 */
+  &.always-scrollbar {
+    &::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+    }
+
+    &:hover::-webkit-scrollbar-thumb {
+      background: #a8a8a8;
+    }
+  }
+}
+
+/* 火狐浏览器滚动条样式 */
+@supports (scrollbar-color: auto) {
+  .el-bubble-list {
+    scrollbar-color: transparent transparent;
+    scrollbar-width: thin;
+
+    &:hover {
+      scrollbar-color: #c1c1c1 transparent;
+    }
+
+    &.always-scrollbar {
+      scrollbar-color: #c1c1c1 transparent;
+    }
+  }
+}
+
+.el-bubble-list-default-back-button {
+  position: sticky;
+  user-select: none;
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  // background-color: aquamarine;
+  border-radius: 50%;
+  box-shadow:
+    0 0 4px 0 rgba(0, 0, 0, 0.02),
+    0 6px 10px 0 rgba(47, 53, 64, 0.1);
+  transition: all 0.3s ease;
+  z-index: 100;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .el-bubble-list-back-to-bottom-icon {
+    font-size: var(--el-bubble-list-btn-size);
+    position: relative;
+
+    .back-to-bottom-loading-svg-bg {
+      position: absolute;
+      font-size: calc(var(--el-bubble-list-btn-size) + 26px);
+      animation: is-loading 1s infinite linear;
+    }
+
+    @keyframes is-loading {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}
+
+// 如果是有自定义插槽，则初始化默认样式
+.el-bubble-list-back-to-bottom-solt {
+  position: sticky;
+  user-select: none;
+  cursor: initial;
+  width: fit-content;
+  height: fit-content;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: initial;
+
+  &:hover {
+    transform: translateY(0px);
+    box-shadow: initial;
+  }
+}

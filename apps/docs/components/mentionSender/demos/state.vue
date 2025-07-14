@@ -15,11 +15,11 @@ title: 组件状态
 </docs>
 
 <script setup lang="ts">
-const senderReadOnlyValue = ref(`只读：💌 欢迎使用 Element-Plus-X ~`)
-const senderClearableValue = ref(`可删除：💌 欢迎使用 Element-Plus-X ~`)
+const senderReadOnlyValue = ref(`只读：💌 欢迎使用 Element-Plus-X ~`);
+const senderClearableValue = ref(`可删除：💌 欢迎使用 Element-Plus-X ~`);
 
 function handleSubmit(value: string) {
-  console.log(value)
+  console.log(value);
 }
 </script>
 

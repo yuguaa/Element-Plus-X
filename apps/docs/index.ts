@@ -1,12 +1,12 @@
-import * as components from './components'
-import pkg from './package.json'
-import 'element-plus/dist/index.css'
+import * as components from './components';
+import pkg from './package.json';
+import 'element-plus/dist/index.css';
 
-export * from './components'
+export * from './components';
 
 // 定义组件类型接口
 interface ComponentWithInstall {
-  install?: (app: any) => void // install 方法可选
+  install?: (app: any) => void; // install 方法可选
 }
 
 export default {
@@ -17,13 +17,13 @@ export default {
       // 为什么我们这里不用app.component,这是因为我们不确定这个组件中注册哪些附属的组件
       // 所以我们直接执行install方法，让组件自己去注册自己需要的组件就可以
 
-      const typedComponent = component as ComponentWithInstall
+      const typedComponent = component as ComponentWithInstall;
       if (typeof typedComponent.install === 'function') {
-        typedComponent.install(app) // 调用 install 方法
+        typedComponent.install(app); // 调用 install 方法
       }
-    })
+    });
   },
   // 我们还可以在这里导出一下我们组件的版本号，方便我们后期查看版本。
   // 版本号我们直接从package.json中获取
   version: pkg.version,
-}
+};

@@ -22,34 +22,34 @@ title: complete 事件 和 trigger-indices 属性
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
-import type { TypewriterInstance } from 'vue-element-plus-x/types/Typewriter'
+import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList';
+import type { TypewriterInstance } from 'vue-element-plus-x/types/Typewriter';
 
 type listType = BubbleListItemProps & {
-  key: number
-  role: 'user' | 'ai'
-}
+  key: number;
+  role: 'user' | 'ai';
+};
 
 // 示例调用
-const list = ref<BubbleListProps<listType>['list']>(generateFakeItems(0))
+const list = ref<BubbleListProps<listType>['list']>(generateFakeItems(0));
 
 function generateFakeItems(count: number): listType[] {
-  const messages: listType[] = []
+  const messages: listType[] = [];
   for (let i = 0; i < count; i++) {
-    const role = i % 2 === 0 ? 'ai' : 'user'
-    const placement = role === 'ai' ? 'start' : 'end'
-    const key = i + 1
+    const role = i % 2 === 0 ? 'ai' : 'user';
+    const placement = role === 'ai' ? 'start' : 'end';
+    const key = i + 1;
     const content = role === 'ai'
       ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'
-      : `哈哈哈，让我试试`
-    const loading = false
-    const shape = 'corner'
-    const variant = role === 'ai' ? 'filled' : 'outlined'
-    const isMarkdown = false
-    const typing = role === 'ai'
+      : `哈哈哈，让我试试`;
+    const loading = false;
+    const shape = 'corner';
+    const variant = role === 'ai' ? 'filled' : 'outlined';
+    const isMarkdown = false;
+    const typing = role === 'ai';
     const avatar = role === 'ai'
       ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-      : 'https://avatars.githubusercontent.com/u/76239030?v=4'
+      : 'https://avatars.githubusercontent.com/u/76239030?v=4';
 
     messages.push({
       key,
@@ -63,24 +63,24 @@ function generateFakeItems(count: number): listType[] {
       typing,
       avatar,
       avatarSize: '24px',
-    })
+    });
   }
-  return messages
+  return messages;
 }
 
 function onComplete(instance: TypewriterInstance, index: number) {
-  console.log('@complete', instance, index)
+  console.log('@complete', instance, index);
 }
 
-const triggerIndices = ref<BubbleListProps['triggerIndices']>('only-last')
+const triggerIndices = ref<BubbleListProps['triggerIndices']>('only-last');
 
 function changeTriggerIndices(type: 'only-last' | 'all' | number[]) {
-  triggerIndices.value = type
+  triggerIndices.value = type;
   // 重新生成列表数据
-  list.value = []
+  list.value = [];
   nextTick(() => {
-    list.value = generateFakeItems(7)
-  })
+    list.value = generateFakeItems(7);
+  });
 }
 </script>
 

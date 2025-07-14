@@ -11,10 +11,10 @@ title: 底部插槽
 </docs>
 
 <script setup lang="ts">
-import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue'
+import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue';
 
-const senderValue = ref('')
-const isSelect = ref(false)
+const senderValue = ref('');
+const isSelect = ref(false);
 </script>
 
 <template>

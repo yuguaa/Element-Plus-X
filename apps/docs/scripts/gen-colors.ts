@@ -1,6 +1,6 @@
-import { writeFileSync } from 'node:fs'
-import { fileURLToPath } from 'node:url'
-import { gold, green, purple, red } from '@ant-design/colors'
+import { writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { gold, green, purple, red } from '@ant-design/colors';
 
 // 获取我们的主色，我们之前定的主色是紫色，所以我们这里就使用紫色作为我们的主色调。
 // 接下来我们就需要将我们的主色生成为css的文件，
@@ -11,7 +11,7 @@ import { gold, green, purple, red } from '@ant-design/colors'
 // 我们循环打印的时候，这个值是不会被识别的
 // 我们来给大家打印一下试试
 // 我们需要定义一个属性来接收我们的值
-let colors = ''
+let colors = '';
 purple.forEach((color, index) => {
   // 我们再来打印一下
   // console.log(color)
@@ -24,8 +24,8 @@ purple.forEach((color, index) => {
   // 接下来我们就先来生成一下这一部分
   // 首先来写我们的前缀，因为我们生成的的是整个主题色的色域，
   // 所以我们需要在primary的后面再指定这是第几种色域值。
-  colors += `  --elx-color-primary-${index + 1}: ${color};\n`
-})
+  colors += `  --elx-color-primary-${index + 1}: ${color};\n`;
+});
 
 // 我们来打印一下
 // console.log(colors)
@@ -35,20 +35,20 @@ purple.forEach((color, index) => {
 
 green.forEach((color, index) => {
   // 我们还是使用同样的方式生成，这里我们就直接带着大家去复制了。
-  colors += `  --elx-color-success-${index + 1}: ${color};\n`
-})
+  colors += `  --elx-color-success-${index + 1}: ${color};\n`;
+});
 
 // 警告我们使用金色
 gold.forEach((color, index) => {
   // 我们还是使用同样的方式生成，这里我们就直接带着大家去复制了。
-  colors += `  --elx-color-warning-${index + 1}: ${color};\n`
-})
+  colors += `  --elx-color-warning-${index + 1}: ${color};\n`;
+});
 
 // 失败使用红色
 red.forEach((color, index) => {
   // 我们还是使用同样的方式生成，这里我们就直接带着大家去复制了。
-  colors += `  --elx-color-error-${index + 1}: ${color};\n`
-})
+  colors += `  --elx-color-error-${index + 1}: ${color};\n`;
+});
 
 // 最后我们来打印一下
 
@@ -60,16 +60,16 @@ red.forEach((color, index) => {
 // 这里我们会用到一些关于nodejs的命令，如果大家不熟悉的话，可以去学习我们的node小课，有专门去讲这一部分
 // 我们这里就不在赘述，就直接带着大家去使用。
 // 我们先创建这个文件的存储路径
-const filePath = fileURLToPath(new URL('../packages/vue-element-plus-x/src/style/themes/colors.less', import.meta.url))
+const filePath = fileURLToPath(new URL('../packages/vue-element-plus-x/src/style/themes/colors.less', import.meta.url));
 // 先创建这个文件，
 
 // 然后我们使用fs进行写入
 // writeFileSync(filePath, colors)
 // console.log('写入完成')
 // 但是大家会发现我们写入的文件会报错，这是因为我们必须有一个跟标签包裹，这里我们使用:root进行包裹，我们就来改造一下
-colors = `:root{\n${colors}\n}`
+colors = `:root{\n${colors}\n}`;
 
-writeFileSync(filePath, colors)
+writeFileSync(filePath, colors);
 // 我们生成的样式发现格式有点儿小问题，所以我们改进一下，
 // 在之前的结构中增加两个空格来美化一下。
 // 那么我们的基础色调，我们就准备好了，我们这节课就先到这里

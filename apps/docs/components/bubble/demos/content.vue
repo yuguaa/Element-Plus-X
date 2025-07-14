@@ -7,7 +7,7 @@ title: 基础用法。
 </docs>
 
 <script setup lang="ts">
-const content = ref('hello world !')
+const content = ref('hello world !');
 </script>
 
 <template>

@@ -7,13 +7,13 @@ title: 支持雾化效果
 </docs>
 
 <script setup lang="ts">
-const content = ref(`#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\``)
+const content = ref(`#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\``);
 
 function setContent(type: number) {
-  content.value = ''
+  content.value = '';
   setTimeout(() => {
-    content.value = type === 1 ? `#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\`` : '欢迎使用 Element-Plus-X 💖'.repeat(10)
-  }, 800)
+    content.value = type === 1 ? `#### 标题 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\`` : '欢迎使用 Element-Plus-X 💖'.repeat(10);
+  }, 800);
 }
 </script>
 

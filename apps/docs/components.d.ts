@@ -31,5 +31,6 @@ declare module 'vue' {
     ThoughtChain: typeof import('vue-element-plus-x')['ThoughtChain']
     Typewriter: typeof import('vue-element-plus-x')['Typewriter']
     Welcome: typeof import('vue-element-plus-x')['Welcome']
+    XMarkdown: typeof import('vue-element-plus-x')['XMarkdown']
   }
 }

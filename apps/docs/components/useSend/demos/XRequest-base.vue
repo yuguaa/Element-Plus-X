@@ -10,18 +10,18 @@ title: XRequest 【单独】 基础用法
 </docs>
 
 <script setup lang="ts">
-import { XRequest } from 'vue-element-plus-x'
+import { XRequest } from 'vue-element-plus-x';
 
-const str = ref('')
+const str = ref('');
 
 const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   onMessage: (msg: { data: string }) => {
-    console.log('onMessage:', msg)
+    console.log('onMessage:', msg);
     str.value += `
-    ${msg.data}`
+    ${msg.data}`;
   },
-})
+});
 </script>
 
 <template>

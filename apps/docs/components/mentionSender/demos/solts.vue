@@ -12,15 +12,15 @@ title: solts 各种插槽
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
-import { Loading } from '@element-plus/icons-vue'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
+import { Loading } from '@element-plus/icons-vue';
 
-const senderValue1 = ref('')
-const options = ref<MentionOption[]>()
-const triggerLoading = ref(false)
+const senderValue1 = ref('');
+const options = ref<MentionOption[]>();
+const triggerLoading = ref(false);
 
 function handleSearch() {
-  triggerLoading.value = true
+  triggerLoading.value = true;
   setTimeout(() => {
     options.value = [
       {
@@ -35,9 +35,9 @@ function handleSearch() {
         value: 'ageerle',
         avatar: 'https://avatars.githubusercontent.com/u/32251822',
       },
-    ]
-    triggerLoading.value = false
-  }, 1500)
+    ];
+    triggerLoading.value = false;
+  }, 1500);
 }
 </script>
 

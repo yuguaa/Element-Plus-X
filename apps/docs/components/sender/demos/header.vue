@@ -14,45 +14,50 @@ title: 头部插槽
 </docs>
 
 <script setup lang="ts">
-import { CircleClose } from '@element-plus/icons-vue'
+import { CircleClose } from '@element-plus/icons-vue';
 
-const senderRef = ref()
-const senderValue = ref('')
-const showHeaderFlog = ref(false)
+const senderRef = ref();
+const senderValue = ref('');
+const showHeaderFlog = ref(false);
 
 onMounted(() => {
-  showHeaderFlog.value = true
-  senderRef.value.openHeader()
-})
+  showHeaderFlog.value = true;
+  senderRef.value.openHeader();
+});
 
 function openCloseHeader() {
   if (!showHeaderFlog.value) {
-    senderRef.value.openHeader()
+    senderRef.value.openHeader();
+  } else {
+    senderRef.value.closeHeader();
   }
-  else {
-    senderRef.value.closeHeader()
-  }
-  showHeaderFlog.value = !showHeaderFlog.value
+  showHeaderFlog.value = !showHeaderFlog.value;
 }
 
 function closeHeader() {
-  showHeaderFlog.value = false
-  senderRef.value.closeHeader()
+  showHeaderFlog.value = false;
+  senderRef.value.closeHeader();
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px; height: 300px; justify-content: space-between;">
-    <el-button style="width: fit-content;" @click="openCloseHeader">
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 300px;
+      justify-content: space-between;
+    "
+  >
+    <el-button style="width: fit-content" @click="openCloseHeader">
       {{ showHeaderFlog ? '关闭头部' : '打开头部' }}
     </el-button>
     <Sender ref="senderRef" v-model="senderValue">
       <template #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">
-              💯 欢迎使用 Element Plus X
-            </div>
+            <div class="header-left">💯 欢迎使用 Element Plus X</div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <el-icon><CircleClose /></el-icon>
@@ -60,37 +65,35 @@ function closeHeader() {
               </el-button>
             </div>
           </div>
-          <div class="header-self-content">
-            🦜 自定义头部内容
-          </div>
+          <div class="header-self-content">🦜 自定义头部内容</div>
         </div>
       </template>
     </Sender>
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .header-self-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  height: 200px;
+  .header-self-title {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    padding: 16px;
-    height: 200px;
-    .header-self-title {
-        width: 100%;
-        display: flex;
-        height: 30px;
-        align-items: center;
-        justify-content: space-between;
-        padding-bottom: 8px;
-    }
-    .header-self-content {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        color: #626aef;
-        font-weight: 600;
-    }
+    height: 30px;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+  }
+  .header-self-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #626aef;
+    font-weight: 600;
+  }
 }
 </style>

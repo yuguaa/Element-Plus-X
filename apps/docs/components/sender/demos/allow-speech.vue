@@ -16,19 +16,19 @@ title: 语音识别
 </docs>
 
 <script setup lang="ts">
-const senderRef = ref()
-const senderValue = ref('')
+const senderRef = ref();
+const senderValue = ref('');
 function onRecordingChange(recording: boolean) {
   if (recording) {
-    ElMessage.success('开始录音')
+    ElMessage.success('开始录音');
   }
   else {
-    ElMessage.success('结束录音')
+    ElMessage.success('结束录音');
   }
 }
 
 function onsubmit() {
-  ElMessage.success('发送成功')
+  ElMessage.success('发送成功');
 }
 </script>
 

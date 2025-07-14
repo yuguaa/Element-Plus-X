@@ -7,15 +7,19 @@ title: #icon 插槽
 </docs>
 
 <script setup lang="ts">
-import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain'
-import { CircleCloseFilled, Loading, SuccessFilled } from '@element-plus/icons-vue'
+import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain';
+import {
+  CircleCloseFilled,
+  Loading,
+  SuccessFilled
+} from '@element-plus/icons-vue';
 
 interface DataType {
-  codeId: string
-  self_title?: string
-  self_thinkTitle?: string
-  self_thinkContent?: string
-  status?: 'success' | 'loading' | 'error'
+  codeId: string;
+  self_title?: string;
+  self_thinkTitle?: string;
+  self_thinkContent?: string;
+  status?: 'success' | 'loading' | 'error';
 }
 
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
@@ -26,7 +30,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isDefaultExpand: true,
     self_title: '成功-主标题',
     self_thinkTitle: '思考内容标题-默认展开',
-    self_thinkContent: '进行搜索文字'.repeat(10),
+    self_thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '2',
@@ -35,7 +39,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10),
+    self_thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '3',
@@ -44,7 +48,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10),
+    self_thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '4',
@@ -53,9 +57,9 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: true,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10),
-  },
-]
+    self_thinkContent: '进行搜索文字'.repeat(10)
+  }
+];
 </script>
 
 <template>
@@ -69,19 +73,23 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     <template #icon="{ item }">
       <span
         v-if="item.status === 'success'"
-        style="font-size: 18px; margin-left: 7px; color: var(--el-color-success);"
+        style="
+          font-size: 18px;
+          margin-left: 7px;
+          color: var(--el-color-success);
+        "
       >
         <el-icon><SuccessFilled /></el-icon>
       </span>
       <span
         v-if="item.status === 'error'"
-        style="font-size: 18px; margin-left: 7px; color: var(--el-color-danger);"
+        style="font-size: 18px; margin-left: 7px; color: var(--el-color-danger)"
       >
         <el-icon><CircleCloseFilled /></el-icon>
       </span>
       <span
         v-if="item.status === 'loading'"
-        style="font-size: 18px; margin-left: 7px; "
+        style="font-size: 18px; margin-left: 7px"
       >
         <el-icon class="is-loading"><Loading /></el-icon>
       </span>
@@ -89,7 +97,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   </ThoughtChain>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .is-loading {
   animation: spin 1s infinite linear;
 }

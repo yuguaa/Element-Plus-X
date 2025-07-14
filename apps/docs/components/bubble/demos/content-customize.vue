@@ -11,8 +11,8 @@ title: 自定义 气泡内容
 </docs>
 
 <script setup lang="ts">
-const avatarSize = '48px'
-const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+const avatarSize = '48px';
+const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 </script>
 
 <template>
@@ -76,6 +76,5 @@ const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpn
   &:hover {
     background-color: #ebeef5;
   }
-
 }
 </style>

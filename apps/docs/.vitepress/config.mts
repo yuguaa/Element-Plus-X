@@ -1,9 +1,9 @@
-import type { Plugin } from 'vitepress'
+import type { Plugin } from 'vitepress';
 // import { prismjsPlugin } from 'vite-plugin-prismjs'
-import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress';
 // 另一种 demo 插件
 // import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
-import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
+import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -70,13 +70,19 @@ export default defineConfig({
       { text: '🎀 开发计划', link: '/roadmap' },
       { text: '📆 更新日志', link: '/update-log' },
       { text: '🧭 指南', link: '/guide/install/' },
-      { text: '🎨 组件', link: '/components/typewriter/' },
+      { text: '🎨 组件', link: '/components/xmarkdown/' },
       // { text: '工具', link: '/utils/' },
     ],
     // 我们将sidebar变成一个对象，然后我们将nav中的link做为key，这个key对应的value就是数组
     // 我们先来实现一下这个数组
     sidebar: {
       '/components/': [
+        {
+          text: '上新',
+          items: [
+            { text: 'XMarkdown 渲染组件 📜', link: '/components/xmarkdown/' },
+          ],
+        },
         {
           text: '通用',
           items: [
@@ -188,7 +194,7 @@ export default defineConfig({
     },
     config(md) {
       // md.use(vitepressDemoPlugin)
-      md.use(groupIconMdPlugin)
+      md.use(groupIconMdPlugin);
     },
   },
   vite: {
@@ -206,7 +212,7 @@ export default defineConfig({
       groupIconVitePlugin() as Plugin,
     ],
     ssr: {
-      noExternal: ['element-plus']
-    }
+      noExternal: ['element-plus'],
+    },
   },
-})
+});

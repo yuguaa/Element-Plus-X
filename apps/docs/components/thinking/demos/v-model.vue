@@ -7,7 +7,7 @@ title: v-model 属性 受控组件
 </docs>
 
 <script setup lang="ts">
-const senderValue = ref(false)
+const senderValue = ref(true);
 </script>
 
 <template>
@@ -16,5 +16,4 @@ const senderValue = ref(false)
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

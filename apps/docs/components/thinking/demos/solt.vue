@@ -13,7 +13,7 @@ title: 插槽使用
 </docs>
 
 <script setup lang="ts">
-const statusValue = ref('start')
+const statusValue = ref('start');
 </script>
 
 <template>

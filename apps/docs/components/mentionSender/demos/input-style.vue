@@ -6,10 +6,10 @@ title: 自定义输入框样式
 </docs>
 
 <script setup lang="ts">
-import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue'
+import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue';
 
-const senderValue = ref('这是自定义输入框样式')
-const isSelect = ref(false)
+const senderValue = ref('这是自定义输入框样式');
+const isSelect = ref(false);
 </script>
 
 <template>

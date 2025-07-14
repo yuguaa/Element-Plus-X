@@ -9,9 +9,9 @@ title: filter-option 过滤筛选
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
 
-const senderValue1 = ref('')
+const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
@@ -25,15 +25,15 @@ const options = ref<MentionOption[]>([
     value: 'ageerle',
     avatar: 'https://avatars.githubusercontent.com/u/32251822',
   },
-])
+]);
 
 function filterFunc(_: string, option: MentionOption): any {
   // 这里打印 option 每次触发指令，会遍历 options 触发 filterFunc。
   if (option.value === 'ageerle' || option.value === 'JsonLee12138') {
-    return true
+    return true;
   }
   else if (option.value === 'HeJiaYue520') {
-    return false
+    return false;
   }
 }
 </script>

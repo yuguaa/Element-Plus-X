@@ -13,23 +13,23 @@ title: triggerStrings 触发字段
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
 
-const senderValue = ref('')
+const senderValue = ref('');
 
 const MOCK_DATA: Record<string, string[]> = {
   '@': ['Element-Plus-X', 'HeJiaYue520', 'JsonLee12138', 'lisentowind', 'ZRMYDYCG'],
   '#': ['1.0', '2.0', '3.0', '4.0', '5.0'],
-}
+};
 
-const options = ref<MentionOption[]>([])
+const options = ref<MentionOption[]>([]);
 
 function handleSearch(_: string, prefix: string) {
-  console.log('handleSearch', _, prefix)
+  console.log('handleSearch', _, prefix);
 
   options.value = (MOCK_DATA[prefix] || []).map(value => ({
     value,
-  }))
+  }));
 }
 </script>
 

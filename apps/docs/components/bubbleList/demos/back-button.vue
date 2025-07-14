@@ -22,45 +22,45 @@ title: 回到底部按钮 + 滚动条体验
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
+import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList';
 
 type listType = BubbleListItemProps & {
-  key: number
-  role: 'user' | 'ai'
-}
+  key: number;
+  role: 'user' | 'ai';
+};
 
 // 示例调用
-const list: BubbleListProps<listType>['list'] = generateFakeItems(12)
-const alwaysShowScrollbar = ref(false)
-const btnLoading = ref(true)
-const bottomValue = ref(10)
-const leftValue = ref(85)
+const list: BubbleListProps<listType>['list'] = generateFakeItems(12);
+const alwaysShowScrollbar = ref(false);
+const btnLoading = ref(true);
+const bottomValue = ref(10);
+const leftValue = ref(85);
 const backButtonPosition = computed(() => {
   return {
     bottom: `${bottomValue.value}%`,
     left: `${leftValue.value}%`,
-  }
-})
-const btnColor = ref('#2D38FF')
-const btnSize = ref(40)
+  };
+});
+const btnColor = ref('#2D38FF');
+const btnSize = ref(40);
 
 function generateFakeItems(count: number): listType[] {
-  const messages: listType[] = []
+  const messages: listType[] = [];
   for (let i = 0; i < count; i++) {
-    const role = i % 2 === 0 ? 'ai' : 'user'
-    const placement = role === 'ai' ? 'start' : 'end'
-    const key = i + 1
+    const role = i % 2 === 0 ? 'ai' : 'user';
+    const placement = role === 'ai' ? 'start' : 'end';
+    const key = i + 1;
     const content = role === 'ai'
       ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(8)
-      : `哈哈哈，让我试试`
-    const loading = false
-    const shape = 'corner'
-    const variant = role === 'ai' ? 'filled' : 'outlined'
-    const isMarkdown = false
-    const typing = role === 'ai' ? i === count - 1 : false
+      : `哈哈哈，让我试试`;
+    const loading = false;
+    const shape = 'corner';
+    const variant = role === 'ai' ? 'filled' : 'outlined';
+    const isMarkdown = false;
+    const typing = role === 'ai' ? i === count - 1 : false;
     const avatar = role === 'ai'
       ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-      : 'https://avatars.githubusercontent.com/u/76239030?v=4'
+      : 'https://avatars.githubusercontent.com/u/76239030?v=4';
 
     messages.push({
       key, // 唯一标识
@@ -76,9 +76,9 @@ function generateFakeItems(count: number): listType[] {
       avatar,
       avatarSize: '24px', // 头像占位大小
       avatarGap: '12px', // 头像与气泡之间的距离
-    })
+    });
   }
-  return messages
+  return messages;
 }
 </script>
 

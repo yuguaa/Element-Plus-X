@@ -5,47 +5,47 @@ title: useSend & XRequest【组合使用】
 </docs>
 
 <script setup lang="ts">
-import { Promotion, Refresh } from '@element-plus/icons-vue'
-import { useSend, XRequest } from 'vue-element-plus-x'
+import { Promotion, Refresh } from '@element-plus/icons-vue';
+import { useSend, XRequest } from 'vue-element-plus-x';
 
-const str = ref<string>('')
-let finish = () => {}
+const str = ref<string>('');
+let finish = () => {};
 
 const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   type: 'fetch',
   transformer: (e) => {
-    console.log('transformer:', e)
-    const a = e.trim().split('\n')
-    const r = a.pop()
-    return r
+    console.log('transformer:', e);
+    const a = e.trim().split('\n');
+    const r = a.pop();
+    return r;
   },
   onMessage: (msg) => {
-    console.log('onMessage:', msg)
-    str.value += `\n${msg}`
+    console.log('onMessage:', msg);
+    str.value += `\n${msg}`;
   },
   onError: (es, e) => {
-    console.log('onError:', es, e)
+    console.log('onError:', es, e);
   },
   onOpen: () => {
-    console.log('onOpen')
+    console.log('onOpen');
   },
   onAbort: (messages) => {
-    console.log('onAbort', messages)
+    console.log('onAbort', messages);
   },
   onFinish: (data) => {
-    console.log('onFinish:', data)
+    console.log('onFinish:', data);
     // 这里调用的时候，会报 eslint 错误，说我们在使用前未定义
     // 'finish' was used before it was defined.
     // 我们只有在 上面定义一个 finish 空方法，在下面进行赋值
     // 其实这里就是执行，useSend 的 finish 方法
-    finish()
+    finish();
   },
-})
+});
 
 function startFn() {
-  str.value = ''
-  sse.send('/api/sse')
+  str.value = '';
+  sse.send('/api/sse');
 }
 
 // useSend 的 abort 和 finish 是一样的方法。
@@ -54,10 +54,10 @@ function startFn() {
 const { send, loading, abort, finish: _finish } = useSend({
   sendHandler: startFn,
   abortHandler: sse.abort,
-})
+});
 
 // 给顶层变量赋值
-finish = _finish
+finish = _finish;
 </script>
 
 <template>
