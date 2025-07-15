@@ -7,5 +7,9 @@ title: buttonWidth 和 maxWidth
 </docs>
 
 <template>
-  <Thinking button-width="250px" max-width="100%" content="欢迎使用 Element-Plus-X" />
+  <Thinking
+    button-width="250px"
+    max-width="100%"
+    content="欢迎使用 Element-Plus-X"
+  />
 </template>

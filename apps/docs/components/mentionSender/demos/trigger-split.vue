@@ -7,9 +7,9 @@ title: trigger-split 指令分割符
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
 
-const senderValue1 = ref('')
+const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
@@ -23,7 +23,7 @@ const options = ref<MentionOption[]>([
     value: 'ageerle',
     avatar: 'https://avatars.githubusercontent.com/u/32251822',
   },
-])
+]);
 </script>
 
 <template>

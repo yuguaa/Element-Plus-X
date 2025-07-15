@@ -7,9 +7,9 @@ title: autoCollapse 属性
 </docs>
 
 <script setup lang="ts">
-import type { ThinkingStatus } from 'vue-element-plus-x/types/Thinking'
+import type { ThinkingStatus } from 'vue-element-plus-x/types/Thinking';
 
-const statusValue = ref<ThinkingStatus>('thinking')
+const statusValue = ref<ThinkingStatus>('thinking');
 </script>
 
 <template>

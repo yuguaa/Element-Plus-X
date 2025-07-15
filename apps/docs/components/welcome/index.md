@@ -28,27 +28,27 @@
 
 ## 属性
 
-| 属性名       | 类型    | 是否必填 | 默认值  | 描述                                           |
-| ------------ | ------- |-------| ------- | ---------------------------------------------- |
-| `variant`      | string  | 否    | filled  | 组件样式变体（filled/borderless）             |
-| `direction`    | string  | 否    | ltr     | 文本方向（ltr/rtl）                           |
-| `icon`         | string  | 否    | -       | 图标URL地址                                    |
-| `title`        | string  | 否    | -       | 主标题文本内容                                |
-| `extra`        | string  | 否    | -       | 副标题文本内容                                |
-| `description`  | string  | 否    | -       | 描述文本内容                                  |
-| `className`    | string  | 否    | -       | 容器外层自定义类名                            |
-| `rootClassName`| string  | 否    | -       | 根节点自定义类名                              |
-| `classNames`   | object  | 否    | -       | 各部分自定义类名（{ icon, title, extra, description }） |
-| `style`        | object  | 否    | -       | 容器外层自定义样式                            |
-| `styles`       | object  | 否    | -       | 各部分自定义样式（{ icon, title, extra, description }） |
-| `prefixCls`    | string  | 否    | welcome | 组件类名前缀                                  |
+| 属性名          | 类型   | 是否必填 | 默认值  | 描述                                                    |
+| --------------- | ------ | -------- | ------- | ------------------------------------------------------- |
+| `variant`       | string | 否       | filled  | 组件样式变体（filled/borderless）                       |
+| `direction`     | string | 否       | ltr     | 文本方向（ltr/rtl）                                     |
+| `icon`          | string | 否       | -       | 图标URL地址                                             |
+| `title`         | string | 否       | -       | 主标题文本内容                                          |
+| `extra`         | string | 否       | -       | 副标题文本内容                                          |
+| `description`   | string | 否       | -       | 描述文本内容                                            |
+| `className`     | string | 否       | -       | 容器外层自定义类名                                      |
+| `rootClassName` | string | 否       | -       | 根节点自定义类名                                        |
+| `classNames`    | object | 否       | -       | 各部分自定义类名（{ icon, title, extra, description }） |
+| `style`         | object | 否       | -       | 容器外层自定义样式                                      |
+| `styles`        | object | 否       | -       | 各部分自定义样式（{ icon, title, extra, description }） |
+| `prefixCls`     | string | 否       | welcome | 组件类名前缀                                            |
 
 ## 插槽
 
-| 插槽名       | 参数  | 类型       | 描述                                         |
-| ------------ | ------------ |--- | -------------------------------------------- |
-| `#image` | - | Slot | 自定义欢迎图片内容 |
-| `#extra` | - | Slot | 自定义副标题内容 |
+| 插槽名   | 参数 | 类型 | 描述               |
+| -------- | ---- | ---- | ------------------ |
+| `#image` | -    | Slot | 自定义欢迎图片内容 |
+| `#extra` | -    | Slot | 自定义副标题内容   |
 
 ## 功能特性
 

@@ -10,15 +10,15 @@ title: useSend 【单独】 基础用法
 </docs>
 
 <script setup lang="ts">
-import { useSend } from 'vue-element-plus-x'
+import { useSend } from 'vue-element-plus-x';
 
 const { send, finish, loading } = useSend({
   sendHandler: startFn,
-})
+});
 
 async function startFn() {
   // 在这里做一个 异步操作，可以是发请求
-  console.log('开始模拟请求')
+  console.log('开始模拟请求');
 }
 </script>
 

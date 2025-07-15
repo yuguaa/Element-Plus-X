@@ -16,30 +16,30 @@ title: 内置发送按钮禁用
 </docs>
 
 <script setup lang="ts">
-const senderRef = ref()
-const timeValue = ref<NodeJS.Timeout | null>(null)
-const senderValue = ref('')
-const senderLoading = ref(false)
+const senderRef = ref();
+const timeValue = ref<NodeJS.Timeout | null>(null);
+const senderValue = ref('');
+const senderLoading = ref(false);
 
-const submitBtnDisabled = ref(true)
+const submitBtnDisabled = ref(true);
 function handleSubmit(value: string) {
-  ElMessage.info(`发送中`)
-  senderLoading.value = true
+  ElMessage.info(`发送中`);
+  senderLoading.value = true;
   timeValue.value = setTimeout(() => {
     // 可以在控制台 查看打印结果
-    console.log('submit-> value：', value)
-    console.log('submit-> senderValue', senderValue.value)
-    senderLoading.value = false
-    ElMessage.success(`发送成功`)
-  }, 3500)
+    console.log('submit-> value：', value);
+    console.log('submit-> senderValue', senderValue.value);
+    senderLoading.value = false;
+    ElMessage.success(`发送成功`);
+  }, 3500);
 }
 
 function handleCancel() {
-  senderLoading.value = false
+  senderLoading.value = false;
   if (timeValue.value)
-    clearTimeout(timeValue.value)
-  timeValue.value = null
-  ElMessage.info(`取消发送`)
+    clearTimeout(timeValue.value);
+  timeValue.value = null;
+  ElMessage.info(`取消发送`);
 }
 </script>
 

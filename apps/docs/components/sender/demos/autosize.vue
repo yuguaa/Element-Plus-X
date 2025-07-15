@@ -7,7 +7,7 @@ title: 超长文字输入框
 </docs>
 
 <script setup lang="ts">
-const longerValue = `💌 欢迎使用 Element-Plus-X ~`.repeat(30)
+const longerValue = `💌 欢迎使用 Element-Plus-X ~`.repeat(30);
 </script>
 
 <template>

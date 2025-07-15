@@ -8,15 +8,14 @@ title: 删除图标、删除事件
 
 <script setup lang="ts">
 function handleDel() {
-  ElMessage.success('删除成功')
+  ElMessage.success('删除成功');
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <FilesCard name="删除测试文件.md" show-del-icon @delete="handleDel" />
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

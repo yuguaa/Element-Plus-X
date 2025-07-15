@@ -1,15 +1,15 @@
 #### **一、环境要求**
 
-| 工具         | 版本要求            | 说明          |
-| ------------ | ------------------- | ------------- |
-| Node.js      | ≥ 18.x（推荐≥20.x） | 主流 LTS 版本 |
-| Vue          | ≥ 3.3.X                | Vue 3 正式版  |
-| Element-Plus | ≥ 2.8.X                | 安装为依赖    |
-| pnpm   |  ≥ 10.X               | pnpm 安装    |
+| 工具    | 版本要求            | 说明          |
+| ------- | ------------------- | ------------- |
+| Node.js | ≥ 18.x（推荐≥20.x） | 主流 LTS 版本 |
+| Vue     | ≥ 3.3.X             | Vue 3 正式版  |
+| pnpm    | ≥ 10.X              | pnpm 安装     |
 
 #### **二、安装**
 
 ::: code-group
+
 ```sh [npm]
 npm install vue-element-plus-x --save
 ```
@@ -21,13 +21,15 @@ pnpm add vue-element-plus-x --save
 ```sh [yarn]
 yarn add vue-element-plus-x --save
 ```
+
 :::
 
 **CDN 引入**
+
 ```html
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
-<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
 #### **三、验证安装**
@@ -37,7 +39,7 @@ yarn add vue-element-plus-x --save
    ```json
    {
      "dependencies": {
-       "vue-element-plus-x": "^1.0.81"
+       "vue-element-plus-x": "^1.3.0"
      }
    }
    ```
@@ -56,17 +58,20 @@ yarn add vue-element-plus-x --save
 
 ```vue
 <script>
-import { BubbleList, Sender } from 'vue-element-plus-x'
+import { BubbleList, Sender } from 'vue-element-plus-x';
+
 const list = [
   {
     content: 'Hello, Element Plus X',
-    role: 'user',
-  },
-]
+    role: 'user'
+  }
+];
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;">
+  <div
+    style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
+  >
     <BubbleList :list="list" />
     <Sender />
   </div>

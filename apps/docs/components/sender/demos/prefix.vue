@@ -7,42 +7,47 @@ title: 前缀插槽
 </docs>
 
 <script setup lang="ts">
-import { CircleClose, Link } from '@element-plus/icons-vue'
+import { CircleClose, Link } from '@element-plus/icons-vue';
 
-const senderRef = ref()
-const senderValue = ref('')
-const showHeaderFlog = ref(false)
+const senderRef = ref();
+const senderValue = ref('');
+const showHeaderFlog = ref(false);
 
 onMounted(() => {
-  showHeaderFlog.value = true
-  senderRef.value.openHeader()
-})
+  showHeaderFlog.value = true;
+  senderRef.value.openHeader();
+});
 
 function openCloseHeader() {
   if (!showHeaderFlog.value) {
-    senderRef.value.openHeader()
+    senderRef.value.openHeader();
+  } else {
+    senderRef.value.closeHeader();
   }
-  else {
-    senderRef.value.closeHeader()
-  }
-  showHeaderFlog.value = !showHeaderFlog.value
+  showHeaderFlog.value = !showHeaderFlog.value;
 }
 
 function closeHeader() {
-  showHeaderFlog.value = false
-  senderRef.value.closeHeader()
+  showHeaderFlog.value = false;
+  senderRef.value.closeHeader();
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px; height: 230px; justify-content: flex-end;">
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      height: 230px;
+      justify-content: flex-end;
+    "
+  >
     <Sender ref="senderRef" v-model="senderValue">
       <template #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">
-              💯 欢迎使用 Element Plus X
-            </div>
+            <div class="header-left">💯 欢迎使用 Element Plus X</div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <el-icon><CircleClose /></el-icon>
@@ -50,9 +55,7 @@ function closeHeader() {
               </el-button>
             </div>
           </div>
-          <div class="header-self-content">
-            🦜 自定义头部内容
-          </div>
+          <div class="header-self-content">🦜 自定义头部内容</div>
         </div>
       </template>
 
@@ -73,7 +76,7 @@ function closeHeader() {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .header-self-wrap {
   display: flex;
   flex-direction: column;

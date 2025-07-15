@@ -7,6 +7,7 @@
 在复刻 `XStream` 后，针对更通用的 **控制请求数据** 和 **中断请求** 的场景，我们将 `ant-design-x` 的 `XRequest` 进行了重构，将其拆分成 **`前端终止场景`** 和 **`请求终止场景`**
 
 两种场景 分别对应
+
 - hooks `useSend` -- 前端终止场景
 - 工具类 `XRequest` -- 请求终止场景
 
@@ -48,41 +49,41 @@
 
 - **参数**
 
-| 参数名  | 说明                 | 类型                         |
-| ----- | -------------------- | ---------------------------- |
-| sendHandler | send 方法 | `() => void` |
+| 参数名       | 说明       | 类型         |
+| ------------ | ---------- | ------------ |
+| sendHandler  | send 方法  | `() => void` |
 | abortHandler | abort 方法 | `() => void` |
 
 - **返回值**
 
-| 属性名  | 说明                 | 类型                         |
-| ----- | -------------------- | ---------------------------- |
-| send | 开始 加载状态 支持回调 | `() => void` |
-| abort | 中断 加载状态 支持回调 | `() => void` |
-| loading | 加载状态 | `boolean` |
-| finish | 结束 加载状态 | `() => void` |
+| 属性名  | 说明                   | 类型         |
+| ------- | ---------------------- | ------------ |
+| send    | 开始 加载状态 支持回调 | `() => void` |
+| abort   | 中断 加载状态 支持回调 | `() => void` |
+| loading | 加载状态               | `boolean`    |
+| finish  | 结束 加载状态          | `() => void` |
 
 #### - `XRequest`
 
 - **参数**
 
-| 配置参数名  | 说明                 | 类型                         |
-| ----- | -------------------- | ---------------------------- |
-| baseURL | 基础请求地址 | `string` |
-| type | 请求类型，默认 SSE | `BaseSSEProps<T = string>.type?: SSEType \| undefined` |
-| transformer | transformer 回调，在这里可以对数据做解析处理 | `(e: string) => string \| undefined` |
-| onMessage | 请求中的回调 | `(msg: string \| undefined) => void` |
-| onError | 请求报错的回调 | `(es: EventSource, e: Event) => void` |
-| onOpen | SSE Open 状态 | `SSEWithSSEProps.onOpen?: (() => void) \| undefined` |
-| onAbort | 请求被终止的回调 | `(messages: (string \| undefined)[]) => void` |
-| onFinish | 请求结束的回调 | `(data: (string \| undefined)[]) => void` |
+| 配置参数名  | 说明                                         | 类型                                                   |
+| ----------- | -------------------------------------------- | ------------------------------------------------------ |
+| baseURL     | 基础请求地址                                 | `string`                                               |
+| type        | 请求类型，默认 SSE                           | `BaseSSEProps<T = string>.type?: SSEType \| undefined` |
+| transformer | transformer 回调，在这里可以对数据做解析处理 | `(e: string) => string \| undefined`                   |
+| onMessage   | 请求中的回调                                 | `(msg: string \| undefined) => void`                   |
+| onError     | 请求报错的回调                               | `(es: EventSource, e: Event) => void`                  |
+| onOpen      | SSE Open 状态                                | `SSEWithSSEProps.onOpen?: (() => void) \| undefined`   |
+| onAbort     | 请求被终止的回调                             | `(messages: (string \| undefined)[]) => void`          |
+| onFinish    | 请求结束的回调                               | `(data: (string \| undefined)[]) => void`              |
 
 - **返回值**
 
-| 属性名  | 说明                 | 类型                         |
-| ----- | -------------------- | ---------------------------- |
-| send | 开始请求接口 | `XRequest<string \| undefined>.send(url: string, options?: EventSourceInit \| BaseFetchOptions): Promise<XRequest<string \| undefined>>` |
-| abort | 中断请求 | `XRequest<string \| undefined>.abort(): void` |
+| 属性名 | 说明         | 类型                                                                                                                                     |
+| ------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| send   | 开始请求接口 | `XRequest<string \| undefined>.send(url: string, options?: EventSourceInit \| BaseFetchOptions): Promise<XRequest<string \| undefined>>` |
+| abort  | 中断请求     | `XRequest<string \| undefined>.abort(): void`                                                                                            |
 
 ## 总结
 

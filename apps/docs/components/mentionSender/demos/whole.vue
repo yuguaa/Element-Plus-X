@@ -11,27 +11,27 @@ title: whole 整体删除
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
 
-const senderValue1 = ref('')
-const senderValue2 = ref('')
+const senderValue1 = ref('');
+const senderValue2 = ref('');
 
 const MOCK_DATA: Record<string, string[]> = {
   '@': ['Element-Plus-X', 'HeJiaYue520', 'JsonLee12138', 'lisentowind', 'ZRMYDYCG'],
   '#': ['1.0', '2.0', '3.0', '4.0', '5.0'],
-}
+};
 
-const options = ref<MentionOption[]>([])
+const options = ref<MentionOption[]>([]);
 
 function handleSearch(_: string, prefix: string) {
   options.value = (MOCK_DATA[prefix] || []).map(value => ({
     value,
-  }))
+  }));
 }
 
 function checkIsWhole(pattern: string, prefix: string) {
-  console.log('checkIsWhole', pattern, prefix)
-  return (MOCK_DATA[prefix] || []).includes(pattern)
+  console.log('checkIsWhole', pattern, prefix);
+  return (MOCK_DATA[prefix] || []).includes(pattern);
 }
 </script>
 

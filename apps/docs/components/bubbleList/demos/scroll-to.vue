@@ -13,34 +13,41 @@ title: 自动滚动 + 滚动到指定索引
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList'
-import type { TypewriterProps } from 'vue-element-plus-x/types/Typewriter'
+import type {
+  BubbleListItemProps,
+  BubbleListProps
+} from 'vue-element-plus-x/types/BubbleList';
+import type { TypewriterProps } from 'vue-element-plus-x/types/Typewriter';
 
 type listType = BubbleListItemProps & {
-  key: number
-  role: 'user' | 'ai'
-}
+  key: number;
+  role: 'user' | 'ai';
+};
 
 // 示例调用
-const bubbleItems = ref<BubbleListProps<listType>['list']>(generateFakeItems(2))
+const bubbleItems = ref<BubbleListProps<listType>['list']>(
+  generateFakeItems(2)
+);
 
 function generateFakeItems(count: number): listType[] {
-  const messages: listType[] = []
+  const messages: listType[] = [];
   for (let i = 0; i < count; i++) {
-    const role = i % 2 === 0 ? 'ai' : 'user'
-    const placement = role === 'ai' ? 'start' : 'end'
-    const key = i + 1
-    const content = role === 'ai'
-      ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'
-      : `哈哈哈，让我试试`
-    const loading = false
-    const shape = 'corner'
-    const variant = role === 'ai' ? 'filled' : 'outlined'
-    const isMarkdown = false
-    const typing = false
-    const avatar = role === 'ai'
-      ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-      : 'https://avatars.githubusercontent.com/u/76239030?v=4'
+    const role = i % 2 === 0 ? 'ai' : 'user';
+    const placement = role === 'ai' ? 'start' : 'end';
+    const key = i + 1;
+    const content =
+      role === 'ai'
+        ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'
+        : `哈哈哈，让我试试`;
+    const loading = false;
+    const shape = 'corner';
+    const variant = role === 'ai' ? 'filled' : 'outlined';
+    const isMarkdown = false;
+    const typing = false;
+    const avatar =
+      role === 'ai'
+        ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+        : 'https://avatars.githubusercontent.com/u/76239030?v=4';
 
     messages.push({
       key,
@@ -53,28 +60,30 @@ function generateFakeItems(count: number): listType[] {
       isMarkdown,
       typing,
       avatar,
-      avatarSize: '32px',
-    })
+      avatarSize: '32px'
+    });
   }
-  return messages
+  return messages;
 }
 
-const bubbleListRef = ref()
-const num = ref(0)
+const bubbleListRef = ref();
+const num = ref(0);
 
 function addMessage() {
-  const i = bubbleItems.value.length
-  const isUser = !!(i % 2)
+  const i = bubbleItems.value.length;
+  const isUser = !!(i % 2);
   const content = isUser
     ? '哈哈哈，让我试试'
-    : '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(5)
-  const shape = 'corner'
-  const variant = !isUser ? 'filled' : 'outlined'
-  const placement = isUser ? 'end' : 'start'
-  const typing: TypewriterProps['typing'] = isUser ? false : { step: 5, suffix: '🍆', interval: 35 }
+    : '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(5);
+  const shape = 'corner';
+  const variant = !isUser ? 'filled' : 'outlined';
+  const placement = isUser ? 'end' : 'start';
+  const typing: TypewriterProps['typing'] = isUser
+    ? false
+    : { step: 5, suffix: '🍆', interval: 35 };
   const avatar = isUser
     ? 'https://avatars.githubusercontent.com/u/76239030?v=4'
-    : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+    : 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
   const obj = {
     key: i,
     role: isUser ? 'user' : 'ai',
@@ -85,37 +94,37 @@ function addMessage() {
     shape,
     variant,
     avatarSize: '32px',
-    isFog: !isUser,
-  }
-  bubbleItems.value.push(obj as listType)
+    isFog: !isUser
+  };
+  bubbleItems.value.push(obj as listType);
   // 每次添加 调用 滚动到底部 触发 自动滚动
-  scrollBottom()
+  scrollBottom();
 }
 
 function clearMessage() {
-  bubbleItems.value = []
+  bubbleItems.value = [];
 }
 
 function scrollToTop() {
-  bubbleListRef.value.scrollToTop()
+  bubbleListRef.value.scrollToTop();
 }
 
 function scrollBottom() {
-  bubbleListRef.value.scrollToBottom()
+  bubbleListRef.value.scrollToBottom();
 }
 
 function scrollToBubble() {
-  bubbleListRef.value.scrollToBubble(num.value)
+  bubbleListRef.value.scrollToBubble(num.value);
 }
 
 onMounted(() => {
   setTimeout(() => {
-    bubbleItems.value.map((item) => {
-      item.loading = false
-      return item
-    })
-  }, 3000)
-})
+    bubbleItems.value.map(item => {
+      item.loading = false;
+      return item;
+    });
+  }, 3000);
+});
 </script>
 
 <template>
@@ -137,7 +146,12 @@ onMounted(() => {
       </div>
 
       <div class="btn-list">
-        <el-input-number v-model="num" :min="0" :max="10" controls-position="right" />
+        <el-input-number
+          v-model="num"
+          :min="0"
+          :max="10"
+          controls-position="right"
+        />
         <el-button type="primary" plain @click="scrollToBubble">
           滚动第{{ num }}个气泡框
         </el-button>
@@ -150,7 +164,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .component-container {
   padding: 12px;
 

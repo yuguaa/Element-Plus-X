@@ -7,14 +7,14 @@ title: titleKey、thinkTitleKey、thinkContentKey 属性
 </docs>
 
 <script setup lang="ts">
-import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain'
+import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain';
 
 interface DataType {
-  codeId: string
-  self_title?: string
-  self_thinkTitle?: string
-  self_thinkContent?: string
-  status?: 'success' | 'loading' | 'error'
+  codeId: string;
+  self_title?: string;
+  self_thinkTitle?: string;
+  self_thinkContent?: string;
+  status?: 'success' | 'loading' | 'error';
 }
 
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
@@ -25,7 +25,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isDefaultExpand: true,
     self_title: '成功-主标题',
     self_thinkTitle: '思考内容标题-默认展开',
-    self_thinkContent: '进行搜索文字'.repeat(10),
+    self_thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '2',
@@ -34,7 +34,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10),
+    self_thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '3',
@@ -43,7 +43,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10),
+    self_thinkContent: '进行搜索文字'.repeat(10)
   },
   {
     codeId: '4',
@@ -52,9 +52,9 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     isDefaultExpand: true,
     self_thinkTitle: '思考内容标题',
-    self_thinkContent: '进行搜索文字'.repeat(10),
-  },
-]
+    self_thinkContent: '进行搜索文字'.repeat(10)
+  }
+];
 </script>
 
 <template>
@@ -67,5 +67,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   />
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

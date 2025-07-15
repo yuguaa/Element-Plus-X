@@ -7,44 +7,44 @@ title: 自定义文件列表
 </docs>
 
 <script setup lang="ts">
-import type { FilesCardProps } from 'vue-element-plus-x/types/FilesCard'
-import { ref } from 'vue'
+import type { FilesCardProps } from 'vue-element-plus-x/types/FilesCard';
+import { ref } from 'vue';
 
 type SelfFilesCardProps = FilesCardProps & {
-  id?: number
-}
+  id?: number;
+};
 
-const files = ref<SelfFilesCardProps[]>([])
+const files = ref<SelfFilesCardProps[]>([]);
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file)
+  console.log('befor', file);
   if (file.size > 1024 * 1024 * 2) {
-    ElMessage.error('文件大小不能超过 2MB!')
-    return false
+    ElMessage.error('文件大小不能超过 2MB!');
+    return false;
   }
 }
 
 async function handleUploadDrop(files: any, props: any) {
-  console.log('drop', files)
-  console.log('props', props)
+  console.log('drop', files);
+  console.log('props', props);
 
   if (files && files.length > 0) {
     if (files[0].type === '') {
-      ElMessage.error('禁止上传文件夹！')
-      return false
+      ElMessage.error('禁止上传文件夹！');
+      return false;
     }
 
     for (let index = 0; index < files.length; index++) {
-      const file = files[index]
-      await handleHttpRequest({ file })
+      const file = files[index];
+      await handleHttpRequest({ file });
     }
   }
 }
 
 async function handleHttpRequest(options: any) {
-  const formData = new FormData()
-  formData.append('file', options.file)
-  ElMessage.info('上传中...')
+  const formData = new FormData();
+  formData.append('file', options.file);
+  ElMessage.info('上传中...');
 
   setTimeout(() => {
     const res = {
@@ -52,8 +52,8 @@ async function handleHttpRequest(options: any) {
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
-      imgFile: options.file,
-    }
+      imgFile: options.file
+    };
     files.value.push({
       id: files.value.length,
       uid: res.uid,
@@ -61,21 +61,21 @@ async function handleHttpRequest(options: any) {
       fileSize: res.fileSize,
       imgFile: res.imgFile,
       showDelIcon: true,
-      imgVariant: 'square',
-    })
-    ElMessage.success('上传成功')
-  }, 1000)
+      imgVariant: 'square'
+    });
+    ElMessage.success('上传成功');
+  }, 1000);
 }
 
 function handleDeleteCard(item: SelfFilesCardProps) {
-  files.value = files.value.filter((items: any) => items.id !== item.id)
-  console.log('delete', item)
-  ElMessage.success('删除成功')
+  files.value = files.value.filter((items: any) => items.id !== item.id);
+  console.log('delete', item);
+  ElMessage.success('删除成功');
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Attachments
       :file-list="files"
       :http-request="handleHttpRequest"
@@ -88,11 +88,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
     >
       <template #file-list="{ items }">
         <div class="custom-list">
-          <div
-            v-for="(item, index) in items"
-            :key="index"
-            class="custom-item"
-          >
+          <div v-for="(item, index) in items" :key="index" class="custom-item">
             <div class="custom-item-name">
               {{ item.name }}
             </div>
@@ -103,7 +99,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .custom-list {
   display: flex;
   gap: 12px;

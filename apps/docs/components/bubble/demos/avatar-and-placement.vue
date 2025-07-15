@@ -23,8 +23,8 @@ title: 支持位置和头像，以及间距设置
 </docs>
 
 <script setup lang="ts">
-const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-const avatarUser = 'https://avatars.githubusercontent.com/u/76239030?v=4'
+const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const avatarUser = 'https://avatars.githubusercontent.com/u/76239030?v=4';
 </script>
 
 <template>

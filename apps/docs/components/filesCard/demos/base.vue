@@ -7,20 +7,20 @@ title: 基础用法
 </docs>
 
 <script setup lang="ts">
-import type { FilesType } from 'vue-element-plus-x/types/FilesCard'
+import type { FilesType } from 'vue-element-plus-x/types/FilesCard';
 
-const filesCardRef = ref()
-const colorMap = ref({}) as Ref<Record<FilesType, string>>
+const filesCardRef = ref();
+const colorMap = ref({}) as Ref<Record<FilesType, string>>;
 
 onMounted(() => {
   // 获取内置颜色
-  colorMap.value = filesCardRef.value?.colorMap
-  console.log(colorMap.value)
-})
+  colorMap.value = filesCardRef.value?.colorMap;
+  console.log(colorMap.value);
+});
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <span>设置 name 属性, 且 name 没有后缀。name="测试文件"</span>
     <FilesCard ref="filesCardRef" name="测试文件" />
     <span>设置 name 属性，有文件后缀。name="测试文件.pdf"</span>
@@ -58,7 +58,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="less">
+<style module lang="less">
 .files-card-container {
   display: flex;
   flex-wrap: wrap;

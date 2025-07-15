@@ -1,18 +1,18 @@
-import type { Plugin, PluginOption } from 'vite'
+import type { Plugin, PluginOption } from 'vite';
 // import path from 'node:path'
 // import { fileURLToPath } from 'node:url'
-import vueJsx from '@vitejs/plugin-vue-jsx'
-import Unocss from 'unocss/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import ElementPlus from 'unplugin-element-plus/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import Components from 'unplugin-vue-components/vite'
-import { defineConfig } from 'vite'
-import eslintPlugin from 'vite-plugin-eslint'
-import { tsxAutoProps } from 'vite-plugin-tsx-auto-props'
+import vueJsx from '@vitejs/plugin-vue-jsx';
+import Unocss from 'unocss/vite';
+import AutoImport from 'unplugin-auto-import/vite';
+import ElementPlus from 'unplugin-element-plus/vite';
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import Components from 'unplugin-vue-components/vite';
+import { defineConfig } from 'vite';
+import eslintPlugin from 'vite-plugin-eslint';
+import { tsxAutoProps } from 'vite-plugin-tsx-auto-props';
 // 导入demo插件
-import vitepressDemo from 'vite-plugin-vitepress-demo'
-import { tovUIResolver } from './scripts/vue-element-plus-x-resolver'
+import vitepressDemo from 'vite-plugin-vitepress-demo';
+import { tovUIResolver } from './scripts/vue-element-plus-x-resolver';
 
 // 读取我们当前的根目录
 // const baseUrl = fileURLToPath(new URL('.', import.meta.url))
@@ -20,17 +20,16 @@ import { tovUIResolver } from './scripts/vue-element-plus-x-resolver'
 export default defineConfig({
   plugins: [
     AutoImport({
-      imports: ["vue"],
+      imports: ['vue'],
       ignore: ['h', 'ClientOnly'],
-      resolvers: [ElementPlusResolver({
-        exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
-      })],
+      resolvers: [
+        ElementPlusResolver({
+          exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
+        })
+      ]
     }) as PluginOption,
     Components({
-      resolvers: [
-        tovUIResolver(),
-        ElementPlusResolver(),
-      ],
+      resolvers: [tovUIResolver(), ElementPlusResolver()]
     }) as PluginOption,
     tsxAutoProps(),
     vitepressDemo({
@@ -47,10 +46,10 @@ export default defineConfig({
         '**/node_modules/**',
         '**/.gitignore',
         '**/dist/**',
-        '**/cache/**',
-      ],
+        '**/cache/**'
+      ]
     }),
-    ElementPlus({}) as PluginOption,
+    ElementPlus({}) as PluginOption
   ] as Plugin[],
   // 我们使用vite中给我们提供的resolve配置项中的alias来实现一个重命名。
   resolve: {
@@ -73,6 +72,6 @@ export default defineConfig({
       //   // 然后我们把路径替换成绝对路径地址
       //   replacement: path.resolve(baseUrl, 'packages/icons/src'),
       // },
-    ],
-  },
-})
+    ]
+  }
+});

@@ -7,15 +7,15 @@ title: lineGradient 属性
 </docs>
 
 <script setup lang="ts">
-import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain'
+import type { ThoughtChainItemProps } from 'vue-element-plus-x/types/ThoughtChain';
 
 interface DataType {
-  id: string
-  title?: string
-  thinkTitle?: string
-  thinkContent?: string
-  status?: 'success' | 'loading' | 'error'
-  hideTitle?: boolean
+  id: string;
+  title?: string;
+  thinkTitle?: string;
+  thinkContent?: string;
+  status?: 'success' | 'loading' | 'error';
+  hideTitle?: boolean;
 }
 
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
@@ -26,7 +26,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isDefaultExpand: true,
     title: '成功-主标题',
     thinkTitle: '思考内容标题-默认展开',
-    thinkContent: '进行搜索文字'.repeat(20),
+    thinkContent: '进行搜索文字'.repeat(20)
   },
   {
     id: '2',
@@ -34,7 +34,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     title: '加载-主标题',
     thinkTitle: '思考内容标题-默认展开',
-    thinkContent: '进行搜索文字'.repeat(20),
+    thinkContent: '进行搜索文字'.repeat(20)
   },
   {
     id: '3',
@@ -42,7 +42,7 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isCanExpand: true,
     title: '失败-主标题',
     thinkTitle: '思考内容标题-默认展开',
-    thinkContent: '进行搜索文字'.repeat(20),
+    thinkContent: '进行搜索文字'.repeat(20)
   },
   {
     id: '4',
@@ -51,14 +51,13 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     isDefaultExpand: true,
     title: '成功-主标题',
     thinkTitle: '思考内容标题-默认展开',
-    thinkContent: '进行搜索文字'.repeat(20),
-  },
-]
+    thinkContent: '进行搜索文字'.repeat(20)
+  }
+];
 </script>
 
 <template>
   <ThoughtChain :thinking-items="thinkingItems" line-gradient />
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

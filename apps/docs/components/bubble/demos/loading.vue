@@ -11,8 +11,8 @@ title: 加载中状态
 </docs>
 
 <script setup lang="ts">
-const loading = ref(true)
-const content = ref('hello world !')
+const loading = ref(true);
+const content = ref('hello world !');
 </script>
 
 <template>

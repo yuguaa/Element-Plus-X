@@ -7,9 +7,9 @@ title: select 选择事件
 </docs>
 
 <script setup lang="ts">
-import type { MentionOption } from 'vue-element-plus-x/types/MentionSender'
+import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
 
-const senderValue1 = ref('')
+const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
@@ -23,30 +23,30 @@ const options = ref<MentionOption[]>([
     value: 'ageerle',
     avatar: 'https://avatars.githubusercontent.com/u/32251822',
   },
-])
+]);
 
-const filterOptions = ref()
+const filterOptions = ref();
 
 function handleSearch(searchValue: string, prefix: string) {
-  console.log('搜索的值', searchValue)
-  console.log('弹框触发的 字符前缀', prefix) // 这里可以判断多 指令的情况
+  console.log('搜索的值', searchValue);
+  console.log('弹框触发的 字符前缀', prefix); // 这里可以判断多 指令的情况
   // 当调用出弹框后，每次输入的时候，都会调用这个方法。
   filterOptions.value = options.value.filter((option) => {
     // 这里的 option.value 是 '@' 后面的内容
     // 所以这里需要判断是否包含输入的内容
     if (searchValue) {
-      return option.value.includes(searchValue)
+      return option.value.includes(searchValue);
     }
     else {
       // 如果没有输入内容，则显示所有选项
-      return option
+      return option;
     }
-  })
+  });
 }
 
 function handleSelect(option: MentionOption) {
-  console.log('选中的值', option)
-  ElMessage.success(`选中的值：${option.value}`)
+  console.log('选中的值', option);
+  ElMessage.success(`选中的值：${option.value}`);
 }
 </script>
 

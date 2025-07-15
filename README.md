@@ -6,7 +6,17 @@
 
 <div align="center">
 
-  [![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/HeJiaYue520/Element-Plus-X/blob/main/LICENSE)&emsp;[![GitHub stars](https://img.shields.io/github/stars/HeJiaYue520/Element-Plus-X)](https://github.com/HeJiaYue520/Element-Plus-X)&emsp;[![npm version](https://img.shields.io/npm/v/vue-element-plus-x)](https://www.npmjs.com/package/vue-element-plus-x)&emsp;[![npm](https://img.shields.io/npm/dm/vue-element-plus-x.svg)](https://www.npmjs.com/package/vue-element-plus-x)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/HeJiaYue520/Element-Plus-X/blob/main/LICENSE)&emsp;[![GitHub stars](https://img.shields.io/github/stars/HeJiaYue520/Element-Plus-X)](https://github.com/HeJiaYue520/Element-Plus-X)&emsp;[![npm version](https://img.shields.io/npm/v/vue-element-plus-x)](https://www.npmjs.com/package/vue-element-plus-x)&emsp;[![npm](https://img.shields.io/npm/dm/vue-element-plus-x.svg)](https://www.npmjs.com/package/vue-element-plus-x)&emsp;[![english doc](https://img.shields.io/badge/docs-English-blue?style=flat-square&logo=read-the-docs)](https://github.com/HeJiaYue520/Element-Plus-X/blob/main/README.en.md)
+
+</div>
+
+<div align="center">
+
+本项目 CDN 加速及安全防护由 Tencent EdgeOne 赞助
+
+[亚洲最佳CDN、边缘和安全解决方案 - Tencent EdgeOne](https://edgeone.ai/zh?from=github)
+
+<img src="readme/edgeone.png"/>
 
 </div>
 
@@ -21,31 +31,33 @@
 
 <div align="center">
 
- [English](./README.en.md) | **简体中文**
+[English](./README.en.md) | **简体中文**
 
 </div>&emsp;
 
 # 🚀 Element-Plus-X
+
 **开箱即用的企业级 AI 组件库（基于 Vue 3 + Element-Plus）**
 
 ## 📢 快速链接
-| 资源类型         | <div style="width: 300px;" >链接</div>                                                                 |
-|------------------|----------------------------------------------------------------------|
-| **文档**         | [📖 开发文档](https://element-plus-x.com)                             |
-| **在线演示**     | [👁️ 在线预览](https://v.element-plus-x.com)                         |
-| **代码仓库**     | [🐙 GitHub](https://github.com/element-plus-x/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)          |
-| **NPM 包**       | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)           |
-| **问题反馈**     | [🐛 提交 Bug](https://github.com/element-plus-x/Element-Plus-X/issues)  |
-| **交流讨论**     | [🐒 交流群](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)  |
-| **模版项目 预览** | [👀 在线预览](https://chat.element-plus-x.com/)                       |
-| **模版项目 源码** | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai)  |
+
+| 资源类型     | <div style="width: 300px;" >链接</div>                                                                   |
+| ------------ | -------------------------------------------------------------------------------------------------------- |
+| **文档**     | [📖 开发文档](https://element-plus-x.com)                                                                |
+| **在线演示** | [👁️ 在线预览](https://v.element-plus-x.com)                                                              |
+| **代码仓库** | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X)                                               |
+| **NPM 包**   | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                               |
+| **问题反馈** | [🐛 提交 Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)                                      |
+| **交流讨论** | [🐒 交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) |
 
 ## 🛠️ 核心特性
+
 - ✨ **企业级 AI 组件**：内置聊天机器人、语音交互等场景化组件
 - 🚀 **零配置集成**：基于 Element-Plus 设计体系，开箱即用
 - 📦 **按需加载**：提供 Tree Shaking 优化
 
 ## 📦 安装
+
 ```bash
 # NPM
 npm install vue-element-plus-x
@@ -64,17 +76,20 @@ yarn install vue-element-plus-x
 
 ```vue
 <script>
-import { BubbleList, Sender } from 'vue-element-plus-x'
+import { BubbleList, Sender } from 'vue-element-plus-x';
+
 const list = [
   {
     content: 'Hello, Element Plus X',
-    role: 'user',
-  },
-]
+    role: 'user'
+  }
+];
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;">
+  <div
+    style="display: flex; flex-direction: column; height: 230px; justify-content: space-between;"
+  >
     <BubbleList :list="list" />
     <Sender />
   </div>
@@ -85,42 +100,43 @@ const list = [
 
 ```ts
 // main.ts
-import { createApp } from 'vue'
-import ElementPlusX from 'vue-element-plus-x'
-import App from './App.vue'
+import { createApp } from 'vue';
+import ElementPlusX from 'vue-element-plus-x';
+import App from './App.vue';
 
-const app = createApp(App)
+const app = createApp(App);
 // 使用 app.use() 全局引入
-app.use(ElementPlusX)
-app.mount('#app')
+app.use(ElementPlusX);
+app.mount('#app');
 ```
 
 3. **CDN 引入**
+
 ```html
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
-<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
 ## 🌟 已实现 组件 和 Hooks
 
-| 组件名       | 描述                     | 文档链接               |
-| ------------ | ------------------------ | ---------------------- |
-| `Typewriter` | 打字动画组件             | [📄 文档](https://element-plus-x.com/components/typewriter/) |
-| `Bubble`     | 气泡消息组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubble/) |
-| `BubbleList` | 气泡消息列表 （拓展）        | [📄 文档](https://element-plus-x.com/components/bubbleList/) |
-| `Conversations` | 会话管理组件 （拓展）        | [📄 文档](https://element-plus-x.com/components/conversations/) |
-| `Welcome`    | 欢迎组件           | [📄 文档](https://element-plus-x.com/components/welcome/) |
-| `Prompts `    | 提示集组件           | [📄 文档](https://element-plus-x.com/components/prompts/) |
-| `FilesCard`       |  文件卡片组件          | [📄 文档](https://element-plus-x.com/components/filesCard/) |
-| `Attachments`       |  上传附件组件          | [📄 文档](https://element-plus-x.com/components/attachments/) |
-| `Sender`     | 智能输入框（含语音交互、内置指令操作） | [📄 文档](https://element-plus-x.com/components/sender/) |
-| `MentionSender`     | 指令输入框 （提及列表） | [📄 文档](https://element-plus-x.com/components/mentionSender/) |
-| `Thinking`      | 思考中组件 （拓展）  | [📄 文档](https://element-plus-x.com/components/thinking/) |
-| `ThoughtChain` | 思考链组件             | [📄 文档](https://element-plus-x.com/components/thoughtChain/) |
-| `useRecord` | 浏览器内置语音识别 API Hooks   | [📄 文档](https://element-plus-x.com/components/useRecord/) |
-| `useXStream` | 流模式接口 Hooks | [📄 文档](https://element-plus-x.com/components/useXStream/) |
-| `useSend & XRequest` | 流模式 hooks 的拆分 （拓展）  | [📄 文档](https://element-plus-x.com/components/useSend/) |
+| 组件名               | 描述                                   | 文档链接                                                        |
+| -------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| `Typewriter`         | 打字动画组件                           | [📄 文档](https://element-plus-x.com/components/typewriter/)    |
+| `Bubble`             | 气泡消息组件 （拓展）                  | [📄 文档](https://element-plus-x.com/components/bubble/)        |
+| `BubbleList`         | 气泡消息列表 （拓展）                  | [📄 文档](https://element-plus-x.com/components/bubbleList/)    |
+| `Conversations`      | 会话管理组件 （拓展）                  | [📄 文档](https://element-plus-x.com/components/conversations/) |
+| `Welcome`            | 欢迎组件                               | [📄 文档](https://element-plus-x.com/components/welcome/)       |
+| `Prompts `           | 提示集组件                             | [📄 文档](https://element-plus-x.com/components/prompts/)       |
+| `FilesCard`          | 文件卡片组件                           | [📄 文档](https://element-plus-x.com/components/filesCard/)     |
+| `Attachments`        | 上传附件组件                           | [📄 文档](https://element-plus-x.com/components/attachments/)   |
+| `Sender`             | 智能输入框（含语音交互、内置指令操作） | [📄 文档](https://element-plus-x.com/components/sender/)        |
+| `MentionSender`      | 指令输入框 （提及列表）                | [📄 文档](https://element-plus-x.com/components/mentionSender/) |
+| `Thinking`           | 思考中组件 （拓展）                    | [📄 文档](https://element-plus-x.com/components/thinking/)      |
+| `ThoughtChain`       | 思考链组件                             | [📄 文档](https://element-plus-x.com/components/thoughtChain/)  |
+| `useRecord`          | 浏览器内置语音识别 API Hooks           | [📄 文档](https://element-plus-x.com/components/useRecord/)     |
+| `useXStream`         | 流模式接口 Hooks                       | [📄 文档](https://element-plus-x.com/components/useXStream/)    |
+| `useSend & XRequest` | 流模式 hooks 的拆分 （拓展）           | [📄 文档](https://element-plus-x.com/components/useSend/)       |
 
 ## 🎯开发计划 (每周更新)
 
@@ -140,9 +156,9 @@ app.mount('#app')
 - 🎨 样式优化
 
 ## 👥 社区支持
+
 <div align="center">
-<h3>💖三群二维码已经更新,如果图片是二群二维码,应该是浏览器有缓存,请刷新重试💖</h3>
-<img src="https://cdn.element-plus-x.com/vx-2025-06-23.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-07-14.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
 
 <p>交流群如果过期或者失效，可以添加作者 vx</p>

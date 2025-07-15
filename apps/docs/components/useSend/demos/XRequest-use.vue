@@ -11,36 +11,36 @@ title: XRequest【单独】 全部属性
 </docs>
 
 <script setup lang="ts">
-import { XRequest } from 'vue-element-plus-x'
+import { XRequest } from 'vue-element-plus-x';
 
-const str = ref('')
+const str = ref('');
 
 const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   type: 'fetch',
   transformer: (e) => {
-    console.log('transformer:', e)
-    const a = e.trim().split('\n')
-    const r = a.pop()
-    return r
+    console.log('transformer:', e);
+    const a = e.trim().split('\n');
+    const r = a.pop();
+    return r;
   },
   onMessage: (msg) => {
-    console.log('onMessage:', msg)
-    str.value += `\n${msg}`
+    console.log('onMessage:', msg);
+    str.value += `\n${msg}`;
   },
   onError: (es, e) => {
-    console.log('onError:', es, e)
+    console.log('onError:', es, e);
   },
   onOpen: () => {
-    console.log('onOpen')
+    console.log('onOpen');
   },
   onAbort: (messages) => {
-    console.log('onAbort', messages)
+    console.log('onAbort', messages);
   },
   onFinish: (data) => {
-    console.log('onFinish:', data)
+    console.log('onFinish:', data);
   },
-})
+});
 </script>
 
 <template>

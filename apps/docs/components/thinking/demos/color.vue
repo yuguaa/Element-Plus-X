@@ -7,5 +7,9 @@ title: color 和 backgroundColor
 </docs>
 
 <template>
-  <Thinking content="欢迎使用 Element-Plus-X 🍉🍉🍉" color="#fff" background-color="linear-gradient(to bottom right, rgba(190, 126, 246, 1), rgba(95, 13, 245, 1), rgba(186, 74, 227, 1))" />
+  <Thinking
+    content="欢迎使用 Element-Plus-X 🍉🍉🍉"
+    color="#fff"
+    background-color="linear-gradient(to bottom right, rgba(190, 126, 246, 1), rgba(95, 13, 245, 1), rgba(186, 74, 227, 1))"
+  />
 </template>

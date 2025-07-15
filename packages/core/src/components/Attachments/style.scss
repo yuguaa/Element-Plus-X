@@ -1,0 +1,210 @@
+/* CSS 动画样式调整 */
+.card-motion-enter-active,
+.card-motion-move,
+.card-motion-leave-active {
+  transition: all 0.3s ease;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.card-motion-enter-from,
+.card-motion-leave-to {
+  opacity: 0;
+  /* 从左侧外进入（进场）/ 移动到右侧外（退场） */
+  transform: translateX(-100%);
+  /* 进场初始位置在左侧外 */
+  /* 如果你希望从左侧稍微偏移进入，可以用 translateX(-10px) */
+}
+
+.card-motion-leave-active {
+  /* 退场时从当前位置移动到右侧外 */
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.elx-attachments-file-card-wrap {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.elx-attachments-upload-placeholder {
+  display: inline-block;
+  width: fit-content;
+  align-self: center;
+  margin: 6px;
+}
+
+.elx-attachments-card {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.elx-attachments-card-item {
+  margin: 6px;
+}
+
+.elx-attachments-prev-btn,
+.elx-attachments-next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  padding: 4px 0px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.elx-attachments-prev-btn {
+  left: 8px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.elx-attachments-next-btn {
+  right: 8px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.elx-attachments-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  pointer-events: none;
+}
+
+.elx-attachments-background-start {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
+  z-index: 5;
+}
+
+.elx-attachments-background-end {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 50px;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0)
+  );
+  z-index: 5;
+}
+
+.elx-attachments-overflow-scrollX {
+  height: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  scrollbar-width: none;
+}
+
+.elx-attachments-overflow-scrollY {
+  width: 100%;
+  height: 100%;
+}
+
+.elx-attachments-wrapper {
+  position: relative;
+  display: block;
+}
+
+.elx-attachments-upload-btn {
+  display: flex;
+}
+
+:deep() {
+  .el-upload {
+    border: 1px dashed var(--el-border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--el-transition-duration-fast);
+
+    &:hover {
+      border-color: var(--el-color-primary);
+
+      .el-icon.uploader-icon {
+        color: var(--el-color-primary);
+      }
+    }
+  }
+
+  .el-icon.uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    text-align: center;
+    width: var(--elx-attachments-upload-icon-size);
+    height: var(--elx-attachments-upload-icon-size);
+  }
+
+  .el-upload-dragger {
+    padding: 0;
+
+    &:hover {
+      .el-icon {
+        color: var(--el-color-primary);
+      }
+    }
+  }
+}
+
+/* 设置穿梭节点的样式 */
+.elx-attachments-drop-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border-radius: 15px;
+  border: 2px dashed var(--el-color-primary);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: rgba(225, 225, 225, 0.3);
+  backdrop-filter: blur(2px);
+
+  .elx-attachments-drop-area-icon {
+    font-size: 50px;
+    color: var(--el-color-primary);
+  }
+
+  .elx-attachments-drop-area-text {
+    font-size: 16px;
+    color: var(--el-color-primary);
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+  }
+}

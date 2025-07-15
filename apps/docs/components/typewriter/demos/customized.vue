@@ -24,49 +24,49 @@ title: 🐵 支持控制组件 播放、中断/继续、 销毁。支持监听�
 </docs>
 
 <script setup lang="ts">
-import type { TypewriterInstance } from 'vue-element-plus-x/types/typewriter'
-import { Delete, RefreshLeft, VideoPause, VideoPlay } from '@element-plus/icons-vue'
+import type { TypewriterInstance } from 'vue-element-plus-x/types/typewriter';
+import { Delete, RefreshLeft, VideoPause, VideoPlay } from '@element-plus/icons-vue';
 
-const markdownContent = ref(`# 🔥 Typewriter 实例方法-事件 \n 😄 使你的打字器可高度定制化。\n - 更方便的控制打字器的状态 \n - 列表项 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n // 🙉 控制台可以查看相关打日志\n console.log('Hello, world!'); \n \`\`\``)
+const markdownContent = ref(`# 🔥 Typewriter 实例方法-事件 \n 😄 使你的打字器可高度定制化。\n - 更方便的控制打字器的状态 \n - 列表项 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n // 🙉 控制台可以查看相关打日志\n console.log('Hello, world!'); \n \`\`\``);
 
-const isTypingValue = ref(false)
-const progressValue = ref(0)
-const typerRef = ref()
+const isTypingValue = ref(false);
+const progressValue = ref(0);
+const typerRef = ref();
 // 开始打字的监听方法
 function onStart(instance: TypewriterInstance) {
-  console.log('开始打字：组件 ref 实例', unref(instance))
-  isTypingValue.value = true
+  console.log('开始打字：组件 ref 实例', unref(instance));
+  isTypingValue.value = true;
 }
 // 打字中，进度监听方法
 function onWriting(instance: TypewriterInstance) {
-  const progress: number = instance.progress.value
+  const progress: number = instance.progress.value;
   // 避免打印打多次 onWriting 事件 😂
   if (progress > 90 && progress < 100) {
     // 可以直接获取打字进度，可以根据打字进度，设置更炫酷的样式
     // console.log('Writing', `${progress}%`)
-    console.log('打字中 isTyping:', instance.isTyping.value, 'progress:', progress)
+    console.log('打字中 isTyping:', instance.isTyping.value, 'progress:', progress);
   }
 
   if (~~progress === 80) {
-    console.log('打字中 progress 为 80% 时候的内容', instance.renderedContent.value)
+    console.log('打字中 progress 为 80% 时候的内容', instance.renderedContent.value);
   }
-  isTypingValue.value = true
-  progressValue.value = ~~progress // 通过运算符~~取整 💩
+  isTypingValue.value = true;
+  progressValue.value = ~~progress; // 通过运算符~~取整 💩
 }
 // 监听打字结束事件
 function onFinish(instance: TypewriterInstance) {
-  isTypingValue.value = false
-  console.log('打字结束 isTyping', instance.isTyping.value, 'progress:', instance.progress.value)
+  isTypingValue.value = false;
+  console.log('打字结束 isTyping', instance.isTyping.value, 'progress:', instance.progress.value);
 }
 // 组件实例方法，控制 暂停打字
 function onInterrupt() {
-  typerRef.value.interrupt()
-  isTypingValue.value = false
+  typerRef.value.interrupt();
+  isTypingValue.value = false;
 }
 function onDestroy() {
-  typerRef.value.destroy()
-  isTypingValue.value = false
-  progressValue.value = 0
+  typerRef.value.destroy();
+  isTypingValue.value = false;
+  progressValue.value = 0;
 }
 </script>
 

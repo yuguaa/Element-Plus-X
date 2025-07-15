@@ -32,11 +32,11 @@
 
 <demo src="./demos/typing.vue"></demo>
 
-###  开启Markdown渲染
+### 开启Markdown渲染
 
 <demo src="./demos/is-markdown.vue"></demo>
 
-###  继承打字器的图表和md样式
+### 继承打字器的图表和md样式
 
 <demo src="./demos/cssAndMermaid.vue"></demo>
 
@@ -58,56 +58,56 @@
 
 ## 属性
 
-| <div style="width: 130px">属性名</div>        | 类型              | 默认值   | 说明                                                         |
-| :------------ | :---------------: | :------: | :----------------------------------------------------------- |
-| `content`     | String            | ''       | 气泡内要展示的文本内容              |
-| `placement`   | String            | 'start'  | 气泡的位置，可选值为 `'start'` 或 `'end'`，分别表示左侧和右侧。 |
-| `avatar`   | String            | ''  | 气泡头像的图片地址                          |
-| `loading`     | Boolean           | false    | 是否显示加载状态。为 `true` 时，气泡内会显示加载状态。       |
-| `shape`       | String            | null     | 气泡的形状，可选值为 `'round'`（圆角）或 `'corner'`（有角）。 |
-| `variant`     | String            | 'filled' | 气泡的样式变体，可选值为 `'filled'`（填充）、`'borderless'`（无边框）、`'outlined'`（轮廓）、`'shadow'`（阴影）。 |
-| `noStyle` | Boolean           | false    | 是否去除样式，为 `true` 时，将去除气泡内置 `padding` 和 `背景色`                        |
-| `isMarkdown`  | Boolean           | false    | 是否将 `content` 内容作为 Markdown 格式处理。                |
-| `typing`      | Boolean \| Object | false    | 是否开启打字效果。若为对象，可设置 `step`（每次渲染的字符数）和 `suffix`（打字光标后缀内容）。`interval` 表示打字间隔时间，单位为 `ms`。 |
-| `maxWidth`    | String            | '500px'  | 气泡内容的最大宽度。                                         |
-| `avatar-size` | String            | ''    | 设置头像占位大小                                             |
-| `avatar-gap`  | String            | '12px'   | 设置头像和气泡之间的 `gap`  值                               |
-| `avatar-shape`      | String            | ''       | 头像形状，可选值为 `'circle'`（圆形）或 `'square'`（方形）。 |
-| `avatar-icon`  | String            | ''       | 头像图标，优先级高于 `avatar`，支持传入图标名称，如 `'user'`。 |
-| `avatar-src-set` | String            | ''       | 设置头像图片 srcset 属性 |
-| `avatar-alt` | String            | ''       | 设置头像图片 alt 属性 |
-| `avatar-fit` | String            | 'cover'      | 设置头像图片的 `object-fit` 属性,可选属性值：`'cover'`、`'contain'`、`'fill'`、`'none'`、`'scale-down'` |
+| <div style="width: 130px">属性名</div> |       类型        |  默认值  | 说明                                                                                                                                     |
+| :------------------------------------- | :---------------: | :------: | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `content`                              |      String       |    ''    | 气泡内要展示的文本内容                                                                                                                   |
+| `placement`                            |      String       | 'start'  | 气泡的位置，可选值为 `'start'` 或 `'end'`，分别表示左侧和右侧。                                                                          |
+| `avatar`                               |      String       |    ''    | 气泡头像的图片地址                                                                                                                       |
+| `loading`                              |      Boolean      |  false   | 是否显示加载状态。为 `true` 时，气泡内会显示加载状态。                                                                                   |
+| `shape`                                |      String       |   null   | 气泡的形状，可选值为 `'round'`（圆角）或 `'corner'`（有角）。                                                                            |
+| `variant`                              |      String       | 'filled' | 气泡的样式变体，可选值为 `'filled'`（填充）、`'borderless'`（无边框）、`'outlined'`（轮廓）、`'shadow'`（阴影）。                        |
+| `noStyle`                              |      Boolean      |  false   | 是否去除样式，为 `true` 时，将去除气泡内置 `padding` 和 `背景色`                                                                         |
+| `isMarkdown`                           |      Boolean      |  false   | 是否将 `content` 内容作为 Markdown 格式处理。                                                                                            |
+| `typing`                               | Boolean \| Object |  false   | 是否开启打字效果。若为对象，可设置 `step`（每次渲染的字符数）和 `suffix`（打字光标后缀内容）。`interval` 表示打字间隔时间，单位为 `ms`。 |
+| `maxWidth`                             |      String       | '500px'  | 气泡内容的最大宽度。                                                                                                                     |
+| `avatar-size`                          |      String       |    ''    | 设置头像占位大小                                                                                                                         |
+| `avatar-gap`                           |      String       |  '12px'  | 设置头像和气泡之间的 `gap` 值                                                                                                            |
+| `avatar-shape`                         |      String       |    ''    | 头像形状，可选值为 `'circle'`（圆形）或 `'square'`（方形）。                                                                             |
+| `avatar-icon`                          |      String       |    ''    | 头像图标，优先级高于 `avatar`，支持传入图标名称，如 `'user'`。                                                                           |
+| `avatar-src-set`                       |      String       |    ''    | 设置头像图片 srcset 属性                                                                                                                 |
+| `avatar-alt`                           |      String       |    ''    | 设置头像图片 alt 属性                                                                                                                    |
+| `avatar-fit`                           |      String       | 'cover'  | 设置头像图片的 `object-fit` 属性,可选属性值：`'cover'`、`'contain'`、`'fill'`、`'none'`、`'scale-down'`                                  |
 
 ## 事件
 
-| 事件名       | 参数  | 类型       | 描述                                         |
-| ------------ | ------------ |--- | -------------------------------------------- |
-| `@start` | `ref` 实例 | Function | 打字效果开始时触发 |
-| `@finish` | `ref` 实例 | Function | 打字效果完成时触发 |
-| `@writing` | `ref` 实例 | Function | 打字中实时触发 |
+| 事件名         | 参数       | 类型     | 描述               |
+| -------------- | ---------- | -------- | ------------------ |
+| `@start`       | `ref` 实例 | Function | 打字效果开始时触发 |
+| `@finish`      | `ref` 实例 | Function | 打字效果完成时触发 |
+| `@writing`     | `ref` 实例 | Function | 打字中实时触发     |
 | `@avatarError` | `ref` 实例 | Function | 头像加载失败时触发 |
 
 ## Ref 实例方法
 
-| 属性名       | 类型         | 描述                                         |
-| ----------- | ------------ | -------------------------------------------- |
-| `interrupt` | Function | 中断打字。                               |
-| `continue`   | Function | 继续未完成的打字。                               |
-| `restart`   | Function | 重新开始打字。                               |
-| `destroy`   | Function | 主动销毁 Bubble 组件。                               |
-| `renderedContent` | String | 获取打字组件渲染的内容。                    |
-| `isTyping`  | Boolean |  是否正在打字。                             |
-| `progress`  | Number | 打字进度，取值范围 0 - 100。                     |
+| 属性名            | 类型     | 描述                         |
+| ----------------- | -------- | ---------------------------- |
+| `interrupt`       | Function | 中断打字。                   |
+| `continue`        | Function | 继续未完成的打字。           |
+| `restart`         | Function | 重新开始打字。               |
+| `destroy`         | Function | 主动销毁 Bubble 组件。       |
+| `renderedContent` | String   | 获取打字组件渲染的内容。     |
+| `isTyping`        | Boolean  | 是否正在打字。               |
+| `progress`        | Number   | 打字进度，取值范围 0 - 100。 |
 
 ## 插槽
 
-| 插槽名       | 参数  | 类型       | 描述                                         |
-| ------------ | ------------ |--- | -------------------------------------------- |
-| `#avatar` | - | Slot | 自定义头像展示内容 |
-| `#header` | - | Slot | 自定义气泡顶部展示内容 |
-| `#content` | - | Slot | 自定义气泡展示内容 |
-| `#loading` | - | Slot | 自定义气泡加载状态展示内容 |
-| `#footer` | - | Slot | 自定义气泡底部展示内容 |
+| 插槽名     | 参数 | 类型 | 描述                       |
+| ---------- | ---- | ---- | -------------------------- |
+| `#avatar`  | -    | Slot | 自定义头像展示内容         |
+| `#header`  | -    | Slot | 自定义气泡顶部展示内容     |
+| `#content` | -    | Slot | 自定义气泡展示内容         |
+| `#loading` | -    | Slot | 自定义气泡加载状态展示内容 |
+| `#footer`  | -    | Slot | 自定义气泡底部展示内容     |
 
 ## 功能特性
 

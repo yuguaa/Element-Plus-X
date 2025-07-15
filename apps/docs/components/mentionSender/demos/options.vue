@@ -22,7 +22,7 @@ interface MentionOption {
 </docs>
 
 <script setup lang="ts">
-const senderValue = ref('')
+const senderValue = ref('');
 
 const options = [
   {
@@ -38,7 +38,7 @@ const options = [
     value: 'value3',
     label: '选项3',
   },
-]
+];
 </script>
 
 <template>

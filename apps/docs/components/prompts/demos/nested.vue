@@ -7,11 +7,11 @@ title: 基础用法
 </docs>
 
 <script setup lang="ts">
-import type { PromptsItemsProps } from 'vue-element-plus-x/types/Prompts'
+import type { PromptsItemsProps } from 'vue-element-plus-x/types/Prompts';
 
-const items = ref<PromptsItemsProps[]>([])
+const items = ref<PromptsItemsProps[]>([]);
 
-onMounted(()=>{
+onMounted(() => {
   for (let index = 0; index < 3; index++) {
     items.value.push({
       key: index,
@@ -22,10 +22,10 @@ onMounted(()=>{
       disabled: false,
       itemStyle: {
         width: `calc(100% / ${3} - 43px)`,
-        backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`,
+        backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`
       },
       itemHoverStyle: {
-        cursor: 'unset',
+        cursor: 'unset'
         // background: '#409EFF',
         // color: '#fff',
       },
@@ -41,10 +41,10 @@ onMounted(()=>{
           disabled: false,
           itemStyle: {
             backgroundImage: `linear-gradient(137deg, #e5f4ff 0%, #efe7ff 100%)`,
-            border: '1px solid #FFF',
+            border: '1px solid #FFF'
           },
           itemHoverStyle: {
-            cursor: 'unset',
+            cursor: 'unset'
           },
           children: [
             {
@@ -54,8 +54,8 @@ onMounted(()=>{
               disabled: false,
               itemStyle: {
                 background: 'rgba(255,255,255,0.45)',
-                border: '1px solid #FFF',
-              },
+                border: '1px solid #FFF'
+              }
             },
             {
               key: `${index}-1-2`,
@@ -64,8 +64,8 @@ onMounted(()=>{
               disabled: false,
               itemStyle: {
                 background: 'rgba(255,255,255,0.45)',
-                border: '1px solid #',
-              },
+                border: '1px solid #'
+              }
             },
             {
               key: `${index}-1-3`,
@@ -74,10 +74,10 @@ onMounted(()=>{
               disabled: false,
               itemStyle: {
                 background: 'rgba(255,255,255,0.45)',
-                border: '1px solid #FFF',
-              },
-            },
-          ],
+                border: '1px solid #FFF'
+              }
+            }
+          ]
         },
         {
           key: `${index}-2`,
@@ -86,8 +86,8 @@ onMounted(()=>{
           disabled: false,
           itemStyle: {
             background: 'rgba(255,255,255,0.45)',
-            border: '1px solid #FFF',
-          },
+            border: '1px solid #FFF'
+          }
         },
         {
           key: `${index}-3`,
@@ -96,21 +96,21 @@ onMounted(()=>{
           disabled: false,
           itemStyle: {
             background: 'rgba(255,255,255,0.45)',
-            border: '1px solid #FFF',
-          },
-        },
-      ],
-    })
+            border: '1px solid #FFF'
+          }
+        }
+      ]
+    });
   }
-})
+});
 
 function handleItemClick(item: PromptsItemsProps) {
-  ElMessage.success(`点击了 ${item.key}`)
+  ElMessage.success(`点击了 ${item.key}`);
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Prompts
       title="🐛 提示集组件标题"
       :items="items"
@@ -120,5 +120,4 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

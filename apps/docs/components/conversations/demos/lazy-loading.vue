@@ -7,65 +7,64 @@ title: 懒加载功能
 </docs>
 
 <script setup lang="ts">
-import { ChatDotRound, ChatLineRound } from '@element-plus/icons-vue'
+import { ChatDotRound, ChatLineRound } from '@element-plus/icons-vue';
 
 const lazyItems = shallowRef([
   {
     key: 'l1',
     label: '初始项目1',
-    prefixIcon: ChatLineRound,
+    prefixIcon: ChatLineRound
   },
   {
     key: 'l2',
     label: '初始项目2',
-    prefixIcon: ChatDotRound,
+    prefixIcon: ChatDotRound
   },
   {
     key: 'l3',
     label: '初始项目3',
-    prefixIcon: ChatLineRound,
+    prefixIcon: ChatLineRound
   },
   {
     key: 'l4',
     label: '初始项目1',
-    prefixIcon: ChatLineRound,
+    prefixIcon: ChatLineRound
   },
   {
     key: 'l5',
     label: '初始项目2',
-    prefixIcon: ChatDotRound,
+    prefixIcon: ChatDotRound
   },
   {
     key: 'l6',
     label: '初始项目3',
-    prefixIcon: ChatLineRound,
+    prefixIcon: ChatLineRound
   },
   {
     key: 'l7',
     label: '初始项目1',
-    prefixIcon: ChatLineRound,
+    prefixIcon: ChatLineRound
   },
   {
     key: 'l8',
     label: '初始项目2',
-    prefixIcon: ChatDotRound,
+    prefixIcon: ChatDotRound
   },
   {
     key: 'l9',
     label: '初始项目3',
-    prefixIcon: ChatLineRound,
-  },
-])
+    prefixIcon: ChatLineRound
+  }
+]);
 
 // 加载更多处理
-const isLoading = ref(false)
+const isLoading = ref(false);
 
 function loadMoreItems() {
-  if (isLoading.value)
-    return
+  if (isLoading.value) return;
 
-  isLoading.value = true
-  console.log('加载更多数据...')
+  isLoading.value = true;
+  console.log('加载更多数据...');
 
   // 模拟异步加载
   setTimeout(() => {
@@ -73,25 +72,25 @@ function loadMoreItems() {
       {
         key: `l${lazyItems.value.length + 1}`,
         label: `加载的项目${lazyItems.value.length + 1}`,
-        prefixIcon: markRaw(ChatLineRound),
+        prefixIcon: markRaw(ChatLineRound)
       },
       {
         key: `l${lazyItems.value.length + 2}`,
         label: `加载的项目${lazyItems.value.length + 2}`,
-        prefixIcon: markRaw(ChatDotRound),
-      },
-    ]
+        prefixIcon: markRaw(ChatDotRound)
+      }
+    ];
 
-    lazyItems.value = [...lazyItems.value, ...newItems]
-    isLoading.value = false
-  }, 2000)
+    lazyItems.value = [...lazyItems.value, ...newItems];
+    isLoading.value = false;
+  }, 2000);
 }
 
-const activeKey6 = ref('l1')
+const activeKey6 = ref('l1');
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px; height: 420px;">
+  <div style="display: flex; flex-direction: column; gap: 12px; height: 420px">
     <Conversations
       v-model:active="activeKey6"
       :items="lazyItems"
@@ -105,5 +104,4 @@ const activeKey6 = ref('l1')
   </div>
 </template>
 
-<style scoped lang="less">
-</style>
+<style module lang="less"></style>

@@ -12,21 +12,21 @@ title: 提交模式
 </docs>
 
 <script setup lang="ts">
-import type { SenderProps } from 'vue-element-plus-x/types/Sender'
+import type { SenderProps } from 'vue-element-plus-x/types/Sender';
 
-const activeName = ref<SenderProps['submitType']>('enter')
-const senderValue = ref('')
-const senderLoading = ref(false)
+const activeName = ref<SenderProps['submitType']>('enter');
+const senderValue = ref('');
+const senderLoading = ref(false);
 function handleSubmit(value: string) {
-  ElMessage.info(`发送中`)
-  senderLoading.value = true
+  ElMessage.info(`发送中`);
+  senderLoading.value = true;
   setTimeout(() => {
     // 可以在控制台 查看打印结果
-    console.log('submit-> value：', value)
-    console.log('submit-> senderValue', senderValue.value)
-    senderLoading.value = false
-    ElMessage.success(`发送成功`)
-  }, 2000)
+    console.log('submit-> value：', value);
+    console.log('submit-> senderValue', senderValue.value);
+    senderLoading.value = false;
+    ElMessage.success(`发送成功`);
+  }, 2000);
 }
 </script>
 

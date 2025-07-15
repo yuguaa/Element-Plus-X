@@ -26,19 +26,19 @@ title: 指令
 </docs>
 
 <script setup lang="ts">
-import type { TriggerEvent } from 'vue-element-plus-x/types/Sender'
+import type { TriggerEvent } from 'vue-element-plus-x/types/Sender';
 
-const senderValue = ref('')
-const senderValue1 = ref('')
-const triggerVisible = ref(false)
-const dialogVisible = ref(false)
+const senderValue = ref('');
+const senderValue1 = ref('');
+const triggerVisible = ref(false);
+const dialogVisible = ref(false);
 function onTrigger(event: TriggerEvent) {
-  console.log('onTrigger', event)
+  console.log('onTrigger', event);
 }
 
 function onTrigger1(event: TriggerEvent) {
-  console.log('onTrigger1', event)
-  dialogVisible.value = event.isOpen
+  console.log('onTrigger1', event);
+  dialogVisible.value = event.isOpen;
 }
 </script>
 
