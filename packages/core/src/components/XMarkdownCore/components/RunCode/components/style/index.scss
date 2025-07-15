@@ -14,6 +14,13 @@ body.dark {
       color: #ffffff;
     }
   }
+  .elx-run-code-content-scrollbar {
+    background-color: var(--shiki-dark-bg) !important;
+  }
+}
+
+.elx-run-code-content-scrollbar {
+  background-color: var(--shiki-bg) !important;
 }
 
 .elx-run-code-content {
