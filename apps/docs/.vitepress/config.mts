@@ -69,6 +69,11 @@ export default defineConfig({
       { text: '💌 交流邀请', link: '/introduce' },
       { text: '🎀 开发计划', link: '/roadmap' },
       { text: '📆 更新日志', link: '/update-log' },
+      { text: '🌱 生态', items: [
+        { text: 'ruoyi-element-ai (模板项目)', link: 'https://chat-docs.element-plus-x.com/' },
+        { text: 'element-ui-x (vue2版本)', link: 'https://element-ui-x.com/' },
+        { text: 'hook-fetch (请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' }
+      ] },
       { text: '🧭 指南', link: '/guide/install/' },
       { text: '🎨 组件', link: '/components/xmarkdown/' },
       // { text: '工具', link: '/utils/' },
