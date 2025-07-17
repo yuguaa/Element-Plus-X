@@ -1,21 +1,16 @@
-import type { Theme } from 'vitepress';
+import type { App } from 'vue';
 import { AntdTheme } from 'vite-plugin-vitepress-demo/theme';
-import DefaultTheme from 'vitepress/theme';
-import { h } from 'vue';
-// https://vitepress.dev/guide/custom-theme
+import Theme from 'vitepress/theme';
+import Layout from '../../demo/demo2/layout.vue';
 import 'virtual:group-icons.css';
+
 import './style.css';
 import './markdown.css';
 
 export default {
-  extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    });
-  },
-  enhanceApp({ app }) {
-    // ...
+  ...Theme,
+  Layout,
+  enhanceApp({ app }: { app: App }) {
     app.component('demo', AntdTheme);
   }
-} satisfies Theme;
+};
