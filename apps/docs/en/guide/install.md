@@ -1,12 +1,12 @@
-#### **一、环境要求**
+#### **I. Environment Requirements**
 
-| 工具    | 版本要求            | 说明          |
-| ------- | ------------------- | ------------- |
-| Node.js | ≥ 18.x（推荐≥20.x） | 主流 LTS 版本 |
-| Vue     | ≥ 3.3.X             | Vue 3 正式版  |
-| pnpm    | ≥ 10.X              | pnpm 安装     |
+| Tool    | Version Requirement        | Description            |
+| ------- | -------------------------- | ---------------------- |
+| Node.js | ≥ 18.x (Recommended ≥20.x) | Mainstream LTS version |
+| Vue     | ≥ 3.3.X                    | Vue 3 official version |
+| pnpm    | ≥ 10.X                     | pnpm installation      |
 
-#### **二、安装**
+#### **II. Installation**
 
 ::: code-group
 
@@ -24,17 +24,17 @@ yarn add vue-element-plus-x --save
 
 :::
 
-**CDN 引入**
+**CDN Import**
 
 ```html
-<!-- 该方法 有待测试 -->
-<!-- CDN 引入 -->
+<!-- This method needs testing -->
+<!-- CDN Import -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
-#### **三、验证安装**
+#### **III. Verify Installation**
 
-1. 检查 `package.json` 文件是否包含：
+1. Check if the `package.json` file contains:
 
    ```json
    {
@@ -44,17 +44,17 @@ yarn add vue-element-plus-x --save
    }
    ```
 
-2. 运行项目验证组件是否可用：
+2. Run the project to verify if components are available:
 
    ```bash
    npm run dev
    ```
 
-#### **四、按需加载说明**
+#### **IV. On-demand Loading Instructions**
 
-内置 **Tree Shaking** 优化，无需额外配置
+Built-in **Tree Shaking** optimization, no additional configuration required
 
-1. **按需引入**
+1. **On-demand Import**
 
 ```vue
 <script>
@@ -78,16 +78,16 @@ const list = [
 </template>
 ```
 
-2. **全量引入**
+2. **Full Import**
 
-```
+```ts
 // main.ts
-import { createApp } from 'vue'
-import ElementPlusX from 'vue-element-plus-x'
-import App from './App.vue'
+import { createApp } from 'vue';
+import ElementPlusX from 'vue-element-plus-x';
+import App from './App.vue';
 
-const app = createApp(App)
-// 使用 app.use() 全局引入
-app.use(ElementPlusX)
-app.mount('#app')
+const app = createApp(App);
+// Use app.use() for global import
+app.use(ElementPlusX);
+app.mount('#app');
 ```

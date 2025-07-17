@@ -267,6 +267,9 @@ export default defineConfig({
       message: 'Released under the MIT License.',
       copyright: `Copyright © Element-Plus-X ${new Date().getFullYear()}&nbsp;&nbsp;<a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2025057058号-1</a> `,
     },
+    search: {
+      provider: 'local',
+    },
   },
   // markdown 配置
   markdown: {

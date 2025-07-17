@@ -1,62 +1,62 @@
 ## [v1.3.0] - 2025-07-15
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 **`Typewriter`** 打字组件，完成事件不生效问题
+- Fixed **`Typewriter`** typing component completion event not working issue
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- **`XMarkdown `** 渲染组件强势来袭 ，用于渲染内置样式和自定义组件的 `markdown 组件`。增量更新+自定义渲染 双加持
+- **`XMarkdown`** rendering component is here! Used for rendering built-in styles and custom components in `markdown components`. Incremental updates + custom rendering dual support
 
-### 📚文档更新
+### 📚 Documentation Updates
 
-- 开发文档更新，开发计划更新。
-- 修改在线预览为 `storybook` 项目
+- Updated development documentation and development roadmap
+- Changed online preview to `storybook` project
 
-### 🛠 改进
+### 🛠 Improvements
 
-- 移出 `playground` 文件，新增 `storybook` 实时预览的模式做展示
+- Removed `playground` files, added `storybook` real-time preview mode for demonstrations
 
 ## [v1.2.0] - 2025-05-05
 
-### 💥 破坏性变更
+### 💥 Breaking Changes
 
-- `types` **TS类型引入 写法变更** ，升级后请修改原来的类型写法
+- `types` **TypeScript type import syntax change**. After upgrade, please modify the original type syntax
 
-  以前的写法：太长了
+  Previous syntax: too long
 
   ```vue
   import { BubbleProps } from
   'vue-element-plus-x/types/components/Bubble/types.d.ts'
   ```
 
-  v1.2.0 以后写法：简洁一些
+  v1.2.0+ syntax: more concise
 
   ```vue
   import { BubbleProps } from 'vue-element-plus-x/types/Bubble'
   ```
 
-- 自动引入冲突问题，如果你的项目中使用了 **unplugin-auto-import/vite** 自动引入了 **vue** 和 **ElementPlus** ，可能会在控制台看到这个报错![image-20250505212717436](/public/image-20250505212717436.png)![image-20250505213158083](/public/image-20250505213158083.png)
+- Auto-import conflict issue. If your project uses **unplugin-auto-import/vite** to auto-import **vue** and **ElementPlus**, you might see this error in the console![image-20250505212717436](/public/image-20250505212717436.png)![image-20250505213158083](/public/image-20250505213158083.png)
 
   ```tex
-  h 函数的问题是 由于组件库内置 Mermaid.js 美人鱼Js 处理基础的图表和函数，但是 Mermaid.js 内置一个渲染 h 方法，和 vue 中的 h 函数冲突导致的。
-  ElButtonGroup 报错是由于 unplugin-vue-components/resolvers 这个包的 ElementPlusResolver 会回到主重复引入的问题。
+  The h function issue is caused by the component library's built-in Mermaid.js processing basic charts and functions, but Mermaid.js has a built-in rendering h method that conflicts with Vue's h function.
+  The ElButtonGroup error is caused by the unplugin-vue-components/resolvers package's ElementPlusResolver causing duplicate import issues.
   ```
 
-  **解决方案：修改项目 vite 配置**
+  **Solution: Modify project vite configuration**
 
   ```ts
   // vite.config.ts
 
-  // plugin 部分
+  // plugin section
 
   plugins: [
     AutoImport({
       imports: ['vue'],
-      ignore: ['h'], // 忽略自动导入 h
+      ignore: ['h'], // Ignore auto-import h
       resolvers: [
         ElementPlusResolver({
-          exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
+          exclude: /ElButtonGroup/ // Ignore auto-import ElButtonGroup
         })
       ],
       dts: 'src/auto-import.d.ts'
@@ -67,165 +67,165 @@
   ];
   ```
 
-  在项目后续的使用 h 函数中，手动引入。ElButtonGroup 暂时没有遇到有使用的地方，感觉是 unplugin-vue-components/resolvers 包没有更新对 ElButtonGroup 的处理导致的。在 elementplus 源码中都貌似没有看到有使用的地方。
+  In subsequent project usage of h function, import manually. ElButtonGroup hasn't been encountered in usage yet, seems like the unplugin-vue-components/resolvers package hasn't updated its handling of ElButtonGroup. Even in elementplus source code, there doesn't seem to be any usage.
 
   ```vue
   import { h } from 'vue'
   ```
 
-  💩因为是做的二次开发，所以发现问题后，暂时选择这么处理。如果有更好，更优雅的解决方案可以和我们联系，交流下处理方案。💩
+  💩 Because this is secondary development, after discovering the issue, we temporarily chose this approach. If there's a better, more elegant solution, please contact us to discuss the solution. 💩
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 **`Typewriter`** 打字组件，md 代码高亮输出时候，超出最大宽度的样式问题。
-- 修复 **`BubbleList`** 气泡列表组件，清空数组后，再次新增气泡，失去自动滚动的问题。
-- 修复 **`Sender`** 、 **`MentionSender`** footer 插槽 点击后自动聚焦问题。
+- Fixed **`Typewriter`** typing component MD code highlighting output exceeding maximum width style issue
+- Fixed **`BubbleList`** bubble list component, after clearing array and adding new bubbles, losing auto-scroll issue
+- Fixed **`Sender`**, **`MentionSender`** footer slot click auto-focus issue
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- **`Prompts`** 提示集组件，用于显示一组与当前上下文相关的预定义的问题或建议。
+- **`Prompts`** prompt collection component, used to display a set of predefined questions or suggestions related to the current context
 
-- **`Conversations`** 会话管理组件。支持分组展示、菜单交互、滚动加载、自定义样式等功能。适用于消息列表、文件管理、任务分组等场景，通过灵活的配置和插槽扩展，满足多样化的业务需求。
+- **`Conversations`** conversation management component. Supports grouped display, menu interaction, scroll loading, custom styling and other features. Suitable for message lists, file management, task grouping and other scenarios, meeting diverse business needs through flexible configuration and slot extensions
 
-- **`FilesCard`** 文件卡片组件，附支持多种文件类型（图片、文档、压缩包等）的可视化呈现，包含文件图标、名称、描述、状态等信息。
+- **`FilesCard`** file card component, supporting visual presentation of multiple file types (images, documents, compressed packages, etc.), including file icons, names, descriptions, status and other information
 
-- **`Attachments`** 附件上传组件，附件管理组件，支持文件列表展示、上传、拖拽交互、滚动浏览等功能，适用于需要处理多文件上传和展示的场景（如表单附件、文件管理界面）。
+- **`Attachments`** attachment upload component, attachment management component, supporting file list display, upload, drag interaction, scroll browsing and other features, suitable for scenarios requiring multi-file upload and display (such as form attachments, file management interfaces)
 
-- **`Typewriter`** 打字器组件的 **markdown-it** ，新增了 **`prismjs`** 高亮代码块样式文件，开发者可以自行引入
+- **`Typewriter`** typing component's **markdown-it**, added **`prismjs`** highlighted code block style files, developers can import themselves
 
-  **`Typewriter`** 打字器组件的 **markdown-it** ，新增了 **`Mermaid.js`** 用来支持简单的 **图表** 和 **函数** 的渲染
-  **`Typewriter`** 打字器组件的 **markdown-it** ，开放了第三方 mdPlugins 插件的接收处理，和第三方代码高亮 highlight 逻辑处理，详情可移步👉 [Typewriter文档](https://element-plus-x.com/components/typewriter/)
+  **`Typewriter`** typing component's **markdown-it**, added **`Mermaid.js`** to support simple **charts** and **functions** rendering
+  **`Typewriter`** typing component's **markdown-it**, opened third-party mdPlugins plugin reception processing, and third-party code highlighting highlight logic processing, details can be found at 👉 [Typewriter Documentation](https://element-plus-x.com/components/typewriter/)
 
-### 📚文档更新
+### 📚 Documentation Updates
 
-- 更新线上开发计划文档，展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/roadmap.html)**
-- 更新首页介绍，交流要求文档。`antdx` 全部组件已经复刻完毕。
+- Updated online development roadmap documentation, showcasing our ongoing development plans. Partners who want to submit PRs can first check our development roadmap, and if interested in any modules, can join the discussion group to research and advance together **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
+- Updated homepage introduction and communication requirements documentation. All `antdx` components have been fully replicated
 
 ## [v1.1.6] - 2025-04-16
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 **`Thinking`** 思考中组件展开 收起动画卡顿 bug。
+- Fixed **`Thinking`** thinking component expand/collapse animation stuttering bug
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- **`Typewriter`** 打字器组件，新增 **雾化效果**。**`Bubble`** 气泡组件、**`BubbleList`** 气泡列表组件，在不自定义内容插槽的时候，自动继承，支持雾化效果属性。
-- **`BubbleList`** 组件新增 **回到底部按钮**，同时新增 悬停内容区域出现滚动条。增强交互体验
-- **`Sender`** 组件新增 **变体**、**底部**、**指令触发功能**。
-- 上新 **`MentionSender`** 组件，这是 **`Sender`** 组件另一种**指令**的方式
+- **`Typewriter`** typing component, added **fog effect**. **`Bubble`** bubble component, **`BubbleList`** bubble list component, when not customizing content slots, automatically inherit and support fog effect properties
+- **`BubbleList`** component added **back to bottom button**, and added hover content area scrollbar appearance. Enhanced interaction experience
+- **`Sender`** component added **variants**, **footer**, **command trigger functionality**
+- New **`MentionSender`** component, another **command** way of the **`Sender`** component
 
-### 🛠 改进
+### 🛠 Improvements
 
-- **`Sender`** 组件 优化在没有值的情况下的发送按钮的状态为禁用，@submit 方法也会被禁用。
+- **`Sender`** component optimized the send button state to disabled when there's no value, @submit method will also be disabled
 
-  但是这样就会有一个问题：有这么一个场景，当用户只是上传了一个文件，没有去在输入框中传值，此时的内置发送按钮也是禁用状态，且 @submit 事件也是禁用状态。所以我们决定针对这一情况，新增 `submit-btn-disabled` 属性，提供开发者主动控制。 在特殊场景下，开发者自定义内置发送按钮的禁用启用。(自定义 #action-list 时，此属性对 submit 事件同样生效。)
+  But this creates a problem: there's a scenario where when a user only uploads a file without entering a value in the input box, the built-in send button is also disabled, and the @submit event is also disabled. So we decided to add the `submit-btn-disabled` property for this situation, providing developers with active control. In special scenarios, developers can customize the built-in send button's enable/disable state. (When customizing #action-list, this property also affects the submit event)
 
-- **`Sender`** 组件 新增 `input-style` 属性，供开发者自定义内置的输入框样式。
+- **`Sender`** component added `input-style` property for developers to customize built-in input box styles
 
-### 📚文档更新
+### 📚 Documentation Updates
 
-- 更新线上开发计划文档，展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/roadmap.html)**
-- 更新 **`指南文档`** 中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，修复文档介绍错误问题
+- Updated online development roadmap documentation, showcasing our ongoing development plans. Partners who want to submit PRs can first check our development roadmap, and if interested in any modules, can join the discussion group to research and advance together **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
+- Updated **`Guide Documentation`** **[Development Documentation](https://element-plus-x.com/guide/develop.html)**, fixed documentation introduction error issues
 
 ## [v1.1.1] - 2025-04-06
 
-### 💥 破坏性变更
+### 💥 Breaking Changes
 
-- `Sender` 输入框组件：双向绑定的写法变更。 由之前的 `v-model:value` 变更为 `v-model` 直接绑定
+- `Sender` input component: two-way binding syntax change. Changed from previous `v-model:value` to direct `v-model` binding
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 `Sender` 输入框组件在 `v-model` 双向绑定失效问题
-- 修复 `Typewriter` 打字器组件在 流模式接口输出下，卡顿的问题。
-- 修复 `BubbleList` 气泡列表组件，在流式接口输出下，自动滚动失效问题。并将 `BubbleList` 组件，和打字器组件解耦。
-- 修复 `BubbleList` 气泡列表组件，`maxWidth` 失效问题。**[issue #46](https://github.com/HeJiaYue520/Element-Plus-X/issues/46)**
+- Fixed `Sender` input component `v-model` two-way binding failure issue
+- Fixed `Typewriter` typing component stuttering issue under streaming interface output
+- Fixed `BubbleList` bubble list component auto-scroll failure issue under streaming interface output. And decoupled `BubbleList` component from typing component
+- Fixed `BubbleList` bubble list component `maxWidth` failure issue. **[issue #46](https://github.com/HeJiaYue520/Element-Plus-X/issues/46)**
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- 新增 `Thinking` 思考中组件，和 `ThoughtChain` 思维链组件 ，用于在流式接口输出下，展示思考过程。**[issue #32](https://github.com/HeJiaYue520/Element-Plus-X/issues/32)**、**[issue #45](https://github.com/HeJiaYue520/Element-Plus-X/issues/45)**
+- Added `Thinking` thinking component and `ThoughtChain` thought chain component for displaying thinking process under streaming interface output. **[issue #32](https://github.com/HeJiaYue520/Element-Plus-X/issues/32)**, **[issue #45](https://github.com/HeJiaYue520/Element-Plus-X/issues/45)**
 
-- 新增 `Welcom` 欢迎组件，方便用户快速集成好看的欢迎介绍卡片
+- Added `Welcome` welcome component for users to quickly integrate beautiful welcome introduction cards
 
 ## [v1.0.81] - 2025-03-29
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 `Sender` 输入框组件在 `loading` 状态下，依然可以触发 `@submit` 方法的 bug **[issue #22](https://github.com/HeJiaYue520/Element-Plus-X/issues/22)**
-- 修复 `Sender` 输入框组件在 `read-only` 状态下，依然可以触发值的修改 的 bug
+- Fixed `Sender` input component still being able to trigger `@submit` method in `loading` state bug **[issue #22](https://github.com/HeJiaYue520/Element-Plus-X/issues/22)**
+- Fixed `Sender` input component still being able to modify values in `read-only` state bug
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- 新增 `useRecord` 钩子函数，解决用户在自定义 `Sender` 输入框的 `#action-list` 插槽时候，又同时想保留组件内置的 浏览器语音识别 API 方法。可以使用这个 hooks。
+- Added `useRecord` hook function to solve the issue where users want to customize `Sender` input component's `#action-list` slot while also wanting to retain the component's built-in browser speech recognition API method. You can use this hook
 
-- 新增 两个 hooks 钩子函数 ，和一个 工具类。针对 sse 协议的流式请求 ， ` 数据 (渲染层)` + `请求 (控制层)` 进行状态的管理。方便 `Vue` 开发者，在使用流式接口时，方便对请求状态进行处理；方便对需要的数据进行渲染。
+- Added two hook functions and one utility class. For SSE protocol streaming requests, manage **data (rendering layer)** + **request (control layer)** states. Convenient for `Vue` developers to handle request states when using streaming interfaces; convenient to render needed data
 
-  | 钩子函数   | 使用                                                                                                                                                             | 特点             |
-  | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-  | useXStream | 单独使用：可自动获取流式数据；支持开始流式请求、中断流式请求；                                                                                                   | 偏封装，便捷使用 |
-  | useSend    | 可单独使用：传入开始和结束方法，返回方法 loading 状态。<br />不支持返回数据，如需对数据和请求状态支持，需要和 **XRequest** 组合使用                              | 偏底层，灵活控制 |
-  | XRequest   | 可单独使用：配置接口基础地址，使用 send 发送请求，实例上有很多这个请求的状态监听。<br />通过监听事件的回调对数据做处理。一般在项目中和 **useSend** 钩子 组合使用 | 偏底层，灵活控制 |
+  | Hook Function | Usage                                                                                                                                                                                                                                         | Characteristics                      |
+  | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+  | useXStream    | Use alone: can automatically get streaming data; supports starting streaming requests, interrupting streaming requests;                                                                                                                       | More encapsulated, convenient to use |
+  | useSend       | Can use alone: pass in start and end methods, returns method loading state.<br />Doesn't support returning data, if you need data and request state support, you need to combine with **XRequest**                                            | More low-level, flexible control     |
+  | XRequest      | Can use alone: configure interface base address, use send to send requests, instance has many state listeners for this request.<br />Process data through event callback listeners. Generally used in projects combined with **useSend** hook | More low-level, flexible control     |
 
-### 🛠 改进
+### 🛠 Improvements
 
-- 优化兼容性， `Sender` 输入框组件，由于使用 `defineModel` 语法，该语法仅在 **`Vue 3.4+`** 版本中可用，导致较多用户，因 Vue 版本问题，在控制台有报错，现已将此写法改用低版本写法。**(无缝替换，不用更改原写法)**
+- Optimized compatibility, `Sender` input component, due to using `defineModel` syntax, this syntax is only available in **`Vue 3.4+`** versions, causing many users to have console errors due to Vue version issues, now changed this syntax to low-version syntax. **(Seamless replacement, no need to change original syntax)**
 
-### 📚 文档更新
+### 📚 Documentation Updates
 
-- 更新线上开发计划文档，会给大家展示我们陆续的开发计划。有想法提 pr 的伙伴，可以先看看我们的开发计划，有感兴趣的模块，可以进交流群，一起研究推进 **[开发计划](https://element-plus-x.com/roadmap.html)**
-- 更新 **`指南文档`** 中的 **[开发文档](https://element-plus-x.com/guide/develop.html)** ，着重修改 **开发命令**、**贡献代码**、**本地调试** 全流程介绍。 规范 `开发` 和 `pr` 提交
+- Updated online development roadmap documentation, will showcase our ongoing development plans. Partners who want to submit PRs can first check our development roadmap, and if interested in any modules, can join the discussion group to research and advance together **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
+- Updated **`Guide Documentation`** **[Development Documentation](https://element-plus-x.com/guide/develop.html)**, focusing on modifying **development commands**, **contributing code**, **local debugging** full process introduction. Standardize `development` and `pr` submission
 
 ## [v1.0.6] - 2025-03-23
 
-### 🛠 改进
+### 🛠 Improvements
 
-- 集成 ESLint 9.x 和 Oxlint，规范开发流程
-- 新增打包配置：自动根据组件文件名导出全量/按需组件
+- Integrated ESLint 9.x and Oxlint to standardize development process
+- Added build configuration: automatically export full/on-demand components based on component file names
 
-### 📚 文档更新
+### 📚 Documentation Updates
 
-- 完善中/英文文档内容
-- 新增文档更新日志模块
+- Improved Chinese/English documentation content
+- Added documentation update log module
 
 ## [v0.9.x] - 2025-03-20
 
-### 💥 破坏性变更
+### 💥 Breaking Changes
 
-- `Typography` 组件：
-  - 弃用 `speed` 属性，改用 `step` 属性（与 ant-design-x 对齐）
-  - 弃用 `typedjs` 实现打字效果，流式输出失效，且每次流式输出会导致组件重新渲染
-- `Bubble` 组件：
-  - 弃用 `typing.speed` 属性值，改用 `typing.step`（与 ant-design-x 对齐）
+- `Typography` component:
+  - Deprecated `speed` property, changed to `step` property (aligned with ant-design-x)
+  - Deprecated `typedjs` implementation of typing effect, streaming output failed, and each streaming output would cause component re-rendering
+- `Bubble` component:
+  - Deprecated `typing.speed` property value, changed to `typing.step` (aligned with ant-design-x)
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 `Typography` 打字器组件渲染 bug
-- 修复 `Sender` 输入框组件 `autosize` 属性失效 bug
+- Fixed `Typography` typing component rendering bug
+- Fixed `Sender` input component `autosize` property failure bug
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- **`Typography`/`Bubble` 组件**：
-  - 新增中断输出（`pause`）、继续打字（`resume`）和销毁（`destroy`）实例方法
-  - 新增操作监听事件
-- **`BubbleList` 组件**：
-  - 新增 `trigger-indices` 属性，用于监听指定气泡的 `@complete` 完成回调
-- **`Sender` 组件**：
-  - 新增 `@recording-change` 事件，监听内置录音按钮点击状态
-  - 新增开始录音（`startRecording`）和结束录音（`stopRecording`）实例方法
+- **`Typography`/`Bubble` components**:
+  - Added interrupt output (`pause`), continue typing (`resume`) and destroy (`destroy`) instance methods
+  - Added operation monitoring events
+- **`BubbleList` component**:
+  - Added `trigger-indices` property for monitoring specified bubble `@complete` completion callbacks
+- **`Sender` component**:
+  - Added `@recording-change` event to monitor built-in recording button click state
+  - Added start recording (`startRecording`) and stop recording (`stopRecording`) instance methods
 
 ## [v0.9.x] - 2025-03-14
 
-### 💥 破坏性变更
+### 💥 Breaking Changes
 
-- `Typography` 组件：
-  - 弃用 `step` 属性，改用 `speed` 属性控制打字速度
-- `Bubble` 组件：
-  - 弃用 `typing.step` 属性值，改用 `typing.speed` 控制打字速度
+- `Typography` component:
+  - Deprecated `step` property, changed to `speed` property to control typing speed
+- `Bubble` component:
+  - Deprecated `typing.step` property value, changed to `typing.speed` to control typing speed
 
-### 🐛 修复
+### 🐛 Fixes
 
-- 修复 `Typography` 打字器组件渲染 bug
+- Fixed `Typography` typing component rendering bug
 
-### 🚀 新增功能
+### 🚀 New Features
 
-- **`Bubble` 组件**：
-  - 新增 `avatar-size` 和 `avatar-gap` 属性，控制无头像时的气泡样式
+- **`Bubble` component**:
+  - Added `avatar-size` and `avatar-gap` properties to control bubble styles when no avatar is present

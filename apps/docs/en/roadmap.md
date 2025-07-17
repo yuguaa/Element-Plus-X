@@ -1,28 +1,28 @@
-# 🚀 Element-Plus-X 开发路线图
+# 🚀 Element-Plus-X Development Roadmap
 
-## 📅 近期计划（2025-Q3）
+## 📅 Short-term Plans (2025-Q3)
 
-### 🎯 目标：v1.3.X 版本
+### 🎯 Goal: v1.3.X Version
 
-- md 组件小广场项目，增强生成式AI渲染开发
-- 小程序端+工作流编排组件。将提上日程 敬请期待...
+- MD component marketplace project, enhancing generative AI rendering development
+- Mini-program + workflow orchestration components. Coming soon, stay tuned...
 
-## 🌱 长期计划
+## 🌱 Long-term Plans
 
-### 1. 生态扩展矩阵
+### 1. Ecosystem Expansion Matrix
 
-| 领域               | 规划方向                                         | 时间节点 |
-| ------------------ | ------------------------------------------------ | -------- |
-| **主题系统**       | 为 Element-Plus-X 组件库丰富更多的主题           | Q3 2025  |
-| **md渲染组件广场** | 基于新推出的 md 组创建一个 md 组件广场           | Q3 2025  |
-| **多端适配**       | 小程序/Uniapp版本开发/基于 Vant UI风格           | Q4 2025  |
-| **AI组件库**       | 提供、拓展更多好看的 AI 组件，应对更多的使用场景 | 持续迭代 |
-| **解决方案**       | React/Vue全栈 Admin 模板（含Ruoyi AI支持）       | Q3 2025  |
-| **工作流编排节点** | 开发轻量开源的工作流编排节点组件，助力 MCP       | Q4 2025  |
-| **工具链**         | 开发AI开发辅助工具集，前端 MCP                   | 长期规划 |
-| **前沿探索**       | 3D+AI技术融合原型验证                            | 长期规划 |
+| Domain                                 | Planning Direction                                                                    | Timeline             |
+| -------------------------------------- | ------------------------------------------------------------------------------------- | -------------------- |
+| **Theme System**                       | Enrich Element-Plus-X component library with more themes                              | Q3 2025              |
+| **MD Rendering Component Marketplace** | Create an MD component marketplace based on the newly launched MD components          | Q3 2025              |
+| **Multi-platform Adaptation**          | Mini-program/Uniapp version development based on Vant UI style                        | Q4 2025              |
+| **AI Component Library**               | Provide and expand more beautiful AI components for more usage scenarios              | Continuous iteration |
+| **Solutions**                          | React/Vue full-stack Admin templates (with Ruoyi AI support)                          | Q3 2025              |
+| **Workflow Orchestration Nodes**       | Develop lightweight open-source workflow orchestration node components to support MCP | Q4 2025              |
+| **Toolchain**                          | Develop AI development assistance toolset, frontend MCP                               | Long-term planning   |
+| **Frontier Exploration**               | 3D+AI technology integration prototype validation                                     | Long-term planning   |
 
-### 2. 社区建设
+### 2. Community Building
 
-- 欢迎更多的朋友在一起交流技术，学习分享前沿技术。
-- 相互帮助，在 issue 上，有使用中遇到的问题，可以相互交流使用经验，分享并增长你的见识。
+- Welcome more friends to exchange technology, learn and share cutting-edge technology together.
+- Help each other, on issues, if you encounter problems during use, you can exchange usage experiences, share and grow your knowledge.
