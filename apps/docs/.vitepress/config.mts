@@ -1,6 +1,8 @@
 import type { Plugin } from 'vitepress';
+import { templateCompilerOptions } from '@tresjs/core';
 // import { prismjsPlugin } from 'vite-plugin-prismjs'
 import { defineConfig } from 'vitepress';
+
 // 另一种 demo 插件
 // import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
