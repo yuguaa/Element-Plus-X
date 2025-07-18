@@ -20,9 +20,3 @@ export const DEFAULT_APP_CONFIG: ConfigProviderProps = {
     }
   ]
 };
-
-export const DEFAULT_CDN_ASSETS = [
-  {
-    url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
-  }
-];
