@@ -398,7 +398,38 @@ onMounted(() => {
 <style scoped>
 .opulous-layout {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  background:
+    linear-gradient(
+      135deg,
+      #0f0f23 0%,
+      #1a1a2e 20%,
+      #16213e 40%,
+      #2d1b69 60%,
+      #4a148c 80%,
+      #6a1b9a 100%
+    ),
+    radial-gradient(
+      ellipse at top left,
+      rgba(99, 102, 241, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at bottom right,
+      rgba(139, 92, 246, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(59, 130, 246, 0.08) 0%,
+      transparent 70%
+    );
+  background-size:
+    100% 100%,
+    80% 80%,
+    80% 80%,
+    60% 60%;
+  background-attachment: fixed;
+  animation: layoutGradientShift 25s ease-in-out infinite;
   color: #fff;
   font-family:
     'Inter',
@@ -408,6 +439,38 @@ onMounted(() => {
     sans-serif;
   overflow-x: hidden;
   position: relative;
+}
+
+@keyframes layoutGradientShift {
+  0%,
+  100% {
+    background-position:
+      0% 0%,
+      0% 0%,
+      100% 100%,
+      50% 50%;
+  }
+  25% {
+    background-position:
+      25% 25%,
+      20% 20%,
+      80% 80%,
+      30% 70%;
+  }
+  50% {
+    background-position:
+      50% 50%,
+      40% 40%,
+      60% 60%,
+      70% 30%;
+  }
+  75% {
+    background-position:
+      75% 75%,
+      60% 60%,
+      40% 40%,
+      20% 80%;
+  }
 }
 
 /* Linear背景装饰 */
@@ -437,16 +500,57 @@ onMounted(() => {
 .linear-gradient-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    135deg,
-    #0f0f23 0%,
-    #1a1a2e 25%,
-    #16213e 50%,
-    #0e1a2e 75%,
-    #1a1a2e 100%
-  );
-  background-size: 200% 200%;
-  opacity: 0.8;
+  background:
+    linear-gradient(
+      135deg,
+      #0f0f23 0%,
+      #1a1a2e 15%,
+      #16213e 30%,
+      #2d1b69 45%,
+      #4a148c 60%,
+      #6a1b9a 75%,
+      #8b5cf6 90%,
+      #6366f1 100%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(99, 102, 241, 0.1) 0%,
+      transparent 50%,
+      rgba(139, 92, 246, 0.1) 100%
+    ),
+    radial-gradient(
+      circle at 30% 70%,
+      rgba(59, 130, 246, 0.08) 0%,
+      transparent 50%
+    );
+  background-size:
+    300% 300%,
+    200% 200%,
+    150% 150%;
+  opacity: 0.9;
+  animation: backgroundFlow 30s ease-in-out infinite;
+}
+
+@keyframes backgroundFlow {
+  0%,
+  100% {
+    background-position:
+      0% 0%,
+      0% 0%,
+      0% 0%;
+  }
+  33% {
+    background-position:
+      100% 100%,
+      50% 50%,
+      30% 70%;
+  }
+  66% {
+    background-position:
+      50% 50%,
+      100% 100%,
+      70% 30%;
+  }
 }
 
 .particle-field {
@@ -458,10 +562,39 @@ onMounted(() => {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: linear-gradient(45deg, #6366f1, #8b5cf6, #3b82f6);
+  background:
+    linear-gradient(
+      45deg,
+      #6366f1 0%,
+      #8b5cf6 25%,
+      #3b82f6 50%,
+      #ec4899 75%,
+      #10b981 100%
+    ),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  background-size:
+    200% 200%,
+    100% 100%;
   border-radius: 2px;
-  opacity: 0.4;
-  animation: geometric-float 12s infinite ease-in-out;
+  opacity: 0.6;
+  animation:
+    geometric-float 12s infinite ease-in-out,
+    shapeGradientShift 8s infinite ease-in-out;
+  box-shadow: 0 0 8px rgba(99, 102, 241, 0.4);
+}
+
+@keyframes shapeGradientShift {
+  0%,
+  100% {
+    background-position:
+      0% 0%,
+      center;
+  }
+  50% {
+    background-position:
+      100% 100%,
+      center;
+  }
 }
 
 @keyframes geometric-float {
@@ -497,11 +630,37 @@ onMounted(() => {
   align-items: center;
   justify-content: space-between;
   padding: 0 5vw;
-  background: rgba(15, 15, 35, 0.9);
-  backdrop-filter: blur(25px);
-  border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15, 15, 35, 0.95) 0%,
+      rgba(26, 26, 46, 0.9) 50%,
+      rgba(22, 33, 62, 0.95) 100%
+    ),
+    radial-gradient(
+      ellipse at left,
+      rgba(99, 102, 241, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at right,
+      rgba(139, 92, 246, 0.1) 0%,
+      transparent 50%
+    );
+  backdrop-filter: blur(30px);
+  border-bottom: 1px solid;
+  border-image: linear-gradient(
+      90deg,
+      rgba(99, 102, 241, 0.3),
+      rgba(139, 92, 246, 0.3),
+      rgba(59, 130, 246, 0.3)
+    )
+    1;
   z-index: 100;
-  box-shadow: 0 4px 30px rgba(15, 15, 35, 0.6);
+  box-shadow:
+    0 4px 30px rgba(15, 15, 35, 0.8),
+    0 0 20px rgba(99, 102, 241, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .opulous-logo {
@@ -530,11 +689,42 @@ onMounted(() => {
     -apple-system,
     BlinkMacSystemFont,
     sans-serif;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1 0%,
+      #8b5cf6 25%,
+      #3b82f6 50%,
+      #ec4899 75%,
+      #6366f1 100%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 70%
+    );
+  background-size:
+    200% 200%,
+    100% 100%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
+  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
+  animation: logoGradientFlow 6s ease-in-out infinite;
+}
+
+@keyframes logoGradientFlow {
+  0%,
+  100% {
+    background-position:
+      0% 50%,
+      center;
+  }
+  50% {
+    background-position:
+      100% 50%,
+      center;
+  }
 }
 
 /* Linear风格，移除故障动画 */
@@ -720,11 +910,37 @@ onMounted(() => {
 /* Footer - Linear风格 */
 .linear-footer {
   position: relative;
-  background: rgba(15, 15, 35, 0.95);
-  border-top: 1px solid rgba(99, 102, 241, 0.2);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(15, 15, 35, 0.98) 0%,
+      rgba(26, 26, 46, 0.95) 50%,
+      rgba(22, 33, 62, 0.98) 100%
+    ),
+    radial-gradient(
+      ellipse at top,
+      rgba(99, 102, 241, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse at bottom,
+      rgba(139, 92, 246, 0.08) 0%,
+      transparent 60%
+    );
+  border-top: 1px solid;
+  border-image: linear-gradient(
+      90deg,
+      rgba(99, 102, 241, 0.3),
+      rgba(139, 92, 246, 0.3),
+      rgba(59, 130, 246, 0.3)
+    )
+    1;
   margin-top: 4rem;
   overflow: hidden;
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(25px);
+  box-shadow:
+    0 -4px 30px rgba(15, 15, 35, 0.8),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .footer-linear-bg {
@@ -749,16 +965,26 @@ onMounted(() => {
   position: absolute;
   left: 0;
   right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(99, 102, 241, 0.4),
-    rgba(139, 92, 246, 0.4),
-    transparent
-  );
-  animation: gradient-move 8s infinite linear;
-  border-radius: 1px;
+  height: 3px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(99, 102, 241, 0.6),
+      rgba(139, 92, 246, 0.6),
+      rgba(59, 130, 246, 0.6),
+      rgba(236, 72, 153, 0.6),
+      rgba(16, 185, 129, 0.6),
+      transparent
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 70%
+    );
+  animation: gradient-move 10s infinite linear;
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
 }
 
 .gradient-line:nth-child(1) {
@@ -818,21 +1044,59 @@ onMounted(() => {
   position: relative;
   font-size: 1.2rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #8b5cf6 30%,
+    #3b82f6 60%,
+    #6366f1 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   letter-spacing: 1px;
   margin: 0 0 1rem 0;
+  animation: sectionTitleGradient 7s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.3));
+}
+
+@keyframes sectionTitleGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Linear文本样式 */
 .linear-text {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #8b5cf6 25%,
+    #3b82f6 50%,
+    #ec4899 75%,
+    #6366f1 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
+  filter: drop-shadow(0 0 18px rgba(99, 102, 241, 0.4));
+  animation: linearTextGradient 9s ease-in-out infinite;
+}
+
+@keyframes linearTextGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .section-desc {
@@ -860,11 +1124,31 @@ onMounted(() => {
 }
 
 .linear-number {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #8b5cf6 20%,
+    #3b82f6 40%,
+    #ec4899 60%,
+    #10b981 80%,
+    #6366f1 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
+  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.4));
+  animation: linearNumberGradient 5s ease-in-out infinite;
+}
+
+@keyframes linearNumberGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .stat-label {
@@ -887,15 +1171,40 @@ onMounted(() => {
   align-items: center;
   gap: 0.75rem;
   padding: 0.75rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(99, 102, 241, 0.2);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.02) 100%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(99, 102, 241, 0.04) 0%,
+      rgba(139, 92, 246, 0.04) 100%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.02) 0%,
+      transparent 70%
+    );
+  border: 1px solid;
+  border-image: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.25),
+      rgba(139, 92, 246, 0.25),
+      rgba(59, 130, 246, 0.25)
+    )
+    1;
   border-radius: 8px;
   color: #ffffff;
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(15px);
+  box-shadow:
+    0 2px 10px rgba(99, 102, 241, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .footer-link::before {
@@ -908,10 +1217,12 @@ onMounted(() => {
   background: linear-gradient(
     90deg,
     transparent,
-    rgba(99, 102, 241, 0.1),
+    rgba(99, 102, 241, 0.15),
+    rgba(139, 92, 246, 0.15),
+    rgba(59, 130, 246, 0.15),
     transparent
   );
-  transition: left 0.5s ease;
+  transition: left 0.6s ease;
 }
 
 .footer-link:hover::before {
@@ -919,10 +1230,34 @@ onMounted(() => {
 }
 
 .footer-link:hover {
-  border-color: rgba(99, 102, 241, 0.4);
-  background: rgba(255, 255, 255, 0.06);
-  transform: translateX(5px);
-  box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+  border-image: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.5),
+      rgba(139, 92, 246, 0.5),
+      rgba(59, 130, 246, 0.5)
+    )
+    1;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(255, 255, 255, 0.04) 100%
+    ),
+    linear-gradient(
+      45deg,
+      rgba(99, 102, 241, 0.08) 0%,
+      rgba(139, 92, 246, 0.08) 100%
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.04) 0%,
+      transparent 70%
+    );
+  transform: translateX(8px) scale(1.02);
+  box-shadow:
+    0 4px 25px rgba(99, 102, 241, 0.2),
+    0 0 20px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .link-icon {
@@ -949,16 +1284,46 @@ onMounted(() => {
 }
 
 .footer-divider {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    #6366f1,
-    #8b5cf6,
-    transparent
-  );
+  height: 2px;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      #6366f1,
+      #8b5cf6,
+      #3b82f6,
+      #ec4899,
+      #10b981,
+      #6366f1,
+      transparent
+    ),
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 70%
+    );
+  background-size:
+    200% 100%,
+    100% 100%;
   margin-bottom: 2rem;
-  opacity: 0.4;
+  opacity: 0.6;
+  border-radius: 1px;
+  animation: dividerGradientFlow 8s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+}
+
+@keyframes dividerGradientFlow {
+  0%,
+  100% {
+    background-position:
+      0% 50%,
+      center;
+  }
+  50% {
+    background-position:
+      100% 50%,
+      center;
+  }
 }
 
 .footer-copyright {
@@ -978,10 +1343,30 @@ onMounted(() => {
   position: relative;
   font-size: 0.9rem;
   font-weight: 600;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #8b5cf6 25%,
+    #3b82f6 50%,
+    #ec4899 75%,
+    #6366f1 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: copyrightGradient 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+}
+
+@keyframes copyrightGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 .copyright-desc {
@@ -1014,11 +1399,31 @@ onMounted(() => {
   position: relative;
   font-size: 1.2rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  background: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #8b5cf6 20%,
+    #3b82f6 40%,
+    #ec4899 60%,
+    #10b981 80%,
+    #6366f1 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 15px rgba(99, 102, 241, 0.3));
+  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.4));
+  animation: versionGradient 6s ease-in-out infinite;
+}
+
+@keyframes versionGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 /* Footer 响应式设计 */
