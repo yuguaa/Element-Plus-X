@@ -11,9 +11,6 @@ export default defineConfig({
   title: 'Element-Plus-X',
   description: 'A Vue3 + Element-Plus AI Experience Component Library',
   locales,
-  rewrites: {
-    'en/:rest*': ':rest*'
-  },
   head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   // 全局主题配置（会被 locales 中的配置覆盖）
   themeConfig: {
