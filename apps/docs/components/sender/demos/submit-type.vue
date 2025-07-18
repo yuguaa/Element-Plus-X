@@ -41,6 +41,12 @@ function handleSubmit(value: string) {
       <el-radio-button value="shiftEnter">
         shiftEnter
       </el-radio-button>
+      <el-radio-button value="cmdOrCtrlEnter">
+        shiftEnter
+      </el-radio-button>
+      <el-radio-button value="altEnter">
+        shiftEnter
+      </el-radio-button>
     </el-radio-group>
     <Sender v-model="senderValue" :submit-type="activeName" :loading="senderLoading" @submit="handleSubmit" />
   </div>
