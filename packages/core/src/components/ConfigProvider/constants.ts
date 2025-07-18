@@ -11,8 +11,18 @@ export const DEFAULT_MD_CONFIG: Options = {
   breaks: true
 };
 
-export const defaultAppConfig: ConfigProviderProps = {
+export const DEFAULT_APP_CONFIG: ConfigProviderProps = {
   mdPlugins: [],
-  md: new MarkdownIt(DEFAULT_MD_CONFIG)
-  // highlight: void 0,
+  md: new MarkdownIt(DEFAULT_MD_CONFIG),
+  cdnAssets: [
+    {
+      url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
+    }
+  ]
 };
+
+export const DEFAULT_CDN_ASSETS = [
+  {
+    url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
+  }
+];
