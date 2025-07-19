@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { Welcome } from '../../components';
+</script>
 
 <template>
   <div class="Welcome-demo-box">
