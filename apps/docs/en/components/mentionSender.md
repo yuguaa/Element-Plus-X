@@ -13,7 +13,7 @@ We haven't considered combining the **command functions** of `MentionSender` and
 ::: tip
 The `EditorSender` rich text input component will reference DouBao's input box and meet everyone in the future:
 
-<img src="./image1.png" width="100%">
+<img src="../../components/mentionSender/image1.png" width="100%">
 :::
 
 ## Code Examples

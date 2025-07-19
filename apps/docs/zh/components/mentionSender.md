@@ -13,7 +13,7 @@
 ::: tip
 `EditorSender` 富文本框输入组件，将参考豆包的输入框，在未来和大家见面：
 
-<img src="./image1.png" width="100%">
+<img src="../../components/mentionSender/image1.png" width="100%">
 :::
 
 ## 代码演示
