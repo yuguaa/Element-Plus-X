@@ -12,8 +12,13 @@ import {
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
 import useSWRV from 'swrv';
+import { Md5 } from 'ts-md5';
 import { computed, h, ref, toValue, watch } from 'vue';
-import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
+import {
+  SHIKI_CACHE_KEY_LENGTH,
+  SHIKI_SUPPORT_LANGS,
+  shikiThemeDefault
+} from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
 import {
@@ -61,7 +66,10 @@ const shikiTransformers = [
 ];
 
 const cacheKey = computed(() => {
-  return `shiki-${props.raw?.content}`;
+  const content = props.raw?.content ?? '';
+  return content.length > SHIKI_CACHE_KEY_LENGTH
+    ? Md5.hashStr(content)
+    : content;
 });
 // 使用 useSWRV 获取高亮后的代码行，并设置默认值为空数组，保证类型安全
 const { data: renderLinesRaw } = useSWRV<string[]>(
