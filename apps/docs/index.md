@@ -5,6 +5,5 @@ layout: false
 <MainPage />
 
 <script setup>
-import MainPage from './demo/demo4/index.vue'
-
+import MainPage from '/.vitepress/home/index.vue'
 </script>
