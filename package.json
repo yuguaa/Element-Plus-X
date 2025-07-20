@@ -24,13 +24,15 @@
     "eslint": "eslint .",
     "eslint:fix": "eslint --fix",
     "lint-staged": "lint-staged",
-    "prepare": "husky"
+    "prepare": "husky",
+    "cz": "cz"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.16.1",
     "@changesets/cli": "^2.29.5",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
+    "commitizen": "^4.3.1",
     "cz-git": "^1.11.2",
     "eslint": "^9.30.0",
     "eslint-plugin-format": "^1.0.1",
