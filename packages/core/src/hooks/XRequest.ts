@@ -93,10 +93,11 @@ export class XRequest<T> {
     return fetch(this.#baseURL + url, fetchOptions)
       .then(res => res.body)
       .then(async body => {
-        if (!body)
+        if (!body) {
           return Promise.reject(
             new Error('Response body is null in stream mode')
           );
+        }
         const reader = body.getReader();
         const decoder = new TextDecoder('utf-8');
         let done = false;
