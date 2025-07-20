@@ -1,0 +1,117 @@
+<docs>
+---
+title: direction Property
+---
+
+Set layout method `ltr` from left to right and `rtl` from right to left. For more properties to control styles, see the Properties list for details.
+</docs>
+
+<script setup lang="ts">
+import type { WelcomeProps } from 'vue-element-plus-x/types/Welcome';
+import { Refresh } from '@element-plus/icons-vue';
+
+const bgColor = ref(
+  'linear-gradient(97deg, rgba(90,196,255,0.12) 0%, rgba(174,136,255,0.12) 100%)'
+);
+const value = ref<WelcomeProps['direction']>('ltr');
+
+// Generate random gradient colors
+function generateGradientColor(): string {
+  const randomBrightColor = () => {
+    // To ensure colors are bright tones, set the range to 128 - 255
+    const r = Math.floor(Math.random() * 128) + 128;
+    const g = Math.floor(Math.random() * 128) + 128;
+    const b = Math.floor(Math.random() * 128) + 128;
+    return `rgba(${r}, ${g}, ${b}, 0.2)`;
+  };
+
+  const color1 = randomBrightColor();
+  const color2 = randomBrightColor();
+  const color3 = randomBrightColor();
+
+  return `linear-gradient(to bottom right, ${color1}, ${color2}, ${color3})`;
+}
+</script>
+
+<template>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; gap: 12px; align-items: center">
+      <el-button
+        type="warning"
+        style="width: fit-content"
+        @click="bgColor = generateGradientColor()"
+      >
+        Set Your Favorite Background Color <el-icon><Refresh /></el-icon>
+      </el-button>
+
+      <span>Switch Layout:</span>
+      <el-switch v-model="value" active-value="ltr" inactive-value="rtl" />
+    </div>
+
+    <Welcome
+      :direction="value"
+      title="Welcome to Element Plus X 🦋"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      title="Welcome to Element Plus X 💖"
+      description="This is description information ~"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      title="Welcome to Element Plus X 💖"
+      description="This is description information ~"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      title="Welcome to Element Plus X 💖"
+      extra="Subtitle"
+      description="This is description information ~"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      variant="borderless"
+      title="Welcome to Element Plus X 🦋"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      variant="borderless"
+      title="Welcome to Element Plus X 💖"
+      description="This is description information ~"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      variant="borderless"
+      title="Welcome to Element Plus X 💖"
+      description="This is description information ~"
+      :style="{ background: bgColor }"
+    />
+
+    <Welcome
+      :direction="value"
+      icon="https://camo.githubusercontent.com/4ea7fdaabf101c16965c0bd3ead816c9d7726a59b06f0800eb7c9a30212d5a6a/68747470733a2f2f63646e2e656c656d656e742d706c75732d782e636f6d2f656c656d656e742d706c75732d782e706e67"
+      variant="borderless"
+      title="Welcome to Element Plus X 💖"
+      extra="Subtitle"
+      description="This is description information ~"
+      :style="{ background: bgColor }"
+    />
+  </div>
+</template>
+
+<style module lang="less"></style>
