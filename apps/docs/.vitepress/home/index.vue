@@ -57,7 +57,9 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="page-container">
+  <div
+    class="page-container min-h-screen text-white font-sans overflow-x-hidden relative"
+  >
     <!-- 顶部横幅广告 -->
     <HeroBanner />
 
@@ -80,7 +82,6 @@ onMounted(async () => {
 
 <style scoped>
 .page-container {
-  min-height: 100vh;
   background:
     linear-gradient(
       135deg,
@@ -106,15 +107,6 @@ onMounted(async () => {
     80% 80%;
   background-attachment: fixed;
   animation: gradientShift 20s ease-in-out infinite;
-  color: #ffffff;
-  font-family:
-    'Inter',
-    'SF Pro Display',
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-  overflow-x: hidden;
-  position: relative;
 }
 
 @keyframes gradientShift {

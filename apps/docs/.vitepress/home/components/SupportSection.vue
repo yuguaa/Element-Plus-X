@@ -17,51 +17,75 @@ const sponsors = ref([
 
 <template>
   <!-- 赞助与支持区域 - 紧凑设计 -->
-  <section class="support-section">
-    <div class="support-container">
+  <section class="support-section py-12 relative">
+    <div class="support-container max-w-4xl mx-auto px-8 flex flex-col gap-8">
       <!-- 紧凑的标题区域 -->
-      <div class="support-header">
-        <h2 class="support-title">感谢支持</h2>
-        <p class="support-subtitle">他们的支持让开源项目持续发展</p>
+      <div class="support-header text-center">
+        <h2 class="support-title text-3xl font-extrabold m-0 mb-2">感谢支持</h2>
+        <p class="support-subtitle text-base text-white/70 m-0">
+          他们的支持让开源项目持续发展
+        </p>
       </div>
 
       <!-- 玻璃拟态赞助商卡片 -->
-      <div class="sponsors-glass-card">
+      <div
+        class="sponsors-glass-card backdrop-blur-5 border border-white/10 rounded-4 p-8 flex flex-col gap-6"
+      >
         <!-- 赞助商列表 - 水平布局 -->
-        <div class="sponsors-list">
+        <div
+          class="sponsors-list grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4"
+        >
           <div
             v-for="sponsor in sponsors.slice(0, 6)"
             :key="sponsor.company"
-            class="sponsor-compact"
+            class="sponsor-compact flex flex-col items-center gap-2 p-4 bg-white/5 border border-white/10 rounded-3 transition-all duration-300 cursor-pointer"
           >
-            <div class="sponsor-avatar">
+            <div
+              class="sponsor-avatar text-3xl w-12.5 h-12.5 flex-center rounded-full border border-white/20"
+            >
               {{ sponsor.logo }}
             </div>
-            <div class="sponsor-name">
+            <div
+              class="sponsor-name text-sm font-semibold text-white/90 text-center"
+            >
               {{ sponsor.company }}
             </div>
           </div>
         </div>
 
         <!-- 更多赞助商指示器 -->
-        <div class="more-sponsors">
-          <span class="more-text">+{{ sponsors.length - 6 }} 更多赞助商</span>
+        <div class="more-sponsors text-center p-4 border-t border-white/10">
+          <span class="more-text text-sm text-white/60 italic"
+            >+{{ sponsors.length - 6 }} 更多赞助商</span
+          >
         </div>
       </div>
 
       <!-- 紧凑的CTA区域 -->
-      <div class="sponsor-cta-compact">
-        <div class="cta-content">
-          <div class="cta-left">
-            <div class="cta-icon">🤝</div>
-            <div class="cta-text">
-              <h3 class="cta-title">成为赞助商</h3>
-              <p class="cta-desc">支持开源项目，获得品牌曝光</p>
+      <div
+        class="sponsor-cta-compact border border-indigo-500/20 rounded-4 p-6 backdrop-blur-[10px]"
+      >
+        <div class="cta-content flex items-center justify-between gap-8">
+          <div class="cta-left flex items-center gap-4">
+            <div
+              class="cta-icon text-3xl w-15 h-15 flex-center rounded-full border border-white/20"
+            >
+              🤝
+            </div>
+            <div class="cta-text flex-1">
+              <h3 class="cta-title text-xl font-bold m-0 mb-1 text-white">
+                成为赞助商
+              </h3>
+              <p class="cta-desc text-sm text-white/70 m-0">
+                支持开源项目，获得品牌曝光
+              </p>
             </div>
           </div>
-          <button class="sponsor-btn-compact">
+          <button
+            class="sponsor-btn-compact flex items-center gap-2 px-6 py-3 border-none rounded-2.5 text-white font-semibold cursor-pointer transition-all duration-300"
+          >
             <span class="btn-text">立即赞助</span>
-            <span class="btn-arrow">→</span>
+            <span class="btn-arrow transition-transform duration-300">→</span>
           </button>
         </div>
       </div>
@@ -70,10 +94,8 @@ const sponsors = ref([
 </template>
 
 <style scoped>
-/* 赞助与支持区域 */
+/* 背景渐变 */
 .support-section {
-  padding: 3rem 0;
-  position: relative;
   background: linear-gradient(
     135deg,
     rgba(139, 92, 246, 0.08) 0%,
@@ -82,190 +104,66 @@ const sponsors = ref([
   );
 }
 
-.support-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.support-header {
-  text-align: center;
-}
-
+/* 标题渐变 */
 .support-title {
-  font-size: 2rem;
-  font-weight: 800;
-  margin: 0 0 0.5rem 0;
   background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.support-subtitle {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-}
-
+/* 玻璃卡片背景 */
 .sponsors-glass-card {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1) 0%,
     rgba(255, 255, 255, 0.05) 100%
   );
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
 }
 
-.sponsors-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-}
-
-.sponsor-compact {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
+/* 赞助商卡片悬停效果 */
 .sponsor-compact:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(99, 102, 241, 0.3);
   transform: translateY(-2px);
 }
 
+/* 头像渐变背景 */
 .sponsor-avatar {
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: linear-gradient(
     135deg,
     rgba(99, 102, 241, 0.2),
     rgba(139, 92, 246, 0.2)
   );
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.sponsor-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
-  text-align: center;
-}
-
-.more-sponsors {
-  text-align: center;
-  padding: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.more-text {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-style: italic;
-}
-
+/* CTA区域背景 */
 .sponsor-cta-compact {
   background: linear-gradient(
     135deg,
     rgba(99, 102, 241, 0.1) 0%,
     rgba(139, 92, 246, 0.1) 100%
   );
-  border: 1px solid rgba(99, 102, 241, 0.2);
-  border-radius: 16px;
-  padding: 1.5rem;
-  backdrop-filter: blur(10px);
 }
 
-.cta-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.cta-left {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
+/* CTA图标背景 */
 .cta-icon {
-  font-size: 2rem;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   background: linear-gradient(
     135deg,
     rgba(99, 102, 241, 0.2),
     rgba(139, 92, 246, 0.2)
   );
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.cta-text {
-  flex: 1;
-}
-
-.cta-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 0 0 0.25rem 0;
-  color: white;
-}
-
-.cta-desc {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-}
-
+/* 按钮样式 */
 .sponsor-btn-compact {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  border: none;
-  border-radius: 10px;
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
 }
 
 .sponsor-btn-compact:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
-}
-
-.btn-arrow {
-  transition: transform 0.3s ease;
 }
 
 .sponsor-btn-compact:hover .btn-arrow {
@@ -275,68 +173,61 @@ const sponsors = ref([
 /* 响应式设计 */
 @media (max-width: 768px) {
   .support-section {
-    padding: 2rem 0;
+    @apply py-8;
   }
 
   .support-container {
-    padding: 0 1rem;
+    @apply px-4;
   }
 
   .support-title {
-    font-size: 1.5rem;
+    @apply text-2xl;
   }
 
   .sponsors-glass-card {
-    padding: 1.5rem;
+    @apply p-6;
   }
 
   .sponsors-list {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    @apply grid-cols-[repeat(auto-fit,minmax(120px,1fr))];
   }
 
   .cta-content {
-    flex-direction: column;
-    text-align: center;
-    gap: 1.5rem;
+    @apply flex-col text-center gap-6;
   }
 
   .cta-left {
-    flex-direction: column;
-    text-align: center;
+    @apply flex-col text-center;
   }
 }
 
 @media (max-width: 480px) {
   .sponsors-list {
-    grid-template-columns: repeat(2, 1fr);
+    @apply grid-cols-2;
   }
 
   .sponsor-compact {
-    padding: 0.75rem;
+    @apply p-3;
   }
 
   .sponsor-avatar {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
+    @apply w-10 h-10 text-2xl;
   }
 
   .sponsor-name {
-    font-size: 0.8rem;
+    @apply text-xs;
   }
 
   .cta-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
+    @apply w-12.5 h-12.5 text-2xl;
   }
 
   .cta-title {
-    font-size: 1.1rem;
+    @apply text-lg;
   }
 
   .cta-desc {
-    font-size: 0.8rem;
+    @apply text-xs;
   }
 }
 </style>
