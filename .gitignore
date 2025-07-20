@@ -45,3 +45,5 @@ yarn-error.log*
 
 *storybook.log
 .oxlintrc.json.bak
+*/**/auto-imports.d.ts
+*/**/components.d.ts

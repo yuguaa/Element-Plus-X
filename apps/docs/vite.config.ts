@@ -22,6 +22,9 @@ export default defineConfig({
     AutoImport({
       imports: ['vue'],
       ignore: ['h', 'ClientOnly'],
+      eslintrc: {
+        enabled: true
+      },
       resolvers: [
         ElementPlusResolver({
           exclude: /ElButtonGroup/ // 忽略自动导入 ElButtonGroup
