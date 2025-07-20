@@ -129,7 +129,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-scrollbar ref="codeContainerRef">
+  <el-scrollbar
+    ref="codeContainerRef"
+    class="elx-run-code-content-scrollbar"
+    :style="preStyle"
+  >
     <div
       v-show="props.nowView === SELECT_OPTIONS_ENUM.CODE"
       class="elx-xmarkdown-container elx-run-code-content"

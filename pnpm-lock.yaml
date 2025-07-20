@@ -177,6 +177,9 @@ importers:
       swrv:
         specifier: ^1.1.0
         version: 1.1.0(vue@3.5.17(typescript@5.8.3))
+      ts-md5:
+        specifier: ^2.0.1
+        version: 2.0.1
       typescript-api-pro:
         specifier: ^0.0.6
         version: 0.0.6
@@ -5776,6 +5779,10 @@ packages:
 
   ts-map@1.0.3:
     resolution: {integrity: sha512-vDWbsl26LIcPGmDpoVzjEP6+hvHZkBkLW7JpvwbCv/5IYPJlsbzCVXY3wsCeAxAUeTclNOUZxnLdGh3VBD/J6w==}
+
+  ts-md5@2.0.1:
+    resolution: {integrity: sha512-yF35FCoEOFBzOclSkMNEUbFQZuv89KEQ+5Xz03HrMSGUGB1+r+El+JiGOFwsP4p9RFNzwlrydYoTLvPOuICl9w==}
+    engines: {node: '>=18'}
 
   tslib@2.3.0:
     resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
@@ -12909,6 +12916,8 @@ snapshots:
   ts-dedent@2.2.0: {}
 
   ts-map@1.0.3: {}
+
+  ts-md5@2.0.1: {}
 
   tslib@2.3.0: {}
 
