@@ -1,4 +1,4 @@
-# useSend & XRequest 🌳
+# useSend & XRequest (XRequest is deprecated, recommend using hook-fetch) 🌳
 
 ## Background Introduction
 
