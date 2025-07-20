@@ -1,12 +1,11 @@
 <docs>
 ---
 title: Customized Prompts Styles
-
 ---
 
-Customize prompts styles through the `style` property.
+Customize the styles of prompts through the `style` attribute.
 
-Customize individual prompt styles through `itemStyle`, `itemHoverStyle`, and `itemActiveStyle` properties.
+Customize the styles of individual prompts through `itemStyle`, `itemHoverStyle`, and `itemActiveStyle` attributes.
 </docs>
 
 <script setup lang="ts">
@@ -93,7 +92,7 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 :deep(.el-prompts) {
   .el-prompts-title {
     color: #fff;

@@ -1,12 +1,12 @@
 <docs>
 ---
-title: Speech Recognition
+title: Voice Recognition
 ---
 
-Built-in `speech recognition` functionality, just enable it through the `allowSpeech` property. It calls the browser's native speech recognition API, and when used in `Google Chrome`, it needs to be in a `🪄magic environment` to work properly.
+Built-in `voice recognition` functionality, enable it through the `allowSpeech` property. It calls the browser's native voice recognition API, and when used in `Google Chrome`, it needs to be in a `🪄magic environment` to work properly.
 
 ::: info
-If you don't want to use the built-in `speech recognition` functionality, you can listen to the recording state through the `@recording-change` event and implement the speech recognition functionality yourself.
+If you don't want to use the built-in `voice recognition` functionality, you can listen to the recording state through the `@recording-change` event and implement voice recognition functionality yourself.
 
 You can also call through the component ref instance object
 
@@ -20,9 +20,10 @@ const senderRef = ref();
 const senderValue = ref('');
 function onRecordingChange(recording: boolean) {
   if (recording) {
-    ElMessage.success('Started recording');
-  } else {
-    ElMessage.success('Stopped recording');
+    ElMessage.success('Start recording');
+  }
+  else {
+    ElMessage.success('Stop recording');
   }
 }
 
@@ -32,32 +33,27 @@ function onsubmit() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
-    <span>Built-in speech recognition:</span>
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <span>Built-in voice recognition:</span>
     <MentionSender v-model="senderValue" allow-speech @submit="onsubmit" />
 
-    <span>Custom speech recognition:</span>
-    <div style="display: flex">
+    <span>Custom voice recognition:</span>
+    <div style="display: flex;">
       <el-button
         type="primary"
-        style="width: fit-content"
+        style="width: fit-content;"
         @click="senderRef.startRecognition()"
       >
         Start recording using component instance
       </el-button>
       <el-button
         type="primary"
-        style="width: fit-content"
+        style="width: fit-content;"
         @click="senderRef.stopRecognition()"
       >
         Stop recording using component instance
       </el-button>
     </div>
-    <MentionSender
-      ref="senderRef"
-      v-model="senderValue"
-      allow-speech
-      @recording-change="onRecordingChange"
-    />
+    <MentionSender ref="senderRef" v-model="senderValue" allow-speech @recording-change="onRecordingChange" />
   </div>
 </template>

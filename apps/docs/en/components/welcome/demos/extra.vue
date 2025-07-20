@@ -3,7 +3,7 @@
 title: extra Slot
 ---
 
-Conveniently define custom subtitle content
+Convenient to define custom subtitle content
 </docs>
 
 <script setup lang="ts">
@@ -19,7 +19,7 @@ const bgColor =
       variant="borderless"
       :style="{ background: bgColor }"
       title="Welcome to Element Plus X 💖"
-      description="A Vue 3 recreation of ant-design-x. Later will integrate AI workflow orchestration components and md multi-functional rendering components, providing the Vue development community with a useful AI component library"
+      description="A Vue 3 recreation of ant-design-x. Later will integrate AI workflow orchestration components and multi-functional md rendering components, providing the Vue development community with a useful AI component library"
     >
       <template #extra>
         <el-button link type="primary"> About Me </el-button>
@@ -28,4 +28,4 @@ const bgColor =
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

@@ -3,7 +3,7 @@
 title: Basic Usage
 ---
 
-The most basic integration method.
+Simplest integration method.
 </docs>
 
 <script setup lang="ts">

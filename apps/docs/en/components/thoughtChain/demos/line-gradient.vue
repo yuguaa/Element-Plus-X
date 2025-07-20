@@ -24,34 +24,34 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
-    title: 'Success-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(20)
+    title: 'Success - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(20)
   },
   {
     id: '2',
     status: 'loading',
     isCanExpand: true,
-    title: 'Loading-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(20)
+    title: 'Loading - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(20)
   },
   {
     id: '3',
     status: 'error',
     isCanExpand: true,
-    title: 'Failed-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(20)
+    title: 'Failed - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(20)
   },
   {
     id: '4',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
-    title: 'Success-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(20)
+    title: 'Success - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(20)
   }
 ];
 </script>
@@ -60,4 +60,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   <ThoughtChain :thinking-items="thinkingItems" line-gradient />
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

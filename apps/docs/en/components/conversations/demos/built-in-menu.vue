@@ -3,9 +3,9 @@
 title: Built-in Dropdown Menu
 ---
 
-Built-in basic menu functionality (rename, delete), supports menu command callbacks, easily implement quick operations for conversation items.
+Built-in basic menu functionality (rename, delete), supports menu command callbacks, easily implements quick operations for session items.
 
-`@menu-command` triggers the built-in menu click event.
+`@menu-command` triggers built-in menu click events.
 </docs>
 
 <script setup lang="ts">
@@ -17,63 +17,60 @@ import type {
 const menuTestItems = ref([
   {
     key: 'm1',
-    label:
-      'Menu test item 1 - Long text effect demo text overflow effect test'.repeat(
-        2
-      )
+    label: 'Menu Test Item 1 - Long text effect demonstration text length overflow effect test'.repeat(2)
   },
   {
     key: 'm2',
-    label: 'Menu test item 2',
+    label: 'Menu Test Item 2',
     disabled: true
   },
   {
     key: 'm3',
-    label: 'Menu test item 3'
+    label: 'Menu Test Item 3'
   },
   {
     key: 'm4',
-    label: 'Menu test item 4'
+    label: 'Menu Test Item 4'
   },
   {
     key: 'm5',
-    label: 'Menu test item 5'
+    label: 'Menu Test Item 5'
   },
   {
     key: 'm6',
-    label: 'Menu test item 6'
+    label: 'Menu Test Item 6'
   },
   {
     key: 'm7',
-    label: 'Menu test item 7'
+    label: 'Menu Test Item 7'
   },
   {
     key: 'm8',
-    label: 'Menu test item 8'
+    label: 'Menu Test Item 8'
   },
   {
     key: 'm9',
-    label: 'Menu test item 9'
+    label: 'Menu Test Item 9'
   },
   {
     key: 'm10',
-    label: 'Menu test item 10'
+    label: 'Menu Test Item 10'
   },
   {
     key: 'm11',
-    label: 'Menu test item 11'
+    label: 'Menu Test Item 11'
   },
   {
     key: 'm12',
-    label: 'Menu test item 12'
+    label: 'Menu Test Item 12'
   },
   {
     key: 'm13',
-    label: 'Menu test item 13'
+    label: 'Menu Test Item 13'
   },
   {
     key: 'm14',
-    label: 'Menu test item 14'
+    label: 'Menu Test Item 14'
   }
 ]);
 
@@ -85,7 +82,7 @@ function handleMenuCommand(
   item: ConversationItem
 ) {
   console.log('Built-in menu click event:', command, item);
-  // Check if directly modifying item is effective
+  // Whether directly modifying item takes effect
   if (command === 'delete') {
     const index = menuTestItems.value.findIndex(
       itemSlef => itemSlef.key === item.key
@@ -122,4 +119,4 @@ function handleMenuCommand(
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

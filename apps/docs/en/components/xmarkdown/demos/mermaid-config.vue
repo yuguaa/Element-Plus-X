@@ -3,10 +3,10 @@
 title: mermaidConfig Mermaid Configuration
 ---
 
-Use the `mermaidConfig` property to customize the ToolbarConfig at the top of mermaid. This property accepts a MermaidToolbarConfig object, which can control the display/hide of the top controls, add class names, and control hover colors, etc.
+Use the `mermaidConfig` property to customize the mermaid top ToolbarConfig. This property accepts a MermaidToolbarConfig object, which can control the hide/show of top controls, add some class names, and control hover colors.
 
 :::warning
-If you set the `codeMermaidHeaderControl` property with `code-x-slot`, you will fully take over the mermaid Toolbar slot, and the developer can fully customize it. Of course, we also expose the built-in Toolbar methods, so you can just modify the style and keep some built-in methods you need.
+If you set the `codeMermaidHeaderControl` property with `code-x-slot`, it completely takes over the mermaid Toolbar slot, allowing developers to fully customize it. Of course, we still expose the built-in Toolbar methods, so you can retain some built-in methods you need while only modifying styles.
 :::
 
 ```ts
@@ -34,13 +34,13 @@ import { h } from 'vue';
 const markdown = `
 \`\`\`mermaid
 pie
-    "传媒及文化相关" : 35
-    "广告与市场营销" : 8
-    "游戏开发" : 15
-    "影视动画与特效" : 12
-    "互联网产品设计" : 10
-    "VR/AR开发" : 5
-    "其他" : 15
+    "Media and Culture Related" : 35
+    "Advertising and Marketing" : 8
+    "Game Development" : 15
+    "Film Animation and Effects" : 12
+    "Internet Product Design" : 10
+    "VR/AR Development" : 5
+    "Others" : 15
 \`\`\`
 `;
 
@@ -79,7 +79,7 @@ const selfCodeXSlot = {
                   borderRadius: '12px'
                 }
               },
-              props.showSourceCode ? '📝 源码' : '📊 图表'
+              props.showSourceCode ? '📝 Source' : '📊 Chart'
             )
           ]
         ),
@@ -88,7 +88,7 @@ const selfCodeXSlot = {
           h(
             ElTooltip,
             {
-              content: '放大',
+              content: 'Zoom In',
               placement: 'top'
             },
             {
@@ -114,7 +114,7 @@ const selfCodeXSlot = {
           h(
             ElTooltip,
             {
-              content: '重置缩放',
+              content: 'Reset Zoom',
               placement: 'top'
             },
             {
@@ -140,7 +140,7 @@ const selfCodeXSlot = {
           h(
             ElTooltip,
             {
-              content: props.showSourceCode ? '查看图表' : '查看源码',
+              content: props.showSourceCode ? 'View Chart' : 'View Source',
               placement: 'top'
             },
             {
@@ -166,7 +166,7 @@ const selfCodeXSlot = {
           h(
             ElTooltip,
             {
-              content: '自定义复制',
+              content: 'Custom Copy',
               placement: 'top'
             },
             {
@@ -183,14 +183,14 @@ const selfCodeXSlot = {
                       color: 'white',
                       border: 'none'
                     },
-                    // 🎯 用户自定义复制逻辑演示 - 完全接管
+                    // 🎯 User custom copy logic demonstration - complete takeover
                     onClick: async () => {
                       try {
-                        const customContent = `🎨 自定义前缀：\n\n${props.rawContent}\n\n📝 来自：Element-Plus-X`;
+                        const customContent = `🎨 Custom Prefix:\n\n${props.rawContent}\n\n📝 From: Element-Plus-X`;
                         await navigator.clipboard.writeText(customContent);
-                        ElMessage.success('🎉 组件插槽自定义复制成功！');
+                        ElMessage.success('🎉 Component slot custom copy successful!');
                       } catch (err) {
-                        console.error('❌ 自定义复制失败:', err);
+                        console.error('❌ Custom copy failed:', err);
                       }
                     }
                   },
@@ -201,7 +201,7 @@ const selfCodeXSlot = {
           h(
             ElTooltip,
             {
-              content: '下载图片',
+              content: 'Download Image',
               placement: 'top'
             },
             {
@@ -259,4 +259,4 @@ const selfMermaidConfig = {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

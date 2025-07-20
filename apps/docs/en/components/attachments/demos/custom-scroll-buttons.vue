@@ -3,7 +3,7 @@
 title: Custom Scroll Buttons
 ---
 
-Override the default left and right scroll button styles and interactions.
+Override default left and right scroll button styles and interactions.
 </docs>
 
 <script setup lang="ts">
@@ -17,7 +17,7 @@ type SelfFilesCardProps = FilesCardProps & {
 const files = ref<SelfFilesCardProps[]>([]);
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file);
+  console.log('before', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('File size cannot exceed 2MB!');
     return false;
@@ -48,7 +48,7 @@ async function handleHttpRequest(options: any) {
 
   setTimeout(() => {
     const res = {
-      message: 'File uploaded successfully',
+      message: 'File upload successful',
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
@@ -101,7 +101,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .custom-prev,
 .custom-next {
   position: absolute;

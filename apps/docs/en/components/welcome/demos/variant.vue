@@ -35,4 +35,4 @@ Quickly switch between multiple styles, currently only two: `filled` and `border
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

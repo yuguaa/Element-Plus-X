@@ -4,10 +4,10 @@ title: solts Various Slots
 ---
 
 ::: info
-- Support `#trigger-label` to customize label content, display of each data item
-- Support `#trigger-loading` to customize loading state, when `triggerLoading` is true, the loading state will be displayed
-- Support `#trigger-header` to customize the content at the top of the dropdown list
-- Support `#trigger-footer` to customize the content at the bottom of the dropdown list
+- Supports `#trigger-label` custom label content, display for each data item
+- Supports `#trigger-loading` custom loading state, when `triggerLoading` is true, the loading state will be displayed
+- Supports `#trigger-header` custom dropdown list top content
+- Supports `#trigger-footer` custom dropdown list bottom content
 :::
 </docs>
 
@@ -25,16 +25,16 @@ function handleSearch() {
     options.value = [
       {
         value: 'HeJiaYue520',
-        avatar: 'https://avatars.githubusercontent.com/u/76239030'
+        avatar: 'https://avatars.githubusercontent.com/u/76239030',
       },
       {
         value: 'JsonLee12138',
-        avatar: 'https://avatars.githubusercontent.com/u/160690954'
+        avatar: 'https://avatars.githubusercontent.com/u/160690954',
       },
       {
         value: 'ageerle',
-        avatar: 'https://avatars.githubusercontent.com/u/32251822'
-      }
+        avatar: 'https://avatars.githubusercontent.com/u/32251822',
+      },
     ];
     triggerLoading.value = false;
   }, 1500);
@@ -42,10 +42,10 @@ function handleSearch() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue1"
-      placeholder="Input @ to trigger popup"
+      placeholder="Input @ to trigger directive popover"
       :options="options"
       :trigger-strings="['@']"
       :whole="true"
@@ -60,50 +60,22 @@ function handleSearch() {
       </template>
 
       <template #trigger-loading>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 24px;
-            gap: 12px;
-          "
-        >
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 24px; gap: 12px;">
           This is custom loading state
-          <el-icon
-            class="is-loading"
-            style="color: cornflowerblue; font-size: 20px"
-          >
+          <el-icon class="is-loading" style="color: cornflowerblue; font-size: 20px;">
             <Loading />
           </el-icon>
         </div>
       </template>
 
       <template #trigger-header>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 8px;
-          "
-        >
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 8px;">
           This is custom dropdown list top content
         </div>
       </template>
 
       <template #trigger-footer>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 8px;
-          "
-        >
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 8px;">
           This is custom dropdown list bottom content
         </div>
       </template>
@@ -111,4 +83,5 @@ function handleSearch() {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

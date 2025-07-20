@@ -1,9 +1,9 @@
 <docs>
 ---
-title: autoCollapse Property
+title: AutoCollapse Attribute
 ---
 
-Auto collapse property. When the component `status` state changes to `end`, it automatically collapses. This property defaults to `false`.
+Auto collapse attribute. When the component `status` state changes to `end`, it automatically collapses. This attribute defaults to `false`.
 </docs>
 
 <script setup lang="ts">
@@ -13,9 +13,13 @@ const statusValue = ref<ThinkingStatus>('thinking');
 </script>
 
 <template>
-  <el-radio-group v-model="statusValue" style="margin-bottom: 12px">
-    <el-radio-button value="thinking"> thinking </el-radio-button>
-    <el-radio-button value="end"> end </el-radio-button>
+  <el-radio-group v-model="statusValue" style="margin-bottom: 12px;">
+    <el-radio-button value="thinking">
+      thinking
+    </el-radio-button>
+    <el-radio-button value="end">
+      end
+    </el-radio-button>
   </el-radio-group>
 
   <Thinking

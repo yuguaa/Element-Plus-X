@@ -3,7 +3,7 @@
 title: Enable HTML Tag Rendering
 ---
 
-Support HTML tag rendering, use the `allowHtml` property to enable, enabled by default.
+Supports HTML tag rendering, use the `allowHtml` property to enable it, enabled by default.
 </docs>
 
 <script setup lang="ts">
@@ -18,4 +18,4 @@ const value1 = ref(true);
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

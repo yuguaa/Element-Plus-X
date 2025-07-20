@@ -1,11 +1,11 @@
 <docs>
 ---
-title: SSE Basic Usage
+title: Basic Usage of SSE
 ---
 
-This hook function is equivalent to the `XStream` method in `ant-design-x`, and we integrate the `Vue` development paradigm.
+This hook function is aligned with `ant-design-x`'s `XStream` method, and we have integrated the `Vue` development paradigm.
 
-On this basis, we added `abort` handling for streaming requests, and moved the original hook function's configuration method into the `startStream` parameter, making it easier for developers to understand the purpose of this hook
+On this basis, we have added `interrupt` handling for streaming requests, and placed the original hook function's configuration method in the `startStream` parameter, making it easier for developers to understand the purpose of this hook.
 </docs>
 
 <script setup lang="ts">
@@ -13,7 +13,7 @@ import { useXStream } from 'vue-element-plus-x';
 
 const { startStream, cancel, data, error, isLoading } = useXStream();
 
-// Default support for SSE protocol
+// SSE protocol is supported by default
 async function startSSE() {
   try {
     const response = await fetch(
@@ -29,7 +29,7 @@ async function startSSE() {
   }
 }
 
-// Bot content computed property
+// Robot content computed property
 const content = computed(() => {
   if (!data.value.length) return '';
   let text = '';
@@ -39,11 +39,11 @@ const content = computed(() => {
       const parsedChunk = JSON.parse(chunk).content;
       text += parsedChunk;
     } catch (error) {
-      // This end identifier is given by the backend, so we judge it this way
-      // In actual projects, it should be based on project requirements
+      // This end flag is given by the backend, so judge like this here
+      // In actual projects, follow project requirements
       if (chunk === ' [DONE]') {
-        // Handle data completion
-        // console.log('Data reception completed')
+        // Handle data end
+        // console.log('Data reception complete')
       } else {
         console.error('Error parsing data:', error);
       }
@@ -62,9 +62,7 @@ const content = computed(() => {
         {{ isLoading ? 'Loading...' : 'Get SSE Stream Data' }}
       </el-button>
 
-      <el-button :disabled="!isLoading" @click="cancel()">
-        Abort Request
-      </el-button>
+      <el-button :disabled="!isLoading" @click="cancel()"> Cancel Request </el-button>
     </div>
     <div v-if="error" class="error">
       {{ error.message }}
@@ -79,7 +77,7 @@ const content = computed(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .container {
   display: flex;
   flex-direction: column;

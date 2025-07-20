@@ -3,7 +3,7 @@
 title: Scroll Mode
 ---
 
-Supports three layout modes: horizontal scroll (`scrollX`), vertical scroll (`scrollY`), and auto wrap (`wrap`). Default is horizontal.
+Supports three layout modes: horizontal scroll (`scrollX`), vertical scroll (`scrollY`), and auto wrap (`wrap`). Default is horizontal scroll.
 </docs>
 
 <script setup lang="ts">
@@ -44,11 +44,12 @@ onMounted(() => {
     files.value.push({
       id: index,
       uid: index,
-      name: `File${index}`,
+      name: `File ${index}`,
       fileSize: 1024 * 2,
       fileType: typeList[
         Math.floor(Math.random() * typeList.length)
       ] as FilesType,
+      // description: `Description ${index}`,
       url: 'https://www.baidu.com',
       thumbUrl: 'https://www.baidu.com',
       imgFile: new File([], 'test.txt'),
@@ -58,7 +59,7 @@ onMounted(() => {
 });
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file);
+  console.log('before', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('File size cannot exceed 2MB!');
     return false;
@@ -89,7 +90,7 @@ async function handleHttpRequest(options: any) {
 
   setTimeout(() => {
     const res = {
-      message: 'File uploaded successfully',
+      message: 'File upload successful',
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
@@ -157,4 +158,4 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

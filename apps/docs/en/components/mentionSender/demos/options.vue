@@ -3,11 +3,11 @@
 title: options Mention Option List
 ---
 
-- Through the `options` property, you can pass in an array to define the mention option list.
-- Through the `triggerStrings` property, the prefix of the trigger field. This is different from the `Sender` component, where the string length must be and can only be 1.
+- Through the `options` property, you can pass an array to define the mention option list.
+- Through the `triggerStrings` property, the prefix of the trigger field. This is different from the `Sender` component, where the string length must be exactly 1.
 
 ```ts
-// Type definition for the options mention option list
+// Type definition for options mention option list
 interface MentionOption {
   value: string
   label?: string
@@ -17,7 +17,7 @@ interface MentionOption {
 ```
 
 ::: info
-Just setting the `options` property cannot enable the mention functionality. The `triggerStrings` property is needed to enable the mention functionality.
+Setting only the `options` property cannot enable the mention functionality. The `triggerStrings` property is needed to enable the mention functionality.
 :::
 </docs>
 
@@ -27,25 +27,25 @@ const senderValue = ref('');
 const options = [
   {
     value: 'value1',
-    label: 'Option 1'
+    label: 'Option 1',
   },
   {
     value: 'value2',
     label: 'Option 2',
-    disabled: true
+    disabled: true,
   },
   {
     value: 'value3',
-    label: 'Option 3'
-  }
+    label: 'Option 3',
+  },
 ];
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue"
-      placeholder="Input / to trigger popup"
+      placeholder="Input / to trigger directive popover"
       clearable
       :options="options"
       :trigger-strings="['/']"
@@ -53,4 +53,5 @@ const options = [
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

@@ -3,25 +3,25 @@
 title: Directive
 ---
 
-Input box with built-in directive popup for convenient directive operations
+Input box with built-in directive popover for convenient directive operations
 
 ::: info
-- Through the `triggerStrings` property, set the directive trigger characters, type is a character array ['/', '@']
-- Through v-model binding `triggerPopoverVisible` property, control whether the directive popup is visible
+- Set directive trigger characters through the `triggerStrings` property, type is a character array ['/', '@']
+- Control whether the directive popover is visible through v-model binding `triggerPopoverVisible` property
 
 `v-model:trigger-popover-visible="triggerVisible"`
-- Through the `triggerPopoverWidth` property, set the directive popup width, default `'fit-content'`
-- Through the `triggerPopoverLeft` property, set the directive popup distance from the left, default `'0px'`
-- Through the `triggerPopoverOffset` property, set the distance between the directive popup and input box, default `8`
-- Through the `triggerPopoverPlacement` property, set the directive popup position, same as el-popover's placement property, default `'top-start'`
+- Set directive popover width through `triggerPopoverWidth` property, default `'fit-content'`
+- Set directive popover distance from left through `triggerPopoverLeft` property, default `'0px'`
+- Set distance between directive popover and input through `triggerPopoverOffset` property, default `8`
+- Set directive popover position through `triggerPopoverPlacement` property, same as el-popover's placement property, default `'top-start'`
 
 Values `'top'` | `'top-start'` | `'top-end'` | `'bottom'` | `'bottom-start'` | `'bottom-end'` | `'left'` | `'left-start'` | `'left-end'` | `'right'` | `'right-start'` | `'right-end'`
 
-- `@trigger` Set the callback method when the directive popup display/hide changes
+- `@trigger` Set callback method for directive popover show/hide changes
 :::
 
 ::: tip
-- `@trigger` When you want to do something when the directive is triggered, but don't want the built-in popup style, you can not use v-model:trigger-popover-visible="triggerVisible", so the **built-in popup** won't appear
+- `@trigger` When you want to do something when a directive is triggered but don't want the built-in popover style, you can not use v-model:trigger-popover-visible="triggerVisible", so the **built-in popover** won't appear
 :::
 </docs>
 
@@ -43,11 +43,11 @@ function onTrigger1(event: TriggerEvent) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <Sender
       v-model="senderValue"
       v-model:trigger-popover-visible="triggerVisible"
-      placeholder="Input / and @ to trigger directive popup"
+      placeholder="Input / and @ to trigger directive popover"
       clearable
       :trigger-strings="['/', '@']"
       trigger-popover-width="400px"
@@ -59,7 +59,7 @@ function onTrigger1(event: TriggerEvent) {
 
     <Sender
       v-model="senderValue1"
-      placeholder="Input XXX and QQ to trigger directive popup, here not using v-model:trigger-popover-visible binding, can also trigger @trigger event, please check the trigger event in console"
+      placeholder="Input XXX and QQ to trigger directive popover. Here we don't use v-model:trigger-popover-visible binding, but can still trigger @trigger event. Please check the console for trigger events"
       clearable
       :trigger-strings="['XXX', 'QQ']"
       trigger-popover-width="400px"
@@ -71,15 +71,13 @@ function onTrigger1(event: TriggerEvent) {
 
     <el-dialog
       v-model="dialogVisible"
-      title="💖 Welcome to use Element-Plus-X"
+      title="💖 Welcome to Element-Plus-X"
       width="500"
     >
-      <span
-        >The trigger event has been executed, can be opening popup, opening
-        drawer, any event you need ~</span
-      >
+      <span>Trigger event has been executed, can be opening popover, opening drawer, any event you need ~</span>
     </el-dialog>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

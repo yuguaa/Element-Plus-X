@@ -3,32 +3,33 @@
 title: codeXSlot Custom Code Block Top Slot Rendering
 ---
 
-Use the `codeXSlot` property to customize the rendering of the code block top slot. This property accepts an object, where the key is a fixed property of type CodeBlockHeaderExpose, and the value is a function. The function parameter is the code block property, and the return value is a VNode, which means you can use Vue's template syntax to render the top of the code block.
+Use the `codeXSlot` property to customize code block top slot rendering. This property accepts an object where the key is a fixed property of the CodeBlockHeaderExpose type, and the value is a function. The function parameter is the code block properties, and the return value is a VNode, meaning you can use Vue's template syntax to render the top of code blocks.
 
-You can get props in your custom template, and the props have the following properties (you can print and check in the project):
-- `isExpand`: props.isExpand Whether to expand the code block.
-- `toggleExpand`: props.toggleExpand Expand the code block.
-- `isDark`: props.isDark.value Get the current code block theme.
-- `toggleTheme`: props.toggleTheme Switch code block theme.
-- `renderLines`: props.renderLines Get the content of this code block, you can use it to pass to the copy function.
-- `copyCode`: props.copyCode(props.renderLines) Copy code block (need to pass parameter).
-- `viewCode`: props.viewCode(props.renderLines) Trigger the built-in preview HTML code block modal (need to pass parameter).
-- `value`: props.value Get the type of this code block, which is 'code' | 'preview'.
-- `changeSelectValue`: props.changeSelectValue('code' | 'preview') Switch code block type (need to pass parameter).
-- `content`: props.content Get the content of this code block.
-- `close`: props.close() Close the built-in preview HTML modal (no parameter needed).
+You can get props in your custom template, and props has the following properties (specific properties can be printed and viewed in the project):
+- `isExpand`: props.isExpand whether the code block is expanded.
+- `toggleExpand`: props.toggleExpand expand code block.
+- `isDark`: props.isDark.value get current code block theme.
+- `toggleTheme`: props.toggleTheme switch code block theme.
+- `renderLines`: props.renderLines get the content of this code block, you can use it to pass to the copy function.
+- `copyCode`: props.copyCode(props.renderLines) copy code block (requires parameter).
+- `viewCode`: props.viewCode(props.renderLines) trigger built-in preview HTML code block popover (requires parameter).
+- `value`: props.value get this code block type is 'Code' | 'Preview'.
+- `changeSelectValue`: props.changeSelectValue('Code' | 'Preview') switch code block type (requires parameter).
+- `changeSelectValue`: props.changeSelectValue('Code' | 'Preview') switch code block type (requires parameter).
+- `content`: props.content get this code block content.
+- `close`: props.close() close built-in preview HTML popover (no parameter needed).
 
-The following are the built-in properties that can be obtained in the custom component props for the mermaid code block top:
-- `zoomIn`: props.zoomIn Zoom in.
-- `zoomOut`: props.zoomOut Zoom out.
-- `reset`: props.reset Reset to initial position.
-- `toggleCode`: props.toggleCode Switch to show code.
-- `download`: props.download Download image.
-- `fullscreen`: props.fullscreen Enter fullscreen.
-- `copyCode`: props.copyCode Copy code.
+The following are built-in properties that can be obtained in the mermaid code block header custom component props:
+- `zoomIn`: props.zoomIn zoom in.
+- `zoomOut`: props.zoomOut zoom out.
+- `reset`: props.reset return to initial position.
+- `toggleCode`: props.toggleCode switch display code.
+- `download`: props.download download image.
+- `fullscreen`: props.fullscreen enter fullscreen.
+- `copyCode`: props.copyCode copy code.
 
 ```ts
-// The type definition for this property
+// Type definition for this property
 interface CodeBlockHeaderExpose {
   // Custom render the entire code block header
   codeHeader?: CodeBlockHeaderRenderer;
@@ -36,20 +37,20 @@ interface CodeBlockHeaderExpose {
   codeHeaderLanguage?: CodeBlockHeaderRenderer;
   // Custom render the right control button of the code block
   codeHeaderControl?: CodeBlockHeaderRenderer;
-  // Custom render the title area of the right preview modal of the code block
+  // Custom render the title area of the right preview popover of the code block
   viewCodeHeader?: CodeBlockHeaderRenderer;
-  // Custom render the content area of the right preview modal of the code block
+  // Custom render the content area of the right preview popover of the code block
   viewCodeContent?: CodeBlockHeaderRenderer;
-  // Custom render the close button of the right preview modal of the code block
+  // Custom render the close button of the right preview popover of the code block
   viewCodeCloseBtn?: CodeBlockHeaderRenderer;
-  // Custom render the mermaid top slot
+  // Custom render mermaid top slot
   codeMermaidHeaderControl?: CodeBlockHeaderRenderer;
 }
 ```
 </docs>
 
 <script setup lang="ts">
-// 这个 ts 类型还未成功导出，还有 props 类型目前暂时使用 any，需要后续优化
+// This ts type has not been successfully exported yet, and the props type currently uses any temporarily, needs optimization later
 // import type { CodeBlockHeaderExpose, CodeBlockExpose } from 'vue-element-plus-x/types/components/XMarkdownCore/components/CodeBlock/shiki-header.d.ts';
 import { h } from 'vue';
 
@@ -62,19 +63,19 @@ const a = 1;
 const mermaidMarkdown = `
 \`\`\`mermaid
 pie
-    "传媒及文化相关" : 35
-    "广告与市场营销" : 8
-    "游戏开发" : 15
-    "影视动画与特效" : 12
-    "互联网产品设计" : 10
-    "VR/AR开发" : 5
-    "其他" : 15
+    "Media and Culture Related" : 35
+    "Advertising and Marketing" : 8
+    "Game Development" : 15
+    "Film Animation and Effects" : 12
+    "Internet Product Design" : 10
+    "VR/AR Development" : 5
+    "Others" : 15
 \`\`\`
 `;
 
-// 如果你是用了codeHeader 属性，其他两个属性失效
+// If you use the codeHeader property, the other two properties become invalid
 const selfCodeXSlot1 = {
-  // 自定义渲染整个代码块的头部 h 函数也可以写成自定义的组件的形式
+  // Custom render the entire code block header, h function can also be written as a custom component form
   // (props: any) => h(SelfComponent, { selfProps: props }),
   codeHeader: (props: any) =>
     h(
@@ -82,26 +83,26 @@ const selfCodeXSlot1 = {
       {
         onClick: (ev: MouseEvent) => props.toggleExpand(ev)
       },
-      { default: () => '这是自定义头部，点击切换折叠状态' }
+      { default: () => 'This is custom header, click to toggle collapse state' }
     ),
-  // 自定义渲染代码块的左侧语言标识符
-  codeHeaderLanguage: () => h('div', '自定义代码块左侧语言标识符'),
-  // 自定义渲染代码块的右侧控制按钮
-  codeHeaderControl: () => h('div', '自定义代码块右侧控制按钮')
+  // Custom render the left language identifier of the code block
+  codeHeaderLanguage: () => h('div', 'Custom code block left language identifier'),
+  // Custom render the right control button of the code block
+  codeHeaderControl: () => h('div', 'Custom code block right control button')
 };
 
-// 如果你是用了codeHeader 属性，其他两个属性失效
+// If you use the codeHeader property, the other two properties become invalid
 const selfCodeXSlot2 = {
-  // 自定义渲染代码块的左侧语言标识符
-  codeHeaderLanguage: () => h('div', '自定义代码块左侧语言标识符')
+  // Custom render the left language identifier of the code block
+  codeHeaderLanguage: () => h('div', 'Custom code block left language identifier')
 };
 
 const selfCodeXSlot3 = {
-  // 自定义渲染代码块的右侧控制按钮
-  codeHeaderControl: () => h('div', '自定义代码块右侧控制按钮')
+  // Custom render the right control button of the code block
+  codeHeaderControl: () => h('div', 'Custom code block right control button')
 };
 
-// 如果你是用了codeHeader 属性，其他两个属性失效
+// If you use the codeHeader property, the other two properties become invalid
 const selfCodeXSlot4 = {
   codeMermaidHeaderControl: (props: any) => {
     return h(
@@ -137,7 +138,7 @@ const selfCodeXSlot4 = {
                   borderRadius: '12px'
                 }
               },
-              props.showSourceCode ? '📝 源码' : '📊 图表'
+              props.showSourceCode ? '📝 Source' : '📊 Chart'
             )
           ]
         ),
@@ -146,7 +147,7 @@ const selfCodeXSlot4 = {
           h(
             ElTooltip,
             {
-              content: '放大',
+              content: 'Zoom In',
               placement: 'top'
             },
             {
@@ -172,7 +173,7 @@ const selfCodeXSlot4 = {
           h(
             ElTooltip,
             {
-              content: '重置缩放',
+              content: 'Reset Zoom',
               placement: 'top'
             },
             {
@@ -198,7 +199,7 @@ const selfCodeXSlot4 = {
           h(
             ElTooltip,
             {
-              content: props.showSourceCode ? '查看图表' : '查看源码',
+              content: props.showSourceCode ? 'View Chart' : 'View Source',
               placement: 'top'
             },
             {
@@ -224,7 +225,7 @@ const selfCodeXSlot4 = {
           h(
             ElTooltip,
             {
-              content: '自定义复制',
+              content: 'Custom Copy',
               placement: 'top'
             },
             {
@@ -241,14 +242,14 @@ const selfCodeXSlot4 = {
                       color: 'white',
                       border: 'none'
                     },
-                    // 🎯 用户自定义复制逻辑演示 - 完全接管
+                    // 🎯 User custom copy logic demonstration - complete takeover
                     onClick: async () => {
                       try {
-                        const customContent = `🎨 自定义前缀：\n\n${props.rawContent}\n\n📝 来自：Element-Plus-X`;
+                        const customContent = `🎨 Custom Prefix:\n\n${props.rawContent}\n\n📝 From: Element-Plus-X`;
                         await navigator.clipboard.writeText(customContent);
-                        ElMessage.success('🎉 组件插槽自定义复制成功！');
+                        ElMessage.success('🎉 Component slot custom copy successful!');
                       } catch (err) {
-                        console.error('❌ 自定义复制失败:', err);
+                        console.error('❌ Custom copy failed:', err);
                       }
                     }
                   },
@@ -259,7 +260,7 @@ const selfCodeXSlot4 = {
           h(
             ElTooltip,
             {
-              content: '下载图片',
+              content: 'Download Image',
               placement: 'top'
             },
             {
@@ -298,4 +299,4 @@ const selfCodeXSlot4 = {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

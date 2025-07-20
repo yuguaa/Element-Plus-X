@@ -1,9 +1,9 @@
 <docs>
 ---
-title: duration Property
+title: Duration Attribute
 ---
 
-Animation duration can be set through the `duration` property, type is `string`. Default is `0.2s`. You can set animation duration like this
+You can set the animation duration through the `duration` attribute, type is `string`. Default is `0.2s`. You can set the animation duration like this
 </docs>
 
 <template>

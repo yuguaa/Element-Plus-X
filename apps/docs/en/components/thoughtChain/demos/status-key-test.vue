@@ -1,9 +1,9 @@
 <docs>
 ---
-title: statusKey, statusEnum Properties
+title: statusKey and statusEnum Properties
 ---
 
-Set the status field and corresponding built-in style enum values through `statusKey` and `statusEnum`.
+Set the status field and the corresponding built-in style enumeration values for the status field through `statusKey` and `statusEnum`.
 
 The style of the left dot node is determined by the `statusKey` and `statusEnum` configuration.
 </docs>
@@ -21,43 +21,39 @@ interface DataType {
 
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   {
-    id: '1',
     codeId: '1',
     self_status: 'yes',
     isCanExpand: true,
     isDefaultExpand: true,
-    title: 'Success-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(10)
+    title: 'Success - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(10)
   },
   {
-    id: '2',
     codeId: '2',
-    title: 'Loading-Main Title',
+    title: 'Loading - Main Title',
     self_status: 'load',
     isCanExpand: true,
     isDefaultExpand: false,
     thinkTitle: 'Thinking Content Title',
-    thinkContent: 'Searching text'.repeat(10)
+    thinkContent: 'Search text'.repeat(10)
   },
   {
-    id: '3',
     codeId: '3',
-    title: 'Failed-Main Title',
+    title: 'Failed - Main Title',
     self_status: 'no',
     isCanExpand: true,
     isDefaultExpand: false,
     thinkTitle: 'Thinking Content Title',
-    thinkContent: 'Searching text'.repeat(10)
+    thinkContent: 'Search text'.repeat(10)
   },
   {
-    id: '4',
     codeId: '4',
-    title: 'Thanks-Main Title',
+    title: 'Thank You - Main Title',
     isCanExpand: true,
     isDefaultExpand: true,
     thinkTitle: 'Thinking Content Title',
-    thinkContent: 'Searching text'.repeat(10)
+    thinkContent: 'Search text'.repeat(10)
   }
 ];
 </script>
@@ -79,4 +75,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   </ThoughtChain>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

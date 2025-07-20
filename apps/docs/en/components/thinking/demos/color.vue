@@ -1,6 +1,6 @@
 <docs>
 ---
-title: color and backgroundColor
+title: Color and BackgroundColor
 ---
 
 Quickly set the background color and font color of the content area through `color` and `backgroundColor`. Type is `string`, meaning you can use CSS color values.

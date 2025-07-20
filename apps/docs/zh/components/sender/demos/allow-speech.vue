@@ -21,7 +21,8 @@ const senderValue = ref('');
 function onRecordingChange(recording: boolean) {
   if (recording) {
     ElMessage.success('开始录音');
-  } else {
+  }
+  else {
     ElMessage.success('结束录音');
   }
 }
@@ -32,32 +33,27 @@ function onsubmit() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
     <span>内置语音识别：</span>
     <Sender v-model="senderValue" allow-speech @submit="onsubmit" />
 
     <span>自定义语音识别：</span>
-    <div style="display: flex">
+    <div style="display: flex;">
       <el-button
         type="primary"
-        style="width: fit-content"
+        style="width: fit-content;"
         @click="senderRef.startRecognition()"
       >
         使用组件实例 开始录音
       </el-button>
       <el-button
         type="primary"
-        style="width: fit-content"
+        style="width: fit-content;"
         @click="senderRef.stopRecognition()"
       >
         使用组件实例 结束录音
       </el-button>
     </div>
-    <Sender
-      ref="senderRef"
-      v-model="senderValue"
-      allow-speech
-      @recording-change="onRecordingChange"
-    />
+    <Sender ref="senderRef" v-model="senderValue" allow-speech @recording-change="onRecordingChange" />
   </div>
 </template>

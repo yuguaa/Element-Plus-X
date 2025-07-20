@@ -14,13 +14,13 @@ let finish = () => {};
 const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   type: 'fetch',
-  transformer: e => {
+  transformer: (e) => {
     console.log('transformer:', e);
     const a = e.trim().split('\n');
     const r = a.pop();
     return r;
   },
-  onMessage: msg => {
+  onMessage: (msg) => {
     console.log('onMessage:', msg);
     str.value += `\n${msg}`;
   },
@@ -30,17 +30,17 @@ const sse = new XRequest({
   onOpen: () => {
     console.log('onOpen');
   },
-  onAbort: messages => {
+  onAbort: (messages) => {
     console.log('onAbort', messages);
   },
-  onFinish: data => {
+  onFinish: (data) => {
     console.log('onFinish:', data);
     // 这里调用的时候，会报 eslint 错误，说我们在使用前未定义
     // 'finish' was used before it was defined.
     // 我们只有在 上面定义一个 finish 空方法，在下面进行赋值
     // 其实这里就是执行，useSend 的 finish 方法
     finish();
-  }
+  },
 });
 
 function startFn() {
@@ -51,14 +51,9 @@ function startFn() {
 // useSend 的 abort 和 finish 是一样的方法。
 // 为了体现 这边 xrequest 请求，支持手动中断，和 结束回调。
 // 所以 也在 useSend 中，也暴露了一个名字叫 finish 的方法。
-const {
-  send,
-  loading,
-  abort,
-  finish: _finish
-} = useSend({
+const { send, loading, abort, finish: _finish } = useSend({
   sendHandler: startFn,
-  abortHandler: sse.abort
+  abortHandler: sse.abort,
 });
 
 // 给顶层变量赋值

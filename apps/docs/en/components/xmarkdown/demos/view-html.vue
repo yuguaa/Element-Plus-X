@@ -1,12 +1,12 @@
 <docs>
 ---
-title: Preview HTML Code Blocks
+title: Preview HTML Code Block
 ---
 
-Support previewing HTML code blocks.
+Supports previewing HTML code blocks.
 - If you don't need it, you can hide the button by setting `need-view-code-btn` property to `false`. Default is `true`.
 - You can also use the `secure-view-code` property, set to `true` to enable `html` safe mode. Default is `false`. If enabled, `script` tags will not be rendered. Click to add to cart
-- You can also configure the modal through the `viewCodeModalOptions` property.
+- You can also configure the popover through the `viewCodeModalOptions` property.
 
 ```js
 viewCodeModalOptions: {
@@ -25,18 +25,18 @@ viewCodeModalOptions: {
 
 | Property            | Value     | Description                                                          |
 |---------------------|-----------|----------------------------------------------------------------------|
-| mode                | 'drawer'  | Modal display form as drawer type                                    |
-| customClass         | ''        | No custom style class added                                           |
-| dialogOptions       | -         | Dialog mode configuration (currently not enabled)                    |
-| - closeOnClickModal | true      | Click outside dialog area to close (only effective in dialog mode)  |
-| - closeOnPressEscape | true     | Press ESC key to close dialog (only effective in dialog mode)       |
-| drawerOptions       | -         | Drawer mode configuration (currently enabled)                        |
-| - closeOnClickModal | true      | Click outside drawer area to close                                   |
-| - closeOnPressEscape | true     | Press ESC key to close drawer                                         |
+| mode                | 'drawer'  | Modal display form as drawer type                                   |
+| customClass         | ''        | No custom style class added                                          |
+| dialogOptions       | -         | Dialog mode configuration (currently not enabled)                   |
+| - closeOnClickModal | true      | Click outside dialog area to close (only effective in dialog mode) |
+| - closeOnPressEscape | true     | Press ESC key to close dialog (only effective in dialog mode)      |
+| drawerOptions       | -         | Drawer mode configuration (currently enabled)                       |
+| - closeOnClickModal | true      | Click outside drawer area to close                                  |
+| - closeOnPressEscape | true     | Press ESC key to close drawer                                        |
 
 :::warning
 
-You can also control the top preview button style by customizing the top code block.
+You can also control the top preview button style through custom top code blocks.
 
 Or, go completely custom rendering, see details below **`Custom Code Block Top Rendering`**.
 
@@ -60,9 +60,9 @@ const markdown = `
     </div>
 
     <div class="price-container">
-      <span class="price">¥499</span>
-      <span class="original-price">¥699</span>
-      <span class="discount">70% off</span>
+      <span class="price">$499</span>
+      <span class="original-price">$699</span>
+      <span class="discount">30% OFF</span>
     </div>
 
     <div class="actions">
@@ -251,11 +251,10 @@ const value2 = ref(false);
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <span>是否显示 html 预览按钮 <el-switch v-model="value1" /></span>
-    <span>是否开启安全预览 <el-switch v-model="value2" /></span>
+    <span>Show HTML preview button <el-switch v-model="value1" /></span>
+    <span>Enable secure preview <el-switch v-model="value2" /></span>
     <span
-      >开启安全预览后，尝试点击加入购物车按钮，不会触发 script
-      标签中的事件</span
+      >After enabling secure preview, try clicking the Add to Cart button, it won't trigger events in script tags</span
     >
     <XMarkdown
       :markdown="markdown"
@@ -265,4 +264,4 @@ const value2 = ref(false);
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

@@ -1,9 +1,9 @@
 <docs>
 ---
-title: status Property
+title: Status Attribute
 ---
 
-Set the component state through the `status` property. There are four default states: `start`, `thinking`, `end`, `error`
+Set the component state through the `status` attribute. There are four default states: `start`, `thinking`, `end`, `error`
 </docs>
 
 <script setup lang="ts">
@@ -54,4 +54,4 @@ const senderValue = ref(false);
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

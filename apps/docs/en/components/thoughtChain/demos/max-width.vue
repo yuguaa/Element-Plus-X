@@ -1,9 +1,9 @@
 <docs>
 ---
-title: maxWidth Property
+title: MaxWidth Attribute
 ---
 
-Set the maximum width of the thought chain, default is '500px'. String type, meaning you can pass percentages like '50%'. Or other units, even CSS calculated width like 'calc(100% - 200px)'.
+Set the maximum width of the thought chain, default is '500px'. String type, meaning you can pass percentages like '50%', or other units, even CSS calculated width like 'calc(100% - 200px)'.
 </docs>
 
 <script setup lang="ts">
@@ -24,9 +24,9 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
-    title: 'Success-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(20)
+    title: 'Success - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(20)
   }
 ];
 </script>
@@ -38,4 +38,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   />
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

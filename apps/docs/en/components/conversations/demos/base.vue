@@ -3,7 +3,7 @@
 title: Basic Usage
 ---
 
-Get selected conversation information through the `@change` event. Bind the currently selected conversation with `v-model:active`.
+Get selected session information through `@change` event. `v-model:active` binds the currently selected session.
 </docs>
 
 <script setup lang="ts">
@@ -12,35 +12,35 @@ import type { ConversationItem } from 'vue-element-plus-x/types/Conversations';
 const timeBasedItems = ref<ConversationItem<{ id: string; label: string }>[]>([
   {
     id: '1',
-    label: "Today's conversation111111111111111111111111111",
+    label: 'Today\'s Session 111111111111111111111111111',
     group: 'today'
   },
   {
     id: '2',
     group: 'today',
-    label: "Today's conversation2",
+    label: 'Today\'s Session 2',
     disabled: true
   },
   {
     id: '3',
     group: 'yesterday',
-    label: "Yesterday's conversation1"
+    label: 'Yesterday\'s Session 1'
   },
   {
     id: '4',
-    label: "Yesterday's conversation2"
+    label: 'Yesterday\'s Session 2'
   },
   {
     id: '5',
-    label: 'Conversation from a week ago'
+    label: 'Session from a week ago'
   },
   {
     id: '6',
-    label: 'Conversation from a month ago'
+    label: 'Session from a month ago'
   },
   {
     id: '7',
-    label: 'Conversation from long ago'
+    label: 'Session from long ago'
   }
 ]);
 
@@ -64,4 +64,4 @@ function handleChange(item: ConversationItem<{ id: string; label: string }>) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

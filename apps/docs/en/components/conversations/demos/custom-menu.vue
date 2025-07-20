@@ -3,7 +3,7 @@
 title: Custom Menu Interaction
 ---
 
-Extend menu content through slots, supporting icons, text, and custom commands to meet complex business logic needs.
+Extend menu content through slots, supports icons, text and custom commands, meets complex business logic.
 </docs>
 
 <script setup lang="ts">
@@ -12,63 +12,60 @@ import { Delete, Edit, EditPen, Share } from '@element-plus/icons-vue';
 const menuTestItems = ref([
   {
     key: 'm1',
-    label:
-      'Menu test item 1 - Long text effect demo text overflow effect test'.repeat(
-        2
-      )
+    label: 'Menu Test Item 1 - Long text effect demonstration text length overflow effect test'.repeat(2)
   },
   {
     key: 'm2',
-    label: 'Menu test item 2',
+    label: 'Menu Test Item 2',
     disabled: true
   },
   {
     key: 'm3',
-    label: 'Menu test item 3'
+    label: 'Menu Test Item 3'
   },
   {
     key: 'm4',
-    label: 'Menu test item 4'
+    label: 'Menu Test Item 4'
   },
   {
     key: 'm5',
-    label: 'Menu test item 5'
+    label: 'Menu Test Item 5'
   },
   {
     key: 'm6',
-    label: 'Menu test item 6'
+    label: 'Menu Test Item 6'
   },
   {
     key: 'm7',
-    label: 'Menu test item 7'
+    label: 'Menu Test Item 7'
   },
   {
     key: 'm8',
-    label: 'Menu test item 8'
+    label: 'Menu Test Item 8'
   },
   {
     key: 'm9',
-    label: 'Menu test item 9'
+    label: 'Menu Test Item 9'
   },
   {
     key: 'm10',
-    label: 'Menu test item 10'
+    label: 'Menu Test Item 10'
   },
   {
     key: 'm11',
-    label: 'Menu test item 11'
+    label: 'Menu Test Item 11'
   },
   {
     key: 'm12',
-    label: 'Menu test item 12'
+    label: 'Menu Test Item 12'
   },
   {
     key: 'm13',
-    label: 'Menu test item 13'
+    label: 'Menu Test Item 13'
   },
   {
     key: 'm14',
-    label: 'Menu test item 14'
+    label: 'Menu Test Item 14'
   }
 ]);
 
@@ -158,7 +155,7 @@ function handleMenuClick(menuKey: string, item: any) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .menu-buttons {
   display: flex;
   flex-direction: column;
@@ -166,7 +163,7 @@ function handleMenuClick(menuKey: string, item: any) {
   align-items: center;
   padding: 12px;
 
-  // Custom menu button el-button style
+  // Custom menu button-el-button styles
   .el-button {
     padding: 4px 8px;
     margin-left: 0;

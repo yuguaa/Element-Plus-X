@@ -1,10 +1,10 @@
 <docs>
 ---
-title: Custom Popup Content
+title: Custom Popover Content
 ---
 
 :::tip
-  Custom popup content, if you are using a simple popup that doesn't need to trigger enter events, you can use this method.
+  Custom popover content, if you're using a simple popover that doesn't need to trigger Enter events, you can use this method.
 :::
 </docs>
 
@@ -15,7 +15,7 @@ import { ElMessage } from 'element-plus';
 const senderValue = ref('');
 const triggerVisible = ref(false);
 function onTrigger(event: TriggerEvent) {
-  ElMessage.success('Directive was triggered');
+  ElMessage.success('Directive triggered');
   console.log('onTrigger', event);
 }
 </script>
@@ -25,7 +25,7 @@ function onTrigger(event: TriggerEvent) {
     <Sender
       v-model="senderValue"
       v-model:trigger-popover-visible="triggerVisible"
-      placeholder="Input / and @ to trigger directive popup"
+      placeholder="Input / and @ to trigger directive popover"
       clearable
       :trigger-strings="['/', '@']"
       trigger-popover-width="400px"

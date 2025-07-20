@@ -3,9 +3,9 @@
 title: Fog Effect
 ---
 
-When typing is enabled, it inherits the typewriter's fog property. Enable fog effect rendering mode by setting the `is-fog` property. Compatible with Markdown styles. Note that when fog effect is enabled, the `typing` suffix property will be disabled.
+When typewriter is enabled, inherits the typewriter's fog property. Enable fog typewriter rendering mode by setting the `is-fog` property. Compatible with Markdown styles. Note that after enabling fog, the `typing` suffix `suffix` property will be disabled.
 
-`is-fog` defaults to false, and can be set to `true` or `{ bgColor: '#f5f5f5', width: '80px' }`. Setting the fog background color can better match custom styles.
+`is-fog` defaults to false, can be set to `true` or `{ bgColor: '#f5f5f5', width: '80px' }`. Setting fog background color can better match custom styles.
 </docs>
 
 <script setup lang="ts">
@@ -50,7 +50,7 @@ function changeContent(type: number) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 :deep(.markdown-body) {
   background-color: transparent;
 }

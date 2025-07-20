@@ -12,19 +12,12 @@ title: 自定义 气泡内容
 
 <script setup lang="ts">
 const avatarSize = '48px';
-const avatarAI =
-  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
-    <Bubble
-      content="欢迎使用 element-plus-x。"
-      typing
-      :avatar="avatarAI"
-      :avatar-size="avatarSize"
-      no-style
-    >
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <Bubble content="欢迎使用 element-plus-x。" typing :avatar="avatarAI" :avatar-size="avatarSize" no-style>
       <template #content>
         <div class="content-container">
           😊 欢迎使用 element-plus-x，我是自定义气泡
@@ -34,7 +27,9 @@ const avatarAI =
 
     <Bubble :avatar-size="avatarSize" typing no-style variant="borderless">
       <template #header>
-        <div class="content-container-header">推荐内容 自定义气泡</div>
+        <div class="content-container-header">
+          推荐内容 自定义气泡
+        </div>
       </template>
       <template #content>
         <div class="content-borderless-container">

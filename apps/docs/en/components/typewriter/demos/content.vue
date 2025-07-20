@@ -8,6 +8,6 @@ Basic usage.
 
 <template>
   <ClientOnly>
-    <Typewriter content="content property sets typewriter content" />
+    <Typewriter content="content attribute sets typewriter content" />
   </ClientOnly>
 </template>

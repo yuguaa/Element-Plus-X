@@ -3,7 +3,7 @@
 title: Render Markdown Text Content
 ---
 
-Enable Markdown text content rendering mode by setting the `is-markdown` property. When updating `content`, if it's a subset of the previous content, it will continue outputting; otherwise, it will restart output.
+Enable `markdown` text content rendering mode by setting the `is-markdown` property. When updating `content`, if it's a subset of the previous content, it will continue outputting, otherwise it will restart.
 </docs>
 
 <script setup lang="ts">
@@ -36,7 +36,7 @@ function changeContent() {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 :deep(.markdown-body) {
   background-color: transparent;
 }

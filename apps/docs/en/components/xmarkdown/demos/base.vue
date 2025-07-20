@@ -3,10 +3,10 @@
 title: Basic Usage
 ---
 
-Quickly render a basic Markdown text. Built-in basic styles for inline code, code blocks, mathematical formula functions (inline/block), mermaid charts, and more.
+Quickly render a basic Markdown text. Built-in basic styles such as inline code, code blocks, mathematical formula functions (inline/block), mermaid charts, etc.
 
 :::warning
-Supports incremental updates, you can view node update changes in the console. The following code example demonstrates incremental update effects, simulating the logic of receiving characters in a stream.
+Supports incremental updates, you can view node update changes in the console. The following code example demonstrates the incremental update effect, simulating the logic of streaming character reception.
 :::
 </docs>
 
@@ -31,13 +31,13 @@ _This is also italic text_
 
 - Unordered list item 1
 - Unordered list item 2
-  - Sub-list item 2.1
-  - Sub-list item 2.2
+  - Sub list item 2.1
+  - Sub list item 2.2
 
 1. Ordered list item 1
 2. Ordered list item 2
-  1. Sub-list item 2.1
-  2. Sub-list item 2.2
+  1. Sub list item 2.1
+  2. Sub list item 2.2
 
 [Element-Plus-X](https://element-plus-x.com "Element-Plus-X")
 
@@ -51,8 +51,8 @@ _This is also italic text_
 
 | Name | Age | Profession |
 | ---- | --- | ---------- |
-| John | 25  | Engineer   |
-| Jane | 30  | Designer   |
+| Zhang San | 25 | Engineer |
+| Li Si | 30 | Designer |
 
 ### Inline Code
 
@@ -76,10 +76,10 @@ $$
 
 \`\`\`mermaid
 pie
-    "Media & Culture Related" : 35
-    "Advertising & Marketing" : 8
+    "Media and Culture Related" : 35
+    "Advertising and Marketing" : 8
     "Game Development" : 15
-    "Film Animation & Effects" : 12
+    "Film Animation and Effects" : 12
     "Internet Product Design" : 10
     "VR/AR Development" : 5
     "Others" : 15
@@ -125,9 +125,7 @@ onMounted(() => {
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <span style="font-size: 20px; font-weight: 700"
-      >Check incremental rendering in console</span
-    >
+    <span style="font-size: 20px; font-weight: 700">View incremental rendering in console</span>
     <div style="display: flex; gap: 8px">
       <el-button @click="start"> Start </el-button>
       <el-button @click="pause"> Pause </el-button>
@@ -137,4 +135,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

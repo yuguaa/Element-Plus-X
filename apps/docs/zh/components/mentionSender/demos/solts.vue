@@ -25,16 +25,16 @@ function handleSearch() {
     options.value = [
       {
         value: 'HeJiaYue520',
-        avatar: 'https://avatars.githubusercontent.com/u/76239030'
+        avatar: 'https://avatars.githubusercontent.com/u/76239030',
       },
       {
         value: 'JsonLee12138',
-        avatar: 'https://avatars.githubusercontent.com/u/160690954'
+        avatar: 'https://avatars.githubusercontent.com/u/160690954',
       },
       {
         value: 'ageerle',
-        avatar: 'https://avatars.githubusercontent.com/u/32251822'
-      }
+        avatar: 'https://avatars.githubusercontent.com/u/32251822',
+      },
     ];
     triggerLoading.value = false;
   }, 1500);
@@ -42,7 +42,7 @@ function handleSearch() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue1"
       placeholder="输入 @ 触发指令弹框"
@@ -60,50 +60,22 @@ function handleSearch() {
       </template>
 
       <template #trigger-loading>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 24px;
-            gap: 12px;
-          "
-        >
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 24px; gap: 12px;">
           这是自定义加载中状态
-          <el-icon
-            class="is-loading"
-            style="color: cornflowerblue; font-size: 20px"
-          >
+          <el-icon class="is-loading" style="color: cornflowerblue; font-size: 20px;">
             <Loading />
           </el-icon>
         </div>
       </template>
 
       <template #trigger-header>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 8px;
-          "
-        >
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 8px;">
           这是自定义下拉列表顶部的内容
         </div>
       </template>
 
       <template #trigger-footer>
-        <div
-          style="
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 8px;
-          "
-        >
+        <div style="display: flex; align-items: center; justify-content: center; height: 100%; padding: 8px;">
           这是自定义下拉列表底部的内容
         </div>
       </template>
@@ -111,4 +83,5 @@ function handleSearch() {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

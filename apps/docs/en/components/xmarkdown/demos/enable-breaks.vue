@@ -3,9 +3,9 @@
 title: Enable Breaks Rendering
 ---
 
-Support remark-breaks rendering, use the `enableBreaks` property to enable, enabled by default.
+Supports remark-breaks rendering, use the `enableBreaks` property to enable it, enabled by default.
 
-Support hard breaks without requiring spaces or escape characters (converts line breaks to `<br>`). Makes your content rendering more authentic.
+Supports hard breaks without requiring spaces or escape characters (converts line breaks to `<br>`). Makes your content rendering more authentic.
 </docs>
 
 <script setup lang="ts">
@@ -21,4 +21,4 @@ const value1 = ref(true);
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

@@ -1,13 +1,15 @@
 <docs>
 ---
-title: Submit Mode
+title: Submission Mode
 ---
 
-Control line break and submit mode through `submitType`. Default is `'enter'`. That is, Enter to submit, `'shift + Enter'` to line break.
+Control line break and submission mode through `submitType`. Default is `'enter'`. That is, Enter to submit, `'shift + Enter'` to line break.
 
 ::: info
 - `submitType='enter'` Set Enter to submit, `'shift + Enter'` to line break.
 - `submitType='shiftEnter'` Set `'shift + Enter'` to submit, Enter to line break.
+- `submitType='cmdOrCtrlEnter'` Set `'cmd + Enter'` or `'ctrl + Enter'` to submit, Enter to line break.
+- `submitType='altEnter'` Set `'alt + Enter'` to submit, Enter to line break.
 :::
 </docs>
 
@@ -31,16 +33,21 @@ function handleSubmit(value: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
     <el-radio-group v-model="activeName">
-      <el-radio-button value="enter"> enter </el-radio-button>
-      <el-radio-button value="shiftEnter"> shiftEnter </el-radio-button>
+      <el-radio-button value="enter">
+        enter
+      </el-radio-button>
+      <el-radio-button value="shiftEnter">
+        shiftEnter
+      </el-radio-button>
+      <el-radio-button value="cmdOrCtrlEnter">
+        cmdOrCtrlEnter
+      </el-radio-button>
+      <el-radio-button value="altEnter">
+        altEnter
+      </el-radio-button>
     </el-radio-group>
-    <Sender
-      v-model="senderValue"
-      :submit-type="activeName"
-      :loading="senderLoading"
-      @submit="handleSubmit"
-    />
+    <Sender v-model="senderValue" :submit-type="activeName" :loading="senderLoading" @submit="handleSubmit" />
   </div>
 </template>

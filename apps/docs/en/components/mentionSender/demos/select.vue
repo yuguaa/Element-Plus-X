@@ -1,6 +1,6 @@
 <docs>
 ---
-title: select Select Event
+title: select Selection Event
 ---
 
 Triggered when user selects an option
@@ -13,31 +13,32 @@ const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
-    avatar: 'https://avatars.githubusercontent.com/u/76239030'
+    avatar: 'https://avatars.githubusercontent.com/u/76239030',
   },
   {
     value: 'JsonLee12138',
-    avatar: 'https://avatars.githubusercontent.com/u/160690954'
+    avatar: 'https://avatars.githubusercontent.com/u/160690954',
   },
   {
     value: 'ageerle',
-    avatar: 'https://avatars.githubusercontent.com/u/32251822'
-  }
+    avatar: 'https://avatars.githubusercontent.com/u/32251822',
+  },
 ]);
 
 const filterOptions = ref();
 
 function handleSearch(searchValue: string, prefix: string) {
   console.log('Search value', searchValue);
-  console.log('Popup trigger character prefix', prefix); // Here you can judge multiple command situations
-  // After the popup is called, every time you input, this method will be called.
-  filterOptions.value = options.value.filter(option => {
+  console.log('Popover trigger character prefix', prefix); // Here you can judge multiple directive situations
+  // After the popover is called, this method will be called every time you type.
+  filterOptions.value = options.value.filter((option) => {
     // Here option.value is the content after '@'
-    // So here we need to judge whether it contains the input content
+    // So we need to check if it contains the input content
     if (searchValue) {
       return option.value.includes(searchValue);
-    } else {
-      // If there is no input content, show all options
+    }
+    else {
+      // If there's no input content, show all options
       return option;
     }
   });
@@ -50,10 +51,10 @@ function handleSelect(option: MentionOption) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue1"
-      placeholder="Input @ to trigger popup, HeJiaYue520 has been filtered here"
+      placeholder="Input @ to trigger directive popover, HeJiaYue520 has been filtered here"
       :options="filterOptions"
       :trigger-strings="['@']"
       trigger-split=","

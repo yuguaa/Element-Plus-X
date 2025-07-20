@@ -3,13 +3,13 @@
 title: Custom Styles
 ---
 
-Customize card styles through `style`/`hoverStyle`, supports hover delete icon and custom slot extensions.
+Customize card styles via `style`/`hoverStyle`, supports hover delete icon and custom slot extension.
 </docs>
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <FilesCard
-      name="custom-style-example.xls"
+      name="Custom style.xls"
       style="
         background-color: #f0f9eb;
         border: 2px solid #67c23a;
@@ -17,7 +17,7 @@ Customize card styles through `style`/`hoverStyle`, supports hover delete icon a
       "
     />
     <FilesCard
-      name="custom-hover-style-example.xls"
+      name="Custom hoverStyle.xls"
       style="
         background-color: #f0f9eb;
         border: 1px solid #67c23a;
@@ -32,4 +32,4 @@ Customize card styles through `style`/`hoverStyle`, supports hover delete icon a
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

@@ -1,10 +1,9 @@
 <docs>
 ---
 title: Responsive Width
-
 ---
 
-Combined with `wrap` and `styles` for fixed width display. Note that it only takes effect when applied to `PromptsItem` in combination. Individual application allows for more customization.
+Combined with `wrap` and `styles` to display with fixed width. Note that this only takes effect when used together on `PromptsItem`. Individual use allows for more customization.
 </docs>
 
 <script setup lang="ts">
@@ -52,4 +51,4 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

@@ -3,7 +3,7 @@
 title: Custom List Display
 ---
 
-🍋 Through `#avatar`, `#header`, `#content`, `#loading`, `#footer` slots, you can more flexibly control the bubble list rendering
+🍋 Through `#avatar`, `#header`, `#content`, `#loading`, `#footer` slots, you can more flexibly control the rendering of bubble lists
 </docs>
 
 <script setup lang="ts">
@@ -39,7 +39,7 @@ function generateFakeItems(count: number): listType[] {
       key,
       role,
       placement,
-      noStyle: true // if you don't want to use the default bubble style
+      noStyle: true // If you don't want to use default bubble styles
     });
   }
   return messages;
@@ -55,7 +55,7 @@ function setLoading(loading: boolean) {
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <div style="display: flex; gap: 12px">
-      <span>Dynamically set content <el-switch v-model="switchValue" /></span>
+      <span>Dynamic content setting <el-switch v-model="switchValue" /></span>
       <span
         >Custom loading
         <el-switch
@@ -86,8 +86,8 @@ function setLoading(loading: boolean) {
           <div class="content-text">
             {{
               item.role === 'ai'
-                ? `${switchValue ? `#ai-${item.key}：` : ''} 💖 Thank you for using Element Plus X! Your support is our strongest motivation for open source ~`
-                : `${switchValue ? `#user-${item.key}：` : ''}Haha, let me try`
+                ? `${switchValue ? `#ai-${item.key}：` : ''} 💖 Thank you for using Element Plus X ! Your support is our strongest motivation for open source ~`
+                : `${switchValue ? `#user-${item.key}：` : ''}Hahaha, let me try`
             }}
           </div>
         </div>
@@ -119,10 +119,10 @@ function setLoading(loading: boolean) {
           <span>#{{ item.role }}-{{ item.key }}：</span>
           <span>I</span>
           <span>am</span>
-          <span>a</span>
           <span>custom</span>
           <span>loading</span>
           <span>content</span>
+          <span>oh</span>
           <span>~</span>
         </div>
       </template>
@@ -130,7 +130,7 @@ function setLoading(loading: boolean) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .avatar-wrapper {
   width: 40px;
   height: 40px;

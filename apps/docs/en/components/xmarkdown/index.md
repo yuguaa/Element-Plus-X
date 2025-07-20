@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The `XMarkdown` component has built-in basic styles for **inline code**, **code blocks**, **mathematical formula functions (inline/block)**, **mermaid charts**, and more.
+The `XMarkdown` component has built-in basic styles such as **inline code**, **code blocks**, **mathematical formula functions (inline/block)**, **mermaid charts**, etc.
 
 :::info
 
@@ -27,10 +27,10 @@ All `h function` demonstrations in the documentation demos mean you can use the 
 
 ```vue
 <!-- This is the h function demonstration in the documentation -->
-(props:any) => {return h('div', props, {default: () => 'test'})}
+(props:any) => {return h('div', props, {default: () => 'Test'})}
 ```
 
-**🙊 Actually, it can be written as a custom component:**
+**🙊 Actually it can be written as a custom component:**
 
 ```vue
 <!-- Import your Vue component from external -->
@@ -42,7 +42,7 @@ import SelfButton from './SelfButton.vue'
 (props:any) => {return h(SelfButton, { selfProps: props })}
 ```
 
-**💟 In your custom component, you can get props like this:**
+**💟 In your custom component you can get props like this:**
 
 ```vue
 <!-- SelfButton.vue -->
@@ -56,7 +56,7 @@ conslog(props.selfProps); // Check the props you get in console
 </script>
 
 <template>
-  <!-- You can get props properties for custom rendering -->
+  <!-- You can get props properties for some custom rendering -->
   <button>{{ selfProps.text }}</button>
 </template>
 ```
@@ -69,7 +69,7 @@ conslog(props.selfProps); // Check the props you get in console
 
 <demo src="./demos/base.vue"></demo>
 
-### Set Default Highlight/Dark Theme
+### Set Default Highlight/Dark Mode
 
 <demo src="./demos/default-theme-mode.vue"></demo>
 
@@ -79,7 +79,7 @@ Code block highlighting has multiple built-in themes to choose from.
 
 <demo src="./demos/shiki-style.vue"></demo>
 
-### Define Code Block Highlight Styles Separately
+### Define Code Block Highlight Style Separately
 
 <demo src="./demos/color-replacements.vue"></demo>
 
@@ -87,9 +87,9 @@ Code block highlighting has multiple built-in themes to choose from.
 
 <demo src="./demos/base-style.vue"></demo>
 
-Below is an example using `github` style file to uniformly override styles
+Below uses the `github` style file to uniformly override styles as an example
 
-### GitHub Style
+### Github Style
 
 <demo src="./demos/github-style.vue"></demo>
 
@@ -107,7 +107,7 @@ If you want to control code block highlighting styles separately, you can do thi
 
 <demo src="./demos/enable-breaks.vue"></demo>
 
-### Preview HTML Code Blocks
+### Preview HTML Code Block
 
 <demo src="./demos/view-html.vue"></demo>
 
@@ -171,7 +171,7 @@ function handleResize() {
   myChart?.resize();
 }
 
-// Destruction logic
+// Destroy logic
 function destroyChart() {
   if (myChart) {
     myChart.dispose(); // Release ECharts instance
@@ -186,7 +186,7 @@ onMounted(() => {
   window.addEventListener('resize', handleResize); // Add resize listener
 });
 
-// Listen for code changes to auto-update (key optimization)
+// Listen to code changes for automatic updates (key optimization)
 watch(
   () => props.code,
   () => {
@@ -194,7 +194,7 @@ watch(
   }
 );
 
-// Clean up resources on unmount
+// Clean up resources when unmounting
 onUnmounted(() => {
   destroyChart();
 });
@@ -213,7 +213,7 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .echarts-wrap {
   position: relative;
 
@@ -233,7 +233,7 @@ onUnmounted(() => {
 
 ### Custom Code Block Top Rendering
 
-If you only want to modify the content of our built-in code block top, you can use `codeXSlot`. And we expose the built-in `collapse`, `theme switch`, and `copy` methods. You can retain default functionality while only changing styles.
+If you just want to modify the content of our built-in code block top, you can use `codeXSlot`. And we expose the built-in `collapse`, `theme switch`, and `copy` methods. You can retain default functionality while only changing styles.
 
 <demo src="./demos/code-x-slot.vue"></demo>
 
@@ -255,20 +255,20 @@ If you only want to modify the content of our built-in code block top, you can u
 
 ## Properties
 
-| Property Name   | Type   | Required | Default  | Description                          |
-| --------------- | ------ | -------- | -------- | ------------------------------------ |
-| `markdown`      | string | Yes      | ''       | markdown content                     |
-| `allowHtml`     | bool   | No       | `true`   | Whether to render html               |
-| `enableLatex`   | bool   | No       | `true`   | Whether to render latex              |
-| `enableBreaks`  | bool   | No       | `true`   | Whether to render breaks             |
-| `codeXRender`   | Object | No       | `()=>{}` | Custom code block rendering          |
-| `codeXSlot`     | Object | No       | `()=>{}` | Custom code block top slot rendering |
-| `customAttrs`   | Object | No       | `()=>{}` | Custom attributes                    |
-| `mermaidConfig` | Object | No       | `()=>{}` | mermaid configuration                |
+| Property Name     | Type   | Required | Default | Description              |
+| ----------------- | ------ | -------- | ------- | ------------------------ |
+| `markdown`        | string | Yes      | ''      | markdown content         |
+| `allowHtml`       | bool   | No       | `true`  | Whether to render html  |
+| `enableLatex`     | bool   | No       | `true`  | Whether to render latex |
+| `enableBreaks`    | bool   | No       | `true`  | Whether to render breaks|
+| `codeXRender`     | Object | No       | `()=>{}`| Custom code block rendering|
+| `codeXSlot`       | Object | No       | `()=>{}`| Custom code block top slot rendering|
+| `customAttrs`     | Object | No       | `()=>{}`| Custom attributes        |
+| `mermaidConfig`   | Object | No       | `()=>{}`| mermaid configuration   |
 
 ## Features
 
-- Supports incremental rendering for ultimate performance
-- Supports custom slots, can be h function components or template components. Easier to get started
-- Built-in rich basic styles for mathematical formulas, mermaid charts, reducing developer burden
-- Supports multiple interceptions and custom rendering, maximizing flexibility
+- Supports incremental rendering, excellent performance
+- Supports custom slots, which can be h function components or template components. Easier to get started
+- Built-in rich basic styles for mathematical formulas, mermaid diagrams, reducing developer burden
+- Supports multiple interceptions and custom rendering, reaching the upper limit

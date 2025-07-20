@@ -3,7 +3,7 @@
 title: Vertical Display
 ---
 
-Use the `vertical` property to control the display direction of `Prompts`. Note that this applies to the entire `Prompts` component, not individual `PromptsItem`.
+Use the `vertical` attribute to control the display direction of `Prompts`. Note that this acts on the entire `Prompts` component, not on individual `PromptsItem`.
 </docs>
 
 <script setup lang="ts">
@@ -47,4 +47,4 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

@@ -8,16 +8,16 @@ Control focus through ref option.
 ::: info
 Control through component instance
 
-- `senderRef.value.focus('all')` Focus on the entire text (default)
-- `senderRef.value.focus('start')` Focus at the beginning of the text
-- `senderRef.value.focus('end')` Focus at the end of the text
-- `senderRef.value.blur()` Lose focus
+- `senderRef.value.focus('all')` Focus on entire text (default)
+- `senderRef.value.focus('start')` Focus on text beginning
+- `senderRef.value.focus('end')` Focus on text end
+- `senderRef.value.blur()` Remove focus
 :::
 </docs>
 
 <script setup lang="ts">
 const senderRef = ref();
-const senderValue = ref('🐳 Welcome to use Element Plus X');
+const senderValue = ref('🐳 Welcome to Element Plus X');
 function blur() {
   senderRef.value.blur();
 }
@@ -31,23 +31,21 @@ function focus(type = 'all') {
   <div style="display: flex; flex-direction: column; gap: 12px">
     <div style="display: flex">
       <el-button dark type="success" plain @click="focus('start')">
-        Beginning of text
+        Text Beginning
       </el-button>
       <el-button dark type="success" plain @click="focus('end')">
-        End of text
+        Text End
       </el-button>
       <el-button dark type="success" plain @click="focus('all')">
-        Entire text
+        Entire Text
       </el-button>
-      <el-button dark type="success" plain @click="blur">
-        Lose focus
-      </el-button>
+      <el-button dark type="success" plain @click="blur"> Remove Focus </el-button>
     </div>
     <MentionSender ref="senderRef" v-model="senderValue" />
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .header-self-wrap {
   display: flex;
   flex-direction: column;

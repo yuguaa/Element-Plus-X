@@ -1,9 +1,9 @@
 <docs>
 ---
-title: Lazy Loading
+title: Lazy Loading Feature
 ---
 
-Automatically triggers loading more data when scrolling to the bottom, supports loading state display, optimizing performance in large data volume scenarios.
+Automatically triggers loading more data when scrolling to bottom, supports loading state display, optimizes performance for large data scenarios.
 </docs>
 
 <script setup lang="ts">
@@ -12,52 +12,52 @@ import { ChatDotRound, ChatLineRound } from '@element-plus/icons-vue';
 const lazyItems = shallowRef([
   {
     key: 'l1',
-    label: 'Initial item 1',
+    label: 'Initial Item 1',
     prefixIcon: ChatLineRound
   },
   {
     key: 'l2',
-    label: 'Initial item 2',
+    label: 'Initial Item 2',
     prefixIcon: ChatDotRound
   },
   {
     key: 'l3',
-    label: 'Initial item 3',
+    label: 'Initial Item 3',
     prefixIcon: ChatLineRound
   },
   {
     key: 'l4',
-    label: 'Initial item 1',
+    label: 'Initial Item 1',
     prefixIcon: ChatLineRound
   },
   {
     key: 'l5',
-    label: 'Initial item 2',
+    label: 'Initial Item 2',
     prefixIcon: ChatDotRound
   },
   {
     key: 'l6',
-    label: 'Initial item 3',
+    label: 'Initial Item 3',
     prefixIcon: ChatLineRound
   },
   {
     key: 'l7',
-    label: 'Initial item 1',
+    label: 'Initial Item 1',
     prefixIcon: ChatLineRound
   },
   {
     key: 'l8',
-    label: 'Initial item 2',
+    label: 'Initial Item 2',
     prefixIcon: ChatDotRound
   },
   {
     key: 'l9',
-    label: 'Initial item 3',
+    label: 'Initial Item 3',
     prefixIcon: ChatLineRound
   }
 ]);
 
-// Handle load more
+// Load more handling
 const isLoading = ref(false);
 
 function loadMoreItems() {
@@ -71,12 +71,12 @@ function loadMoreItems() {
     const newItems = [
       {
         key: `l${lazyItems.value.length + 1}`,
-        label: `Loaded item ${lazyItems.value.length + 1}`,
+        label: `Loaded Item ${lazyItems.value.length + 1}`,
         prefixIcon: markRaw(ChatLineRound)
       },
       {
         key: `l${lazyItems.value.length + 2}`,
-        label: `Loaded item ${lazyItems.value.length + 2}`,
+        label: `Loaded Item ${lazyItems.value.length + 2}`,
         prefixIcon: markRaw(ChatDotRound)
       }
     ];
@@ -104,4 +104,4 @@ const activeKey6 = ref('l1');
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

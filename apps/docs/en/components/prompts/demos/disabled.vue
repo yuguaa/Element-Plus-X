@@ -3,7 +3,7 @@
 title: Disabled State
 ---
 
-Quickly disable the prompts component through the `disabled` property, click events will become ineffective. Note that it only takes effect when controlling individual prompt items.
+Quickly disable the prompts component through the `disabled` attribute, click events will be invalid. Note that this only takes effect when controlling individual prompt items.
 </docs>
 
 <script setup lang="ts">
@@ -46,4 +46,4 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

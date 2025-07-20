@@ -3,10 +3,10 @@
 title: Header Slot
 ---
 
-Use the `#header` slot to customize the header content of the input box.
+Use the `#header` slot to customize the input header content.
 
 ::: info
-Control the header container expand/collapse through component instance
+Control header container expand/collapse through component instance
 
 - `senderRef.value.openHeader()` Open header container
 - `senderRef.value.closeHeader()` Close header container
@@ -57,7 +57,7 @@ function closeHeader() {
       <template #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">💯 Welcome to use Element Plus X</div>
+            <div class="header-left">💯 Welcome to Element Plus X</div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <el-icon><CircleClose /></el-icon>
@@ -65,14 +65,14 @@ function closeHeader() {
               </el-button>
             </div>
           </div>
-          <div class="header-self-content">🦜 Custom header content</div>
+          <div class="header-self-content">🦜 Custom Header Content</div>
         </div>
       </template>
     </MentionSender>
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .header-self-wrap {
   display: flex;
   flex-direction: column;

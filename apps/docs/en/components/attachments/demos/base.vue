@@ -3,7 +3,7 @@
 title: Basic Usage
 ---
 
-Basic file list display and upload functionality, with automatic file card generation.
+Basic file list display and upload functionality, supports automatic file card generation.
 </docs>
 
 <script setup lang="ts">
@@ -17,7 +17,7 @@ type SelfFilesCardProps = FilesCardProps & {
 const files = ref<SelfFilesCardProps[]>([]);
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file);
+  console.log('before', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('File size cannot exceed 2MB!');
     return false;
@@ -48,7 +48,7 @@ async function handleHttpRequest(options: any) {
 
   setTimeout(() => {
     const res = {
-      message: 'File uploaded successfully',
+      message: 'File upload successful',
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
@@ -89,4 +89,4 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

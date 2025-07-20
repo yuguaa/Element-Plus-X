@@ -3,7 +3,7 @@
 title: Slots
 ---
 
-You can intercept some tags, or custom tags, and then customize the rendering of these tags. If you want to customize the rendering of images or videos, it might be very convenient.
+You can intercept some tags, or custom tags, and then customize the rendering of these tags. If you want to customize the rendering of images or videos, it might be very convenient
 </docs>
 
 <script setup lang="ts">
@@ -23,11 +23,11 @@ const markdown = `
 
       <template #self-btn="{ ...props }">
         <el-button :key="props.key">
-          Check props in console{{ console.log(props) }}
+          Check props in console {{ console.log(props) }}
         </el-button>
       </template>
     </XMarkdown>
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

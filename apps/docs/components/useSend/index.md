@@ -1,4 +1,5 @@
 # useSend & XRequest 🌳
+## XRequest已废弃，推荐使用 hook-fetch（https://jsonlee12138.github.io/hook-fetch/）
 
 ## 背景介绍
 

@@ -1,9 +1,9 @@
 <docs>
 ---
-title: useRecord Calls Browser Built-in Speech Recognition
+title: useRecord calls browser built-in speech recognition
 ---
 
-Calls the browser's native speech recognition API. When used in `Google Chrome`, it needs to be in a `🪄magical environment` to work properly.
+Calls the browser's native speech recognition API, when used in `Google Chrome`, it needs to be in a `🪄magic environment` to work properly.
 </docs>
 
 <script setup lang="ts">
@@ -160,7 +160,7 @@ watch(
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 // Rotation
 .loading {
   animation: rotate 1s linear infinite;

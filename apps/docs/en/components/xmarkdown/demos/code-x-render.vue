@@ -3,12 +3,12 @@
 title: codeXRender Custom Code Block Rendering
 ---
 
-Use the `codeXRender` property to customize code block rendering. This property accepts an object where the key is the code block language and the value is a function. The function parameters are the code block attributes, and the return value is a VNode. This means you can use Vue's template syntax to render code blocks.
+Use the `codeXRender` property to customize code block rendering. This property accepts an object where the key is the code block language and the value is a function. The function parameter is the code block properties, and the return value is a VNode. This means you can use Vue's template syntax to render code blocks.
 
 :::warning
-This feature will intercept the code blocks you set. You can discuss the code block language with the backend, and then return a corresponding VNode based on the language.
+This feature will intercept the code blocks you set. You can discuss the code block language with the backend, then return a corresponding VNode based on the language.
 
-In the future, we will build a component library marketplace based on this component. If you're interested in this, welcome to join 🥰[Community Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81), or add the author's contact information to build this marketplace project together. 🥳Stay tuned
+We will build a component library marketplace based on this component in the future. If you're interested in this, welcome to join 🥰[Community Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81), or add the author's contact information to build this marketplace project together. 🥳Stay tuned
 :::
 </docs>
 
@@ -61,4 +61,4 @@ const selfCodeXRender = {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

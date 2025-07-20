@@ -1,10 +1,10 @@
-# Prompts 提示集组件 🎁
+# Prompts Component 🎁
 
 ## Introduction
 
 `Prompts` is used to display a set of predefined questions or suggestions related to the current context.
 
-## Code Demo
+## Code Examples
 
 ### Basic Usage
 
@@ -14,11 +14,11 @@
 
 <demo src="./demos/disabled.vue"></demo>
 
-### Vertical Arrangement
+### Vertical Layout
 
 <demo src="./demos/vertical.vue"></demo>
 
-### Wrappable
+### Wrapping
 
 <demo src="./demos/wrap.vue"></demo>
 
@@ -34,17 +34,17 @@
 
 <demo src="./demos/nested.vue"></demo>
 
-## Properties
+## Attributes
 
-| Property Name | Type                  | Required | Default | Description                                                                                               |
-| ------------- | --------------------- | -------- | ------- | --------------------------------------------------------------------------------------------------------- |
-| `title`       | `string`              | No       | `''`    | Main title text content of the prompts set                                                                |
-| `items`       | `PromptsItemsProps[]` | No       | `[]`    | Array of prompt items, each element contains label, icon, description, etc. (see structure details below) |
-| `wrap`        | `boolean`             | No       | `false` | Whether to allow prompt items to wrap automatically (only effective in horizontal arrangement)            |
-| `vertical`    | `boolean`             | No       | `false` | Whether to arrange prompt items vertically (layout direction is column arrangement in vertical mode)      |
-| `style`       | `CSSProperties`       | No       | `{}`    | Custom styles for component container (directly applied to outermost `div.el-prompts`)                    |
+| Attribute | Type | Required | Default | Description |
+| --------- | ---- | -------- | ------- | ----------- |
+| `title` | `string` | No | `''` | Main title text content of the prompts set |
+| `items` | `PromptsItemsProps[]` | No | `[]` | Array of prompt items, each element contains label, icon, description and other information (see structure details below) |
+| `wrap` | `boolean` | No | `false` | Whether to allow prompt items to wrap automatically (only effective in horizontal layout) |
+| `vertical` | `boolean` | No | `false` | Whether to arrange prompt items vertically (layout direction is column in vertical mode) |
+| `style` | `CSSProperties` | No | `{}` | Custom styles for component container (directly applied to the outermost `div.el-prompts`) |
 
-**`PromptsItemsProps` Structure Description** (single prompt item properties):
+**`PromptsItemsProps` Structure Details** (single prompt item attributes):
 
 ```typescript
 interface PromptsItemsProps {
@@ -60,20 +60,26 @@ interface PromptsItemsProps {
 }
 ```
 
+## Events
+
+| Event Name | Parameters | Type | Description |
+| ---------- | ---------- | ---- | ----------- |
+| `@itemClick` | `(item: PromptsItemsProps)` | Function | Event triggered when a prompt item is clicked. |
+
 ## Slots
 
-| Slot Name      | Parameters                    | Type   | Description                                                                                                                 |
-| -------------- | ----------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `#title`       | -                             | `Slot` | Custom prompts set title content (if `title` property is also set, slot content will override property text)                |
-| `#icon`        | `{ item: PromptsItemsProps }` | `Slot` | Custom icon content for prompt item (receives current prompt item `item` parameter, can override `item.icon`)               |
-| `#label`       | `{ item: PromptsItemsProps }` | `Slot` | Custom label content for prompt item (receives current prompt item `item` parameter, can override `item.label`)             |
+| Slot Name | Parameters | Type | Description |
+| --------- | ---------- | ---- | ----------- |
+| `#title` | - | `Slot` | Custom prompt set title content (if `title` attribute is also set, slot content will override attribute text) |
+| `#icon` | `{ item: PromptsItemsProps }` | `Slot` | Custom icon content for prompt item (receives current prompt item `item` parameter, can override `item.icon`) |
+| `#label` | `{ item: PromptsItemsProps }` | `Slot` | Custom label content for prompt item (receives current prompt item `item` parameter, can override `item.label`) |
 | `#description` | `{ item: PromptsItemsProps }` | `Slot` | Custom description content for prompt item (receives current prompt item `item` parameter, can override `item.description`) |
 
 ## Features
 
-1. **Multi-dimensional Content Display**: Supports configuring basic information such as labels, icons, descriptions through the `items` property, while providing `label`/`icon`/`description` slots for highly customizable content.
-2. **Flexible Layout Control**: Switch between vertical/horizontal arrangement modes through the `vertical` property, control automatic wrapping capability in horizontal arrangement through the `wrap` property, adapting to different scenario layout requirements.
-3. **Interactive State Feedback**: Built-in hover (background color lightens) and active (background color darkens) state styles, supports customizing state styles through `itemHoverStyle`/`itemActiveStyle`, enhancing interactive experience.
-4. **Disabled State Support**: Individual prompt items can be disabled through the `item.disabled` property. In disabled state, they don't respond to click events and background color turns gray, clearly indicating non-operable state.
-5. **Nested Level Display**: Supports configuring child prompt items through `item.children`, component automatically recursively renders nested structure, meeting multi-level classification or related prompt display requirements.
-6. **Fine-grained Style Customization**: Supports controlling overall component styles through the `style` property, controlling individual prompt item base styles through `itemStyle`, supports separate configuration of state styles (`itemHoverStyle`/`itemActiveStyle`).
+1. **Multi-dimensional Content Display**: Supports configuring basic information such as labels, icons, and descriptions through the `items` attribute, while providing `label`/`icon`/`description` slots for highly customizable content.
+2. **Flexible Layout Control**: Switch between vertical/horizontal arrangement modes through the `vertical` attribute, control automatic wrapping capability in horizontal arrangement through the `wrap` attribute, adapting to different scene layout requirements.
+3. **Interactive State Feedback**: Built-in hover (background color lightens) and active (background color darkens) state styles, supports custom state styles through `itemHoverStyle`/`itemActiveStyle`, enhancing interactive experience.
+4. **Disabled State Support**: Individual prompt items can be disabled through the `item.disabled` attribute. In disabled state, no response to click events and background color turns gray, clearly indicating non-operable state.
+5. **Nested Hierarchy Display**: Supports configuring child prompt items through `item.children`, component automatically recursively renders nested structure, meeting multi-level classification or related prompt display requirements.
+6. **Fine-grained Style Customization**: Supports controlling overall component styles through the `style` attribute, controlling individual prompt item base styles through `itemStyle`, supports separate state style configuration (`itemHoverStyle`/`itemActiveStyle`).

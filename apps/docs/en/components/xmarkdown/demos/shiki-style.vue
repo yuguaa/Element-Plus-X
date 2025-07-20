@@ -15,7 +15,7 @@ themes: {
 We have built-in shiki styles, you can view them at [shiki-theme](https://shiki.style/themes).
 
 :::warning
-After resetting the theme, you may need to refresh the page for it to take effect. Below lists all built-in `shiki` styles and their corresponding `theme IDs`. If you're using a TypeScript project, you should get type inference hints for built-in style themes during development.
+After resetting the theme, you may need to refresh the page for it to take effect. Below lists all built-in `shiki` styles and their corresponding `theme IDs`. If you're in a ts project, you should get type inference hints for built-in style themes during development.
 
 <img src="https://cdn.element-plus-x.com/shiki-style.png" width="100%">
 :::
@@ -103,4 +103,4 @@ console.log('hello world');
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

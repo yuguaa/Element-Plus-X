@@ -1,9 +1,9 @@
 <docs>
 ---
-title: content Property
+title: Content Attribute
 ---
 
-Content display can be set through the `content` property
+Content display can be set through the `content` attribute
 </docs>
 
 <script setup lang="ts"></script>
@@ -14,4 +14,4 @@ Content display can be set through the `content` property
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

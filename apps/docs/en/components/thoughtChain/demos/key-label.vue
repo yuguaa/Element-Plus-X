@@ -3,7 +3,7 @@
 title: titleKey, thinkTitleKey, thinkContentKey Properties
 ---
 
-Through the `titleKey`, `thinkTitleKey`, `thinkContentKey` properties, you can customize the key names for: title, thinking content title, and thinking content of nodes.
+Through the `titleKey`, `thinkTitleKey`, and `thinkContentKey` properties, you can customize the key names for: title, thinking content title, and thinking content of nodes.
 </docs>
 
 <script setup lang="ts">
@@ -19,48 +19,40 @@ interface DataType {
 
 const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   {
-    id: '1',
     codeId: '1',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
-    self_title: 'Success-Main Title',
-    self_thinkTitle: 'Thinking Content Title-Default Expanded',
-    self_thinkContent: 'Searching text'.repeat(10),
-    thinkContent: 'Searching text'.repeat(10)
+    self_title: 'Success - Main Title',
+    self_thinkTitle: 'Thinking Content Title - Default Expanded',
+    self_thinkContent: 'Search text'.repeat(10)
   },
   {
-    id: '2',
     codeId: '2',
-    self_title: 'Loading-Main Title',
+    self_title: 'Loading - Main Title',
     status: 'loading',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Searching text'.repeat(10),
-    thinkContent: 'Searching text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10)
   },
   {
-    id: '3',
     codeId: '3',
-    self_title: 'Failed-Main Title',
+    self_title: 'Failed - Main Title',
     status: 'error',
     isCanExpand: true,
     isDefaultExpand: false,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Searching text'.repeat(10),
-    thinkContent: 'Searching text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10)
   },
   {
-    id: '4',
     codeId: '4',
-    self_title: 'Thanks-Main Title',
+    self_title: 'Thank You - Main Title',
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
     self_thinkTitle: 'Thinking Content Title',
-    self_thinkContent: 'Searching text'.repeat(10),
-    thinkContent: 'Searching text'.repeat(10)
+    self_thinkContent: 'Search text'.repeat(10)
   }
 ];
 </script>
@@ -75,4 +67,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   />
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

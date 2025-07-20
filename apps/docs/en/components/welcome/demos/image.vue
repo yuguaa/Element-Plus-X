@@ -3,7 +3,7 @@
 title: image Slot
 ---
 
-Conveniently replace with custom images
+Convenient to replace custom images
 </docs>
 
 <script setup lang="ts">
@@ -17,7 +17,7 @@ const bgColor =
       variant="borderless"
       :style="{ background: bgColor }"
       title="Welcome to Element Plus X 💖"
-      description="A Vue 3 recreation of ant-design-x. Later will integrate AI workflow orchestration components and md multi-functional rendering components, providing the Vue development community with a useful AI component library"
+      description="A Vue 3 recreation of ant-design-x. Later will integrate AI workflow orchestration components and multi-functional md rendering components, providing the Vue development community with a useful AI component library"
     >
       <template #image>
         <img src="https://element-plus-x.com/logo.png" style="width: 80px" />
@@ -26,4 +26,4 @@ const bgColor =
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

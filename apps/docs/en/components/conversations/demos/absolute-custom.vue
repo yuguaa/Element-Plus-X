@@ -3,7 +3,7 @@
 title: Absolute Custom Styles and Group Titles
 ---
 
-Customize conversation item appearance and group title icons through slots and style properties, supporting style customization for hover, active, and menu open states.
+Customize session item appearance and group title icons through slots and style properties, supports hover, active, menu opened state style customization.
 </docs>
 
 <script setup lang="ts">
@@ -12,74 +12,71 @@ import type { GroupableOptions } from 'vue-element-plus-x/types/Conversations';
 const menuTestItems1 = ref([
   {
     key: 'm1',
-    label:
-      'Menu test item 1 - Long text effect demo text overflow effect test'.repeat(
-        2
-      ),
+    label: 'Menu Test Item 1 - Long text effect demonstration text length overflow effect test'.repeat(2),
     group: 'Work'
   },
   {
     key: 'm2',
-    label: 'Menu test item 2',
+    label: 'Menu Test Item 2',
     disabled: true,
     group: 'Work'
   },
   {
     key: 'm3',
-    label: 'Menu test item 3',
+    label: 'Menu Test Item 3',
     group: 'Work'
   },
   {
     key: 'm4',
-    label: 'Menu test item 4',
+    label: 'Menu Test Item 4',
     group: 'Study'
   },
   {
     key: 'm5',
-    label: 'Menu test item 5',
+    label: 'Menu Test Item 5',
     group: 'Study'
   },
   {
     key: 'm6',
-    label: 'Menu test item 6',
+    label: 'Menu Test Item 6',
     group: 'Study'
   },
   {
     key: 'm7',
-    label: 'Menu test item 7',
+    label: 'Menu Test Item 7',
     group: 'Study'
   },
   {
     key: 'm8',
-    label: 'Menu test item 8',
+    label: 'Menu Test Item 8',
     group: 'Personal'
   },
   {
     key: 'm9',
-    label: 'Menu test item 9',
+    label: 'Menu Test Item 9',
     group: 'Personal'
   },
   {
     key: 'm10',
-    label: 'Menu test item 10',
+    label: 'Menu Test Item 10',
     group: 'Personal'
   },
   {
     key: 'm11',
-    label: 'Menu test item 11',
+    label: 'Menu Test Item 11',
     group: 'Personal'
   },
   {
     key: 'm12',
-    label: 'Menu test item 12'
+    label: 'Menu Test Item 12'
   },
   {
     key: 'm13',
-    label: 'Menu test item 13'
+    label: 'Menu Test Item 13'
   },
   {
     key: 'm14',
-    label: 'Menu test item 14'
+    label: 'Menu Test Item 14'
   }
 ]);
 const conversationMenuItems1 = [
@@ -225,7 +222,7 @@ function handleMenuClick(menuKey: string, item: any) {
             justifyContent: 'center'
           }"
         >
-          🫥Is disabled: {{ item?.disabled }}
+          🫥Is Disabled: {{ item?.disabled }}
         </span>
       </template>
 
@@ -246,7 +243,7 @@ function handleMenuClick(menuKey: string, item: any) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .custom-group-title {
   display: flex;
   align-items: center;
@@ -261,7 +258,7 @@ function handleMenuClick(menuKey: string, item: any) {
   align-items: center;
   padding: 12px;
 
-  // Custom menu button el-button style
+  // Custom menu button-el-button styles
   .el-button {
     padding: 4px 8px;
     margin-left: 0;
@@ -271,7 +268,7 @@ function handleMenuClick(menuKey: string, item: any) {
     }
   }
 
-  // Custom menu button custom style
+  // Custom menu button-custom styles
   .menu-self-button {
     display: flex;
     padding: 4px 8px;

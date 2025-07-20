@@ -1,14 +1,14 @@
 <docs>
 ---
-title: Auto Scroll + Scroll to Specific Index
+title: Auto Scroll + Scroll to Specified Index
 ---
 
-🍑 You can easily use the `bubbleListRef` component instance methods to control scrolling to a specific index.
+🍑 You can easily use `bubbleListRef` component instance methods to control scrolling to specified index.
 
 ::: info 🍒 Component Instance Methods
-- `scrollToTop()`: Scroll to top
-- `scrollToBottom()`: Scroll to bottom
-- `scrollToBubble(index: number)`: Scroll to specified index
+- `scrollToTop()`：Scroll to top
+- `scrollToBottom()`：Scroll to bottom
+- `scrollToBubble(index: number)`：Scroll to specified index
 :::
 </docs>
 
@@ -37,8 +37,8 @@ function generateFakeItems(count: number): listType[] {
     const key = i + 1;
     const content =
       role === 'ai'
-        ? '💖 Thank you for using Element Plus X! Your support is our strongest motivation for open source ~'
-        : `Haha, let me try`;
+        ? '💖 Thank you for using Element Plus X ! Your support is our strongest motivation for open source ~'
+        : `Hahaha, let me try`;
     const loading = false;
     const shape = 'corner';
     const variant = role === 'ai' ? 'filled' : 'outlined';
@@ -73,10 +73,8 @@ function addMessage() {
   const i = bubbleItems.value.length;
   const isUser = !!(i % 2);
   const content = isUser
-    ? 'Haha, let me try'
-    : '💖 Thank you for using Element Plus X! Your support is our strongest motivation for open source ~'.repeat(
-        5
-      );
+    ? 'Hahaha, let me try'
+    : '💖 Thank you for using Element Plus X ! Your support is our strongest motivation for open source ~'.repeat(5);
   const shape = 'corner';
   const variant = !isUser ? 'filled' : 'outlined';
   const placement = isUser ? 'end' : 'start';
@@ -99,7 +97,7 @@ function addMessage() {
     isFog: !isUser
   };
   bubbleItems.value.push(obj as listType);
-  // Call scroll to bottom each time after adding to trigger auto-scroll
+  // Call scroll to bottom each time to trigger auto scroll
   scrollBottom();
 }
 
@@ -134,10 +132,10 @@ onMounted(() => {
     <div class="top-wrap">
       <div class="btn-list">
         <el-button type="primary" plain @click="addMessage">
-          Add Conversation
+          Add Message
         </el-button>
         <el-button type="danger" plain @click="clearMessage">
-          Clear Conversation List
+          Clear Message List
         </el-button>
         <el-button type="primary" plain @click="scrollToTop">
           Scroll to Top
@@ -155,7 +153,7 @@ onMounted(() => {
           controls-position="right"
         />
         <el-button type="primary" plain @click="scrollToBubble">
-          Scroll to Bubble #{{ num }}
+          Scroll to Bubble {{ num }}
         </el-button>
       </div>
     </div>
@@ -166,7 +164,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .component-container {
   padding: 12px;
 

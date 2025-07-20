@@ -3,7 +3,7 @@
 title: Basic Usage
 ---
 
-This is a `MentionSender` input box, the simplest usage example.
+This is a `MentionSender` input component, the simplest usage example.
 </docs>
 
 <template>

@@ -3,61 +3,49 @@
 title: Support for Position and Avatar, and Spacing Settings
 ---
 
-Use `#avatar` to set a custom avatar. Use the `placement` property to set position, with options `start` and `end`.
+Set custom avatar through `#avatar`. Set position through `placement` property, provides `start`, `end` two option values.
 
 ::: tip
-😸 Built-in `element-plus` `el-avatar` component. However, to avoid property name conflicts (e.g., `el-avatar` and `Bubble`'s `shape` property), you need to use the following properties:
+😸 Built-in `element-plus` `el-avatar` component. But to avoid property name conflicts, for example: `el-avatar` and `Bubble`'s `shape` property. You need to use the following properties to set
 
 1. Properties
-- `avatar` sets the avatar placeholder image
-- `avatar-size` sets the avatar placeholder size 👉 Note that this property is `number type` in `el-avatar component`, but `string type` here for better style customization 😊
-- `avatar-gap` sets the distance between avatar and bubble
-- `avatar-shape` sets the avatar shape
-- `avatar-icon` sets the avatar placeholder icon
-- `avatar-src-set` sets the avatar image srcset attribute
-- `avatar-alt` sets the avatar image alt attribute
-- `avatar-fit` sets the avatar placeholder image's fill mode
+- `avatar` Set avatar placeholder image
+- `avatar-size` Set avatar placeholder size 👉This property is `number type` in `el-avatar component`, note that in this component it's `string type` for better custom style properties😊
+- `avatar-gap` Set distance between avatar and bubble
+- `avatar-shape` Set avatar shape
+- `avatar-icon` Set avatar placeholder icon
+- `avatar-src-set` Set avatar image srcset attribute
+- `avatar-alt` Set avatar image alt attribute
+- `avatar-fit` Set avatar placeholder image fill mode
 2. Events
-- `@avatar-error` triggered when avatar fails to load.
+- `@avatar-error` Triggered when avatar loading fails.
 :::
 </docs>
 
 <script setup lang="ts">
-const avatarAI =
-  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 const avatarUser = 'https://avatars.githubusercontent.com/u/76239030?v=4';
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
     <!-- Avatar and Placement Left -->
-    <Bubble
-      content="Good morning, how are you?"
-      placement="start"
-      :avatar="avatarAI"
-      avatar-size="48px"
-    />
+    <Bubble content="Good morning, how are you?" placement="start" :avatar="avatarAI" avatar-size="48px" />
 
-    <!-- avatar-size sets avatar placeholder space -->
-    <Bubble
-      content="What a beautiful day!"
-      placement="start"
-      avatar-size="48px"
-    />
+    <!-- avatar-size Set avatar placeholder space -->
+    <Bubble content="What a beautiful day!" placement="start" avatar-size="48px" />
 
     <!-- Avatar and Placement Right -->
     <Bubble content="Hi, good morning, I'm fine!" placement="end">
       <template #avatar>
-        <el-avatar :size="32" :src="avatarUser" />
+        <el-avatar
+          :size="32"
+          :src="avatarUser"
+        />
       </template>
     </Bubble>
 
     <!-- avatar-gap property controls distance between bubble and avatar -->
-    <Bubble
-      content="Hi, good morning, I'm fine! Thank you!"
-      placement="end"
-      avatar-size="0px"
-      avatar-gap="0px"
-    />
+    <Bubble content="Hi, good morning, I'm fine! Thank you!" placement="end" avatar-size="0px" avatar-gap="0px" />
   </div>
 </template>

@@ -4,7 +4,7 @@ title: Built-in markdown-it-mermaid Plugin Renders Simple Charts
 ---
 
 You can also find custom plugins in the `markdown-it` community to implement more custom functionality.
-Through the `md-plugins` property, pass in a `markdown-it` plugin array to use custom plugins in `markdown-it`.
+Through the `md-plugins` attribute, pass in a `markdown-it` plugin array to use custom plugins in `markdown-it`.
 Through the `highlight` function, pass in Prism's highlighting function, or other highlighting libraries, to use Prism's highlighting functionality in `markdown-it`.
 
 For detailed Mermaid format, see: [Mermaid.js](https://mermaid.js.org/syntax/pie.html)

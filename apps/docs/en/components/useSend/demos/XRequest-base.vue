@@ -1,12 +1,12 @@
 <docs>
 ---
-title: XRequest 【单独】 基础用法
+title: XRequest Basic Usage (Standalone)
 ---
 
-这样你就简单的使用 `XRequest` 控制了 请求的发起 和 中断请求中的状态。
-简单的 `new XRequest()`，实例化对象，然后 `.send()` 开始请求， `.abort()` 停止请求。
+This way you can simply use `XRequest` to control the initiation and aborting of requests and their states.
+A simple `new XRequest()` instantiates the object, then `.send()` starts the request, `.abort()` stops the request.
 
-我们可以在 `控制台` 查看到，流式请求 **请求被终止**。
+You can check the console to see that the streaming request **has been terminated**.
 </docs>
 
 <script setup lang="ts">
@@ -18,27 +18,21 @@ const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   onMessage: (msg: { data: string }) => {
     console.log('onMessage:', msg);
-    str.value += `
-    ${msg.data}`;
-  }
+    str.value += `\n    ${msg.data}`;
+  },
 });
 </script>
 
 <template>
   <div class="container">
     <div class="btn-list">
-      <el-button
-        @click="
-          () => {
-            str = '';
-            sse.send('/api/sse');
-          }
-        "
-      >
-        发起请求
+      <el-button @click="() => { str = ''; sse.send('/api/sse') }">
+        Start Request
       </el-button>
 
-      <el-button @click="sse.abort()"> 取消请求 </el-button>
+      <el-button @click="sse.abort()">
+        Abort Request
+      </el-button>
     </div>
 
     <div>{{ str }}</div>

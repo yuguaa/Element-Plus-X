@@ -3,9 +3,9 @@
 title: Placeholder
 ---
 
-You can set the placeholder text of the input box through the `placeholder` property.
+You can set the input placeholder through the `placeholder` attribute.
 </docs>
 
 <template>
-  <MentionSender placeholder="💌 Welcome to use Element-Plus-X ~" />
+  <MentionSender placeholder="💌 Welcome to Element-Plus-X ~" />
 </template>

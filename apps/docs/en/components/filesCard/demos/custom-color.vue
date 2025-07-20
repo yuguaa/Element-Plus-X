@@ -1,6 +1,6 @@
 <docs>
 ---
-title: Custom Colors for Built-in File Types
+title: Custom Built-in File Colors
 ---
 </docs>
 
@@ -55,7 +55,7 @@ const colorKeys = computed(() => Object.keys(colorMap1) as ColorKey[]);
 
 const filesCardProps = ref<FilesCardProps>({
   uid: '1',
-  name: 'Test name',
+  name: 'Test Name',
   description: 'Test description'
 });
 </script>
@@ -63,7 +63,7 @@ const filesCardProps = ref<FilesCardProps>({
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <div class="files-card-container-wrapper">
-      <p>Custom colors 1</p>
+      <p>Custom Colors 1</p>
       <div class="files-card-container">
         <FilesCard
           v-for="items in colorKeys"
@@ -73,7 +73,7 @@ const filesCardProps = ref<FilesCardProps>({
           :file-type="items"
         />
       </div>
-      <p>Custom colors 2</p>
+      <p>Custom Colors 2</p>
       <div class="files-card-container">
         <FilesCard
           v-for="items in colorKeys"
@@ -87,7 +87,7 @@ const filesCardProps = ref<FilesCardProps>({
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .files-card-container-wrapper {
   display: flex;
   gap: 12px;

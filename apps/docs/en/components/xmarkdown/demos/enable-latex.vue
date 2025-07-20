@@ -1,9 +1,9 @@
 <docs>
 ---
-title: Enable LaTeX Mathematical Formula Rendering
+title: Enable LaTeX Math Formula Rendering
 ---
 
-Support LaTeX mathematical formula rendering, use the `enableLatex` property to enable, enabled by default.
+Supports LaTeX math formula rendering, use the `enableLatex` property to enable it, enabled by default.
 </docs>
 
 <script setup lang="ts">
@@ -26,4 +26,4 @@ const value1 = ref(true);
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

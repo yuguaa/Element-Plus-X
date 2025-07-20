@@ -3,10 +3,10 @@
 title: Loading State
 ---
 
-Set loading state through the `loading` property. Support customizing loading state content display through the `#loading` slot.
+Set loading state through `loading` property. Supports custom loading state content display through `#loading` slot.
 
 ::: info
-The `#loading` slot has higher priority, and the built-in loading style will be disabled. However, the `loading` property can still control the loading state.
+`#loading` slot has higher priority, built-in loading styles will be disabled. But the `loading` property can still control the loading state.
 :::
 </docs>
 
@@ -16,7 +16,7 @@ const content = ref('hello world !');
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 10px">
+  <div style="display: flex; flex-direction: column; gap: 10px;">
     <Bubble :content="content" :loading="loading" />
 
     <Bubble :content="content" :loading="loading">
@@ -27,12 +27,12 @@ const content = ref('hello world !');
 
     <Bubble :content="content" :loading="loading">
       <template #loading>
-        <div>Thanks for using Element-Plus-X 🌹 Please wait...</div>
+        <div>Thank you for using Element-Plus-X 🌹 Please wait...</div>
       </template>
     </Bubble>
 
-    <div style="display: flex; align-items: center">
-      <span>Status: </span>
+    <div style="display: flex; align-items: center;">
+      <span>State: </span>
       <el-switch v-model="loading" />
     </div>
   </div>

@@ -3,12 +3,12 @@
 title: Built-in Style Formats and Shapes
 ---
 
-Set the bubble's built-in style format through the `variant` property. Set the bubble's shape through the `shape` property. You can also combine them together.
+Set bubble's built-in style format through `variant` property. Set bubble's shape through `shape` property. Of course you can also combine them and use them together.
 
 ::: info
-By default, `variant` is `filled` and `shape` is `round`.
+By default, `variant` is `filled`, `shape` is `round`.
 
-When `shape` is `corner` and `placement="end"`, the bubble will automatically flip to make the top-right corner's `radius pointer` point towards the user.
+When `shape` is `corner`, `placement="end"` will automatically flip the bubble so that the top-right corner `radius pointer` points to the user.
 :::
 </docs>
 

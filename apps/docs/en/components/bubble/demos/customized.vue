@@ -1,16 +1,16 @@
 <docs>
 ---
-title: 🐵 Support controlling Bubble component's play, pause/continue, and destroy. Support monitoring component state.
+title: 🐵 Support for controlling Bubble component play, interrupt/continue, destroy. Support for monitoring component state.
 ---
 
-💩 Better control of interrupting output, continuing typing, and destroying operations
+💩 Better control over interrupt output, continue typing and destroy operations
 ::: tip
-😸 Built-in `Typewriter` component. All properties and methods of the `Typewriter` component are mounted on the `Bubble` component for convenient use in agile development.
+😸 Built-in `Typewriter` component. Mounts all properties and methods from the `Typewriter` component to the `Bubble` component for convenient use in agile development.
 :::
 
 :::info
 🐒 If you feel the built-in `Typewriter` component doesn't meet your needs, you can also use the `#content` slot for customized development of the `Bubble` component.
-When using `#content`, the built-in `Typewriter` component will be disabled. In the slot, you can either combine it with `Typewriter` yourself or customize `stream requests`, `stream rendering`, and other personalized operations.
+Using `#content`, the built-in `Typewriter` component will be disabled. In the slot, you can also combine it with `Typewriter` yourself, or customize `streaming requests`, `streaming rendering` and other personalized operations.
 :::
 </docs>
 
@@ -24,23 +24,23 @@ import {
 } from '@element-plus/icons-vue';
 
 const markdownContent = ref(
-  `# 🔥 Bubble Instance Methods-Events \n 😄 Make your typewriter highly customizable.\n - More convenient control of typewriter state \n - List item **bold text** and *italic text* \n \`\`\`javascript \n // 🙉 Check console for related logs\n console.log('Hello, world!'); \n \`\`\``
+  `# 🔥 Bubble Instance Methods-Events \n 😄 Make your typewriter highly customizable.\n - More convenient control over typewriter state \n - List item **bold text** and *italic text* \n \`\`\`javascript \n // 🙉 Console can view related logs\n console.log('Hello, world!'); \n \`\`\``
 );
 
 const isTypingValue = ref(false);
 const progressValue = ref(0);
 const bubbleRef = ref();
-// Start typing monitoring method
+// Start typing listener method
 function onStart(instance: TypewriterInstance) {
   console.log('Start typing: component ref instance', unref(instance));
   isTypingValue.value = true;
 }
-// During typing, progress monitoring method
+// Typing progress listener method
 function onWriting(instance: TypewriterInstance) {
   const progress: number = instance.progress.value;
-  // Avoid printing onWriting event too many times 😂
+  // Avoid printing multiple onWriting events 😂
   if (progress > 90 && progress < 100) {
-    // Can directly get typing progress, can set cooler styles based on typing progress
+    // Can directly get typing progress, can set more cool styles based on typing progress
     // console.log('Writing', `${progress}%`)
     console.log(
       'Typing isTyping:',
@@ -59,7 +59,7 @@ function onWriting(instance: TypewriterInstance) {
   isTypingValue.value = true;
   progressValue.value = ~~progress; // Use ~~ operator to round down 💩
 }
-// Monitor typing end event
+// Listen for typing end event
 function onFinish(instance: TypewriterInstance) {
   isTypingValue.value = false;
   console.log(
@@ -136,7 +136,7 @@ function onDestroy() {
       status="success"
     />
 
-    <!-- This shows that if it's markdown, typing.suffix will be ignored -->
+    <!-- Here shows that if it's markdown, typing.suffix will be ignored -->
     <Bubble
       ref="bubbleRef"
       :content="markdownContent"
@@ -149,8 +149,8 @@ function onDestroy() {
   </div>
 </template>
 
-<style module lang="less">
-// Avoid markdown-body style being overridden
+<style scoped lang="less">
+// Avoid markdown-body styles being overridden
 :deep(.markdown-body) {
   background: transparent;
 }

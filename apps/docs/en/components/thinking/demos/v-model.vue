@@ -1,9 +1,9 @@
 <docs>
 ---
-title: v-model Property Controlled Component
+title: v-model Attribute Controlled Component
 ---
 
-Through the v-model property, we can set the default state.
+Through the v-model attribute, we can set the default state.
 </docs>
 
 <script setup lang="ts">
@@ -16,4 +16,4 @@ const senderValue = ref(true);
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

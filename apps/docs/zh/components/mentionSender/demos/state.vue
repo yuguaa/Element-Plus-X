@@ -24,28 +24,11 @@ function handleSubmit(value: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
+  <div style="display: flex; flex-direction: column; gap: 12px;">
     <MentionSender loading placeholder="加载中..." @submit="handleSubmit" />
-    <MentionSender
-      v-model="senderReadOnlyValue"
-      read-only
-      @submit="handleSubmit"
-    />
-    <MentionSender
-      value="禁用：💌 欢迎使用 Element-Plus-X ~"
-      disabled
-      @submit="handleSubmit"
-    />
-    <MentionSender
-      v-model="senderClearableValue"
-      clearable
-      @submit="handleSubmit"
-    />
-    <MentionSender
-      style="width: fit-content"
-      value="输入框最大宽度：💌 欢迎使用 Element-Plus-X ~"
-      input-width="150px"
-      @submit="handleSubmit"
-    />
+    <MentionSender v-model="senderReadOnlyValue" read-only @submit="handleSubmit" />
+    <MentionSender value="禁用：💌 欢迎使用 Element-Plus-X ~" disabled @submit="handleSubmit" />
+    <MentionSender v-model="senderClearableValue" clearable @submit="handleSubmit" />
+    <MentionSender style="width: fit-content;" value="输入框最大宽度：💌 欢迎使用 Element-Plus-X ~" input-width="150px" @submit="handleSubmit" />
   </div>
 </template>

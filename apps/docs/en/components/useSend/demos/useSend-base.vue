@@ -1,9 +1,9 @@
 <docs>
 ---
-title: useSend 【Standalone】 Basic Usage
+title: useSend Basic Usage (Standalone)
 ---
 
-This case clearly shows that this hooks doesn't interact with backend requests, it only controls simple `loading` state.
+This example clearly shows that this hook doesn't interact with backend requests, it only controls simple `loading` state.
 
 `send` method triggers `sendHandler` callback
 `finish` method ends loading state
@@ -13,11 +13,11 @@ This case clearly shows that this hooks doesn't interact with backend requests, 
 import { useSend } from 'vue-element-plus-x';
 
 const { send, finish, loading } = useSend({
-  sendHandler: startFn
+  sendHandler: startFn,
 });
 
 async function startFn() {
-  // Here you can do an async operation, like making a request
+  // Here you can do an async operation, such as making a request
   console.log('Start simulating request');
 }
 </script>
@@ -29,7 +29,9 @@ async function startFn() {
         {{ loading ? 'Loading...' : 'Simulate Request' }}
       </el-button>
 
-      <el-button :disabled="!loading" @click="finish"> End Request </el-button>
+      <el-button :disabled="!loading" @click="finish">
+        End Request
+      </el-button>
     </div>
   </div>
 </template>

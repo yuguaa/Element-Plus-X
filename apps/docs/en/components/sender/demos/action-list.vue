@@ -4,15 +4,15 @@ title: Action List Slot
 ---
 
 ::: warning
-Before `version 1.0.81`, when using custom slots, the built-in action buttons would be sacrificed. In `version 1.0.81`, we launched streaming request hooks that allow users to better control streaming requests, thus better defining the `#action-list` slot themselves. For details, please check our project template's main request library, comparable to Axios [hook-fetch](https://www.npmjs.com/package/hook-fetch).
+Before `version 1.0.81`, when using custom slots, the built-in action buttons would be sacrificed. In `version 1.0.81`, we launched streaming request hooks that allow users to better control streaming requests, thus better defining the `#action-list` slot. For details, please check our project template's main request library, comparable to Axios [hook-fetch](https://www.npmjs.com/package/hook-fetch).
 
-This friendly reminder was updated on: `2025-07-05`
+This friendly reminder update time: `2025-07-05`
 :::
 
-Use the `#action-list` slot to customize the action list content of the input box.
+Use the `#action-list` slot to customize the input action list content.
 
 ::: info
-When you use the `#action-list` slot, the built-in action buttons of the input box will be hidden. You can combine it with `component instance methods` to implement richer operations.
+When you use the `#action-list` slot, the built-in input action buttons will be hidden. You can combine it with `component instance methods` to implement richer operations.
 :::
 </docs>
 
@@ -115,7 +115,7 @@ function handleCancel() {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .action-list-self-wrap {
   display: flex;
   align-items: center;

@@ -3,7 +3,7 @@
 title: Wrapping Display
 ---
 
-Use the `wrap` property to control whether `Prompts` can wrap when exceeding the area length.
+Use the `wrap` attribute to control whether `Prompts` can wrap when exceeding the area length.
 </docs>
 
 <script setup lang="ts">
@@ -47,4 +47,4 @@ function handleItemClick(item: PromptsItemsProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

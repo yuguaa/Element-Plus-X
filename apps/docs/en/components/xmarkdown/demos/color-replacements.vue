@@ -8,7 +8,7 @@ Through the `color-replacements` property, you can individually control code col
 :::warning
 Note: Color keys must start with `#` and be in lowercase format, otherwise they won't take effect.
 
-Theme IDs will have corresponding color variables, which can be viewed in the console. We can perform color replacement on built-in color variables.
+Theme IDs have corresponding color variables, which can be viewed in the console. We can replace the built-in color variables with custom colors.
 :::
 </docs>
 
@@ -54,4 +54,4 @@ console.log('hello world');
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

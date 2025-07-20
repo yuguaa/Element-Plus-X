@@ -3,7 +3,7 @@
 title: Custom File List
 ---
 
-Customize file list display content through slots (override default `FilesCard` component).
+Customize file list display content through slots (overrides default `FilesCard` component).
 </docs>
 
 <script setup lang="ts">
@@ -17,7 +17,7 @@ type SelfFilesCardProps = FilesCardProps & {
 const files = ref<SelfFilesCardProps[]>([]);
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file);
+  console.log('before', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('File size cannot exceed 2MB!');
     return false;
@@ -48,7 +48,7 @@ async function handleHttpRequest(options: any) {
 
   setTimeout(() => {
     const res = {
-      message: 'File uploaded successfully',
+      message: 'File upload successful',
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
@@ -99,7 +99,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .custom-list {
   display: flex;
   gap: 12px;

@@ -1,20 +1,20 @@
-# Sender Input Box 💭
+# Sender Input Component 💭
 
 ::: warning
-`Version 1.1.6` New Features
+`1.1.6 version` New Features
 
-- Variant **`up-down structure`**
+- Variant **`Up-Down Structure`**
 - Custom bottom `#footer` slot
-- Custom directive `popup` and `callback events` for triggering directives
+- Custom directive `popover` and `callback events` for triggering directives
 
-🐵 This friendly reminder was updated on: `2025-04-16`
+🐵 This friendly reminder update time: `2025-04-16`
 :::
 
 ## Introduction
 
-`Sender` is an input box component for chat. It has rich interactive features and customization capabilities. It supports voice input, clearing input content, multiple submission methods, and allows users to customize header, prefix, and action list content. At the same time, the component provides focus control, submission callbacks and other functions to meet diverse input scenario requirements.
+`Sender` is an input component for chat. It has rich interactive features and customization capabilities. It supports voice input, clearing input content, multiple submission methods, and allows users to customize header, prefix, and action list content. At the same time, the component provides focus control, submission callbacks, and other functions to meet diverse input scenario requirements.
 
-## Code Demo
+## Code Examples
 
 ### Basic Usage
 
@@ -24,7 +24,7 @@
 
 <demo src="./demos/placeholder.vue"></demo>
 
-### Two-way Binding (Not bound, value won't change)
+### Two-way Binding (Unbound, value won't change)
 
 <demo src="./demos/v-model.vue"></demo>
 
@@ -36,18 +36,18 @@
 
 <demo src="./demos/autosize.vue"></demo>
 
-### Various Input Box States
+### Input Component Various States
 
 <demo src="./demos/state.vue"></demo>
 
-### Submit Methods
+### Submission Methods
 
 <demo src="./demos/submit-type.vue"></demo>
 
-### Speech Recognition
+### Voice Recognition
 
 ::: warning
-Browser built-in speech recognition API, you can use the built-in [`useRecord`](https://element-plus-x.com/components/useRecord/) **hooks** for more convenient built-in speech recognition integration and control
+Browser built-in voice recognition API, you can use the component library's built-in [`useRecord`](https://element-plus-x.com/components/useRecord/) **hooks** for more convenient built-in voice recognition integration and control
 :::
 
 <demo src="./demos/allow-speech.vue"></demo>
@@ -72,7 +72,7 @@ Browser built-in speech recognition API, you can use the built-in [`useRecord`](
 
 <demo src="./demos/footer.vue"></demo>
 
-### Custom Input Box Style
+### Custom Input Style
 
 <demo src="./demos/input-style.vue"></demo>
 
@@ -80,77 +80,77 @@ Browser built-in speech recognition API, you can use the built-in [`useRecord`](
 
 <demo src="./demos/trigger.vue"></demo>
 
-### Custom Directive Popup
+### Custom Directive Popover
 
 <demo src="./demos/trigger-popover.vue"></demo>
 
-### Input Box Focus Control
+### Input Focus Control
 
 <demo src="./demos/focus.vue"></demo>
 
-## Properties
+## Attributes
 
-| Property Name             | Type                 | Required | Default                    | Description                                                                                                                                                                                                                               |
-| ------------------------- | -------------------- | -------- | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `v-model`                 | String               | No       | ''                         | The bound value of the input box, use `v-model` for two-way binding.                                                                                                                                                                      |
-| `placeholder`             | String               | No       | ''                         | The placeholder text of the input box.                                                                                                                                                                                                    |
-| `auto-size`               | Object               | No       | \{ minRows:1, maxRows:6 \} | Set the minimum and maximum display rows of the input box.                                                                                                                                                                                |
-| `read-only`               | Boolean              | No       | false                      | Whether the input box is in read-only state.                                                                                                                                                                                              |
-| `disabled`                | Boolean              | No       | false                      | Whether the input box is in disabled state.                                                                                                                                                                                               |
-| `submitBtnDisabled`       | Boolean \| undefined | No       | undefined                  | Built-in send button disabled state. (Note the usage scenario)                                                                                                                                                                            |
-| `loading`                 | Boolean              | No       | false                      | Whether to show loading state. When `true`, the input box will show a loading animation.                                                                                                                                                  |
-| `clearable`               | Boolean              | No       | false                      | Whether the input box content can be cleared. Shows the default clear button                                                                                                                                                              |
-| `allowSpeech`             | Boolean              | No       | false                      | Whether to allow voice input. Shows the built-in voice recognition button by default, uses the browser's built-in speech recognition API                                                                                                  |
-| `submitType`              | String               | No       | 'enter'                    | Submit method, supports `'shiftEnter'` (submit by pressing `Shift + Enter`).                                                                                                                                                              |
-| `headerAnimationTimer`    | Number               | No       | 300                        | The display duration of the custom header of the input box, in `ms`.                                                                                                                                                                      |
-| `inputWidth`              | String               | No       | '100%'                     | The width of the input box.                                                                                                                                                                                                               |
-| `variant`                 | String               | No       | 'default'                  | The variant type of the input box, supports `'default'`, `'updown'`.                                                                                                                                                                      |
-| `showUpdown`              | Boolean              | No       | true                       | When the variant is `updown`, whether to show the built-in style.                                                                                                                                                                         |
-| `inputStyle`              | Object               | No       | \{}                        | The style of the input box.                                                                                                                                                                                                               |
-| `triggerStrings`          | string[]             | No       | []                         | The `string array` that triggers directives.                                                                                                                                                                                              |
-| `triggerPopoverVisible`   | Boolean              | No       | false                      | Whether the directive `popup` is visible. Need to use `v-model:triggerPopoverVisible` for control.                                                                                                                                        |
-| `triggerPopoverWidth`     | String               | No       | 'fit-content'              | The width of the directive `popup`. Can use percentage and other CSS units.                                                                                                                                                               |
-| `triggerPopoverLeft`      | String               | No       | '0px'                      | The left margin of the directive `popup`. Can use percentage and other CSS units.                                                                                                                                                         |
-| `triggerPopoverOffset`    | Number               | No       | 8                          | The spacing of the directive `popup`. Can only be a number type, unit is px                                                                                                                                                               |
-| `triggerPopoverPlacement` | String               | No       | 'top-start'                | The position of the directive `popup`. Values: `'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
+| Attribute | Type | Required | Default | Description |
+| --------- | ---- | -------- | ------- | ----------- |
+| `v-model` | String | No | '' | Input binding value, use `v-model` for two-way binding. |
+| `placeholder` | String | No | '' | Input placeholder text. |
+| `auto-size` | Object | No | \{ minRows:1, maxRows:6 \} | Set minimum and maximum display rows for input. |
+| `read-only` | Boolean | No | false | Whether input is read-only. |
+| `disabled` | Boolean | No | false | Whether input is disabled. |
+| `submitBtnDisabled` | Boolean \| undefined | No | undefined | Built-in send button disabled state. (Note usage scenarios) |
+| `loading` | Boolean | No | false | Whether to show loading state. When `true`, input shows loading animation. |
+| `clearable` | Boolean | No | false | Whether input content can be cleared. Shows default clear button |
+| `allowSpeech` | Boolean | No | false | Whether to allow voice input. Default shows built-in voice recognition button, built-in browser voice recognition API |
+| `submitType` | String | No | 'enter' | Submission method, supports `'shiftEnter'` (submit with `Shift + Enter`), `'cmdOrCtrlEnter'` (submit with `Command + Enter` or `Ctrl + Enter`), `'altEnter'` (submit with `Alt + Enter`). |
+| `headerAnimationTimer` | Number | No | 300 | Custom header display duration for input, unit `ms`. |
+| `inputWidth` | String | No | '100%' | Input width. |
+| `variant` | String | No | 'default' | Input variant type, supports `'default'`, `'updown'`. |
+| `showUpdown` | Boolean | No | true | When variant is `updown`, whether to show built-in styles. |
+| `inputStyle` | Object | No | \{\} | Input styles. |
+| `triggerStrings` | string[] | No | [] | Trigger directive `string array`. |
+| `triggerPopoverVisible` | Boolean | No | false | Whether trigger directive `popover` is visible. Need to use `v-model:triggerPopoverVisible` for control. |
+| `triggerPopoverWidth` | String | No | 'fit-content' | Trigger directive `popover` width. Can use percentage and other CSS units. |
+| `triggerPopoverLeft` | String | No | '0px' | Trigger directive `popover` left margin. Can use percentage and other CSS units. |
+| `triggerPopoverOffset` | Number | No | 8 | Trigger directive `popover` spacing. Can only be number type, unit px |
+| `triggerPopoverPlacement` | String | No | 'top-start' | Trigger directive `popover` position. Values: `'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
 
 ## Events
 
-| Event Name        | Description                                                         | Callback Parameters                                                             |
-| ----------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
-| `submit`          | Event triggered when the built-in `submit button` is submitted.     | None                                                                            |
-| `cancel`          | Event triggered when the built-in `loading button` is clicked.      | None                                                                            |
-| `recordingChange` | Event triggered when the built-in speech recognition state changes. | None                                                                            |
-| `trigger`         | Event triggered when the directive popup changes.                   | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }` |
+| Event Name | Description | Callback Parameters |
+| ---------- | ----------- | ------------------- |
+| `submit` | Event triggered when built-in `submit button` is submitted. | None |
+| `cancel` | Event triggered when built-in `loading button` is clicked. | None |
+| `recordingChange` | Event triggered when built-in voice recognition state changes. | None |
+| `trigger` | Event triggered when directive popover changes. | `interface TriggerEvent{oldValue: string; newValue: string; isOpen: boolean; }` |
 
 ## Ref Instance Methods
 
-| Property Name      | Type     | Description                                                                                                                                                                |
-| ------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `openHeader`       | Function | Open the custom header of the input box.                                                                                                                                   |
-| `closeHeader`      | Function | Close the custom header of the input box.                                                                                                                                  |
-| `clear`            | Function | Clear the content of the input box.                                                                                                                                        |
-| `blur`             | Function | Remove focus from the input box.                                                                                                                                           |
-| `focus`            | Function | Focus the input box. Default `focus('all')` focuses the entire text, `focus('start')` focuses at the beginning of the text, `focus('end')` focuses at the end of the text. |
-| `submit`           | Function | Submit the input content.                                                                                                                                                  |
-| `cancel`           | Function | Cancel the loading state.                                                                                                                                                  |
-| `startRecognition` | Function | Start speech recognition.                                                                                                                                                  |
-| `stopRecognition`  | Function | Stop speech recognition.                                                                                                                                                   |
+| Property Name | Type | Description |
+| ------------- | ---- | ----------- |
+| `openHeader` | Function | Open input custom header. |
+| `closeHeader` | Function | Close input custom header. |
+| `clear` | Function | Clear input content. |
+| `blur` | Function | Remove input focus. |
+| `focus` | Function | Focus input. Default `focus('all')` focuses entire text, `focus('start')` focuses text beginning, `focus('end')` focuses text end. |
+| `submit` | Function | Submit input content. |
+| `cancel` | Function | Cancel loading state. |
+| `startRecognition` | Function | Start voice recognition. |
+| `stopRecognition` | Function | Stop voice recognition. |
 
 ## Slots
 
-| Slot Name      | Parameters | Type | Description                                                 |
-| -------------- | ---------- | ---- | ----------------------------------------------------------- |
-| `#header`      | -          | Slot | Used to customize the header content of the input box.      |
-| `#prefix`      | -          | Slot | Used to customize the prefix content of the input box.      |
-| `#action-list` | -          | Slot | Used to customize the action list content of the input box. |
-| `#footer`      | -          | Slot | Used to customize the footer content of the input box.      |
+| Slot Name | Parameters | Type | Description |
+| --------- | ---------- | ---- | ----------- |
+| `#header` | - | Slot | For customizing input header content. |
+| `#prefix` | - | Slot | For customizing input prefix content. |
+| `#action-list` | - | Slot | For customizing input action list content. |
+| `#footer` | - | Slot | For customizing input footer content. |
 
 ## Features
 
-1. **Focus Control**: Supports setting focus to the beginning, end, or selecting the entire text, and can also remove focus.
-2. **Custom Content**: Provides slots for header, prefix, action list, etc., allowing users to customize the content of these parts.
-3. **Submit Function**: Supports submitting input content by pressing `Shift + Enter`, and can execute custom operations after submission.
-4. **Loading State**: Can display loading state to simulate the submission processing process.
-5. **Voice Input**: Supports voice input functionality to improve input convenience.
-6. **Clear Function**: The input box can clear content, making it convenient for users to re-enter.
+1. **Focus Control**: Supports setting focus to text beginning, end, or selecting entire text, can also remove focus.
+2. **Custom Content**: Provides header, prefix, action list, and other slots, allowing users to customize these parts.
+3. **Submission Function**: Supports submitting input content with `Shift + Enter`, can execute custom operations after submission.
+4. **Loading State**: Can display loading state, simulating submission processing.
+5. **Voice Input**: Supports voice input functionality, improving input convenience.
+6. **Clear Function**: Input can clear content, convenient for users to re-enter.

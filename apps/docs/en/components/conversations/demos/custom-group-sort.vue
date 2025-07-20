@@ -3,7 +3,7 @@
 title: Custom Group Sorting
 ---
 
-Pass a sorting function through the `groupable` property to customize group order (e.g., Study > Work > Personal > Ungrouped).
+Pass sorting function through `groupable` property to customize group order (e.g.: Study > Work > Personal > Ungrouped).
 </docs>
 
 <script setup lang="ts">
@@ -12,52 +12,52 @@ import type { GroupableOptions } from 'vue-element-plus-x/types/Conversations';
 const groupBasedItems = ref([
   {
     key: 'g1',
-    label: 'Work document 1',
+    label: 'Work Document 1',
     group: 'Work'
   },
   {
     key: 'g2',
-    label: 'Work document 11111111111111111111111111111111111111111',
+    label: 'Work Document 11111111111111111111111111111111111111111',
     group: 'Work'
   },
   {
     key: 'g3',
-    label: 'Work document 3',
+    label: 'Work Document 3',
     group: 'Work'
   },
   {
     key: 'g4',
-    label: 'Work document 4',
+    label: 'Work Document 4',
     group: 'Work'
   },
   {
     key: 'g5',
-    label: 'Work document 5',
+    label: 'Work Document 5',
     group: 'Work'
   },
   {
     key: 'g6',
-    label: 'Work document 6',
+    label: 'Work Document 6',
     group: 'Work'
   },
   {
     key: 'g7',
-    label: 'Study note 1',
+    label: 'Study Notes 1',
     group: 'Study'
   },
   {
     key: 'g8',
-    label: 'Study note 2',
+    label: 'Study Notes 2',
     group: 'Study'
   },
   {
     key: 'g9',
-    label: 'Personal document 1',
+    label: 'Personal Document 1',
     group: 'Personal'
   },
   {
     key: 'g10',
-    label: 'Ungrouped item'
+    label: 'Ungrouped Item'
   }
 ]);
 
@@ -105,7 +105,7 @@ const activeKey2 = ref('g1');
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .custom-group-title {
   display: flex;
   align-items: center;

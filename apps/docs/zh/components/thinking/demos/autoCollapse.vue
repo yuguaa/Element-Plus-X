@@ -13,9 +13,13 @@ const statusValue = ref<ThinkingStatus>('thinking');
 </script>
 
 <template>
-  <el-radio-group v-model="statusValue" style="margin-bottom: 12px">
-    <el-radio-button value="thinking"> thinking </el-radio-button>
-    <el-radio-button value="end"> end </el-radio-button>
+  <el-radio-group v-model="statusValue" style="margin-bottom: 12px;">
+    <el-radio-button value="thinking">
+      thinking
+    </el-radio-button>
+    <el-radio-button value="end">
+      end
+    </el-radio-button>
   </el-radio-group>
 
   <Thinking

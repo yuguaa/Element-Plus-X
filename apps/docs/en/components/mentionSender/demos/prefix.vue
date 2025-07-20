@@ -3,7 +3,7 @@
 title: Prefix Slot
 ---
 
-Use the `#prefix` slot to customize the prefix content of the input box.
+Use the `#prefix` slot to customize the input prefix content.
 </docs>
 
 <script setup lang="ts">
@@ -47,7 +47,7 @@ function closeHeader() {
       <template #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
-            <div class="header-left">💯 Welcome to use Element Plus X</div>
+            <div class="header-left">💯 Welcome to Element Plus X</div>
             <div class="header-right">
               <el-button @click.stop="closeHeader">
                 <el-icon><CircleClose /></el-icon>
@@ -55,7 +55,7 @@ function closeHeader() {
               </el-button>
             </div>
           </div>
-          <div class="header-self-content">🦜 Custom header content</div>
+          <div class="header-self-content">🦜 Custom Header Content</div>
         </div>
       </template>
 
@@ -76,7 +76,7 @@ function closeHeader() {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .header-self-wrap {
   display: flex;
   flex-direction: column;

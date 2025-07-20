@@ -42,45 +42,26 @@ function handleSubmit(value: string) {
 
 function handleCancel() {
   senderLoading.value = false;
-  if (timeValue.value) clearTimeout(timeValue.value);
+  if (timeValue.value)
+    clearTimeout(timeValue.value);
   timeValue.value = null;
   ElMessage.info(`取消发送`);
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
-    <div style="display: flex">
-      <el-button
-        type="primary"
-        style="width: fit-content"
-        @click="senderRef.clear()"
-      >
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex;">
+      <el-button type="primary" style="width: fit-content;" @click="senderRef.clear()">
         使用组件实例清空
       </el-button>
-      <el-button
-        type="primary"
-        style="width: fit-content"
-        :disabled="!senderValue"
-        @click="senderRef.submit()"
-      >
+      <el-button type="primary" style="width: fit-content;" :disabled="!senderValue" @click="senderRef.submit()">
         使用组件实例提交
       </el-button>
-      <el-button
-        type="primary"
-        style="width: fit-content"
-        @click="senderRef.cancel()"
-      >
+      <el-button type="primary" style="width: fit-content;" @click="senderRef.cancel()">
         使用组件实例取消
       </el-button>
     </div>
-    <MentionSender
-      ref="senderRef"
-      v-model="senderValue"
-      :loading="senderLoading"
-      clearable
-      @submit="handleSubmit"
-      @cancel="handleCancel"
-    />
+    <MentionSender ref="senderRef" v-model="senderValue" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
   </div>
 </template>

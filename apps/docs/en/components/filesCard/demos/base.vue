@@ -3,7 +3,7 @@
 title: Basic Usage
 ---
 
-You can get the built-in file type fileType: color object from the component instance. It includes 16 built-in file type icons.
+You can get the colorMap built-in file type fileType: color object on the component instance. Built-in 16 file type icons.
 </docs>
 
 <script setup lang="ts">
@@ -21,47 +21,44 @@ onMounted(() => {
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <span>Set name property without extension. name="test-file"</span>
-    <FilesCard ref="filesCardRef" name="test-file" />
-    <span>Set name property with file extension. name="test-file.pdf"</span>
-    <FilesCard name="test-file.pdf" />
-    <span>Supports matching built-in icons based on name extension</span>
+    <span>Set name property, and name has no suffix. name="Test File"</span>
+    <FilesCard ref="filesCardRef" name="Test File" />
+    <span>Set name property, has file suffix. name="Test File.pdf"</span>
+    <FilesCard name="Test File.pdf" />
+    <span>Supports matching built-in icons based on name suffix </span>
     <div class="files-card-container">
-      <FilesCard name="test-doc-extension.doc" />
-      <FilesCard name="test-xls-extension.xls" />
-      <FilesCard name="test-ppt-extension.ppt" />
-      <FilesCard name="test-txt-extension.txt" />
-      <FilesCard name="test-pdf-extension.pdf" />
-      <FilesCard name="test-png-extension.png" />
-      <FilesCard name="test-jpg-extension.jpg" />
-      <FilesCard name="test-gif-extension.gif" />
-      <FilesCard name="test-mp4-extension.mp4" />
-      <FilesCard name="test-mp3-extension.mp3" />
-      <FilesCard name="test-zip-extension.zip" />
-      <FilesCard name="test-rar-extension.rar" />
-      <FilesCard name="test-7z-extension.7z" />
-      <FilesCard name="test-lnk-extension.lnk" />
-      <FilesCard name="test-obj-extension.obj" />
-      <FilesCard name="test-fbx-extension.fbx" />
-      <FilesCard name="test-glb-extension.glb" />
-      <FilesCard name="test-sql-extension.sql" />
-      <FilesCard name="test-db-extension.db" />
-      <FilesCard name="test-md-extension.md" />
-      <FilesCard name="test-js-extension.js" />
-      <FilesCard name="test-py-extension.py" />
-      <FilesCard name="test-java-extension.java" />
-      <FilesCard name="test-php-extension.php" />
-      <FilesCard name="test-json-extension.json" />
+      <FilesCard name="Test doc suffix.doc" />
+      <FilesCard name="Test xls suffix.xls" />
+      <FilesCard name="Test ppt suffix.ppt" />
+      <FilesCard name="Test txt suffix.txt" />
+      <FilesCard name="Test pdf suffix.pdf" />
+      <FilesCard name="Test png suffix.png" />
+      <FilesCard name="Test jpg suffix.jpg" />
+      <FilesCard name="Test gif suffix.gif" />
+      <FilesCard name="Test mp4 suffix.mp4" />
+      <FilesCard name="Test mp3 suffix.mp3" />
+      <FilesCard name="Test zip suffix.zip" />
+      <FilesCard name="Test rar suffix.rar" />
+      <FilesCard name="Test 7z suffix.7z" />
+      <FilesCard name="Test lnk suffix.lnk" />
+      <FilesCard name="Test obj suffix.obj" />
+      <FilesCard name="Test fbx suffix.fbx" />
+      <FilesCard name="Test glb suffix.glb" />
+      <FilesCard name="Test sql suffix.sql" />
+      <FilesCard name="Test db suffix.db" />
+      <FilesCard name="Test md suffix.md" />
+      <FilesCard name="Test js suffix.js" />
+      <FilesCard name="Test py suffix.py" />
+      <FilesCard name="Test java suffix.java" />
+      <FilesCard name="Test php suffix.php" />
+      <FilesCard name="Test json suffix.json" />
     </div>
-    <span
-      >If there is an extension but it doesn't match common icons, it defaults
-      to File type</span
-    >
-    <FilesCard name="https://dd.com-multiple-special-chars.extension.self" />
+    <span>If there is a suffix but can't match common icons, it defaults to File</span>
+    <FilesCard name="https://dd.comMultiple special characters.suffix.self" />
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .files-card-container {
   display: flex;
   flex-wrap: wrap;

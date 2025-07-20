@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import * as echarts from 'echarts';
 
-// Keep original props.code logic, while adding optional configuration
+// 保留原有props.code逻辑，同时添加可选配置
 const props = defineProps<{
-  code: string; // Original JSON string configuration
-  width?: string; // Optional: chart width
-  height?: string; // Optional: chart height
-  theme?: string; // Optional: chart theme
+  code: string; // 原始JSON字符串配置
+  width?: string; // 可选：图表宽度
+  height?: string; // 可选：图表高度
+  theme?: string; // 可选：图表主题
 }>();
 
 const refEle = ref<HTMLElement>();
-let myChart: echarts.ECharts | null = null; // Chart instance reference
+let myChart: echarts.ECharts | null = null; // 图表实例引用
 
 function parseEChartsOption(str: string): any {
   try {
@@ -31,53 +31,53 @@ function parseEChartsOption(str: string): any {
   }
 }
 
-// Core rendering logic (keep original parsing process)
+// 核心渲染逻辑（保留原始解析流程）
 function renderChart() {
   if (!refEle.value) return;
 
   try {
-    // Parse JSON configuration (keep original logic)
+    // 解析JSON配置（保留原有逻辑）
     const cleanedStr = parseEChartsOption(props.code);
 
-    // Initialize/update chart
+    // 初始化/更新图表
     if (!myChart) {
       myChart = echarts.init(refEle.value, props.theme);
     }
     myChart.setOption(cleanedStr);
   } catch (error) {
-    console.error('Chart configuration parsing failed:', error);
+    console.error('图表配置解析失败:', error);
   }
 }
 
-// Window resize handling
+// 窗口resize处理
 function handleResize() {
   myChart?.resize();
 }
 
-// Destruction logic
+// 销毁逻辑
 function destroyChart() {
   if (myChart) {
-    myChart.dispose(); // Release ECharts instance
+    myChart.dispose(); // 释放ECharts实例
     myChart = null;
   }
   window.removeEventListener('resize', handleResize);
 }
 
-// Initialize rendering
+// 初始化渲染
 onMounted(() => {
   renderChart();
-  window.addEventListener('resize', handleResize); // Add resize listener
+  window.addEventListener('resize', handleResize); // 添加resize监听
 });
 
-// Listen for code changes to auto-update (key optimization)
+// 监听code变化自动更新（关键优化）
 watch(
   () => props.code,
   () => {
-    renderChart(); // Re-render when configuration changes
+    renderChart(); // 配置变化时重新渲染
   }
 );
 
-// Clean up resources on unmount
+// 卸载时清理资源
 onUnmounted(() => {
   destroyChart();
 });
@@ -85,18 +85,18 @@ onUnmounted(() => {
 
 <template>
   <div class="echarts-wrap">
-    <span class="echarts-titlt">This is my custom echarts component</span>
+    <span class="echarts-titlt">这是我自己定义的 echarts 组件</span>
     <div
       ref="refEle"
       :style="{
-        height: height || '400px', // Optional height, default 400px
-        width: width || '100%' // Optional width, default 100%
+        height: height || '400px', // 可选高度，默认400px
+        width: width || '100%' // 可选宽度，默认100%
       }"
     />
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .echarts-wrap {
   position: relative;
 

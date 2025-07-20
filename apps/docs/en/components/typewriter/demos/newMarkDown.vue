@@ -8,7 +8,7 @@ title: Built-in Prism Style Files
 // Import different theme styles for Prism syntax highlighting (based on style files provided by vue-element-plus-x plugin)
 // Each file corresponds to an independent code highlighting theme style, which can be selected and enabled according to project requirements
 
-// 1. Coy theme (minimalist light style, suitable for daily reading)
+// 1. Coy theme (simple light style, suitable for daily reading)
 import 'vue-element-plus-x/styles/prism-coy.min.css'
 
 // 2. Dark theme (dark background theme, suitable for night mode or low-light environments)
@@ -26,7 +26,7 @@ import 'vue-element-plus-x/styles/prism-solarizedlight.min.css'
 // 6. Tomorrow theme (modern minimalist style, suitable for wide screens and large fonts)
 import 'vue-element-plus-x/styles/prism-tomorrow.min.css'
 
-// 7. Twilight theme (dusk-toned theme, balanced style between light and dark)
+// 7. Twilight theme (twilight color theme, balanced style between light and dark)
 import 'vue-element-plus-x/styles/prism-twilight.min.css'
 
 // 8. Prism core base styles (must be imported, contains basic styles and structure for syntax highlighting)

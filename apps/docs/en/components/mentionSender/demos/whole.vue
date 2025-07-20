@@ -1,13 +1,13 @@
 <docs>
 ---
-title: whole Whole Deletion
+title: whole Delete as Whole
 ---
 
 - Set the `whole` property to `true`, when you press the backspace key, the `mention` area here will be deleted as a whole.
 
 - Set the `check-is-whole` property to customize the check logic. When you need to do multiple conditions, you can use the `check-is-whole` property to customize the check logic.
 
-- The check-is-whole property is not an event, type is (pattern: string, prefix: string) => boolean, returning `true` means the match is successful and will be deleted as a whole, returning `false` means the match fails and will not be deleted as a whole. Default is `true`
+- The check-is-whole property is not an event, the type is (pattern: string, prefix: string) => boolean, returning `true` means the match is successful and will be deleted as a whole, returning `false` means the match fails and will not be deleted as a whole. Default is `true`
 </docs>
 
 <script setup lang="ts">
@@ -17,21 +17,15 @@ const senderValue1 = ref('');
 const senderValue2 = ref('');
 
 const MOCK_DATA: Record<string, string[]> = {
-  '@': [
-    'Element-Plus-X',
-    'HeJiaYue520',
-    'JsonLee12138',
-    'lisentowind',
-    'ZRMYDYCG'
-  ],
-  '#': ['1.0', '2.0', '3.0', '4.0', '5.0']
+  '@': ['Element-Plus-X', 'HeJiaYue520', 'JsonLee12138', 'lisentowind', 'ZRMYDYCG'],
+  '#': ['1.0', '2.0', '3.0', '4.0', '5.0'],
 };
 
 const options = ref<MentionOption[]>([]);
 
 function handleSearch(_: string, prefix: string) {
   options.value = (MOCK_DATA[prefix] || []).map(value => ({
-    value
+    value,
   }));
 }
 
@@ -42,10 +36,10 @@ function checkIsWhole(pattern: string, prefix: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue1"
-      placeholder="Single command whole deletion: Input @ to trigger popup"
+      placeholder="Single directive delete as whole: Input @ to trigger directive popover"
       clearable
       :options="options"
       :trigger-strings="['@']"
@@ -55,7 +49,7 @@ function checkIsWhole(pattern: string, prefix: string) {
 
     <MentionSender
       v-model="senderValue2"
-      placeholder="Multiple commands whole deletion: Input @ and # to trigger popup"
+      placeholder="Multiple directives delete as whole: Input @ and # to trigger directive popover"
       clearable
       :options="options"
       :trigger-strings="['@', '#']"
@@ -66,4 +60,5 @@ function checkIsWhole(pattern: string, prefix: string) {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

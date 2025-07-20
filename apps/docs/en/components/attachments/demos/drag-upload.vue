@@ -1,13 +1,13 @@
 <docs>
 ---
-title: Drag Upload
+title: Drag and Drop Upload
 ---
 
-The `drag` property enables drag-and-drop upload functionality, supporting custom drag target areas and visual feedback.
+The `drag` property enables drag and drop upload functionality, supporting custom drag target areas and visual feedback.
 
-The `dragTarget` property can be an id selector string, a Ref instance, or an HTMLElement DOM. If not set, the default drag range is the current list.
+The `dragTarget` property can be an id selector string, a Ref instance, or an HTMLElement DOM. If not set, the default drag area is the current list.
 
-For full-page drag-and-drop upload, set `drag` to `true` and set `drag-target` to `'document.body'`.
+If you want to enable drag upload for the entire page, set `drag` to `true` and set `drag-target` to `'document.body'`.
 </docs>
 
 <script setup lang="ts">
@@ -37,7 +37,7 @@ watch(
 );
 
 function handleBeforUpload(file: any) {
-  console.log('befor', file);
+  console.log('before', file);
   if (file.size > 1024 * 1024 * 2) {
     ElMessage.error('File size cannot exceed 2MB!');
     return false;
@@ -68,7 +68,7 @@ async function handleHttpRequest(options: any) {
 
   setTimeout(() => {
     const res = {
-      message: 'File uploaded successfully',
+      message: 'File upload successful',
       fileName: options.file.name,
       uid: options.file.uid,
       fileSize: options.file.size,
@@ -96,7 +96,7 @@ function handleDeleteCard(item: SelfFilesCardProps) {
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <p>Enable full-screen drag upload: <el-switch v-model="isFull" /></p>
+    <p>Set fullscreen drag upload: <el-switch v-model="isFull" /></p>
     <Attachments
       :file-list="files"
       :http-request="handleHttpRequest"
@@ -126,4 +126,4 @@ function handleDeleteCard(item: SelfFilesCardProps) {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

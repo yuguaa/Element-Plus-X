@@ -6,20 +6,20 @@ title: Controlled Component
 You can bind the component's `value` property through `v-model`.
 
 ::: warning
-- When submitting, there must be content for the submission to proceed.
-- When the content is empty, the submit button will be disabled, and using the component instance to submit will fail.
+- When submitting, content is required for submission to proceed.
+- When content is empty, the submit button will be disabled, and using component instance submission will fail.
 :::
 
 ::: info
-- Through the `v-model` property, you can automatically bind the input box value. No need to assign data to `v-model`.
-- Through the `@submit` event, you can trigger the input box's submit event, which returns a `value` parameter, and you can handle the submitted data here.
-- Through the `@cancel` event, you can trigger the `loading` button's click event. Here you can abort the submission operation.
+- Through the `v-model` attribute, you can automatically bind the input value. No need to assign data to `v-model`.
+- Through the `@submit` event, you can trigger the input submission event, which returns a `value` parameter where you can handle the submitted data.
+- Through the `@cancel` event, you can trigger the `loading` button click event. Here you can abort the submission operation.
 
 You can also call through the component ref instance object
 
 - `senderRef.value.submit()` Trigger submission
 - `senderRef.value.cancel()` Trigger cancel
-- `senderRef.value.clear()` Reset the input box value
+- `senderRef.value.clear()` Reset input value
 :::
 </docs>
 
@@ -44,46 +44,26 @@ function handleSubmit(value: string) {
 
 function handleCancel() {
   senderLoading.value = false;
-  if (timeValue.value) clearTimeout(timeValue.value);
+  if (timeValue.value)
+    clearTimeout(timeValue.value);
   timeValue.value = null;
   ElMessage.info(`Cancel sending`);
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
-    <div style="display: flex">
-      <el-button
-        type="primary"
-        style="width: fit-content"
-        @click="senderRef.clear()"
-      >
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <div style="display: flex;">
+      <el-button type="primary" style="width: fit-content;" @click="senderRef.clear()">
         Clear using component instance
       </el-button>
-      <el-button
-        type="primary"
-        style="width: fit-content"
-        :disabled="!senderValue"
-        @click="senderRef.submit()"
-      >
+      <el-button type="primary" style="width: fit-content;" :disabled="!senderValue" @click="senderRef.submit()">
         Submit using component instance
       </el-button>
-      <el-button
-        type="primary"
-        style="width: fit-content"
-        @click="senderRef.cancel()"
-      >
+      <el-button type="primary" style="width: fit-content;" @click="senderRef.cancel()">
         Cancel using component instance
       </el-button>
     </div>
-    <Sender
-      ref="senderRef"
-      v-model="senderValue"
-      :submit-btn-disabled="submitBtnDisabled"
-      :loading="senderLoading"
-      clearable
-      @submit="handleSubmit"
-      @cancel="handleCancel"
-    />
+    <Sender ref="senderRef" v-model="senderValue" :submit-btn-disabled="submitBtnDisabled" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
   </div>
 </template>

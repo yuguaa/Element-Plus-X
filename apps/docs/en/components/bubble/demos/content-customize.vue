@@ -1,30 +1,23 @@
 <docs>
 ---
-title: Custom Bubble Content
+title: Customize Bubble Content
 ---
 
-Customize bubble content through the `#content` slot.
+Customize bubble content through `#content` slot.
 
 ::: info
-The `#content` slot has higher priority, and the `content` property will be disabled. The `no-padding` property can disable bubble content padding.
+`#content` slot has higher priority, `content` property will be disabled. `no-padding` property can disable bubble content padding.
 :::
 </docs>
 
 <script setup lang="ts">
 const avatarSize = '48px';
-const avatarAI =
-  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px">
-    <Bubble
-      content="Welcome to element-plus-x."
-      typing
-      :avatar="avatarAI"
-      :avatar-size="avatarSize"
-      no-style
-    >
+  <div style="display: flex; flex-direction: column; gap: 12px;">
+    <Bubble content="Welcome to element-plus-x." typing :avatar="avatarAI" :avatar-size="avatarSize" no-style>
       <template #content>
         <div class="content-container">
           😊 Welcome to element-plus-x, I'm a custom bubble
@@ -40,7 +33,7 @@ const avatarAI =
       </template>
       <template #content>
         <div class="content-borderless-container">
-          🥤 How to effectively rest after long hours of work?
+          🥤 How to rest effectively after long hours of work?
         </div>
       </template>
     </Bubble>
@@ -56,7 +49,7 @@ const avatarAI =
     <Bubble :avatar-size="avatarSize" typing no-style variant="borderless">
       <template #content>
         <div class="content-borderless-container">
-          🔥 How to stay calm under immense pressure?
+          🔥 How to stay calm under tremendous pressure?
         </div>
       </template>
     </Bubble>

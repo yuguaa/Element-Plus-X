@@ -7,25 +7,22 @@ title: 🐵 支持 动态更新 content 内容。
 </docs>
 
 <script setup lang="ts">
-const content = ref(
-  '🥰 感谢使用 Element-Plus-X ! 你的支持，是我们开源的最强动力 ~ '
-);
+const content = ref('🥰 感谢使用 Element-Plus-X ! 你的支持，是我们开源的最强动力 ~ ');
 const num = ref(1);
 function setContents() {
   num.value++;
   content.value = content.value.repeat(num.value);
   if (num.value > 3) {
     num.value = 1;
-    content.value =
-      '🥰 感谢使用 Element-Plus-X ! 你的支持，是我们开源的最强动力 ~ ';
+    content.value = '🥰 感谢使用 Element-Plus-X ! 你的支持，是我们开源的最强动力 ~ ';
   }
 }
 </script>
 
 <template>
   <ClientOnly>
-    <div style="display: flex; flex-direction: column; gap: 10px">
-      <el-button style="width: fit-content" @click="setContents">
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <el-button style="width: fit-content;" @click="setContents">
         设置 content
       </el-button>
       <Typewriter typing :content="content" />

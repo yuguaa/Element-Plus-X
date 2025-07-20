@@ -3,7 +3,7 @@
 title: direction Property
 ---
 
-Set layout method `ltr` from left to right and `rtl` from right to left. For more properties to control styles, see the Properties list for details.
+Set layout method `ltr` from left to right and `rtl` from right to left, more properties to control styles, see property list for details.
 </docs>
 
 <script setup lang="ts">
@@ -41,10 +41,10 @@ function generateGradientColor(): string {
         style="width: fit-content"
         @click="bgColor = generateGradientColor()"
       >
-        Set Your Favorite Background Color <el-icon><Refresh /></el-icon>
+        Set your favorite background color <el-icon><Refresh /></el-icon>
       </el-button>
 
-      <span>Switch Layout:</span>
+      <span>Switch layout: </span>
       <el-switch v-model="value" active-value="ltr" inactive-value="rtl" />
     </div>
 
@@ -114,4 +114,4 @@ function generateGradientColor(): string {
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

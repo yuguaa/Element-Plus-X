@@ -1,9 +1,9 @@
 <docs>
 ---
-title: buttonWidth and maxWidth
+title: ButtonWidth and MaxWidth
 ---
 
-The `buttonWidth` and `maxWidth` properties can set the maximum width of the **expand/collapse button** and **expanded content**. Both are `string` type, meaning you can use units like `px`, `%`, `vw`, `vh`, etc.
+The `buttonWidth` and `maxWidth` attributes can set the maximum width of the **expand/collapse button** and **expanded content**. Both are `string` type, meaning you can use units like `px`, `%`, `vw`, `vh`, etc.
 </docs>
 
 <template>

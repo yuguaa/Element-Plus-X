@@ -1,9 +1,9 @@
 <docs>
 ---
-title: SIP Basic Usage
+title: Basic Usage of SIP
 ---
 
-This demonstrates support for the SIP protocol
+This demonstrates support for the SIP protocol.
 </docs>
 
 <script setup lang="ts">
@@ -24,7 +24,7 @@ async function startSIPStream() {
     // Custom transformStream to handle SIP data
     const sipTransformStream = new TransformStream<string, any>({
       transform(chunk, controller) {
-        // SIP data parsing logic can be added here
+        // Add SIP data parsing logic here
         controller.enqueue(chunk);
       }
     });
@@ -61,9 +61,7 @@ const content = computed(() => {
         {{ isLoading ? 'Loading...' : 'Get SIP Protocol Data' }}
       </el-button>
 
-      <el-button :disabled="!isLoading" @click="cancel()">
-        Abort Request
-      </el-button>
+      <el-button :disabled="!isLoading" @click="cancel()"> Cancel Request </el-button>
     </div>
     <div v-if="error" class="error">
       {{ error.message }}
@@ -78,7 +76,7 @@ const content = computed(() => {
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="less">
 .container {
   display: flex;
   flex-direction: column;

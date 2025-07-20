@@ -27,22 +27,22 @@ const senderValue = ref('');
 const options = [
   {
     value: 'value1',
-    label: '选项1'
+    label: '选项1',
   },
   {
     value: 'value2',
     label: '选项2',
-    disabled: true
+    disabled: true,
   },
   {
     value: 'value3',
-    label: '选项3'
-  }
+    label: '选项3',
+  },
 ];
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue"
       placeholder="输入 / 触发指令弹框"
@@ -53,4 +53,5 @@ const options = [
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

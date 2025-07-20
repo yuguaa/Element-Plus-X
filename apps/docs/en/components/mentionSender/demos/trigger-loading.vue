@@ -3,7 +3,7 @@
 title: triggerLoading Async Loading State
 ---
 
-Set the loading state of the mention option list through the `triggerLoading` property. The `triggerLoading` property defaults to `false`, meaning the loading state is not displayed by default.
+Set the loading state of the mention option list through the `triggerLoading` property. The `triggerLoading` property defaults to `false`, meaning no loading state is displayed by default.
 </docs>
 
 <script setup lang="ts">
@@ -12,14 +12,8 @@ import type { MentionOption } from 'vue-element-plus-x/types/MentionSender';
 const senderValue = ref('');
 
 const MOCK_DATA: Record<string, string[]> = {
-  '@': [
-    'Element-Plus-X',
-    'HeJiaYue520',
-    'JsonLee12138',
-    'lisentowind',
-    'ZRMYDYCG'
-  ],
-  '#': ['1.0', '2.0', '3.0', '4.0', '5.0']
+  '@': ['Element-Plus-X', 'HeJiaYue520', 'JsonLee12138', 'lisentowind', 'ZRMYDYCG'],
+  '#': ['1.0', '2.0', '3.0', '4.0', '5.0'],
 };
 
 const options = ref<MentionOption[]>([]);
@@ -31,7 +25,7 @@ function handleSearch(_: string, prefix: string) {
     console.log('handleSearch', _, prefix);
 
     options.value = (MOCK_DATA[prefix] || []).map(value => ({
-      value
+      value,
     }));
     triggerLoading.value = false;
   }, 1500);
@@ -39,10 +33,10 @@ function handleSearch(_: string, prefix: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
     <MentionSender
       v-model="senderValue"
-      placeholder="Input @ and # to trigger popup"
+      placeholder="Input @ and # to trigger directive popover"
       clearable
       :options="options"
       :trigger-strings="['@', '#']"
@@ -52,4 +46,5 @@ function handleSearch(_: string, prefix: string) {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

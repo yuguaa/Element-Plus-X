@@ -3,14 +3,14 @@
 title: Built-in Code Block Language Matching
 ---
 
-We have built-in matching for some commonly used programming and development languages, used to render the corresponding code block content.
+We have built-in matching for some commonly used programming and development languages to render corresponding code block content.
 
 :::warning
-Some languages can be matched by their abbreviations, for example, `javascript` can be matched with `js`.
+Some languages can be matched using their abbreviations, for example, `javascript` can be matched using `js`
 :::
 
 ::: details 💝 View all supported languages
-| Language Name | Language Match ID | Language Abbreviation |
+| Language Name | Language Match ID | Language Match Abbreviation |
 | --- | --- | --- |
 | ABAP | abap |  |
 | ActionScript | actionscript-3 |  |
@@ -249,18 +249,8 @@ import 'self-markdown.css'
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <XMarkdown :markdown="markdown">
-      <template #img="{ ...props }">
-        <img :key="props.key" :src="props.src" style="border-radius: 30px" />
-      </template>
-
-      <template #self-btn="{ ...props }">
-        <el-button :key="props.key">
-          控制台查看 props 打印{{ console.log(props) }}
-        </el-button>
-      </template>
-    </XMarkdown>
+    <XMarkdown :markdown="markdown" />
   </div>
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>

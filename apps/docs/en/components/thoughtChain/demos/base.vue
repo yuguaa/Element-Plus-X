@@ -1,6 +1,6 @@
 <docs>
 ---
-title: thinkingItems Basic Usage
+title: Basic Usage of thinkingItems
 ---
 
 Control rendering by passing an array through `thinkingItems`.
@@ -28,39 +28,39 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
     status: 'success',
     isCanExpand: true,
     isDefaultExpand: true,
-    title: 'Success-Main Title',
-    thinkTitle: 'Thinking Content Title-Default Expanded',
-    thinkContent: 'Searching text'.repeat(10)
+    title: 'Success - Main Title',
+    thinkTitle: 'Thinking Content Title - Default Expanded',
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     id: '2',
     codeId: '2',
-    title: 'Loading-Main Title',
+    title: 'Loading - Main Title',
     status: 'loading',
     isCanExpand: true,
     isDefaultExpand: false,
     thinkTitle: 'Thinking Content Title',
-    thinkContent: 'Searching text'.repeat(10)
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     id: '3',
     codeId: '3',
-    title: 'Failed-Main Title',
+    title: 'Failed - Main Title',
     status: 'error',
     isCanExpand: true,
     isDefaultExpand: false,
     thinkTitle: 'Thinking Content Title',
-    thinkContent: 'Searching text'.repeat(10)
+    thinkContent: 'Search text'.repeat(10)
   },
   {
     id: '4',
     codeId: '4',
-    title: 'Failed-Main Title',
+    title: 'Failed - Main Title',
     status: 'error',
     isCanExpand: true,
     isDefaultExpand: true,
     thinkTitle: 'Thinking Content Title',
-    thinkContent: 'Searching text'.repeat(10)
+    thinkContent: 'Search text'.repeat(10)
   }
 ];
 </script>
@@ -69,4 +69,4 @@ const thinkingItems: ThoughtChainItemProps<DataType>[] = [
   <ThoughtChain :thinking-items="thinkingItems" row-key="codeId" />
 </template>
 
-<style module lang="less"></style>
+<style scoped lang="less"></style>
