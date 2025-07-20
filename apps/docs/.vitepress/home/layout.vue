@@ -200,7 +200,7 @@ onMounted(() => {
     <header class="opulous-header">
       <div class="opulous-logo">
         <div class="opulous-logo-icon">
-          <div class="linear-logo-x">X</div>
+          <div class="linear-logo-x c-amber flex-center">Z</div>
         </div>
       </div>
 
@@ -679,7 +679,7 @@ onMounted(() => {
   justify-content: center;
 }
 
-.linear-logo-x {
+/* .linear-logo-x {
   position: relative;
   display: inline-block;
   font-size: 2rem;
@@ -691,19 +691,8 @@ onMounted(() => {
     BlinkMacSystemFont,
     sans-serif;
   background:
-    linear-gradient(
-      135deg,
-      #6366f1 0%,
-      #8b5cf6 25%,
-      #3b82f6 50%,
-      #ec4899 75%,
-      #6366f1 100%
-    ),
-    radial-gradient(
-      circle at center,
-      rgba(255, 255, 255, 0.3) 0%,
-      transparent 70%
-    );
+    linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #3b82f6 50%, #ec4899 75%, #6366f1 100%),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
   background-size:
     200% 200%,
     100% 100%;
@@ -712,7 +701,7 @@ onMounted(() => {
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
   animation: logoGradientFlow 6s ease-in-out infinite;
-}
+} */
 
 @keyframes logoGradientFlow {
   0%,
