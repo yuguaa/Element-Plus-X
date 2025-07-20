@@ -1,3 +1,4 @@
 .vitepress/.temp
 .vitepress/dist
 dist.zip
+vite.config.ts.timestamp-*
