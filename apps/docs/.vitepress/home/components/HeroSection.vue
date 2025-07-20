@@ -1,105 +1,252 @@
+<script setup lang="ts">
+import { computed, ref } from 'vue';
+
+// 简单的语言检测（可以从 URL 或者其他地方获取）
+const currentLang = ref<'zh' | 'en'>('zh');
+
+// 国际化文本
+const i18n = {
+  zh: {
+    badge: 'ELEMENT PLUS X',
+    version: 'v2.0',
+    title: {
+      line1: '构建未来',
+      line2: 'UI 体验'
+    },
+    subtitle:
+      '基于 Vue 3 的下一代组件库，融合 Linear 设计语言与玻璃拟态美学，为现代 Web 应用提供极致的用户体验',
+    features: {
+      fast: '极速开发',
+      modern: '现代设计',
+      safe: '类型安全'
+    },
+    stats: {
+      components: '组件',
+      downloads: '下载量',
+      satisfaction: '满意度'
+    },
+    buttons: {
+      getStarted: '立即开始',
+      viewDocs: '查看文档'
+    },
+    quickStart: {
+      description: '立即开始使用 Element Plus X，只需一行命令即可安装',
+      command: 'npm install element-plus-x'
+    }
+  },
+  en: {
+    badge: 'ELEMENT PLUS X',
+    version: 'v2.0',
+    title: {
+      line1: 'Build Future',
+      line2: 'UI Experience'
+    },
+    subtitle:
+      'Next-generation Vue 3 component library, combining Linear design language with glassmorphism aesthetics to provide ultimate user experience for modern Web applications',
+    features: {
+      fast: 'Fast Development',
+      modern: 'Modern Design',
+      safe: 'Type Safe'
+    },
+    stats: {
+      components: 'Components',
+      downloads: 'Downloads',
+      satisfaction: 'Satisfaction'
+    },
+    buttons: {
+      getStarted: 'Get Started',
+      viewDocs: 'View Docs'
+    },
+    quickStart: {
+      description:
+        'Get started with Element Plus X immediately, just one command to install',
+      command: 'npm install element-plus-x'
+    }
+  }
+} as const;
+
+const t = computed(() => i18n[currentLang.value]);
+const installCommand = computed(() => t.value.quickStart.command);
+
+async function copyInstallCommand() {
+  try {
+    await navigator.clipboard.writeText(installCommand.value);
+    // 可以添加复制成功的提示
+  } catch (err) {
+    console.error('复制失败:', err);
+  }
+}
+
+// 监听语言变化（可以通过事件总线或者其他方式）
+if (typeof window !== 'undefined') {
+  // 简单的语言检测
+  const browserLang = navigator.language.toLowerCase();
+  if (browserLang.includes('zh')) {
+    currentLang.value = 'zh';
+  } else {
+    currentLang.value = 'en';
+  }
+}
+</script>
+
 <template>
-  <!-- 首屏英雄区 -->
+  <!-- 首屏英雄区 - 根据设计图重新布局 -->
   <section
-    class="hero-section relative min-h-screen flex items-center justify-center overflow-hidden py-8"
+    class="relative min-h-screen flex items-center justify-center overflow-hidden py-16 px-4"
   >
     <!-- 背景装饰 -->
-    <div class="hero-background absolute inset-0 pointer-events-none">
+    <div class="absolute inset-0 pointer-events-none">
       <div class="gradient-orb orb-1" />
       <div class="gradient-orb orb-2" />
       <div class="grid-pattern" />
     </div>
 
-    <!-- 主内容区域 -->
-    <div
-      class="hero-container max-w-6xl mx-auto px-8 grid grid-cols-2 gap-16 items-center relative z-2"
-    >
-      <!-- 左侧内容 -->
-      <div class="hero-content flex flex-col gap-8">
-        <!-- 徽章 -->
+    <!-- 主容器 - 居中布局 -->
+    <div class="relative z-10 w-full max-w-5xl mx-auto text-center">
+      <!-- 顶部徽章 -->
+      <div class="mb-12">
         <div
-          class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-[10px] w-fit text-sm font-semibold"
+          class="hero-badge inline-flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-[15px] border border-white/10 text-sm font-semibold shadow-lg"
         >
-          <span class="badge-icon text-base">✨</span>
-          <span class="badge-text">ELEMENT PLUS X</span>
-          <span class="badge-version font-bold">v2.0</span>
+          <span class="text-xl">✨</span>
+          <span class="text-white">{{ t.badge }}</span>
+          <span
+            class="badge-version px-3 py-1 rounded-full text-xs font-bold"
+            >{{ t.version }}</span
+          >
         </div>
+      </div>
 
-        <!-- 主标题 -->
+      <!-- 主标题 -->
+      <div class="mb-8">
         <h1
-          class="hero-title text-6xl font-black leading-tight m-0 flex flex-col gap-2"
+          class="text-6xl md:text-8xl lg:text-9xl font-black leading-none tracking-tight mb-6"
         >
-          <span class="title-line">构建未来</span>
-          <span class="title-line">UI 体验</span>
+          <div class="title-line">
+            {{ t.title.line1 }}
+          </div>
+          <div class="title-line">
+            {{ t.title.line2 }}
+          </div>
         </h1>
 
         <!-- 副标题 -->
-        <p class="hero-subtitle text-xl leading-relaxed text-white/80 m-0">
-          基于 Vue 3 的下一代组件库，融合 Linear 设计语言与玻璃拟态美学，为现代
-          Web 应用提供极致的用户体验
+        <p
+          class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed"
+        >
+          {{ t.subtitle }}
         </p>
+      </div>
 
-        <!-- 特性标签 -->
-        <div class="hero-features flex gap-4 flex-wrap">
-          <div
-            class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300"
-          >
-            <span class="feature-icon">⚡</span>
-            <span class="feature-text">极速开发</span>
+      <!-- 特性标签 -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <div
+          class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
+        >
+          <span class="text-base">⚡</span>
+          <span>{{ t.features.fast }}</span>
+        </div>
+        <div
+          class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
+        >
+          <span class="text-base">🎨</span>
+          <span>{{ t.features.modern }}</span>
+        </div>
+        <div
+          class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
+        >
+          <span class="text-base">🔒</span>
+          <span>{{ t.features.safe }}</span>
+        </div>
+      </div>
+
+      <!-- 统计数据 -->
+      <div class="flex flex-wrap justify-center gap-12 md:gap-20 mb-12">
+        <div class="text-center">
+          <div class="stat-number text-5xl md:text-6xl font-black mb-2">
+            50+
           </div>
           <div
-            class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300"
+            class="text-sm md:text-base text-white/70 font-medium uppercase tracking-wider"
           >
-            <span class="feature-icon">🎨</span>
-            <span class="feature-text">现代设计</span>
-          </div>
-          <div
-            class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300"
-          >
-            <span class="feature-icon">🔒</span>
-            <span class="feature-text">类型安全</span>
+            {{ t.stats.components }}
           </div>
         </div>
-
-        <!-- 行动按钮 -->
-        <div class="hero-actions flex gap-4 flex-wrap">
-          <button
-            class="btn-primary flex items-center gap-2 px-8 py-4 border-none rounded-3 text-base font-semibold cursor-pointer transition-all duration-300 backdrop-blur-[10px] text-white"
+        <div class="text-center">
+          <div class="stat-number text-5xl md:text-6xl font-black mb-2">
+            10K+
+          </div>
+          <div
+            class="text-sm md:text-base text-white/70 font-medium uppercase tracking-wider"
           >
-            <span class="btn-icon">🚀</span>
-            <span class="btn-text">立即开始</span>
-          </button>
-          <button
-            class="btn-secondary flex items-center gap-2 px-8 py-4 border border-white/20 rounded-3 text-base font-semibold cursor-pointer transition-all duration-300 backdrop-blur-[10px] text-white"
-          >
-            <span class="btn-icon">📖</span>
-            <span class="btn-text">查看文档</span>
-          </button>
+            {{ t.stats.downloads }}
+          </div>
         </div>
-
-        <!-- 统计数据 -->
-        <div class="hero-stats flex gap-8">
-          <div class="stat-item text-center">
-            <div class="stat-number text-3xl font-black">50+</div>
-            <div class="stat-label text-sm text-white/70 mt-1">组件</div>
+        <div class="text-center">
+          <div class="stat-number text-5xl md:text-6xl font-black mb-2">
+            99%
           </div>
-          <div class="stat-item text-center">
-            <div class="stat-number text-3xl font-black">10K+</div>
-            <div class="stat-label text-sm text-white/70 mt-1">下载量</div>
-          </div>
-          <div class="stat-item text-center">
-            <div class="stat-number text-3xl font-black">99%</div>
-            <div class="stat-label text-sm text-white/70 mt-1">满意度</div>
+          <div
+            class="text-sm md:text-base text-white/70 font-medium uppercase tracking-wider"
+          >
+            {{ t.stats.satisfaction }}
           </div>
         </div>
       </div>
 
-      <!-- 右侧视觉 -->
-      <div class="hero-visual flex items-center justify-center relative">
-        <div class="opulous-logo flex items-center gap-4">
-          <div class="opulous-logo-icon relative w-10 h-10 flex-center">
-            <div class="linear-logo-x">X</div>
-          </div>
+      <!-- 行动按钮 -->
+      <div
+        class="flex flex-col sm:flex-row justify-center gap-4 mb-12 max-w-md mx-auto"
+      >
+        <button
+          class="btn-primary flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold transition-all duration-300 backdrop-blur-[10px] text-white border-none cursor-pointer hover:-translate-y-1 flex-1"
+        >
+          <span class="text-xl">🚀</span>
+          <span>{{ t.buttons.getStarted }}</span>
+        </button>
+        <button
+          class="btn-secondary flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold transition-all duration-300 backdrop-blur-[10px] text-white border border-white/20 cursor-pointer hover:-translate-y-1 flex-1"
+        >
+          <span class="text-xl">📖</span>
+          <span>{{ t.buttons.viewDocs }}</span>
+        </button>
+      </div>
+
+      <!-- 快速开始 -->
+      <div class="space-y-4">
+        <p class="text-base text-white/70">
+          {{ t.quickStart.description }}
+        </p>
+
+        <div
+          class="inline-flex items-center bg-black/40 border border-white/20 rounded-2xl p-2 backdrop-blur-[15px] shadow-2xl max-w-md w-full"
+        >
+          <span
+            class="text-indigo-400 font-mono font-semibold px-4 text-sm md:text-base"
+            >$</span
+          >
+          <span
+            class="flex-1 text-white/90 font-mono text-sm md:text-base text-left px-2"
+            >{{ installCommand }}</span
+          >
+          <button
+            class="install-command bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 hover:border-indigo-500/50 rounded-xl p-3 text-white/80 hover:text-white transition-all duration-300 hover:scale-105 flex-shrink-0"
+            @click="copyInstallCommand"
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
@@ -175,20 +322,19 @@
 .hero-badge {
   background: linear-gradient(
     135deg,
-    rgba(99, 102, 241, 0.1) 0%,
-    rgba(139, 92, 246, 0.1) 100%
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(139, 92, 246, 0.15) 100%
   );
-  border: 1px solid rgba(99, 102, 241, 0.2);
   animation: badgeGlow 3s ease-in-out infinite;
 }
 
 @keyframes badgeGlow {
   0%,
   100% {
-    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
   }
   50% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
   }
 }
 
@@ -226,22 +372,14 @@
   }
 }
 
-/* 特性标签悬停效果 */
-.feature-tag:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(99, 102, 241, 0.3);
-  transform: translateY(-2px);
-}
-
 /* 按钮样式 */
 .btn-primary {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(99, 102, 241, 0.4);
+  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
 }
 
 .btn-secondary {
@@ -250,7 +388,6 @@
 
 .btn-secondary:hover {
   background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-3px);
 }
 
 /* 统计数字渐变 */
@@ -263,91 +400,29 @@
 
 /* Logo渐变动画 */
 .linear-logo-x {
-  position: relative;
-  display: inline-block;
-  font-size: 2rem;
-  font-weight: 800;
-  background:
-    linear-gradient(
-      135deg,
-      #6366f1 0%,
-      #8b5cf6 25%,
-      #3b82f6 50%,
-      #ec4899 75%,
-      #6366f1 100%
-    ),
-    radial-gradient(
-      circle at center,
-      rgba(255, 255, 255, 0.3) 0%,
-      transparent 70%
-    );
-  background-size:
-    200% 200%,
-    100% 100%;
+  background: linear-gradient(
+    135deg,
+    #6366f1 0%,
+    #8b5cf6 25%,
+    #3b82f6 50%,
+    #ec4899 75%,
+    #6366f1 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
+  filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.6));
   animation: logoGradientFlow 6s ease-in-out infinite;
 }
 
 @keyframes logoGradientFlow {
   0%,
   100% {
-    background-position:
-      0% 50%,
-      center;
+    background-position: 0% 50%;
   }
   50% {
-    background-position:
-      100% 50%,
-      center;
-  }
-}
-
-/* 响应式设计 */
-@media (max-width: 768px) {
-  .hero-container {
-    @apply grid-cols-1 gap-8 text-center;
-  }
-
-  .hero-title {
-    @apply text-4xl;
-  }
-
-  .hero-subtitle {
-    @apply text-lg;
-  }
-
-  .hero-actions {
-    @apply justify-center;
-  }
-
-  .hero-stats {
-    @apply justify-center;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-title {
-    @apply text-3xl;
-  }
-
-  .hero-subtitle {
-    @apply text-base;
-  }
-
-  .btn-primary,
-  .btn-secondary {
-    @apply px-6 py-3 text-sm;
-  }
-
-  .hero-stats {
-    @apply gap-4;
-  }
-
-  .stat-number {
-    @apply text-2xl;
+    background-position: 100% 50%;
   }
 }
 </style>

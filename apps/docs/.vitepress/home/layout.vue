@@ -1,19 +1,54 @@
 <script setup lang="ts">
 import gsap from 'gsap';
 import Theme from 'vitepress/theme';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const menuOpen = ref(false);
+const currentLang = ref<'zh' | 'en'>('zh');
 
 function toggleMenu() {
   menuOpen.value = !menuOpen.value;
 }
 
-const navItems = ref([
-  { name: 'Predict', href: '#predict' },
-  { name: 'Stake', href: '#stake' },
-  { name: 'OVAULT', href: '#ovault' },
-  { name: 'NFTs', href: '#nfts' }
+function toggleLanguage() {
+  currentLang.value = currentLang.value === 'zh' ? 'en' : 'zh';
+}
+
+// 国际化文本
+const i18n = {
+  zh: {
+    brand: 'Element-Plus-X',
+    nav: {
+      components: '组件',
+      guide: '指南',
+      theme: '主题',
+      resources: '资源'
+    },
+    github: 'GitHub',
+    language: '语言',
+    currentLang: '中文'
+  },
+  en: {
+    brand: 'Element-Plus-X',
+    nav: {
+      components: 'Components',
+      guide: 'Guide',
+      theme: 'Theme',
+      resources: 'Resources'
+    },
+    github: 'GitHub',
+    language: 'Language',
+    currentLang: 'English'
+  }
+} as const;
+
+const t = computed(() => i18n[currentLang.value]);
+
+const navItems = computed(() => [
+  { name: t.value.nav.components, href: '/components', icon: '🧩' },
+  { name: t.value.nav.guide, href: '/guide', icon: '📖' },
+  { name: t.value.nav.theme, href: '/theme', icon: '🎨' },
+  { name: t.value.nav.resources, href: '/resources', icon: '📦' }
 ]);
 
 onMounted(() => {
@@ -198,51 +233,142 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- 导航栏 -->
+    <!-- 现代化导航栏 -->
     <header
-      class="opulous-header fixed top-0 left-0 right-0 h-20 flex items-center justify-between px-[5vw] z-100 backdrop-blur-[30px]"
+      class="modern-header fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-6 md:px-8 lg:px-12 z-100 backdrop-blur-[20px] border-b border-white/5"
     >
-      <div class="flex items-center gap-4">
-        <div class="opulous-logo-icon relative w-10 h-10 flex-center">
-          <div class="linear-logo-x c-amber flex-center">Z</div>
+      <!-- 左侧 Logo 和品牌 -->
+      <div class="flex items-center gap-3">
+        <div
+          class="logo-container relative w-8 h-8 md:w-10 md:h-10 flex-center"
+        >
+          <div class="modern-logo-x text-xl md:text-2xl font-black">X</div>
+        </div>
+        <div class="brand-text hidden sm:block">
+          <span class="text-white font-bold text-lg tracking-tight">{{
+            t.brand
+          }}</span>
         </div>
       </div>
 
-      <nav class="opulous-menu flex gap-12 z-101" :class="{ open: menuOpen }">
+      <!-- 中间导航菜单 -->
+      <nav
+        class="modern-nav hidden md:flex items-center gap-8"
+        :class="{ open: menuOpen }"
+      >
         <a
           v-for="item in navItems"
           :key="item.name"
           :href="item.href"
-          class="text-white/90 no-underline text-base font-semibold relative transition-all duration-300 tracking-wider uppercase py-2 hover:text-[#6366f1]"
-          >{{ item.name }}</a
+          class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white no-underline text-sm font-medium transition-all duration-300 hover:bg-white/5"
         >
+          <span class="text-base">{{ item.icon }}</span>
+          <span>{{ item.name }}</span>
+        </a>
       </nav>
 
+      <!-- 右侧操作区域 -->
+      <div class="flex items-center gap-3">
+        <!-- GitHub 链接 -->
+        <a
+          href="https://github.com/element-plus/element-plus"
+          target="_blank"
+          class="github-link hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white no-underline text-sm font-medium transition-all duration-300 hover:bg-white/5"
+        >
+          <span class="text-base">⭐</span>
+          <span class="hidden lg:inline">{{ t.github }}</span>
+        </a>
+
+        <!-- 语言切换按钮 -->
+        <button
+          class="language-toggle flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white transition-all duration-300 hover:bg-white/5"
+          :title="t.language"
+          @click="toggleLanguage"
+        >
+          <span class="text-base">{{
+            currentLang === 'zh' ? '🇨🇳' : '🇺🇸'
+          }}</span>
+          <span class="hidden md:inline text-sm">{{ t.currentLang }}</span>
+        </button>
+
+        <!-- 主题切换按钮 -->
+        <button
+          class="theme-toggle p-2 rounded-lg text-white/80 hover:text-white transition-all duration-300 hover:bg-white/5"
+        >
+          <span class="text-lg">🌙</span>
+        </button>
+
+        <!-- 移动端菜单按钮 -->
+        <button
+          class="menu-toggle md:hidden flex flex-col gap-1 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition-all duration-300"
+          @click="toggleMenu"
+        >
+          <span
+            class="block w-5 h-0.5 bg-white/80 rounded-full transition-all duration-300"
+            :class="{ 'rotate-45 translate-y-1.5': menuOpen }"
+          />
+          <span
+            class="block w-5 h-0.5 bg-white/80 rounded-full transition-all duration-300"
+            :class="{ 'opacity-0': menuOpen }"
+          />
+          <span
+            class="block w-5 h-0.5 bg-white/80 rounded-full transition-all duration-300"
+            :class="{ '-rotate-45 -translate-y-1.5': menuOpen }"
+          />
+        </button>
+      </div>
+
+      <!-- 移动端菜单 -->
       <div
-        class="menu-toggle hidden flex-col gap-1.5 cursor-pointer p-2.5 z-102"
-        @click="toggleMenu"
+        class="mobile-menu md:hidden fixed top-16 left-0 right-0 bg-black/95 backdrop-blur-[20px] border-b border-white/10 transition-all duration-300 overflow-hidden"
+        :class="menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'"
       >
-        <span
-          class="block w-6.5 h-0.5 bg-[#6366f1] rounded-sm transition-all duration-300"
-        />
-        <span
-          class="block w-6.5 h-0.5 bg-[#6366f1] rounded-sm transition-all duration-300"
-        />
-        <span
-          class="block w-6.5 h-0.5 bg-[#6366f1] rounded-sm transition-all duration-300"
-        />
+        <nav class="flex flex-col p-4 space-y-2">
+          <a
+            v-for="item in navItems"
+            :key="item.name"
+            :href="item.href"
+            class="mobile-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white no-underline text-base font-medium transition-all duration-300 hover:bg-white/5"
+            @click="menuOpen = false"
+          >
+            <span class="text-lg">{{ item.icon }}</span>
+            <span>{{ item.name }}</span>
+          </a>
+
+          <!-- 移动端操作区域 -->
+          <div class="border-t border-white/10 mt-2 pt-4 space-y-2">
+            <!-- 移动端语言切换 -->
+            <button
+              class="mobile-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white text-base font-medium transition-all duration-300 hover:bg-white/5"
+              @click="toggleLanguage"
+            >
+              <span class="text-lg">{{
+                currentLang === 'zh' ? '🇨🇳' : '🇺🇸'
+              }}</span>
+              <span>{{ t.currentLang }}</span>
+            </button>
+
+            <!-- 移动端 GitHub 链接 -->
+            <a
+              href="https://github.com/element-plus/element-plus"
+              target="_blank"
+              class="mobile-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white no-underline text-base font-medium transition-all duration-300 hover:bg-white/5"
+            >
+              <span class="text-lg">⭐</span>
+              <span>{{ t.github }}</span>
+            </a>
+          </div>
+        </nav>
       </div>
     </header>
 
     <!-- 主内容 -->
-    <main class="relative z-10 pt-20 min-h-[calc(100vh-80px)] bg-transparent">
+    <main class="relative z-10 pt-16 min-h-[calc(100vh-64px)] bg-transparent">
       <Theme.Layout />
     </main>
 
     <!-- Footer -->
-    <footer
-      class="linear-footer relative mt-16 overflow-hidden backdrop-blur-[25px]"
-    >
+    <footer class="linear-footer relative overflow-hidden backdrop-blur-[25px]">
       <!-- Linear简洁背景 -->
       <div class="footer-linear-bg absolute inset-0 pointer-events-none z-1">
         <div class="footer-gradient-lines absolute inset-0">
@@ -314,7 +440,11 @@ onMounted(() => {
               </h3>
             </div>
             <div class="link-grid flex flex-col gap-4">
-              <a href="https://vuejs.org" class="footer-link" target="_blank">
+              <a
+                href="https://vuejs.org"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
                 <span class="link-icon text-xl flex-shrink-0">⚡</span>
                 <span
                   class="link-text font-semibold text-sm flex-1 text-white/90"
@@ -324,7 +454,11 @@ onMounted(() => {
                   >渐进式框架</span
                 >
               </a>
-              <a href="https://vitejs.dev" class="footer-link" target="_blank">
+              <a
+                href="https://vitejs.dev"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
                 <span class="link-icon text-xl flex-shrink-0">🚀</span>
                 <span
                   class="link-text font-semibold text-sm flex-1 text-white/90"
@@ -336,7 +470,7 @@ onMounted(() => {
               </a>
               <a
                 href="https://www.typescriptlang.org"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">📘</span>
@@ -350,7 +484,7 @@ onMounted(() => {
               </a>
               <a
                 href="https://pinia.vuejs.org"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">🍍</span>
@@ -377,7 +511,7 @@ onMounted(() => {
             <div class="link-grid flex flex-col gap-4">
               <a
                 href="https://github.com/element-plus/element-plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">🐙</span>
@@ -391,7 +525,7 @@ onMounted(() => {
               </a>
               <a
                 href="https://discord.gg/element-plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">💬</span>
@@ -405,7 +539,7 @@ onMounted(() => {
               </a>
               <a
                 href="https://twitter.com/element_plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">🐦</span>
@@ -419,7 +553,7 @@ onMounted(() => {
               </a>
               <a
                 href="https://stackoverflow.com/questions/tagged/element-plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">📚</span>
@@ -444,7 +578,11 @@ onMounted(() => {
               </h3>
             </div>
             <div class="link-grid flex flex-col gap-4">
-              <a href="https://antdv.com" class="footer-link" target="_blank">
+              <a
+                href="https://antdv.com"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
                 <span class="link-icon text-xl flex-shrink-0">🐜</span>
                 <span
                   class="link-text font-semibold text-sm flex-1 text-white/90"
@@ -454,7 +592,11 @@ onMounted(() => {
                   >企业级UI</span
                 >
               </a>
-              <a href="https://naiveui.com" class="footer-link" target="_blank">
+              <a
+                href="https://naiveui.com"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
                 <span class="link-icon text-xl flex-shrink-0">🌟</span>
                 <span
                   class="link-text font-semibold text-sm flex-1 text-white/90"
@@ -464,7 +606,11 @@ onMounted(() => {
                   >现代组件库</span
                 >
               </a>
-              <a href="https://quasar.dev" class="footer-link" target="_blank">
+              <a
+                href="https://quasar.dev"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
                 <span class="link-icon text-xl flex-shrink-0">💎</span>
                 <span
                   class="link-text font-semibold text-sm flex-1 text-white/90"
@@ -476,7 +622,7 @@ onMounted(() => {
               </a>
               <a
                 href="https://primevue.org"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
                 <span class="link-icon text-xl flex-shrink-0">🎨</span>
@@ -1293,5 +1439,69 @@ onMounted(() => {
   .version-number {
     @apply text-base;
   }
+}
+
+/* 现代化导航栏样式 */
+.modern-header {
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 现代化 Logo 样式 */
+.modern-logo-x {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+  animation: modernLogoFlow 4s ease-in-out infinite;
+}
+
+@keyframes modernLogoFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 导航项悬停效果 */
+.nav-item:hover {
+  transform: translateY(-1px);
+}
+
+/* GitHub 链接特殊样式 */
+.github-link:hover {
+  transform: translateY(-1px);
+}
+
+/* 语言切换按钮 */
+.language-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* 主题切换按钮 */
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* 移动端菜单动画 */
+.mobile-menu {
+  transform-origin: top;
+}
+
+.mobile-nav-item:hover {
+  transform: translateX(4px);
+}
+
+/* 品牌文字样式 */
+.brand-text span {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

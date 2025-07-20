@@ -6,7 +6,6 @@ import {
   FeaturesSection,
   HeroBanner,
   HeroSection,
-  QuickstartSection,
   ReviewsSection,
   SupportSection
 } from './components';
@@ -65,9 +64,6 @@ onMounted(async () => {
 
     <!-- 首屏英雄区 -->
     <HeroSection />
-
-    <!-- 快速开始区域 -->
-    <QuickstartSection />
 
     <!-- 赞助与支持区域 -->
     <SupportSection />
