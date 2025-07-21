@@ -5,7 +5,7 @@
 This hook function allows users to more conveniently control **streaming requests**. It provides `initiate request`, `cancel request`, returns `loading` request state, returns SSE protocol `real-time data stream`, and returns request `error` information.
 
 ::: info
-Currently only SSE and SIP protocol requests have been tested, other protocols are yet to be tested. If you have good ideas or discoveries, you are welcome to join the community group 👨‍👩‍👧‍👧 **[Community Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)**, contact us, share solutions, submit issues and PRs. Please read the 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)** for submission specifications.
+Currently only SSE and SIP protocol requests have been tested, other protocols are yet to be tested. If you have good ideas or discoveries, you are welcome to join the community group 👨‍👩‍👧‍👧 **[Community Group](https://element-plus-x.com/en/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)**, contact us, share solutions, submit issues and PRs. Please read the 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)** for submission specifications.
 :::
 
 ## Code Examples

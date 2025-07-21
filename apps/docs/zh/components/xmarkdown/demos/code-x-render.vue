@@ -8,7 +8,7 @@ title: codeXRender 代码块自定义渲染
 :::warning
 这个功能会拦截你设置的代码块，你可以和后端商量好码块的语言，然后根据语言返回一个对应的 VNode。
 
-后续我们会打造一个基于这个组件的组件库广场，如果你对此感兴趣，欢迎加入🥰[交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)，或者添加作者联系方式，一同打造这个广场项目。🥳敬请期待
+后续我们会打造一个基于这个组件的组件库广场，如果你对此感兴趣，欢迎加入🥰[交流群](https://element-plus-x.com/en/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)，或者添加作者联系方式，一同打造这个广场项目。🥳敬请期待
 :::
 </docs>
 

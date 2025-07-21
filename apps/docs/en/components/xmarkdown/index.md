@@ -6,7 +6,7 @@ The `XMarkdown` component has built-in basic styles such as **inline code**, **c
 
 :::info
 
-⚠️ In this development documentation, some style demonstrations may not be very good, but it should not affect the integrated usage. If there are integration or usage issues, you can join 👉[Community Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) to get the latest technical support.
+⚠️ In this development documentation, some style demonstrations may not be very good, but it should not affect the integrated usage. If there are integration or usage issues, you can join 👉[Community Group](https://element-plus-x.com/en/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) to get the latest technical support.
 
 This component supports **incremental updates** and **customization**. More built-in styles and component customization🥰
 The component is currently in the latest `1.3.0` version, please install using the following command

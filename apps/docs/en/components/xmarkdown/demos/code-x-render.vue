@@ -8,7 +8,7 @@ Use the `codeXRender` property to customize code block rendering. This property 
 :::warning
 This feature will intercept the code blocks you set. You can discuss the code block language with the backend, then return a corresponding VNode based on the language.
 
-We will build a component library marketplace based on this component in the future. If you're interested in this, welcome to join 🥰[Community Group](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81), or add the author's contact information to build this marketplace project together. 🥳Stay tuned
+We will build a component library marketplace based on this component in the future. If you're interested in this, welcome to join 🥰[Community Group](https://element-plus-x.com/en/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81), or add the author's contact information to build this marketplace project together. 🥳Stay tuned
 :::
 </docs>
 
