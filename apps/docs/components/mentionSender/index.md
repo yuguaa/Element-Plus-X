@@ -87,6 +87,8 @@
 ::: warning
 下面展示和 `Sender` 组件 **不一样** 的指令相关 **属性方法**。使用时请注意 **使用区别**
 
+**💌 如果你需要在一段内容中间，触发一个列表的提及指令，可以使用这个组件。**
+
 此温馨提示更新时间：`2025-04-16`
 :::
 
@@ -122,7 +124,7 @@
 
 <demo src="./demos/trigger-popover-offset.vue"></demo>
 
-### 指令弹框各种插槽
+### 提弹框 插槽
 
 <demo src="./demos/solts.vue"></demo>
 
@@ -155,7 +157,7 @@
 | `inputStyle`              | Object               | 否       | \{}                        | 输入框的样式。                                                                                                                                                                                                             |
 | `triggerStrings`          | string[]             | 否       | []                         | 触发指令的 `字符串数组`。                                                                                                                                                                                                  |
 | `triggerPopoverVisible`   | Boolean              | 否       | false                      | 触发指令的 `弹框` 是否可见。需要使用 `v-model:triggerPopoverVisible` 进行控制。                                                                                                                                            |
-| `triggerPopoverWidth `    | String               | 否       | 'fit-content'              | 触发指令的 `弹框` 的宽度。可使用百分比等css单位。                                                                                                                                                                          |
+| `triggerPopoverWidth`     | String               | 否       | 'fit-content'              | 触发指令的 `弹框` 的宽度。可使用百分比等css单位。                                                                                                                                                                          |
 | `triggerPopoverLeft`      | String               | 否       | '0px'                      | 触发指令的 `弹框` 的左边距。可使用百分比等css单位。                                                                                                                                                                        |
 | `triggerPopoverOffset`    | Number               | 否       | 8                          | 触发指令的 `弹框` 的间距。只能是数字类型，单位px                                                                                                                                                                           |
 | `triggerPopoverPlacement` | String               | 否       | 'top-start'                | 触发指令的 `弹框` 的位置。取值：`'top'` \| `'top-start'` \| `'top-end'` \| `'bottom'` \| `'bottom-start'` \| `'bottom-end'` \| `'left'` \| `'left-start'` \| `'left-end'` \| `'right'` \| `'right-start'` \| `'right-end'` |
@@ -183,15 +185,21 @@
 | `cancel`           | Function | 取消加载状态。                                                                                                  |
 | `startRecognition` | Function | 开始语音识别。                                                                                                  |
 | `stopRecognition`  | Function | 停止语音识别。                                                                                                  |
+| `popoverVisible`   | Boolean  | 触发指令的 `弹框` 可见性。                                                                                      |
+| `inputInstance`    | Object   | 输入框实例。                                                                                                    |
 
 ## 插槽
 
-| 插槽名         | 参数 | 类型 | 描述                             |
-| -------------- | ---- | ---- | -------------------------------- |
-| `#header`      | -    | Slot | 用于自定义输入框的头部内容。     |
-| `#prefix`      | -    | Slot | 用于自定义输入框的前缀内容。     |
-| `#action-list` | -    | Slot | 用于自定义输入框的操作列表内容。 |
-| `#footer`      | -    | Slot | 用于自定义输入框的尾部内容。     |
+| 插槽名             | 参数                             | 类型 | 描述                             |
+| ------------------ | -------------------------------- | ---- | -------------------------------- |
+| `#header`          | -                                | Slot | 用于自定义输入框的头部内容。     |
+| `#prefix`          | -                                | Slot | 用于自定义输入框的前缀内容。     |
+| `#action-list`     | -                                | Slot | 用于自定义输入框的操作列表内容。 |
+| `#footer`          | -                                | Slot | 用于自定义输入框的尾部内容。     |
+| `#trigger-label`   | `#trigger-label={ item, index }` | Slot | 用于自定义触发弹框标签内容。     |
+| `#trigger-loading` | -                                | Slot | 用于自定义触发弹框加载状态内容。 |
+| `#trigger-header`  | -                                | Slot | 用于自定义触发弹框头部内容。     |
+| `#trigger-footer`  | -                                | Slot | 用于自定义触发弹框底部内容。     |
 
 ## 功能特性
 

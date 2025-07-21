@@ -136,6 +136,8 @@
 | `cancel`           | Function | 取消加载状态。                                                                                                  |
 | `startRecognition` | Function | 开始语音识别。                                                                                                  |
 | `stopRecognition`  | Function | 停止语音识别。                                                                                                  |
+| `popoverVisible`   | Boolean  | 触发指令的 `弹框` 可见性。                                                                                      |
+| `inputInstance`    | Object   | 输入框实例。                                                                                                    |
 
 ## 插槽
 

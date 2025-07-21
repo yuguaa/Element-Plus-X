@@ -56,6 +56,8 @@ const internalValue = computed({
   }
 });
 
+const inputInstance = computed(() => inputRef.value?.ref);
+
 // 处理输入法组合状态
 const isComposing = ref(false);
 const popoverRef = ref();
@@ -254,7 +256,6 @@ function clear() {
 
 // 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (popoverVisible.value) return;
   if (props.readOnly) return; // 直接返回，不执行后续逻辑
   const _resetSelectionRange = () => {
     const cursorPosition = e.target.selectionStart; // 获取光标位置
@@ -318,7 +319,7 @@ function focus(type = 'all') {
 function focusToStart() {
   if (inputRef.value) {
     // 获取底层的 textarea DOM 元素
-    const textarea = inputRef.value.$el.querySelector('textarea');
+    const textarea = inputRef.value.ref;
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
       textarea.setSelectionRange(0, 0); // 设置光标到最前方
@@ -330,7 +331,7 @@ function focusToStart() {
 function focusToEnd() {
   if (inputRef.value) {
     // 获取底层的 textarea DOM 元素
-    const textarea = inputRef.value.$el.querySelector('textarea');
+    const textarea = inputRef.value.ref;
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
       textarea.setSelectionRange(
@@ -361,7 +362,9 @@ defineExpose({
   submit,
   cancel,
   startRecognition,
-  stopRecognition
+  stopRecognition,
+  popoverVisible,
+  inputInstance
 });
 </script>
 
