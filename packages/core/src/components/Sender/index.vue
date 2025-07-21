@@ -519,11 +519,7 @@ defineExpose({
       popper-class="el-sender-trigger-popover"
       :teleported="false"
     >
-      <slot
-        name="trigger-popover"
-        :trigger-string="triggerString"
-        :readonly="props.readOnly"
-      >
+      <slot name="trigger-popover" :trigger-string="triggerString">
         当前触发的字符为：{{ `${triggerString}` }}
         在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
       </slot>

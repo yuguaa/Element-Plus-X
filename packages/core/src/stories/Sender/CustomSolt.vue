@@ -44,12 +44,18 @@ function handleCancel() {
 }
 
 function handleTrigger(value: TriggerEvent) {
+  console.log(value);
+
   ElMessage.success(
-    `Trigger ${value.oldValue}, ${value.newValue}, ${value.isOpen}, `
+    `Trigger 旧值：${value.oldValue}, 新值：${value.newValue}, 弹框是否打开：${value.isOpen}`
   );
 }
 function handleRecordingChange() {
   ElMessage.success(`RecordingChange`);
+}
+
+function selfKeydown(e: KeyboardEvent) {
+  console.log('e', e);
 }
 </script>
 
@@ -156,6 +162,16 @@ function handleRecordingChange() {
             "
           >
             默认变体 自定义底部
+          </div>
+        </template>
+
+        <!-- 自定义 提及弹框 -->
+        <template #trigger-popover="{ triggerString }">
+          当前触发的字符为：{{ `${triggerString}` }}
+          这是我自定义的弹框
+
+          <div tabindex="0" @keydown="selfKeydown">
+            在这里测试这个盒子的键盘事件：这里要点一下聚焦才可以获取到键盘事件。
           </div>
         </template>
       </Sender>
