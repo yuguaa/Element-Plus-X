@@ -11,7 +11,13 @@
 </div>
 
 <div align="center">
-<h2>💖 Project Template Now Available 💖</h2>
+
+**English** | [简体中文](../zh/introduce.md)
+
+</div>&emsp;
+
+<div align="center">
+<h2>💖The project template has been released💖</h2>
 <img src="https://cdn.element-plus-x.com/chat/1.webp" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo1.webp" calss="element-plus-x-bubble" />&emsp;
@@ -21,28 +27,28 @@
 
 # 🚀 Element-Plus-X
 
-**Enterprise-grade AI Component Library Ready to Use (Based on Vue 3 + Element-Plus)**
+**An out-of-the-box enterprise-level AI component library (based on Vue 3 + Element-Plus)**
 
 ## 📢 Quick Links
 
-| Resource Type        | <div style="width: 300px;" >Links</div>                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| **Documentation**    | [📖 Development Docs](https://element-plus-x.com)                                                                          |
-| **Online Demo**      | [👁️ Live Preview](https://v.element-plus-x.com)                                                                            |
-| **Repository**       | [🐙 GitHub](https://github.com/element-plus-x/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)  |
-| **NPM Package**      | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                 |
-| **Bug Reports**      | [🐛 Submit Bug](https://github.com/element-plus-x/Element-Plus-X/issues)                                                   |
-| **Discussion**       | [🐒 Community](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)  |
-| **Template Preview** | [👀 Live Preview](https://chat.element-plus-x.com/)                                                                        |
-| **Template Source**  | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai) |
+| Resource Type                    | <div style="width: 300px;">Link</div>                                                                                      |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **Documentation**                | [📖 Development Documentation](https://element-plus-x.com)                                                                 |
+| **Online Demo**                  | [👁️ Online Preview](https://v.element-plus-x.com)                                                                          |
+| **Code Repository**              | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)     |
+| **NPM Package**                  | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                 |
+| **Issue Feedback**               | [🐛 Submit a Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)                                                    |
+| **Community**                    | [🐒 Discussion Group](https://element-plus-x.com/en/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)      |
+| **Template Project Preview**     | [👀 Online Preview](https://chat.element-plus-x.com/)                                                                      |
+| **Template Project Source Code** | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai) |
 
 ## 🛠️ Core Features
 
-- ✨ **Enterprise AI Components**: Built-in chatbot, voice interaction, and scenario-based components
-- 🚀 **Zero-config Integration**: Based on Element-Plus design system, ready to use out of the box
-- 📦 **On-demand Loading**: Provides Tree Shaking optimization
+- ✨ **Enterprise-level AI Components**: Pre-built scenario-based components such as chatbots and voice interaction.
+- 🚀 **Zero-configuration Integration**: Based on the Element-Plus design system, ready to use right out of the box.
+- 📦 **On-demand Loading**: Provides Tree Shaking optimization.
 
-## 📦 Installation
+## 🔎 Installation
 
 ::: code-group
 
@@ -95,7 +101,7 @@ import ElementPlusX from 'vue-element-plus-x';
 import App from './App.vue';
 
 const app = createApp(App);
-// Use app.use() for global import
+// Globally import using app.use()
 app.use(ElementPlusX);
 app.mount('#app');
 ```
@@ -103,54 +109,50 @@ app.mount('#app');
 3. **CDN Import**
 
 ```html
-<!-- This method needs testing -->
+<!-- This method is still under testing -->
 <!-- CDN Import -->
-<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
 ## 🌟 Implemented Components and Hooks
 
-| Component Name       | Description                                                           | Documentation Link                                              |
-| -------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------- |
-| `Typewriter`         | Typing animation component                                            | [📄 Docs](https://element-plus-x.com/components/typewriter/)    |
-| `Bubble`             | Bubble message component (Extended)                                   | [📄 Docs](https://element-plus-x.com/components/bubble/)        |
-| `BubbleList`         | Bubble message list (Extended)                                        | [📄 Docs](https://element-plus-x.com/components/bubbleList/)    |
-| `Conversations`      | Conversation management component (Extended)                          | [📄 Docs](https://element-plus-x.com/components/conversations/) |
-| `Welcome`            | Welcome component                                                     | [📄 Docs](https://element-plus-x.com/components/welcome/)       |
-| `Prompts`            | Prompt collection component                                           | [📄 Docs](https://element-plus-x.com/components/prompts/)       |
-| `FilesCard`          | File card component                                                   | [📄 Docs](https://element-plus-x.com/components/filesCard/)     |
-| `Attachments`        | File upload component                                                 | [📄 Docs](https://element-plus-x.com/components/attachments/)   |
-| `Sender`             | Smart input box (with voice interaction, built-in command operations) | [📄 Docs](https://element-plus-x.com/components/sender/)        |
-| `MentionSender`      | Command input box (mention list)                                      | [📄 Docs](https://element-plus-x.com/components/mentionSender/) |
-| `Thinking`           | Thinking component (Extended)                                         | [📄 Docs](https://element-plus-x.com/components/thinking/)      |
-| `ThoughtChain`       | Thought chain component                                               | [📄 Docs](https://element-plus-x.com/components/thoughtChain/)  |
-| `useRecord`          | Browser built-in speech recognition API Hooks                         | [📄 Docs](https://element-plus-x.com/components/useRecord/)     |
-| `useXStream`         | Streaming mode interface Hooks                                        | [📄 Docs](https://element-plus-x.com/components/useXStream/)    |
-| `useSend & XRequest` | Streaming mode hooks split (Extended)                                 | [📄 Docs](https://element-plus-x.com/components/useSend/)       |
+| Component Name       | Description                                                          | Documentation Link                                              |
+| -------------------- | -------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `Typewriter`         | Typing animation component                                           | [📄 Docs](https://element-plus-x.com/components/typewriter/)    |
+| `Bubble`             | Bubble message component (extended)                                  | [📄 Docs](https://element-plus-x.com/components/bubble/)        |
+| `BubbleList`         | Bubble message list (extended)                                       | [📄 Docs](https://element-plus-x.com/components/bubbleList/)    |
+| `Welcome`            | Welcome component                                                    | [📄 Docs](https://element-plus-x.com/components/welcome/)       |
+| `Sender`             | Smart input (with voice interaction、Built in instruction operation) | [📄 Docs](https://element-plus-x.com/components/sender/)        |
+| `MentionSender`      | Instruction input box (mention list)                                 | [📄 Docs](https://element-plus-x.com/components/MentionSender/) |
+| `Thinking`           | Thinking state component (extended)                                  | [📄 Docs](https://element-plus-x.com/components/thinking/)      |
+| `ThoughtChain`       | Thought chain component                                              | [📄 Docs](https://element-plus-x.com/components/thoughtChain/)  |
+| `useRecord`          | Browser built-in speech recognition hooks                            | [📄 Docs](https://element-plus-x.com/components/useRecord/)     |
+| `useXStream`         | Streaming API hooks                                                  | [📄 Docs](https://element-plus-x.com/components/useXStream/)    |
+| `useSend & XRequest` | Split streaming hooks (extended)                                     | [📄 Docs](https://element-plus-x.com/components/useSend/)       |
 
-## 🎯 Development Roadmap (Weekly Updates)
+## 🎯 Development Plan (Updated Weekly)
 
-🎀 We collect issues and requirements from various sources including GitHub issues and community discussions to develop short-term and long-term development plans. For details, please visit 👉 **[Development Roadmap](https://element-plus-x.com/roadmap.html)**
+🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan](https://element-plus-x.com/roadmap.html)**
 
-## 🤝 Contributing
+## 🤝 Contribute
 
-1. **Fork Repository** → 2. **Create Feature Branch** → 3. **Submit Pull Request**
+1. **Fork the repository** → 2. **Create a Feature branch** → 3. **Submit a Pull Request**
 
-For details, please visit 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)**
+Details can be moved 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)**
 
 We welcome:
 
 - 🐛 Bug fixes
-- 💡 New feature proposals
+- 💡 Proposals for new features
 - 📝 Documentation improvements
 - 🎨 Style optimizations
 
 ## 👥 Community Support
 
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-07-14.png" alt="WeChat Community" width="180" style="margin: 20px;" />
-<p>Join our WeChat community for the latest updates and technical support</p>
+<img src="https://cdn.element-plus-x.com/vx-2025-07-21.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<p>Join the WeChat communication group to get the latest news and technical support</p>
 
-<p>If the community QR code expires or becomes invalid, you can add the author's WeChat</p>
-<img src="https://cdn.element-plus-x.com/element-plus-x-author-vx.png" alt="Author WeChat" width="180" style="margin: 20px;" />
+<p>If the group link expires, scan the author's QR code:</p>
+<img src="https://cdn.element-plus-x.com/element-plus-x-author-vx.png" alt="Author's WeChat" width="180" style="margin: 20px;" />
 </div>

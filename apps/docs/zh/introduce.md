@@ -11,6 +11,12 @@
 </div>
 
 <div align="center">
+
+**简体中文** | [English](../en/introduce.md)
+
+</div>&emsp;
+
+<div align="center">
 <h2>💖项目模版，已经推出💖</h2>
 <img src="https://cdn.element-plus-x.com/chat/1.webp" />&emsp;
 <img src="https://cdn.element-plus-x.com/demo.webp" calss="element-plus-x-bubble" />&emsp;
