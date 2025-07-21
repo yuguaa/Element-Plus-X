@@ -61,5 +61,5 @@ export interface MentionSenderEmits {
   (event: 'search', pattern: string, prefix: string): void;
   (event: 'select', option: MentionOption, prefix: string): void;
   // 文件粘贴事件
-  (event: 'paste', firstFile: File, fileList: FileList): void;
+  (event: 'pasteFile', firstFile: File, fileList: FileList): void;
 }
