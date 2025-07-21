@@ -47,17 +47,6 @@ body.dark {
     white-space: pre;
   }
 
-  .line-number {
-    display: inline-block;
-    width: 2.5em;
-    text-align: right;
-    padding-right: 1em;
-    -webkit-user-select: none;
-    user-select: none;
-    color: #888;
-    flex-shrink: 0;
-  }
-
   .line-content {
     flex: 1;
   }

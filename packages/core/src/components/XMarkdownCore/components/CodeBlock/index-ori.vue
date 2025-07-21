@@ -7,7 +7,7 @@ import {
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
-import { defineComponent, h, ref, toValue, watch } from 'vue';
+import { computed, defineComponent, h, ref, toValue, watch } from 'vue';
 import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import {

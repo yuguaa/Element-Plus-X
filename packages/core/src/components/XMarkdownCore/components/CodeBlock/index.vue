@@ -11,7 +11,8 @@ import {
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
 import { codeToHtml } from 'shiki';
-import { computed, h, ref, toValue, watch } from 'vue';
+import { computed, h, reactive, ref, toValue, watch } from 'vue';
+import HighLightCode from '../../components/HighLightCode/index.vue';
 import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
@@ -232,7 +233,10 @@ watch(
       }"
       v-bind="codeAttrs"
     >
-      <span v-for="(line, index) in renderLines" :key="index" v-html="line" />
+      <HighLightCode
+        :lang="props.raw?.language ?? 'text'"
+        :code="renderLines"
+      />
     </code>
     <!-- run-code -->
     <component

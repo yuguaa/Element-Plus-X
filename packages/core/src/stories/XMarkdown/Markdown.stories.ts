@@ -8,7 +8,7 @@ import {
 } from '@assets/mock';
 import { shikiThemeDefault } from '@components/XMarkdownCore/shared';
 import CustomAttrs from './customAttrs.vue';
-import HighlightCodeDemo from './highlight-code.vue';
+import HighlightCodeDemo from './highlight-code-demo.vue';
 import XMarkdown from './index.vue';
 import MermaidSlot from './mermaid-slot.vue';
 
