@@ -1,19 +1,54 @@
 <script setup lang="ts">
 import gsap from 'gsap';
 import Theme from 'vitepress/theme';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const menuOpen = ref(false);
+const currentLang = ref<'zh' | 'en'>('zh');
 
 function toggleMenu() {
   menuOpen.value = !menuOpen.value;
 }
 
-const navItems = ref([
-  { name: 'Predict', href: '#predict' },
-  { name: 'Stake', href: '#stake' },
-  { name: 'OVAULT', href: '#ovault' },
-  { name: 'NFTs', href: '#nfts' }
+function toggleLanguage() {
+  currentLang.value = currentLang.value === 'zh' ? 'en' : 'zh';
+}
+
+// 国际化文本
+const i18n = {
+  zh: {
+    brand: 'Element-Plus-X',
+    nav: {
+      components: '组件',
+      guide: '指南',
+      theme: '主题',
+      resources: '资源'
+    },
+    github: 'GitHub',
+    language: '语言',
+    currentLang: '中文'
+  },
+  en: {
+    brand: 'Element-Plus-X',
+    nav: {
+      components: 'Components',
+      guide: 'Guide',
+      theme: 'Theme',
+      resources: 'Resources'
+    },
+    github: 'GitHub',
+    language: 'Language',
+    currentLang: 'English'
+  }
+} as const;
+
+const t = computed(() => i18n[currentLang.value]);
+
+const navItems = computed(() => [
+  { name: t.value.nav.components, href: '/components', icon: '🧩' },
+  { name: t.value.nav.guide, href: '/guide', icon: '📖' },
+  { name: t.value.nav.theme, href: '/theme', icon: '🎨' },
+  { name: t.value.nav.resources, href: '/resources', icon: '📦' }
 ]);
 
 onMounted(() => {
@@ -178,11 +213,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="opulous-layout">
+  <div
+    class="min-h-screen bg-gradient-to-br from-[#0f0f23] via-[#1a1a2e] via-[#16213e] via-[#2d1b69] to-[#4a148c] text-white font-sans overflow-x-hidden relative"
+  >
     <!-- Linear风格背景装饰 -->
-    <div class="linear-background">
+    <div class="linear-background fixed inset-0 z-0 pointer-events-none">
       <div class="linear-gradient-bg" />
-      <div class="geometric-patterns">
+      <div class="geometric-patterns absolute inset-0">
         <div
           v-for="i in 6"
           :key="i"
@@ -196,197 +233,433 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- 导航栏 -->
-    <header class="opulous-header">
-      <div class="opulous-logo">
-        <div class="opulous-logo-icon">
-          <div class="linear-logo-x c-amber flex-center">Z</div>
+    <!-- 现代化导航栏 -->
+    <header
+      class="modern-header fixed top-0 left-0 right-0 h-16 flex items-center justify-between px-6 md:px-8 lg:px-12 z-100 backdrop-blur-[20px] border-b border-white/5"
+    >
+      <!-- 左侧 Logo 和品牌 -->
+      <div class="flex items-center gap-3">
+        <div
+          class="logo-container relative w-8 h-8 md:w-10 md:h-10 flex-center"
+        >
+          <div class="modern-logo-x text-xl md:text-2xl font-black">X</div>
+        </div>
+        <div class="brand-text hidden sm:block">
+          <span class="text-white font-bold text-lg tracking-tight">{{
+            t.brand
+          }}</span>
         </div>
       </div>
 
-      <nav class="opulous-menu" :class="{ open: menuOpen }">
-        <a v-for="item in navItems" :key="item.name" :href="item.href">{{
-          item.name
-        }}</a>
+      <!-- 中间导航菜单 -->
+      <nav
+        class="modern-nav hidden md:flex items-center gap-8"
+        :class="{ open: menuOpen }"
+      >
+        <a
+          v-for="item in navItems"
+          :key="item.name"
+          :href="item.href"
+          class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white no-underline text-sm font-medium transition-all duration-300 hover:bg-white/5"
+        >
+          <span class="text-base">{{ item.icon }}</span>
+          <span>{{ item.name }}</span>
+        </a>
       </nav>
 
-      <div class="menu-toggle" @click="toggleMenu">
-        <span /><span /><span />
+      <!-- 右侧操作区域 -->
+      <div class="flex items-center gap-3">
+        <!-- GitHub 链接 -->
+        <a
+          href="https://github.com/element-plus/element-plus"
+          target="_blank"
+          class="github-link hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white no-underline text-sm font-medium transition-all duration-300 hover:bg-white/5"
+        >
+          <span class="text-base">⭐</span>
+          <span class="hidden lg:inline">{{ t.github }}</span>
+        </a>
+
+        <!-- 语言切换按钮 -->
+        <button
+          class="language-toggle flex items-center gap-2 px-3 py-2 rounded-lg text-white/80 hover:text-white transition-all duration-300 hover:bg-white/5"
+          :title="t.language"
+          @click="toggleLanguage"
+        >
+          <span class="text-base">{{
+            currentLang === 'zh' ? '🇨🇳' : '🇺🇸'
+          }}</span>
+          <span class="hidden md:inline text-sm">{{ t.currentLang }}</span>
+        </button>
+
+        <!-- 主题切换按钮 -->
+        <button
+          class="theme-toggle p-2 rounded-lg text-white/80 hover:text-white transition-all duration-300 hover:bg-white/5"
+        >
+          <span class="text-lg">🌙</span>
+        </button>
+
+        <!-- 移动端菜单按钮 -->
+        <button
+          class="menu-toggle md:hidden flex flex-col gap-1 cursor-pointer p-2 rounded-lg hover:bg-white/5 transition-all duration-300"
+          @click="toggleMenu"
+        >
+          <span
+            class="block w-5 h-0.5 bg-white/80 rounded-full transition-all duration-300"
+            :class="{ 'rotate-45 translate-y-1.5': menuOpen }"
+          />
+          <span
+            class="block w-5 h-0.5 bg-white/80 rounded-full transition-all duration-300"
+            :class="{ 'opacity-0': menuOpen }"
+          />
+          <span
+            class="block w-5 h-0.5 bg-white/80 rounded-full transition-all duration-300"
+            :class="{ '-rotate-45 -translate-y-1.5': menuOpen }"
+          />
+        </button>
+      </div>
+
+      <!-- 移动端菜单 -->
+      <div
+        class="mobile-menu md:hidden fixed top-16 left-0 right-0 bg-black/95 backdrop-blur-[20px] border-b border-white/10 transition-all duration-300 overflow-hidden"
+        :class="menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'"
+      >
+        <nav class="flex flex-col p-4 space-y-2">
+          <a
+            v-for="item in navItems"
+            :key="item.name"
+            :href="item.href"
+            class="mobile-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white no-underline text-base font-medium transition-all duration-300 hover:bg-white/5"
+            @click="menuOpen = false"
+          >
+            <span class="text-lg">{{ item.icon }}</span>
+            <span>{{ item.name }}</span>
+          </a>
+
+          <!-- 移动端操作区域 -->
+          <div class="border-t border-white/10 mt-2 pt-4 space-y-2">
+            <!-- 移动端语言切换 -->
+            <button
+              class="mobile-nav-item w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white text-base font-medium transition-all duration-300 hover:bg-white/5"
+              @click="toggleLanguage"
+            >
+              <span class="text-lg">{{
+                currentLang === 'zh' ? '🇨🇳' : '🇺🇸'
+              }}</span>
+              <span>{{ t.currentLang }}</span>
+            </button>
+
+            <!-- 移动端 GitHub 链接 -->
+            <a
+              href="https://github.com/element-plus/element-plus"
+              target="_blank"
+              class="mobile-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white no-underline text-base font-medium transition-all duration-300 hover:bg-white/5"
+            >
+              <span class="text-lg">⭐</span>
+              <span>{{ t.github }}</span>
+            </a>
+          </div>
+        </nav>
       </div>
     </header>
 
     <!-- 主内容 -->
-    <main class="opulous-main">
+    <main class="relative z-10 pt-16 min-h-[calc(100vh-64px)] bg-transparent">
       <Theme.Layout />
     </main>
 
     <!-- Footer -->
-    <footer class="linear-footer">
+    <footer class="linear-footer relative overflow-hidden backdrop-blur-[25px]">
       <!-- Linear简洁背景 -->
-      <div class="footer-linear-bg">
-        <div class="footer-gradient-lines">
+      <div class="footer-linear-bg absolute inset-0 pointer-events-none z-1">
+        <div class="footer-gradient-lines absolute inset-0">
           <div v-for="i in 3" :key="i" class="gradient-line" />
         </div>
       </div>
 
-      <div class="footer-container">
+      <div
+        class="footer-container relative z-10 max-w-6xl mx-auto px-8 py-16 pb-8"
+      >
         <!-- 主要内容区域 -->
-        <div class="footer-main">
+        <div
+          class="footer-main grid grid-cols-[1.5fr_1fr_1fr_1fr] gap-12 mb-12"
+        >
           <!-- 项目介绍 -->
-          <div class="footer-section">
-            <div class="section-header">
-              <h3 class="section-title linear-text">ELEMENT PLUS X</h3>
+          <div class="footer-section relative">
+            <div class="section-header mb-6">
+              <h3
+                class="section-title linear-text text-xl font-bold tracking-wide m-0 mb-4"
+              >
+                ELEMENT PLUS X
+              </h3>
             </div>
-            <p class="section-desc">
+            <p class="section-desc text-sm text-white/70 leading-relaxed mb-8">
               下一代 Vue 3 组件库，融合现代设计与极致性能。
               为开发者提供强大、灵活、美观的 UI 解决方案。
             </p>
-            <div class="project-stats">
-              <div class="stat-item">
-                <span class="stat-number linear-number">50+</span>
-                <span class="stat-label">组件</span>
+            <div class="project-stats flex gap-8">
+              <div class="stat-item text-center">
+                <span
+                  class="stat-number linear-number block text-3xl font-extrabold mb-2"
+                  >50+</span
+                >
+                <span
+                  class="stat-label text-xs text-white/50 font-semibold tracking-wide uppercase"
+                  >组件</span
+                >
               </div>
-              <div class="stat-item">
-                <span class="stat-number linear-number">10K+</span>
-                <span class="stat-label">下载</span>
+              <div class="stat-item text-center">
+                <span
+                  class="stat-number linear-number block text-3xl font-extrabold mb-2"
+                  >10K+</span
+                >
+                <span
+                  class="stat-label text-xs text-white/50 font-semibold tracking-wide uppercase"
+                  >下载</span
+                >
               </div>
-              <div class="stat-item">
-                <span class="stat-number linear-number">99%</span>
-                <span class="stat-label">满意度</span>
+              <div class="stat-item text-center">
+                <span
+                  class="stat-number linear-number block text-3xl font-extrabold mb-2"
+                  >99%</span
+                >
+                <span
+                  class="stat-label text-xs text-white/50 font-semibold tracking-wide uppercase"
+                  >满意度</span
+                >
               </div>
             </div>
           </div>
 
           <!-- 生态链接 -->
-          <div class="footer-section">
-            <div class="section-header">
-              <h3 class="section-title linear-text">ECOSYSTEM</h3>
+          <div class="footer-section relative">
+            <div class="section-header mb-6">
+              <h3
+                class="section-title linear-text text-xl font-bold tracking-wide m-0 mb-4"
+              >
+                ECOSYSTEM
+              </h3>
             </div>
-            <div class="link-grid">
-              <a href="https://vuejs.org" class="footer-link" target="_blank">
-                <span class="link-icon">⚡</span>
-                <span class="link-text">Vue.js</span>
-                <span class="link-desc">渐进式框架</span>
+            <div class="link-grid flex flex-col gap-4">
+              <a
+                href="https://vuejs.org"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
+                <span class="link-icon text-xl flex-shrink-0">⚡</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Vue.js</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >渐进式框架</span
+                >
               </a>
-              <a href="https://vitejs.dev" class="footer-link" target="_blank">
-                <span class="link-icon">🚀</span>
-                <span class="link-text">Vite</span>
-                <span class="link-desc">构建工具</span>
+              <a
+                href="https://vitejs.dev"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
+                <span class="link-icon text-xl flex-shrink-0">🚀</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Vite</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >构建工具</span
+                >
               </a>
               <a
                 href="https://www.typescriptlang.org"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">📘</span>
-                <span class="link-text">TypeScript</span>
-                <span class="link-desc">类型安全</span>
+                <span class="link-icon text-xl flex-shrink-0">📘</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >TypeScript</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >类型安全</span
+                >
               </a>
               <a
                 href="https://pinia.vuejs.org"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">🍍</span>
-                <span class="link-text">Pinia</span>
-                <span class="link-desc">状态管理</span>
+                <span class="link-icon text-xl flex-shrink-0">🍍</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Pinia</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >状态管理</span
+                >
               </a>
             </div>
           </div>
 
           <!-- 社区链接 -->
-          <div class="footer-section">
-            <div class="section-header">
-              <h3 class="section-title linear-text">COMMUNITY</h3>
+          <div class="footer-section relative">
+            <div class="section-header mb-6">
+              <h3
+                class="section-title linear-text text-xl font-bold tracking-wide m-0 mb-4"
+              >
+                COMMUNITY
+              </h3>
             </div>
-            <div class="link-grid">
+            <div class="link-grid flex flex-col gap-4">
               <a
                 href="https://github.com/element-plus/element-plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">🐙</span>
-                <span class="link-text">GitHub</span>
-                <span class="link-desc">源码仓库</span>
+                <span class="link-icon text-xl flex-shrink-0">🐙</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >GitHub</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >源码仓库</span
+                >
               </a>
               <a
                 href="https://discord.gg/element-plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">💬</span>
-                <span class="link-text">Discord</span>
-                <span class="link-desc">实时交流</span>
+                <span class="link-icon text-xl flex-shrink-0">💬</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Discord</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >实时交流</span
+                >
               </a>
               <a
                 href="https://twitter.com/element_plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">🐦</span>
-                <span class="link-text">Twitter</span>
-                <span class="link-desc">最新动态</span>
+                <span class="link-icon text-xl flex-shrink-0">🐦</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Twitter</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >最新动态</span
+                >
               </a>
               <a
                 href="https://stackoverflow.com/questions/tagged/element-plus"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">📚</span>
-                <span class="link-text">Stack Overflow</span>
-                <span class="link-desc">问题解答</span>
+                <span class="link-icon text-xl flex-shrink-0">📚</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Stack Overflow</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >问题解答</span
+                >
               </a>
             </div>
           </div>
 
           <!-- 友情链接 -->
-          <div class="footer-section">
-            <div class="section-header">
-              <h3 class="section-title linear-text">PARTNERS</h3>
+          <div class="footer-section relative">
+            <div class="section-header mb-6">
+              <h3
+                class="section-title linear-text text-xl font-bold tracking-wide m-0 mb-4"
+              >
+                PARTNERS
+              </h3>
             </div>
-            <div class="link-grid">
-              <a href="https://antdv.com" class="footer-link" target="_blank">
-                <span class="link-icon">🐜</span>
-                <span class="link-text">Ant Design Vue</span>
-                <span class="link-desc">企业级UI</span>
+            <div class="link-grid flex flex-col gap-4">
+              <a
+                href="https://antdv.com"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
+                <span class="link-icon text-xl flex-shrink-0">🐜</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Ant Design Vue</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >企业级UI</span
+                >
               </a>
-              <a href="https://naiveui.com" class="footer-link" target="_blank">
-                <span class="link-icon">🌟</span>
-                <span class="link-text">Naive UI</span>
-                <span class="link-desc">现代组件库</span>
+              <a
+                href="https://naiveui.com"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
+                <span class="link-icon text-xl flex-shrink-0">🌟</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Naive UI</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >现代组件库</span
+                >
               </a>
-              <a href="https://quasar.dev" class="footer-link" target="_blank">
-                <span class="link-icon">💎</span>
-                <span class="link-text">Quasar</span>
-                <span class="link-desc">全栈框架</span>
+              <a
+                href="https://quasar.dev"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
+                target="_blank"
+              >
+                <span class="link-icon text-xl flex-shrink-0">💎</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >Quasar</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >全栈框架</span
+                >
               </a>
               <a
                 href="https://primevue.org"
-                class="footer-link"
+                class="footer-link flex items-center gap-3 p-3 rounded-2 text-white no-underline transition-all duration-300 relative overflow-hidden backdrop-blur-[15px] hover:transform hover:translate-x-2 hover:scale-102"
                 target="_blank"
               >
-                <span class="link-icon">🎨</span>
-                <span class="link-text">PrimeVue</span>
-                <span class="link-desc">丰富组件</span>
+                <span class="link-icon text-xl flex-shrink-0">🎨</span>
+                <span
+                  class="link-text font-semibold text-sm flex-1 text-white/90"
+                  >PrimeVue</span
+                >
+                <span class="link-desc text-xs text-white/60 flex-shrink-0"
+                  >丰富组件</span
+                >
               </a>
             </div>
           </div>
         </div>
 
         <!-- 底部版权信息 -->
-        <div class="footer-bottom">
+        <div class="footer-bottom mt-8">
           <div class="footer-divider" />
-          <div class="footer-copyright">
-            <div class="copyright-left">
-              <span class="copyright-text linear-text"
+          <div class="footer-copyright flex justify-between items-center py-6">
+            <div class="copyright-left flex flex-col gap-2">
+              <span class="copyright-text linear-text text-sm font-semibold"
                 >© 2024 ELEMENT PLUS X</span
               >
-              <span class="copyright-desc">ALL RIGHTS RESERVED</span>
+              <span
+                class="copyright-desc text-xs text-white/40 font-semibold tracking-wide"
+                >ALL RIGHTS RESERVED</span
+              >
             </div>
-            <div class="copyright-right">
-              <span class="version-badge">
-                <span class="version-label">VERSION</span>
-                <span class="version-number linear-text">2.0.0</span>
+            <div class="copyright-right flex items-center">
+              <span class="version-badge flex flex-col items-end gap-1">
+                <span
+                  class="version-label text-xs text-white/40 font-semibold tracking-wide"
+                  >VERSION</span
+                >
+                <span class="version-number linear-text text-xl font-extrabold"
+                  >2.0.0</span
+                >
               </span>
             </div>
           </div>
@@ -397,51 +670,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.opulous-layout {
-  min-height: 100vh;
-  background:
-    linear-gradient(
-      135deg,
-      #0f0f23 0%,
-      #1a1a2e 20%,
-      #16213e 40%,
-      #2d1b69 60%,
-      #4a148c 80%,
-      #6a1b9a 100%
-    ),
-    radial-gradient(
-      ellipse at top left,
-      rgba(99, 102, 241, 0.12) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at bottom right,
-      rgba(139, 92, 246, 0.12) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse at center,
-      rgba(59, 130, 246, 0.08) 0%,
-      transparent 70%
-    );
-  background-size:
-    100% 100%,
-    80% 80%,
-    80% 80%,
-    60% 60%;
-  background-attachment: fixed;
-  animation: layoutGradientShift 25s ease-in-out infinite;
-  color: #fff;
-  font-family:
-    'Inter',
-    'SF Pro Display',
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
-  overflow-x: hidden;
-  position: relative;
-}
-
+/* 保留必要的动画和复杂渐变 */
 @keyframes layoutGradientShift {
   0%,
   100% {
@@ -472,30 +701,6 @@ onMounted(() => {
       40% 40%,
       20% 80%;
   }
-}
-
-/* Linear背景装饰 */
-.linear-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.geometric-patterns {
-  position: absolute;
-  inset: 0;
-}
-
-/* 动态背景 */
-.music-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
 }
 
 .linear-gradient-bg {
@@ -552,11 +757,6 @@ onMounted(() => {
       100% 100%,
       70% 30%;
   }
-}
-
-.particle-field {
-  position: absolute;
-  inset: 0;
 }
 
 .geometric-shape {
@@ -618,19 +818,8 @@ onMounted(() => {
   }
 }
 
-/* 移除音频相关样式，使用Linear风格 */
-
-/* 导航栏 */
+/* 导航栏背景和边框 */
 .opulous-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 5vw;
   background:
     linear-gradient(
       135deg,
@@ -648,7 +837,6 @@ onMounted(() => {
       rgba(139, 92, 246, 0.1) 0%,
       transparent 50%
     );
-  backdrop-filter: blur(30px);
   border-bottom: 1px solid;
   border-image: linear-gradient(
       90deg,
@@ -657,42 +845,32 @@ onMounted(() => {
       rgba(59, 130, 246, 0.3)
     )
     1;
-  z-index: 100;
   box-shadow:
     0 4px 30px rgba(15, 15, 35, 0.8),
     0 0 20px rgba(99, 102, 241, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.opulous-logo {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.opulous-logo-icon {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* .linear-logo-x {
+/* Logo渐变动画 */
+.linear-logo-x {
   position: relative;
   display: inline-block;
   font-size: 2rem;
   font-weight: 800;
-  font-family:
-    'Inter',
-    'SF Pro Display',
-    -apple-system,
-    BlinkMacSystemFont,
-    sans-serif;
   background:
-    linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #3b82f6 50%, #ec4899 75%, #6366f1 100%),
-    radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    linear-gradient(
+      135deg,
+      #6366f1 0%,
+      #8b5cf6 25%,
+      #3b82f6 50%,
+      #ec4899 75%,
+      #6366f1 100%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 70%
+    );
   background-size:
     200% 200%,
     100% 100%;
@@ -701,7 +879,7 @@ onMounted(() => {
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 0 25px rgba(99, 102, 241, 0.5));
   animation: logoGradientFlow 6s ease-in-out infinite;
-} */
+}
 
 @keyframes logoGradientFlow {
   0%,
@@ -717,41 +895,7 @@ onMounted(() => {
   }
 }
 
-/* Linear风格，移除故障动画 */
-
-.opulous-logo-text {
-  font-size: 1.6rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, #00d4ff, #ffffff);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.opulous-menu {
-  display: flex;
-  gap: 3rem;
-  z-index: 101;
-}
-
-.opulous-menu a {
-  color: rgba(255, 255, 255, 0.9);
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 600;
-  position: relative;
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  padding: 0.5rem 0;
-}
-
-.opulous-menu a:hover {
-  color: #6366f1;
-}
-
+/* 导航链接悬停效果 */
 .opulous-menu a::after {
   content: '';
   position: absolute;
@@ -769,48 +913,14 @@ onMounted(() => {
   box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
 }
 
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 102;
-}
-
-.menu-toggle span {
-  display: block;
-  width: 26px;
-  height: 2px;
-  background: #6366f1;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 5px rgba(99, 102, 241, 0.3);
-}
-
-/* 主内容区 */
-.opulous-main {
-  position: relative;
-  z-index: 10;
-  padding-top: 80px;
-  min-height: calc(100vh - 80px);
-  background: transparent;
-}
-
 /* 响应式设计 */
 @media (max-width: 768px) {
   .opulous-header {
-    padding: 0 4vw;
-    height: 70px;
+    @apply px-4vw h-17.5;
   }
 
   .opulous-main {
-    padding-top: 70px;
-    min-height: calc(100vh - 70px);
-  }
-
-  .opulous-logo-text {
-    font-size: 1.3rem;
+    @apply pt-17.5 min-h-[calc(100vh-70px)];
   }
 
   .opulous-menu {
@@ -835,7 +945,7 @@ onMounted(() => {
   }
 
   .menu-toggle {
-    display: flex;
+    @apply flex;
   }
 
   .menu-toggle span:nth-child(1) {
@@ -861,21 +971,15 @@ onMounted(() => {
 
 @media (max-width: 480px) {
   .opulous-header {
-    padding: 0 3vw;
-  }
-
-  .opulous-logo-text {
-    font-size: 1.1rem;
+    @apply px-3vw;
   }
 
   .opulous-logo-icon {
-    width: 35px;
-    height: 35px;
+    @apply w-8.75 h-8.75;
   }
 
   .opulous-menu {
-    width: 85vw;
-    padding: 2rem 1.5rem;
+    @apply w-85vw px-6 py-8;
   }
 }
 
@@ -897,9 +1001,8 @@ onMounted(() => {
   background: transparent !important;
 }
 
-/* Footer - Linear风格 */
+/* Footer背景和渐变线条 */
 .linear-footer {
-  position: relative;
   background:
     linear-gradient(
       135deg,
@@ -925,30 +1028,9 @@ onMounted(() => {
       rgba(59, 130, 246, 0.3)
     )
     1;
-  margin-top: 4rem;
-  overflow: hidden;
-  backdrop-filter: blur(25px);
   box-shadow:
     0 -4px 30px rgba(15, 15, 35, 0.8),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
-}
-
-.footer-linear-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.footer-gradient-lines {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .gradient-line {
@@ -1007,33 +1089,8 @@ onMounted(() => {
   }
 }
 
-.footer-container {
-  position: relative;
-  z-index: 10;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 2rem 2rem;
-}
-
-.footer-main {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-}
-
-.footer-section {
-  position: relative;
-}
-
-.section-header {
-  margin-bottom: 1.5rem;
-}
-
+/* 标题渐变动画 */
 .section-title {
-  position: relative;
-  font-size: 1.2rem;
-  font-weight: 700;
   background: linear-gradient(
     135deg,
     #6366f1 0%,
@@ -1045,8 +1102,6 @@ onMounted(() => {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 1px;
-  margin: 0 0 1rem 0;
   animation: sectionTitleGradient 7s ease-in-out infinite;
   filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.3));
 }
@@ -1089,30 +1144,6 @@ onMounted(() => {
   }
 }
 
-.section-desc {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  margin-bottom: 2rem;
-}
-
-.project-stats {
-  display: flex;
-  gap: 2rem;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  position: relative;
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 800;
-  margin-bottom: 0.5rem;
-}
-
 .linear-number {
   background: linear-gradient(
     135deg,
@@ -1141,26 +1172,8 @@ onMounted(() => {
   }
 }
 
-.stat-label {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* 链接网格 */
-.link-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
+/* Footer链接样式 */
 .footer-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
   background:
     linear-gradient(
       135deg,
@@ -1185,18 +1198,12 @@ onMounted(() => {
       rgba(59, 130, 246, 0.25)
     )
     1;
-  border-radius: 8px;
-  color: #ffffff;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-  backdrop-filter: blur(15px);
   box-shadow:
     0 2px 10px rgba(99, 102, 241, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
+/* Footer链接悬停效果 */
 .footer-link::before {
   content: '';
   position: absolute;
@@ -1250,29 +1257,7 @@ onMounted(() => {
     inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-.link-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.link-text {
-  font-weight: 600;
-  font-size: 0.9rem;
-  flex: 1;
-  color: rgba(255, 255, 255, 0.9);
-}
-
-.link-desc {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
-  flex-shrink: 0;
-}
-
-/* 底部版权区域 */
-.footer-bottom {
-  margin-top: 2rem;
-}
-
+/* Footer分割线 */
 .footer-divider {
   height: 2px;
   background:
@@ -1316,23 +1301,8 @@ onMounted(() => {
   }
 }
 
-.footer-copyright {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem 0;
-}
-
-.copyright-left {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
+/* 版权文本渐变 */
 .copyright-text {
-  position: relative;
-  font-size: 0.9rem;
-  font-weight: 600;
   background: linear-gradient(
     135deg,
     #6366f1 0%,
@@ -1359,36 +1329,8 @@ onMounted(() => {
   }
 }
 
-.copyright-desc {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
-.copyright-right {
-  display: flex;
-  align-items: center;
-}
-
-.version-badge {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.25rem;
-}
-
-.version-label {
-  font-size: 0.7rem;
-  color: rgba(255, 255, 255, 0.4);
-  font-weight: 600;
-  letter-spacing: 1px;
-}
-
+/* 版本号渐变 */
 .version-number {
-  position: relative;
-  font-size: 1.2rem;
-  font-weight: 800;
   background: linear-gradient(
     135deg,
     #6366f1 0%,
@@ -1419,99 +1361,147 @@ onMounted(() => {
 /* Footer 响应式设计 */
 @media (max-width: 1024px) {
   .footer-main {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    @apply grid-cols-2 gap-8;
   }
 
   .footer-section:first-child {
-    grid-column: 1 / -1;
+    @apply col-span-full;
   }
 
   .project-stats {
-    justify-content: center;
-    gap: 1.5rem;
+    @apply justify-center gap-6;
   }
 }
 
 @media (max-width: 768px) {
   .footer-container {
-    padding: 3rem 1rem 1.5rem;
+    @apply px-4 py-12 pb-6;
   }
 
   .footer-main {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin-bottom: 2rem;
+    @apply grid-cols-1 gap-10 mb-8;
   }
 
   .project-stats {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
+    @apply flex-col gap-4 items-center;
   }
 
   .stat-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    @apply flex items-center gap-4;
   }
 
   .stat-number {
-    font-size: 1.5rem;
-    margin-bottom: 0;
+    @apply text-2xl mb-0;
   }
 
   .footer-copyright {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
+    @apply flex-col gap-4 text-center;
   }
 
   .version-badge {
-    align-items: center;
-  }
-
-  .scan-line:nth-child(n + 5) {
-    display: none;
+    @apply items-center;
   }
 }
 
 @media (max-width: 480px) {
   .footer-container {
-    padding: 2rem 1rem 1rem;
+    @apply px-4 py-8 pb-4;
   }
 
   .section-title {
-    font-size: 1rem;
+    @apply text-base;
   }
 
   .section-desc {
-    font-size: 0.9rem;
+    @apply text-sm;
   }
 
   .footer-link {
-    padding: 0.6rem;
-    gap: 0.6rem;
+    @apply p-2.5 gap-2.5;
   }
 
   .link-text {
-    font-size: 0.85rem;
+    @apply text-sm;
   }
 
   .link-desc {
-    font-size: 0.75rem;
+    @apply text-xs;
   }
 
   .stat-number {
-    font-size: 1.3rem;
+    @apply text-xl;
   }
 
   .copyright-text {
-    font-size: 0.8rem;
+    @apply text-xs;
   }
 
   .version-number {
-    font-size: 1rem;
+    @apply text-base;
   }
+}
+
+/* 现代化导航栏样式 */
+.modern-header {
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 现代化 Logo 样式 */
+.modern-logo-x {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%);
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));
+  animation: modernLogoFlow 4s ease-in-out infinite;
+}
+
+@keyframes modernLogoFlow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* 导航项悬停效果 */
+.nav-item:hover {
+  transform: translateY(-1px);
+}
+
+/* GitHub 链接特殊样式 */
+.github-link:hover {
+  transform: translateY(-1px);
+}
+
+/* 语言切换按钮 */
+.language-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* 主题切换按钮 */
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* 移动端菜单动画 */
+.mobile-menu {
+  transform-origin: top;
+}
+
+.mobile-nav-item:hover {
+  transform: translateX(4px);
+}
+
+/* 品牌文字样式 */
+.brand-text span {
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 </style>

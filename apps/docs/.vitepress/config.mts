@@ -161,10 +161,10 @@ export default defineConfig({
       },
     },
     // 定义 footer 内容
-    footer: {
-      message: 'Released under the MIT License.',
-      copyright: `Copyright © Element-Plus-X ${new Date().getFullYear()}&nbsp;&nbsp;<a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2025057058号-1</a> `,
-    },
+    // footer: {
+    //   message: 'Released under the MIT License.',
+    //   copyright: `Copyright © Element-Plus-X ${new Date().getFullYear()}&nbsp;&nbsp;<a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2025057058号-1</a> `,
+    // },
 
     // 中文配置
     // 文档底部

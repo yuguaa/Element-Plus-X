@@ -70,44 +70,63 @@ const reviews = ref([
 
 <template>
   <!-- 社区评价区域 -->
-  <section class="reviews-section">
-    <div class="reviews-container">
-      <div class="reviews-header">
-        <h2 class="reviews-title">社区评价</h2>
-        <p class="reviews-subtitle">来自全球开发者的真实反馈</p>
+  <section class="reviews-section py-24 relative">
+    <div class="reviews-container max-w-6xl mx-auto px-8">
+      <div class="reviews-header text-center mb-16">
+        <h2 class="reviews-title text-5xl font-black m-0 mb-4">社区评价</h2>
+        <p class="reviews-subtitle text-lg text-white/70 m-0">
+          来自全球开发者的真实反馈
+        </p>
       </div>
 
       <!-- 瀑布流布局 -->
-      <div id="reviewsMasonry" class="reviews-masonry">
-        <div v-for="review in reviews" :key="review.id" class="review-card">
-          <div class="review-header">
-            <div class="reviewer-info">
-              <div class="reviewer-avatar">
+      <div
+        id="reviewsMasonry"
+        class="reviews-masonry grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8 items-start"
+      >
+        <div
+          v-for="review in reviews"
+          :key="review.id"
+          class="review-card backdrop-blur-5 border border-white/10 rounded-4 p-6 transition-all duration-300 cursor-pointer"
+        >
+          <div class="review-header mb-4">
+            <div class="reviewer-info flex items-center gap-4">
+              <div
+                class="reviewer-avatar w-12.5 h-12.5 rounded-full flex-center text-2xl border-2 border-white/10"
+              >
                 {{ review.avatar }}
               </div>
-              <div class="reviewer-details">
-                <h4 class="reviewer-name">
+              <div class="reviewer-details flex-1">
+                <h4
+                  class="reviewer-name text-lg font-semibold text-white m-0 mb-1"
+                >
                   {{ review.name }}
                 </h4>
-                <p class="reviewer-role">
+                <p class="reviewer-role text-sm text-white/60 m-0">
                   {{ review.role }} @ {{ review.company }}
                 </p>
               </div>
             </div>
           </div>
 
-          <div class="review-content">
-            <p class="review-text">
+          <div class="review-content mb-4">
+            <p class="review-text text-base leading-relaxed text-white/80 m-0">
               {{ review.content }}
             </p>
           </div>
 
-          <div class="review-footer">
-            <span class="review-date">{{ review.date }}</span>
-            <div class="review-actions">
-              <button class="like-btn">
-                <span class="like-icon">👍</span>
-                <span class="like-count">{{ review.likes }}</span>
+          <div
+            class="review-footer flex items-center justify-between pt-4 border-t border-white/10"
+          >
+            <span class="review-date text-sm text-white/50">{{
+              review.date
+            }}</span>
+            <div class="review-actions flex gap-2">
+              <button
+                class="like-btn flex items-center gap-1 bg-white/10 border border-white/20 rounded-5 px-3 py-1 text-white/70 text-sm cursor-pointer transition-all duration-300"
+              >
+                <span class="like-icon text-sm">👍</span>
+                <span class="like-count font-medium">{{ review.likes }}</span>
               </button>
             </div>
           </div>
@@ -130,21 +149,8 @@ const reviews = ref([
   position: relative;
 }
 
-.reviews-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-.reviews-header {
-  text-align: center;
-  margin-bottom: 4rem;
-}
-
+/* 标题渐变动画 */
 .reviews-title {
-  font-size: 3rem;
-  font-weight: 900;
-  margin: 0 0 1rem 0;
   background: linear-gradient(
     135deg,
     #ffffff 0%,
@@ -170,31 +176,13 @@ const reviews = ref([
   }
 }
 
-.reviews-subtitle {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0;
-}
-
-.reviews-masonry {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  align-items: start;
-}
-
+/* 卡片样式 */
 .review-card {
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.1) 0%,
     rgba(255, 255, 255, 0.05) 100%
   );
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-  cursor: pointer;
   animation: cardFadeIn 0.6s ease-out;
 }
 
@@ -222,92 +210,16 @@ const reviews = ref([
     0 10px 20px rgba(99, 102, 241, 0.1);
 }
 
-.review-header {
-  margin-bottom: 1rem;
-}
-
-.reviewer-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
+/* 头像渐变背景 */
 .reviewer-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   background: linear-gradient(
     135deg,
     rgba(99, 102, 241, 0.2),
     rgba(139, 92, 246, 0.2)
   );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  border: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-.reviewer-details {
-  flex: 1;
-}
-
-.reviewer-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: white;
-  margin: 0 0 0.25rem 0;
-}
-
-.reviewer-role {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  margin: 0;
-}
-
-.review-content {
-  margin-bottom: 1rem;
-}
-
-.review-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
-}
-
-.review-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.review-date {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-.review-actions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.like-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 0.25rem 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
+/* 点赞按钮悬停效果 */
 .like-btn:hover {
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(99, 102, 241, 0.3);
@@ -315,102 +227,88 @@ const reviews = ref([
   transform: scale(1.05);
 }
 
-.like-icon {
-  font-size: 0.9rem;
-}
-
-.like-count {
-  font-weight: 500;
-}
-
 /* 响应式设计 */
 @media (max-width: 768px) {
   .reviews-section {
-    padding: 4rem 0;
+    @apply py-16;
   }
 
   .reviews-container {
-    padding: 0 1rem;
+    @apply px-4;
   }
 
   .reviews-title {
-    font-size: 2rem;
+    @apply text-3xl;
   }
 
   .reviews-masonry {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    @apply grid-cols-1 gap-6;
   }
 
   .review-card {
-    padding: 1.25rem;
+    @apply p-5;
   }
 
   .reviewer-avatar {
-    width: 40px;
-    height: 40px;
-    font-size: 1.25rem;
+    @apply w-10 h-10 text-xl;
   }
 
   .reviewer-name {
-    font-size: 1rem;
+    @apply text-base;
   }
 
   .reviewer-role {
-    font-size: 0.8rem;
+    @apply text-xs;
   }
 
   .review-text {
-    font-size: 0.9rem;
+    @apply text-sm;
   }
 }
 
 @media (max-width: 480px) {
   .reviews-section {
-    padding: 3rem 0;
+    @apply py-12;
   }
 
   .reviews-title {
-    font-size: 1.5rem;
+    @apply text-2xl;
   }
 
   .reviews-subtitle {
-    font-size: 1rem;
+    @apply text-base;
   }
 
   .review-card {
-    padding: 1rem;
+    @apply p-4;
   }
 
   .reviewer-info {
-    gap: 0.75rem;
+    @apply gap-3;
   }
 
   .reviewer-avatar {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
+    @apply w-8.75 h-8.75 text-base;
   }
 
   .reviewer-name {
-    font-size: 0.9rem;
+    @apply text-sm;
   }
 
   .reviewer-role {
-    font-size: 0.75rem;
+    @apply text-xs;
   }
 
   .review-text {
-    font-size: 0.85rem;
+    @apply text-sm;
   }
 
   .review-date {
-    font-size: 0.75rem;
+    @apply text-xs;
   }
 
   .like-btn {
-    padding: 0.2rem 0.5rem;
-    font-size: 0.75rem;
+    @apply px-2 py-0.5 text-xs;
   }
 }
 </style>

@@ -84,17 +84,25 @@ onMounted(() => {
 
 <template>
   <!-- 特性区域 -->
-  <main class="features-area">
-    <h2 class="features-title">特性</h2>
-    <div class="features-grid">
-      <div v-for="(feature, i) in features" :key="i" class="feature-card">
-        <div class="feature-icon">
+  <main class="py-24 max-w-6xl mx-auto relative">
+    <h2 class="features-title text-5xl font-black text-center mb-16">特性</h2>
+    <div
+      class="features-grid grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 mt-12"
+    >
+      <div
+        v-for="(feature, i) in features"
+        :key="i"
+        class="feature-card relative rounded-5 p-10 px-8 backdrop-blur-[25px] border border-white/10 overflow-hidden cursor-pointer"
+      >
+        <div class="feature-icon text-6xl mb-6 inline-block">
           {{ feature.icon }}
         </div>
-        <h3 class="feature-title">
+        <h3 class="feature-title text-2xl font-bold mb-4 tracking-wider">
           {{ feature.title }}
         </h3>
-        <p class="feature-desc">
+        <p
+          class="feature-desc text-base leading-relaxed text-white/80 font-normal opacity-90"
+        >
           {{ feature.desc }}
         </p>
         <div class="feature-glow" />
@@ -104,19 +112,8 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 特性区域 */
-.features-area {
-  padding: 6rem 0;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-}
-
+/* 标题渐变动画 */
 .features-title {
-  font-size: 3rem;
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 4rem;
   background: linear-gradient(
     135deg,
     #ffffff 0%,
@@ -142,18 +139,14 @@ onMounted(() => {
   }
 }
 
-/* 为整个特性网格添加透视效果 */
+/* 特性网格透视效果 */
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
   perspective: 1200px;
   perspective-origin: center center;
 }
 
+/* 特性卡片样式 */
 .feature-card {
-  position: relative;
   background:
     linear-gradient(
       135deg,
@@ -165,12 +158,6 @@ onMounted(() => {
       rgba(99, 102, 241, 0.05) 0%,
       rgba(139, 92, 246, 0.05) 100%
     );
-  border-radius: 20px;
-  padding: 2.5rem 2rem;
-  backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-  cursor: pointer;
   transform-style: preserve-3d;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.2),
@@ -184,6 +171,7 @@ onMounted(() => {
     box-shadow 0.3s ease;
 }
 
+/* 卡片浮动动画 */
 @keyframes cardFloat {
   0%,
   100% {
@@ -194,6 +182,7 @@ onMounted(() => {
   }
 }
 
+/* 卡片悬停效果 */
 .feature-card:hover {
   border-color: rgba(99, 102, 241, 0.6);
   background:
@@ -216,14 +205,12 @@ onMounted(() => {
   animation-play-state: paused;
 }
 
+/* 图标样式和动画 */
 .feature-icon {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
   filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6))
     drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateZ(30px);
-  display: inline-block;
   text-shadow:
     0 0 10px rgba(255, 255, 255, 0.5),
     0 0 20px rgba(99, 102, 241, 0.4);
@@ -251,9 +238,8 @@ onMounted(() => {
     0 0 40px rgba(99, 102, 241, 0.6);
 }
 
+/* 特性标题样式 */
 .feature-title {
-  font-size: 1.5rem;
-  font-weight: 700;
   background: linear-gradient(
     135deg,
     #6366f1 0%,
@@ -266,8 +252,6 @@ onMounted(() => {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 1rem;
-  letter-spacing: 0.5px;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateZ(20px);
   animation: titleGradient 6s ease-in-out infinite;
@@ -283,15 +267,11 @@ onMounted(() => {
     0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* 特性描述样式 */
 .feature-desc {
-  font-size: 1rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.8);
-  font-weight: 400;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateZ(15px);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  opacity: 0.9;
 }
 
 .feature-card:hover .feature-desc {
@@ -303,6 +283,7 @@ onMounted(() => {
   opacity: 1;
 }
 
+/* 发光效果 */
 .feature-glow {
   position: absolute;
   top: -5px;
@@ -360,61 +341,57 @@ onMounted(() => {
 /* 响应式设计 */
 @media (max-width: 768px) {
   .features-area {
-    padding: 4rem 1rem;
+    @apply py-16 px-4;
   }
 
   .features-title {
-    font-size: 2rem;
-    margin-bottom: 3rem;
+    @apply text-3xl mb-12;
   }
 
   .features-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    @apply grid-cols-1 gap-6;
   }
 
   .feature-card {
-    padding: 2rem 1.5rem;
+    @apply p-8 px-6;
   }
 
   .feature-icon {
-    font-size: 2.5rem;
+    @apply text-4xl;
   }
 
   .feature-title {
-    font-size: 1.25rem;
+    @apply text-xl;
   }
 
   .feature-desc {
-    font-size: 0.9rem;
+    @apply text-sm;
   }
 }
 
 @media (max-width: 480px) {
   .features-area {
-    padding: 3rem 1rem;
+    @apply py-12 px-4;
   }
 
   .features-title {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    @apply text-2xl mb-8;
   }
 
   .feature-card {
-    padding: 1.5rem 1rem;
+    @apply p-6 px-4;
   }
 
   .feature-icon {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    @apply text-3xl mb-4;
   }
 
   .feature-title {
-    font-size: 1.1rem;
+    @apply text-lg;
   }
 
   .feature-desc {
-    font-size: 0.85rem;
+    @apply text-xs;
   }
 }
 </style>
