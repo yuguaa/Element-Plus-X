@@ -12,6 +12,22 @@ const valueStr = computed(() => senderRef.value?.$props.modelValue);
 onMounted(() => {
   showHeaderFlog.value = true;
   senderRef.value?.openHeader();
+  window.addEventListener('keydown', handleWindowKeydown);
+
+  nextTick(() => {
+    senderRef.value?.inputInstance?.addEventListener(
+      'keydown',
+      handleInputKeydown
+    );
+  });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleWindowKeydown);
+  senderRef.value?.inputInstance?.removeEventListener(
+    'keydown',
+    handleInputKeydown
+  );
 });
 
 function blur() {
@@ -52,6 +68,36 @@ function handleSelect(option: MentionOption, prefix: string) {
 
 function handleRecordingChange() {
   ElMessage.success(`RecordingChange`);
+}
+
+function handleWindowKeydown(e: KeyboardEvent) {
+  switch (e.key) {
+    case 'w':
+      ElMessage.success(`w 被按下，输入框不受影响`);
+      console.log('w 被按下');
+      break;
+    case 'a':
+      ElMessage.success(`a 被按下，输入框不受影响`);
+      console.log('a 被按下');
+      break;
+    case 's':
+      ElMessage.success(`s 被按下，输入框不受影响`);
+      console.log('s 被按下');
+      break;
+    case 'd':
+      ElMessage.success(`d 被按下，输入框不受影响`);
+      console.log('d 被按下');
+      break;
+  }
+}
+
+// 当弹框显示时，阻止输入框的部分按键事件，避免和提及弹框的全局自定义键盘事件冲突
+function handleInputKeydown(e: KeyboardEvent) {
+  console.log('e.key', e.key);
+
+  if (['w', 'a', 's', 'd'].includes(e.key)) {
+    e.preventDefault();
+  }
 }
 </script>
 
@@ -160,6 +206,12 @@ function handleRecordingChange() {
           >
             默认变体 自定义底部
           </div>
+        </template>
+
+        <!-- 自定义 提及弹框头部显示 -->
+        <template #trigger-header>
+          这里是自定义提及弹框的头部显示，你还可以自定义弹框内容。包括对弹框做一些按键控制的自定义操作。请尝试控制方向
+          w/a/s/d 这几个按键。
         </template>
       </MentionSender>
     </div>

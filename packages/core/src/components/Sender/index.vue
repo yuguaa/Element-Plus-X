@@ -51,11 +51,12 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:modelValue', val);
   }
 });
+
+const inputInstance = computed(() => inputRef.value?.ref);
 
 // 处理输入法组合状态
 const isComposing = ref(false);
@@ -80,8 +81,7 @@ const popoverVisible = computed({
     return props.triggerPopoverVisible;
   },
   set(value) {
-    if (props.readOnly || props.disabled)
-      return;
+    if (props.readOnly || props.disabled) return;
     emits('update:triggerPopoverVisible', value);
   }
 });
@@ -93,8 +93,7 @@ const triggerString = ref('');
 watch(
   () => internalValue.value,
   (newVal, oldVal) => {
-    if (isComposing.value)
-      return;
+    if (isComposing.value) return;
     // 触发逻辑：当输入值等于数组中的任意一个指令字符时触发
     // 确保 oldVal 是字符串类型
     const triggerStrings = props.triggerStrings || []; // 如果为 undefined，就使用空数组
@@ -163,19 +162,15 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false);
 function openHeader() {
-  if (!slots.header)
-    return false;
+  if (!slots.header) return false;
 
-  if (props.readOnly)
-    return false;
+  if (props.readOnly) return false;
 
   visiableHeader.value = true;
 }
 function closeHeader() {
-  if (!slots.header)
-    return;
-  if (props.readOnly)
-    return;
+  if (!slots.header) return;
+  if (props.readOnly) return;
   visiableHeader.value = false;
 }
 /* 头部显示隐藏 结束 */
@@ -185,8 +180,7 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -250,22 +244,19 @@ function submit() {
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly)
-    return;
+  if (props.readOnly) return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   inputRef.value.clear();
   internalValue.value = '';
 }
 
 // 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly)
-    return; // 直接返回，不执行后续逻辑
+  if (props.readOnly) return; // 直接返回，不执行后续逻辑
   const _resetSelectionRange = () => {
     const cursorPosition = e.target.selectionStart; // 获取光标位置
     const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
@@ -328,7 +319,7 @@ function focus(type = 'all') {
 function focusToStart() {
   if (inputRef.value) {
     // 获取底层的 textarea DOM 元素
-    const textarea = inputRef.value.$el.querySelector('textarea');
+    const textarea = inputRef.value.ref;
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
       textarea.setSelectionRange(0, 0); // 设置光标到最前方
@@ -340,7 +331,7 @@ function focusToStart() {
 function focusToEnd() {
   if (inputRef.value) {
     // 获取底层的 textarea DOM 元素
-    const textarea = inputRef.value.$el.querySelector('textarea');
+    const textarea = inputRef.value.ref;
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
       textarea.setSelectionRange(
@@ -371,13 +362,16 @@ defineExpose({
   submit,
   cancel,
   startRecognition,
-  stopRecognition
+  stopRecognition,
+  popoverVisible,
+  inputInstance
 });
 </script>
 
 <template>
   <div
     class="el-sender-wrap"
+    tabindex="-1"
     :style="{
       cursor: disabled ? 'not-allowed' : 'default',
       '--el-sender-trigger-popover-width': props.triggerPopoverWidth,
@@ -437,7 +431,7 @@ defineExpose({
           :placeholder="placeholder"
           :read-only="readOnly || disabled"
           :disabled="disabled"
-          @keydown.stop="handleKeyDown"
+          @keydown="handleKeyDown"
           @compositionstart="handleCompositionStart"
           @compositionend="handleCompositionEnd"
         />
@@ -528,11 +522,7 @@ defineExpose({
       popper-class="el-sender-trigger-popover"
       :teleported="false"
     >
-      <slot
-        name="trigger-popover"
-        :trigger-string="triggerString"
-        :readonly="props.readOnly"
-      >
+      <slot name="trigger-popover" :trigger-string="triggerString">
         当前触发的字符为：{{ `${triggerString}` }}
         在这里定义的内容，但注意这里的回车事件将会被 输入框 覆盖
       </slot>
