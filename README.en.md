@@ -112,33 +112,33 @@ app.mount('#app');
 
 ## 🌟 Implemented Components and Hooks
 
-| Component Name       | Description                                                                    | Documentation Link                                                       |
-| -------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------ |
-| `Typewriter`         | Typewriter animation component                                                 | [📄 Documentation](https://element-plus-x.com/components/typewriter/)    |
-| `Bubble`             | Extended bubble message component                                              | [📄 Documentation](https://element-plus-x.com/components/bubble/)        |
-| `BubbleList`         | Extended bubble message list component                                         | [📄 Documentation](https://element-plus-x.com/components/bubbleList/)    |
-| `Conversations`      | Extended conversation management component                                     | [📄 Documentation](https://element-plus-x.com/components/conversations/) |
-| `Welcome`            | Welcome component                                                              | [📄 Documentation](https://element-plus-x.com/components/welcome/)       |
-| `Prompts`            | Prompt set component                                                           | [📄 Documentation](https://element-plus-x.com/components/prompts/)       | <!-- 修正了原表格中Prompts后的多余空格 --> |
-| `FilesCard`          | File card component                                                            | [📄 Documentation](https://element-plus-x.com/components/filesCard/)     |
-| `Attachments`        | File attachment upload component                                               | [📄 Documentation](https://element-plus-x.com/components/attachments/)   |
-| `Sender`             | Intelligent input box (with voice interaction and built-in command operations) | [📄 Documentation](https://element-plus-x.com/components/sender/)        |
-| `MentionSender`      | Command input box (with mention list)                                          | [📄 Documentation](https://element-plus-x.com/components/mentionSender/) |
-| `Thinking`           | Extended "Thinking..." component                                               | [📄 Documentation](https://element-plus-x.com/components/thinking/)      |
-| `ThoughtChain`       | Thought chain component                                                        | [📄 Documentation](https://element-plus-x.com/components/thoughtChain/)  |
-| `useRecord`          | Browser-built voice recognition API Hooks                                      | [📄 Documentation](https://element-plus-x.com/components/useRecord/)     |
-| `useXStream`         | Stream mode interface Hooks                                                    | [📄 Documentation](https://element-plus-x.com/components/useXStream/)    |
-| `useSend & XRequest` | Split version of stream mode Hooks (extended)                                  | [📄 Documentation](https://element-plus-x.com/components/useSend/)       |
+| Component Name       | Description                                                                    | Documentation Link                                                          |
+| -------------------- | ------------------------------------------------------------------------------ | --------------------------------------------------------------------------- | ------------------------------------------ |
+| `Typewriter`         | Typewriter animation component                                                 | [📄 Documentation](https://element-plus-x.com/en/components/typewriter/)    |
+| `Bubble`             | Extended bubble message component                                              | [📄 Documentation](https://element-plus-x.com/en/components/bubble/)        |
+| `BubbleList`         | Extended bubble message list component                                         | [📄 Documentation](https://element-plus-x.com/en/components/bubbleList/)    |
+| `Conversations`      | Extended conversation management component                                     | [📄 Documentation](https://element-plus-x.com/en/components/conversations/) |
+| `Welcome`            | Welcome component                                                              | [📄 Documentation](https://element-plus-x.com/en/components/welcome/)       |
+| `Prompts`            | Prompt set component                                                           | [📄 Documentation](https://element-plus-x.com/en/components/prompts/)       | <!-- 修正了原表格中Prompts后的多余空格 --> |
+| `FilesCard`          | File card component                                                            | [📄 Documentation](https://element-plus-x.com/en/components/filesCard/)     |
+| `Attachments`        | File attachment upload component                                               | [📄 Documentation](https://element-plus-x.com/en/components/attachments/)   |
+| `Sender`             | Intelligent input box (with voice interaction and built-in command operations) | [📄 Documentation](https://element-plus-x.com/en/components/sender/)        |
+| `MentionSender`      | Command input box (with mention list)                                          | [📄 Documentation](https://element-plus-x.com/en/components/mentionSender/) |
+| `Thinking`           | Extended "Thinking..." component                                               | [📄 Documentation](https://element-plus-x.com/en/components/thinking/)      |
+| `ThoughtChain`       | Thought chain component                                                        | [📄 Documentation](https://element-plus-x.com/en/components/thoughtChain/)  |
+| `useRecord`          | Browser-built voice recognition API Hooks                                      | [📄 Documentation](https://element-plus-x.com/en/components/useRecord/)     |
+| `useXStream`         | Stream mode interface Hooks                                                    | [📄 Documentation](https://element-plus-x.com/en/components/useXStream/)    |
+| `useSend & XRequest` | Split version of stream mode Hooks (extended)                                  | [📄 Documentation](https://element-plus-x.com/en/components/useSend/)       |
 
 ## 🎯 Development Plan (Updated Weekly)
 
-🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan](https://element-plus-x.com/roadmap.html)**
+🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan](https://element-plus-x.com/en/roadmap.html)**
 
 ## 🤝 Contribute
 
 1. **Fork the repository** → 2. **Create a Feature branch** → 3. **Submit a Pull Request**
 
-Details can be moved 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)**
+Details can be moved 👉 **[📄 Documentation](https://element-plus-x.com/en/components**
 
 We welcome:
 

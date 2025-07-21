@@ -132,13 +132,13 @@ app.mount('#app');
 
 ## 🎯 Development Plan (Updated Weekly)
 
-🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan](https://element-plus-x.com/roadmap.html)**
+🎀 We will collect everyone's encountered problems and demand scenarios in various aspects such as issues and communication groups, and develop short-term and long-term development plans. For more details, please move on 👉 **[Development Plan](https://element-plus-x.com/en/roadmap.html)**
 
 ## 🤝 Contribute
 
 1. **Fork the repository** → 2. **Create a Feature branch** → 3. **Submit a Pull Request**
 
-Details can be moved 👉 **[Development Guide](https://element-plus-x.com/guide/develop.html)**
+Details can be moved 👉 **[Development Guide](https://element-plus-x.com/en/guide/develop.html)**
 
 We welcome:
 
