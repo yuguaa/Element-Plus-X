@@ -2,7 +2,7 @@
 import type { ElxRunCodeHeaderTypes, ElxRunCodeProps } from './type';
 import { CloseBold } from '@element-plus/icons-vue';
 import { useVModel } from '@vueuse/core';
-import { h } from 'vue';
+import { computed, h, ref, toValue } from 'vue';
 import { useMarkdownContext } from '../MarkdownProvider';
 import { SELECT_OPTIONS_ENUM } from './components/options';
 import RunCodeContent from './components/run-code-content.vue';

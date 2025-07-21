@@ -7,7 +7,7 @@ import type {
 import type { RawProps } from './types';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
-import { h } from 'vue';
+import { h, ref } from 'vue';
 import CopyCodeButton from './copy-code-button.vue';
 import RunCodeButton from './run-code-button.vue';
 
