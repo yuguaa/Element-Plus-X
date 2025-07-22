@@ -8,6 +8,8 @@ title: 提交模式
 ::: info
 - `submitType='enter'` 设置 回车提交，`'shift + Enter'` 换行。
 - `submitType='shiftEnter'` 设置 `'shift + Enter'` 提交，回车换行。
+- `submitType='cmdOrCtrlEnter'` 设置 `'cmd + Enter'` 或 `'ctrl + Enter'` 提交，回车换行。
+- `submitType='altEnter'` 设置 `'alt + Enter'` 提交，回车换行。
 :::
 </docs>
 
@@ -31,15 +33,18 @@ function handleSubmit(value: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <el-radio-group v-model="activeName">
-      <el-radio-button value="enter">
-        enter
-      </el-radio-button>
-      <el-radio-button value="shiftEnter">
-        shiftEnter
-      </el-radio-button>
+      <el-radio-button value="enter"> enter </el-radio-button>
+      <el-radio-button value="shiftEnter"> shiftEnter </el-radio-button>
+      <el-radio-button value="cmdOrCtrlEnter"> shiftEnter </el-radio-button>
+      <el-radio-button value="altEnter"> shiftEnter </el-radio-button>
     </el-radio-group>
-    <Sender v-model="senderValue" :submit-type="activeName" :loading="senderLoading" @submit="handleSubmit" />
+    <Sender
+      v-model="senderValue"
+      :submit-type="activeName"
+      :loading="senderLoading"
+      @submit="handleSubmit"
+    />
   </div>
 </template>

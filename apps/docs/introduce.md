@@ -105,7 +105,7 @@ app.mount('#app');
 ```html
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
-<script src="https://unpkg.com/vue-element-plus-x@1.0.81/dist/umd/index.js"></script>
+<script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
 ```
 
 ## 🌟 已实现 组件 和 Hooks
@@ -148,7 +148,7 @@ app.mount('#app');
 ## 👥 社区支持
 
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-07-14.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-07-21.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
 
 <p>交流群如果过期或者失效，可以添加作者 vx</p>

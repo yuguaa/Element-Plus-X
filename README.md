@@ -41,14 +41,16 @@
 
 ## 📢 快速链接
 
-| 资源类型     | <div style="width: 300px;" >链接</div>                                                                   |
-| ------------ | -------------------------------------------------------------------------------------------------------- |
-| **文档**     | [📖 开发文档](https://element-plus-x.com)                                                                |
-| **在线演示** | [👁️ 在线预览](https://v.element-plus-x.com)                                                              |
-| **代码仓库** | [🐙 GitHub](https://github.com/HeJiaYue520/Element-Plus-X)                                               |
-| **NPM 包**   | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                               |
-| **问题反馈** | [🐛 提交 Bug](https://github.com/HeJiaYue520/Element-Plus-X/issues)                                      |
-| **交流讨论** | [🐒 交流群](https://element-plus-x.com/introduce.html#%F0%9F%91%A5-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81) |
+| 资源类型          | <div style="width: 300px;" >链接</div>                                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| **文档**          | [📖 开发文档](https://element-plus-x.com)                                                                                  |
+| **在线演示**      | [👁️ 在线预览](https://v.element-plus-x.com)                                                                                |
+| **代码仓库**      | [🐙 GitHub](https://github.com/element-plus-x/Element-Plus-X) <br> [🚠 Gitee](https://gitee.com/he-jiayue/element-plus-x)  |
+| **NPM 包**        | [📦 npm](https://www.npmjs.com/package/vue-element-plus-x)                                                                 |
+| **问题反馈**      | [🐛 提交 Bug](https://github.com/element-plus-x/Element-Plus-X/issues)                                                     |
+| **交流讨论**      | [🐒 交流群](https://github.com/element-plus-x/Element-Plus-X?tab=readme-ov-file#-%E7%A4%BE%E5%8C%BA%E6%94%AF%E6%8C%81)     |
+| **模版项目 预览** | [👀 在线预览](https://chat.element-plus-x.com/)                                                                            |
+| **模版项目 源码** | [🐙 GitHub](https://github.com/HeJiaYue520/ruoyi-element-ai) <br> [🚠 Gitee](https://gitee.com/he-jiayue/ruoyi-element-ai) |
 
 ## 🛠️ 核心特性
 
@@ -158,7 +160,7 @@ app.mount('#app');
 ## 👥 社区支持
 
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-07-14.png" alt="微信交流群" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-07-21.png" alt="微信交流群" width="180" style="margin: 20px;" />
 <p>加入微信交流群，获取最新动态和技术支持</p>
 
 <p>交流群如果过期或者失效，可以添加作者 vx</p>

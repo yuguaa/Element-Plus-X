@@ -2,6 +2,7 @@
 import type { TriggerEvent } from '@components/Sender/types.d.ts';
 import { CircleClose, Delete, Position } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
+import { onUnmounted } from 'vue';
 import { Sender } from '../../components';
 
 const senderRef = ref<InstanceType<typeof Sender>>();
@@ -13,6 +14,19 @@ const valueStr = computed(() => senderRef.value?.$props.modelValue);
 onMounted(() => {
   showHeaderFlog.value = true;
   senderRef.value?.openHeader();
+  window.addEventListener('keydown', handleWindowKeydown);
+  senderRef.value?.inputInstance.addEventListener(
+    'keydown',
+    handleInputKeydown
+  );
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleWindowKeydown);
+  senderRef.value?.inputInstance.removeEventListener(
+    'keydown',
+    handleInputKeydown
+  );
 });
 
 function blur() {
@@ -44,12 +58,42 @@ function handleCancel() {
 }
 
 function handleTrigger(value: TriggerEvent) {
+  console.log(value);
+
   ElMessage.success(
-    `Trigger ${value.oldValue}, ${value.newValue}, ${value.isOpen}, `
+    `Trigger 旧值：${value.oldValue}, 新值：${value.newValue}, 弹框是否打开：${value.isOpen}`
   );
 }
 function handleRecordingChange() {
   ElMessage.success(`RecordingChange`);
+}
+
+function handleWindowKeydown(e: KeyboardEvent) {
+  switch (e.key) {
+    case 'w':
+      ElMessage.success(`w 被按下，输入框不受影响`);
+      console.log('w 被按下');
+      break;
+    case 'a':
+      ElMessage.success(`a 被按下，输入框不受影响`);
+      console.log('a 被按下');
+      break;
+    case 's':
+      ElMessage.success(`s 被按下，输入框不受影响`);
+      console.log('s 被按下');
+      break;
+    case 'd':
+      ElMessage.success(`d 被按下，输入框不受影响`);
+      console.log('d 被按下');
+      break;
+  }
+}
+
+// 当弹框显示时，阻止输入框的部分按键事件，避免和提及弹框的全局自定义键盘事件冲突
+function handleInputKeydown(e: KeyboardEvent) {
+  if (['w', 'a', 's', 'd'].includes(e.key)) {
+    e.preventDefault();
+  }
 }
 </script>
 
@@ -158,12 +202,19 @@ function handleRecordingChange() {
             默认变体 自定义底部
           </div>
         </template>
+
+        <!-- 自定义 提及弹框 -->
+        <template #trigger-popover="{ triggerString }">
+          当前触发的字符为：{{ `${triggerString}` }}
+          这是我自定义的弹框，在这里你可以自定义弹框内容。包括对弹框做一些按键控制的自定义操作。请尝试控制方向
+          w/a/s/d 这几个按键。
+        </template>
       </Sender>
     </div>
   </div>
 </template>
 
-<style module lang="less">
+<style scoped lang="scss">
 .sender-wrapper {
   width: 100%;
   height: 95vh;

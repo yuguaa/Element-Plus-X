@@ -2,6 +2,8 @@
 import type { ElxRunCodeContentProps } from '../type';
 import DOMPurify from 'dompurify';
 import _ from 'lodash';
+import { computed, nextTick, onMounted, ref, watch } from 'vue';
+import HighLightCode from '../../HighLightCode/index.vue';
 import { useMarkdownContext } from '../../MarkdownProvider';
 import CustomLoading from './custom-loading.vue';
 import { SELECT_OPTIONS_ENUM } from './options';
@@ -146,19 +148,11 @@ onMounted(() => {
             <code
                 class="elx-run-code-content-code"
                 :class="codeClass"
-                :style="{
-                    display: 'block',
-                    overflowX: 'auto'
-                }"
             >
-            <div
-                v-for="(line, index) in props.code"
-                :key="index"
-                class="code-line"
-            >
-                <span class="line-number">{{ index + 1 }}</span>
-                <span class="line-content" v-html="line" />
-            </div>
+              <HighLightCode
+              :lang="props.lang"
+              :code="props.code"
+              />
             </code>
         </div>
     </pre>

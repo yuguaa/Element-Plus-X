@@ -75,6 +75,9 @@ const isSubmitDisabled = computed(() => {
   return !internalValue.value;
 });
 
+const popoverVisible = computed(() => inputRef.value?.dropdownVisible);
+const inputInstance = computed(() => inputRef.value?.input.ref);
+
 /* 内容容器聚焦 开始 */
 function onContentMouseDown(e: MouseEvent) {
   // 点击容器后设置输入框的聚焦，会触发 &:focus-within 样式
@@ -180,38 +183,41 @@ function clear() {
   internalValue.value = '';
 }
 
-// 在这判断组合键的回车键 (目前支持两种模式)
+// 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
   if (props.readOnly) return; // 直接返回，不执行后续逻辑
-  if (props.submitType === 'enter') {
-    // 判断是否按下了 Shift + 回车键
-    if (e.shiftKey && e.keyCode === 13) {
-      e.preventDefault();
-      const cursorPosition = e.target.selectionStart; // 获取光标位置
-      const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
-      const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
-      internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
-      e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
-    } else if (e.keyCode === 13 && !e.shiftKey) {
-      // 阻止掉 Enter 的默认换行行为
-      e.preventDefault();
-      // 触发提交功能
-      submit();
-    }
-  } else if (props.submitType === 'shiftEnter') {
-    // 判断是否按下了 Shift + 回车键
-    if (e.shiftKey && e.keyCode === 13) {
-      // 阻止掉 Enter 的默认换行行为
-      e.preventDefault();
-      // 触发提交功能
-      submit();
-    } else if (e.keyCode === 13 && !e.shiftKey) {
-      e.preventDefault();
-      const cursorPosition = e.target.selectionStart; // 获取光标位置
-      const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
-      const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
-      internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
-      e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
+  const _resetSelectionRange = () => {
+    const cursorPosition = e.target.selectionStart; // 获取光标位置
+    const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
+    const textAfterCursor = internalValue.value.slice(cursorPosition); // 光标后的文本
+    internalValue.value = `${textBeforeCursor}\n${textAfterCursor}`; // 插入换行符
+    e.target.setSelectionRange(cursorPosition + 1, cursorPosition + 1); // 更新光标位置
+  };
+  // 是否按下组合键
+  let _isComKeyDown = false;
+  switch (props.submitType) {
+    case 'cmdOrCtrlEnter':
+      _isComKeyDown = e.metaKey || e.ctrlKey; // Mac 下使用 Command 键，Windows 下使用 Ctrl 键
+      break;
+    case 'shiftEnter':
+      _isComKeyDown = e.shiftKey; // Shift + Enter
+      break;
+    case 'altEnter':
+      _isComKeyDown = e.altKey; // Alt + Enter
+      break;
+    case 'enter':
+      _isComKeyDown = e.shiftKey || e.metaKey || e.ctrlKey || e.altKey; // 只处理 Enter 键
+      break;
+    default:
+      _isComKeyDown = false; // 默认不处理组合键
+      break;
+  }
+  if (e.keyCode === 13) {
+    e.preventDefault();
+    if (props.submitType === 'enter') {
+      _isComKeyDown ? _resetSelectionRange() : submit();
+    } else {
+      _isComKeyDown ? submit() : _resetSelectionRange();
     }
   }
 }
@@ -242,7 +248,7 @@ function focus(type = 'all') {
 function focusToStart() {
   if (inputRef.value) {
     // 获取底层的 textarea DOM 元素
-    const textarea = inputRef.value.input.$el.querySelector('textarea');
+    const textarea = inputRef.value.input.ref;
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
       textarea.setSelectionRange(0, 0); // 设置光标到最前方
@@ -254,7 +260,7 @@ function focusToStart() {
 function focusToEnd() {
   if (inputRef.value) {
     // 获取底层的 textarea DOM 元素
-    const textarea = inputRef.value.input.$el.querySelector('textarea');
+    const textarea = inputRef.value.input.ref;
     if (textarea) {
       textarea.focus(); // 聚焦到输入框
       textarea.setSelectionRange(
@@ -286,13 +292,16 @@ defineExpose({
   submit,
   cancel,
   startRecognition,
-  stopRecognition
+  stopRecognition,
+  popoverVisible,
+  inputInstance
 });
 </script>
 
 <template>
   <div
     class="el-sender-wrap"
+    tabindex="-1"
     :style="{ cursor: disabled ? 'not-allowed' : 'default' }"
   >
     <div
@@ -357,7 +366,7 @@ defineExpose({
           :split="props.triggerSplit"
           :placement="props.triggerPopoverPlacement"
           :offset="props.triggerPopoverOffset"
-          @keydown.stop="handleKeyDown"
+          @keydown="handleKeyDown"
           @search="handleSearch"
           @select="handleSelect"
         >
