@@ -2,7 +2,6 @@ import type { Plugin, PluginOption } from 'vite';
 // import path from 'node:path'
 // import { fileURLToPath } from 'node:url'
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import Unocss from 'unocss/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import ElementPlus from 'unplugin-element-plus/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
@@ -39,9 +38,7 @@ export default defineConfig({
       // 我们让他自动搜索，我们所有项目中的demos下的vue文件
       // glob: ['**/demos/*.vue'],
     }) as PluginOption,
-
     vueJsx() as PluginOption,
-    Unocss() as PluginOption,
     // eslint-disable-next-line ts/no-unsafe-call
     eslintPlugin({
       include: ['packages/**/*.js', 'packages/**/*.vue', 'packages/**/*.ts'], // 根据你的项目结构调整路径
