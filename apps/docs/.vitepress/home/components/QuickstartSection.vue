@@ -63,7 +63,7 @@ async function copyInstallCommand() {
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 /* 快速开始区域背景 */
 .quickstart-section {
   background: linear-gradient(
@@ -117,7 +117,7 @@ async function copyInstallCommand() {
   }
 
   .install-command {
-    @apply min-w-auto w-full px-4 py-3 text-sm;
+    @apply w-full px-4 py-3 text-sm;
   }
 }
 

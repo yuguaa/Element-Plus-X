@@ -259,7 +259,7 @@ function handleClick() {
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 /* 背景装饰动画 */
 .gradient-orb {
   position: absolute;

@@ -136,7 +136,7 @@ const reviews = ref([
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 /* 社区评价区域 */
 .reviews-section {
   padding: 6rem 0;

@@ -25,7 +25,7 @@
   </section>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 /* 横幅背景和动画 */
 .hero-banner {
   background: linear-gradient(

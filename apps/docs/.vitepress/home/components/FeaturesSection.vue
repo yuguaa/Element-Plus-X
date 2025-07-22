@@ -111,7 +111,7 @@ onMounted(() => {
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="less">
 /* 标题渐变动画 */
 .features-title {
   background: linear-gradient(
