@@ -88,6 +88,10 @@
 
 <demo src="./demos/focus.vue"></demo>
 
+### 黏贴文件
+
+<demo src="./demos/pasteFile.vue"></demo>
+
 ## 属性
 
 | 属性名                    | 类型                 | 是否必填 | 默认值                     | 说明                                                                                                                                                                                                                       |
