@@ -1,6 +1,7 @@
 import type { Plugin } from 'vitepress';
-// import { prismjsPlugin } from 'vite-plugin-prismjs'
+import Unocss from 'unocss/vite';
 import { defineConfig } from 'vitepress';
+
 // 另一种 demo 插件
 // import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons';
@@ -68,6 +69,7 @@ export default defineConfig({
       //   theme: 'default', // 主题
       // }) as Plugin,
       groupIconVitePlugin() as Plugin,
+      Unocss() as unknown as Plugin,
     ],
     ssr: {
       noExternal: ['element-plus'],
