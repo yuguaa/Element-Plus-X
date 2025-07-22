@@ -139,3 +139,7 @@
     margin: 24px 0 12px;
   }
 }
+
+.VPLocalSearchBox {
+  z-index: 10000 !important;
+}

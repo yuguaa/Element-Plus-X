@@ -87,6 +87,11 @@ if (typeof window !== 'undefined') {
     currentLang.value = 'en';
   }
 }
+
+// 页面跳转
+function handleClick() {
+  location.href = '/components/bubbleList';
+}
 </script>
 
 <template>
@@ -200,6 +205,7 @@ if (typeof window !== 'undefined') {
       >
         <button
           class="btn-primary flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold transition-all duration-300 backdrop-blur-[10px] text-white border-none cursor-pointer hover:-translate-y-1 flex-1"
+          @click="handleClick"
         >
           <span class="text-xl">🚀</span>
           <span>{{ t.buttons.getStarted }}</span>
