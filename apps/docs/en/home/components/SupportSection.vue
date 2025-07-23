@@ -21,7 +21,9 @@ const sponsors = ref([
     <div class="support-container max-w-4xl mx-auto px-8 flex flex-col gap-8">
       <!-- 紧凑的标题区域 -->
       <div class="support-header text-center">
-        <h2 class="support-title text-3xl font-extrabold m-0 mb-2">Thanks for Your Support</h2>
+        <h2 class="support-title text-3xl font-extrabold m-0 mb-2">
+          Thanks for Your Support
+        </h2>
         <p class="support-subtitle text-base text-white/70 m-0">
           Their support keeps the open source project moving forward
         </p>

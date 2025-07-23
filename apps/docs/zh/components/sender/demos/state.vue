@@ -24,11 +24,20 @@ function handleSubmit(value: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Sender loading placeholder="加载中..." @submit="handleSubmit" />
     <Sender v-model="senderReadOnlyValue" read-only @submit="handleSubmit" />
-    <Sender value="禁用：💌 欢迎使用 Element-Plus-X ~" disabled @submit="handleSubmit" />
+    <Sender
+      value="禁用：💌 欢迎使用 Element-Plus-X ~"
+      disabled
+      @submit="handleSubmit"
+    />
     <Sender v-model="senderClearableValue" clearable @submit="handleSubmit" />
-    <Sender style="width: fit-content;" value="输入框最大宽度：💌 欢迎使用 Element-Plus-X ~" input-width="150px" @submit="handleSubmit" />
+    <Sender
+      style="width: fit-content"
+      value="输入框最大宽度：💌 欢迎使用 Element-Plus-X ~"
+      input-width="150px"
+      @submit="handleSubmit"
+    />
   </div>
 </template>

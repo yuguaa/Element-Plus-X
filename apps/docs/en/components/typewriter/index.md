@@ -60,35 +60,35 @@ If you think the built-in styles don't look good or the built-in plugins can't m
 
 ## Attributes
 
-| Attribute | Type | Required | Default | Description |
-| --------- | ---- | -------- | ------- | ----------- |
-| `content` | String | No | `''` | Text content to display, supports plain text or Markdown format. |
-| `isMarkdown` | Boolean | No | `false` | Whether to enable Markdown rendering mode. |
-| `typing` | Boolean \| `{ step?: number, interval?: number, suffix?: string }` | No | `false` | Whether to enable typewriter effect. |
-| `typing.step` | Number | No | `2` | How many characters to type each time. |
-| `typing.interval` | Number | No | `50` | Interval time for each typing, unit (`ms`). |
-| `typing.suffix` | String | No | `'\|'` | Typewriter suffix cursor character (only effective in non-Markdown mode). |
-| `isFog` | Boolean \| `{ bgColor?: string, width?: string }` | No | `false` | Whether to enable fog effect, can set background color and width. |
+| Attribute         | Type                                                               | Required | Default | Description                                                               |
+| ----------------- | ------------------------------------------------------------------ | -------- | ------- | ------------------------------------------------------------------------- |
+| `content`         | String                                                             | No       | `''`    | Text content to display, supports plain text or Markdown format.          |
+| `isMarkdown`      | Boolean                                                            | No       | `false` | Whether to enable Markdown rendering mode.                                |
+| `typing`          | Boolean \| `{ step?: number, interval?: number, suffix?: string }` | No       | `false` | Whether to enable typewriter effect.                                      |
+| `typing.step`     | Number                                                             | No       | `2`     | How many characters to type each time.                                    |
+| `typing.interval` | Number                                                             | No       | `50`    | Interval time for each typing, unit (`ms`).                               |
+| `typing.suffix`   | String                                                             | No       | `'\|'`  | Typewriter suffix cursor character (only effective in non-Markdown mode). |
+| `isFog`           | Boolean \| `{ bgColor?: string, width?: string }`                  | No       | `false` | Whether to enable fog effect, can set background color and width.         |
 
 ## Events
 
-| Event Name | Parameters | Type | Description |
-| ---------- | ---------- | ---- | ----------- |
-| `@start` | `ref` instance | Function | Triggered when typing effect starts |
-| `@finish` | `ref` instance | Function | Triggered when typing effect completes |
+| Event Name | Parameters     | Type     | Description                                 |
+| ---------- | -------------- | -------- | ------------------------------------------- |
+| `@start`   | `ref` instance | Function | Triggered when typing effect starts         |
+| `@finish`  | `ref` instance | Function | Triggered when typing effect completes      |
 | `@writing` | `ref` instance | Function | Continuously triggered during typing effect |
 
 ## Ref Instance Methods
 
-| Property Name | Type | Description |
-| ------------- | ---- | ----------- |
-| `interrupt` | Function | Interrupt typing. |
-| `continue` | Function | Continue unfinished typing. |
-| `restart` | Function | Restart typing. |
-| `destroy` | Function | Actively destroy typewriter component. |
-| `renderedContent` | String | Get the rendered content of the typewriter component. |
-| `isTyping` | Boolean | Whether currently typing. |
-| `progress` | Number | Typing progress, range 0 - 100. |
+| Property Name     | Type     | Description                                           |
+| ----------------- | -------- | ----------------------------------------------------- |
+| `interrupt`       | Function | Interrupt typing.                                     |
+| `continue`        | Function | Continue unfinished typing.                           |
+| `restart`         | Function | Restart typing.                                       |
+| `destroy`         | Function | Actively destroy typewriter component.                |
+| `renderedContent` | String   | Get the rendered content of the typewriter component. |
+| `isTyping`        | Boolean  | Whether currently typing.                             |
+| `progress`        | Number   | Typing progress, range 0 - 100.                       |
 
 ## Features
 

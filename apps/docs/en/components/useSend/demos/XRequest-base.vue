@@ -19,20 +19,25 @@ const sse = new XRequest({
   onMessage: (msg: { data: string }) => {
     console.log('onMessage:', msg);
     str.value += `\n    ${msg.data}`;
-  },
+  }
 });
 </script>
 
 <template>
   <div class="container">
     <div class="btn-list">
-      <el-button @click="() => { str = ''; sse.send('/api/sse') }">
+      <el-button
+        @click="
+          () => {
+            str = '';
+            sse.send('/api/sse');
+          }
+        "
+      >
         Start Request
       </el-button>
 
-      <el-button @click="sse.abort()">
-        Abort Request
-      </el-button>
+      <el-button @click="sse.abort()"> Abort Request </el-button>
     </div>
 
     <div>{{ str }}</div>

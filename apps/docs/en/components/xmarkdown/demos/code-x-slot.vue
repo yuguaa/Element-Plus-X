@@ -86,7 +86,8 @@ const selfCodeXSlot1 = {
       { default: () => 'This is custom header, click to toggle collapse state' }
     ),
   // Custom render the left language identifier of the code block
-  codeHeaderLanguage: () => h('div', 'Custom code block left language identifier'),
+  codeHeaderLanguage: () =>
+    h('div', 'Custom code block left language identifier'),
   // Custom render the right control button of the code block
   codeHeaderControl: () => h('div', 'Custom code block right control button')
 };
@@ -94,7 +95,8 @@ const selfCodeXSlot1 = {
 // If you use the codeHeader property, the other two properties become invalid
 const selfCodeXSlot2 = {
   // Custom render the left language identifier of the code block
-  codeHeaderLanguage: () => h('div', 'Custom code block left language identifier')
+  codeHeaderLanguage: () =>
+    h('div', 'Custom code block left language identifier')
 };
 
 const selfCodeXSlot3 = {
@@ -247,7 +249,9 @@ const selfCodeXSlot4 = {
                       try {
                         const customContent = `🎨 Custom Prefix:\n\n${props.rawContent}\n\n📝 From: Element-Plus-X`;
                         await navigator.clipboard.writeText(customContent);
-                        ElMessage.success('🎉 Component slot custom copy successful!');
+                        ElMessage.success(
+                          '🎉 Component slot custom copy successful!'
+                        );
                       } catch (err) {
                         console.error('❌ Custom copy failed:', err);
                       }

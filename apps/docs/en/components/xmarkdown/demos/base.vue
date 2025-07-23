@@ -125,7 +125,9 @@ onMounted(() => {
 
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
-    <span style="font-size: 20px; font-weight: 700">View incremental rendering in console</span>
+    <span style="font-size: 20px; font-weight: 700"
+      >View incremental rendering in console</span
+    >
     <div style="display: flex; gap: 8px">
       <el-button @click="start"> Start </el-button>
       <el-button @click="pause"> Pause </el-button>

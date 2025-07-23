@@ -15,31 +15,30 @@ const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
-    avatar: 'https://avatars.githubusercontent.com/u/76239030',
+    avatar: 'https://avatars.githubusercontent.com/u/76239030'
   },
   {
     value: 'JsonLee12138',
-    avatar: 'https://avatars.githubusercontent.com/u/160690954',
+    avatar: 'https://avatars.githubusercontent.com/u/160690954'
   },
   {
     value: 'ageerle',
-    avatar: 'https://avatars.githubusercontent.com/u/32251822',
-  },
+    avatar: 'https://avatars.githubusercontent.com/u/32251822'
+  }
 ]);
 
 function filterFunc(_: string, option: MentionOption): any {
   // Here we print option, each time the directive is triggered, it will iterate through options and trigger filterFunc.
   if (option.value === 'ageerle' || option.value === 'JsonLee12138') {
     return true;
-  }
-  else if (option.value === 'HeJiaYue520') {
+  } else if (option.value === 'HeJiaYue520') {
     return false;
   }
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 20px">
     <MentionSender
       v-model="senderValue1"
       placeholder="Input @ to trigger directive popover, HeJiaYue520 has been filtered here"

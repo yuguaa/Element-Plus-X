@@ -12,15 +12,15 @@ Combining the `sender` input box and useRecord hook function, you can easily imp
 
 ## config Configuration
 
-| Parameter | Description               | Type                          |
-| --------- | ------------------------- | ----------------------------- |
+| Parameter | Description                        | Type                                      |
+| --------- | ---------------------------------- | ----------------------------------------- |
 | onEnd     | Callback function when speech ends | `(res: speech conversion result) => void` |
 
 ## Returned Hooks
 
-| Property | Description               | Type                         |
-| -------- | ------------------------- | ---------------------------- |
-| start    | Trigger start speech       | `(event:MouseEvent) => void` |
-| stop     | Trigger stop speech        | `(event:MouseEvent) => void` |
-| loading  | Whether currently speaking | `boolean`                    |
+| Property | Description                           | Type                         |
+| -------- | ------------------------------------- | ---------------------------- |
+| start    | Trigger start speech                  | `(event:MouseEvent) => void` |
+| stop     | Trigger stop speech                   | `(event:MouseEvent) => void` |
+| loading  | Whether currently speaking            | `boolean`                    |
 | value    | Real-time text from speech conversion | `string`                     |

@@ -36,13 +36,13 @@
 
 ## Attributes
 
-| Attribute | Type | Required | Default | Description |
-| --------- | ---- | -------- | ------- | ----------- |
-| `title` | `string` | No | `''` | Main title text content of the prompts set |
-| `items` | `PromptsItemsProps[]` | No | `[]` | Array of prompt items, each element contains label, icon, description and other information (see structure details below) |
-| `wrap` | `boolean` | No | `false` | Whether to allow prompt items to wrap automatically (only effective in horizontal layout) |
-| `vertical` | `boolean` | No | `false` | Whether to arrange prompt items vertically (layout direction is column in vertical mode) |
-| `style` | `CSSProperties` | No | `{}` | Custom styles for component container (directly applied to the outermost `div.el-prompts`) |
+| Attribute  | Type                  | Required | Default | Description                                                                                                               |
+| ---------- | --------------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `title`    | `string`              | No       | `''`    | Main title text content of the prompts set                                                                                |
+| `items`    | `PromptsItemsProps[]` | No       | `[]`    | Array of prompt items, each element contains label, icon, description and other information (see structure details below) |
+| `wrap`     | `boolean`             | No       | `false` | Whether to allow prompt items to wrap automatically (only effective in horizontal layout)                                 |
+| `vertical` | `boolean`             | No       | `false` | Whether to arrange prompt items vertically (layout direction is column in vertical mode)                                  |
+| `style`    | `CSSProperties`       | No       | `{}`    | Custom styles for component container (directly applied to the outermost `div.el-prompts`)                                |
 
 **`PromptsItemsProps` Structure Details** (single prompt item attributes):
 
@@ -62,17 +62,17 @@ interface PromptsItemsProps {
 
 ## Events
 
-| Event Name | Parameters | Type | Description |
-| ---------- | ---------- | ---- | ----------- |
+| Event Name   | Parameters                  | Type     | Description                                    |
+| ------------ | --------------------------- | -------- | ---------------------------------------------- |
 | `@itemClick` | `(item: PromptsItemsProps)` | Function | Event triggered when a prompt item is clicked. |
 
 ## Slots
 
-| Slot Name | Parameters | Type | Description |
-| --------- | ---------- | ---- | ----------- |
-| `#title` | - | `Slot` | Custom prompt set title content (if `title` attribute is also set, slot content will override attribute text) |
-| `#icon` | `{ item: PromptsItemsProps }` | `Slot` | Custom icon content for prompt item (receives current prompt item `item` parameter, can override `item.icon`) |
-| `#label` | `{ item: PromptsItemsProps }` | `Slot` | Custom label content for prompt item (receives current prompt item `item` parameter, can override `item.label`) |
+| Slot Name      | Parameters                    | Type   | Description                                                                                                                 |
+| -------------- | ----------------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `#title`       | -                             | `Slot` | Custom prompt set title content (if `title` attribute is also set, slot content will override attribute text)               |
+| `#icon`        | `{ item: PromptsItemsProps }` | `Slot` | Custom icon content for prompt item (receives current prompt item `item` parameter, can override `item.icon`)               |
+| `#label`       | `{ item: PromptsItemsProps }` | `Slot` | Custom label content for prompt item (receives current prompt item `item` parameter, can override `item.label`)             |
 | `#description` | `{ item: PromptsItemsProps }` | `Slot` | Custom description content for prompt item (receives current prompt item `item` parameter, can override `item.description`) |
 
 ## Features

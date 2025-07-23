@@ -12,12 +12,19 @@ Customize bubble content through `#content` slot.
 
 <script setup lang="ts">
 const avatarSize = '48px';
-const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const avatarAI =
+  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <Bubble content="Welcome to element-plus-x." typing :avatar="avatarAI" :avatar-size="avatarSize" no-style>
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <Bubble
+      content="Welcome to element-plus-x."
+      typing
+      :avatar="avatarAI"
+      :avatar-size="avatarSize"
+      no-style
+    >
       <template #content>
         <div class="content-container">
           😊 Welcome to element-plus-x, I'm a custom bubble

@@ -23,29 +23,41 @@ Set custom avatar through `#avatar`. Set position through `placement` property, 
 </docs>
 
 <script setup lang="ts">
-const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const avatarAI =
+  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 const avatarUser = 'https://avatars.githubusercontent.com/u/76239030?v=4';
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <!-- Avatar and Placement Left -->
-    <Bubble content="Good morning, how are you?" placement="start" :avatar="avatarAI" avatar-size="48px" />
+    <Bubble
+      content="Good morning, how are you?"
+      placement="start"
+      :avatar="avatarAI"
+      avatar-size="48px"
+    />
 
     <!-- avatar-size Set avatar placeholder space -->
-    <Bubble content="What a beautiful day!" placement="start" avatar-size="48px" />
+    <Bubble
+      content="What a beautiful day!"
+      placement="start"
+      avatar-size="48px"
+    />
 
     <!-- Avatar and Placement Right -->
     <Bubble content="Hi, good morning, I'm fine!" placement="end">
       <template #avatar>
-        <el-avatar
-          :size="32"
-          :src="avatarUser"
-        />
+        <el-avatar :size="32" :src="avatarUser" />
       </template>
     </Bubble>
 
     <!-- avatar-gap property controls distance between bubble and avatar -->
-    <Bubble content="Hi, good morning, I'm fine! Thank you!" placement="end" avatar-size="0px" avatar-gap="0px" />
+    <Bubble
+      content="Hi, good morning, I'm fine! Thank you!"
+      placement="end"
+      avatar-size="0px"
+      avatar-gap="0px"
+    />
   </div>
 </template>

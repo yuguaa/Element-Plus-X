@@ -23,23 +23,30 @@ title: 打字效果
 
 <script setup lang="ts">
 const num = ref(1);
-const content = computed(() => '🥰 感谢使用 Element-Plus-X ! 你的支持，是我们开源的最强动力 ~ '.repeat(num.value));
-const avatarAI = 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
+const content = computed(() =>
+  '🥰 感谢使用 Element-Plus-X ! 你的支持，是我们开源的最强动力 ~ '.repeat(
+    num.value
+  )
+);
+const avatarAI =
+  'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png';
 
 function changeContent() {
   num.value++;
-  if (num.value > 3)
-    num.value = 1;
+  if (num.value > 3) num.value = 1;
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <el-button style="width: fit-content;" @click="changeContent">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <el-button style="width: fit-content" @click="changeContent">
       设置 text
     </el-button>
 
-    <Bubble :content="content" :typing="{ step: 1, interval: 100, suffix: '💩' }">
+    <Bubble
+      :content="content"
+      :typing="{ step: 1, interval: 100, suffix: '💩' }"
+    >
       <template #avatar>
         <el-avatar :src="avatarAI" />
       </template>

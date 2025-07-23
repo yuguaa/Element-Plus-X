@@ -254,7 +254,8 @@ const value2 = ref(false);
     <span>Show HTML preview button <el-switch v-model="value1" /></span>
     <span>Enable secure preview <el-switch v-model="value2" /></span>
     <span
-      >After enabling secure preview, try clicking the Add to Cart button, it won't trigger events in script tags</span
+      >After enabling secure preview, try clicking the Add to Cart button, it
+      won't trigger events in script tags</span
     >
     <XMarkdown
       :markdown="markdown"

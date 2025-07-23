@@ -93,7 +93,9 @@ function handleInputKeydown(e: KeyboardEvent) {
       <!-- Custom mention popover -->
       <template #trigger-popover="{ triggerString }">
         The current trigger character is: {{ `${triggerString}` }}
-        This is my custom popover. Here you can customize the popover content, including custom key controls for the popover. Try controlling the directions with the w/a/s/d keys.
+        This is my custom popover. Here you can customize the popover content,
+        including custom key controls for the popover. Try controlling the
+        directions with the w/a/s/d keys.
       </template>
     </Sender>
   </div>

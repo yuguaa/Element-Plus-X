@@ -22,7 +22,10 @@ title: complete 事件 和 trigger-indices 属性
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList';
+import type {
+  BubbleListItemProps,
+  BubbleListProps
+} from 'vue-element-plus-x/types/BubbleList';
 import type { TypewriterInstance } from 'vue-element-plus-x/types/Typewriter';
 
 type listType = BubbleListItemProps & {
@@ -39,17 +42,19 @@ function generateFakeItems(count: number): listType[] {
     const role = i % 2 === 0 ? 'ai' : 'user';
     const placement = role === 'ai' ? 'start' : 'end';
     const key = i + 1;
-    const content = role === 'ai'
-      ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'
-      : `哈哈哈，让我试试`;
+    const content =
+      role === 'ai'
+        ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'
+        : `哈哈哈，让我试试`;
     const loading = false;
     const shape = 'corner';
     const variant = role === 'ai' ? 'filled' : 'outlined';
     const isMarkdown = false;
     const typing = role === 'ai';
-    const avatar = role === 'ai'
-      ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-      : 'https://avatars.githubusercontent.com/u/76239030?v=4';
+    const avatar =
+      role === 'ai'
+        ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+        : 'https://avatars.githubusercontent.com/u/76239030?v=4';
 
     messages.push({
       key,
@@ -62,7 +67,7 @@ function generateFakeItems(count: number): listType[] {
       isMarkdown,
       typing,
       avatar,
-      avatarSize: '24px',
+      avatarSize: '24px'
     });
   }
   return messages;
@@ -85,20 +90,36 @@ function changeTriggerIndices(type: 'only-last' | 'all' | number[]) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex; align-items: center;">
-      <span style="margin-right: 12px;">trigger-indices: </span>
-      <el-button style="width: fit-content;" @click="changeTriggerIndices('only-last')">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex; align-items: center">
+      <span style="margin-right: 12px">trigger-indices: </span>
+      <el-button
+        style="width: fit-content"
+        @click="changeTriggerIndices('only-last')"
+      >
         only-last
       </el-button>
-      <el-button style="width: fit-content;" type="primary" @click="changeTriggerIndices('all')">
+      <el-button
+        style="width: fit-content"
+        type="primary"
+        @click="changeTriggerIndices('all')"
+      >
         all
       </el-button>
-      <el-button style="width: fit-content;" type="success" @click="changeTriggerIndices([1, 2, 3])">
+      <el-button
+        style="width: fit-content"
+        type="success"
+        @click="changeTriggerIndices([1, 2, 3])"
+      >
         [1, 2, 3]
       </el-button>
     </div>
 
-    <BubbleList :list="list" max-height="350px" :trigger-indices="triggerIndices" @complete="onComplete" />
+    <BubbleList
+      :list="list"
+      max-height="350px"
+      :trigger-indices="triggerIndices"
+      @complete="onComplete"
+    />
   </div>
 </template>

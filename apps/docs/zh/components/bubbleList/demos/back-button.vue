@@ -22,7 +22,10 @@ title: 回到底部按钮 + 滚动条体验
 </docs>
 
 <script setup lang="ts">
-import type { BubbleListItemProps, BubbleListProps } from 'vue-element-plus-x/types/BubbleList';
+import type {
+  BubbleListItemProps,
+  BubbleListProps
+} from 'vue-element-plus-x/types/BubbleList';
 
 type listType = BubbleListItemProps & {
   key: number;
@@ -38,7 +41,7 @@ const leftValue = ref(85);
 const backButtonPosition = computed(() => {
   return {
     bottom: `${bottomValue.value}%`,
-    left: `${leftValue.value}%`,
+    left: `${leftValue.value}%`
   };
 });
 const btnColor = ref('#2D38FF');
@@ -50,17 +53,21 @@ function generateFakeItems(count: number): listType[] {
     const role = i % 2 === 0 ? 'ai' : 'user';
     const placement = role === 'ai' ? 'start' : 'end';
     const key = i + 1;
-    const content = role === 'ai'
-      ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(8)
-      : `哈哈哈，让我试试`;
+    const content =
+      role === 'ai'
+        ? '💖 感谢使用 Element Plus X ! 你的支持，是我们开源的最强动力 ~'.repeat(
+            8
+          )
+        : `哈哈哈，让我试试`;
     const loading = false;
     const shape = 'corner';
     const variant = role === 'ai' ? 'filled' : 'outlined';
     const isMarkdown = false;
     const typing = role === 'ai' ? i === count - 1 : false;
-    const avatar = role === 'ai'
-      ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-      : 'https://avatars.githubusercontent.com/u/76239030?v=4';
+    const avatar =
+      role === 'ai'
+        ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
+        : 'https://avatars.githubusercontent.com/u/76239030?v=4';
 
     messages.push({
       key, // 唯一标识
@@ -75,7 +82,7 @@ function generateFakeItems(count: number): listType[] {
       isFog: role === 'ai', // 是否开启打字雾化效果，该效果 v1.1.6 新增，且在 typing 为 true 时生效，该效果会覆盖 typing 的 suffix 属性
       avatar,
       avatarSize: '24px', // 头像占位大小
-      avatarGap: '12px', // 头像与气泡之间的距离
+      avatarGap: '12px' // 头像与气泡之间的距离
     });
   }
   return messages;
@@ -83,10 +90,29 @@ function generateFakeItems(count: number): listType[] {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 24px;">
-    <div style="display: flex; gap: 5px; border: 1px solid gray; border-radius: 12px; padding: 8px; flex-direction: column;">
-      <span>滚动条显示：<el-switch v-model="alwaysShowScrollbar" inactive-text="鼠标悬停展示" active-text="一直展示" /></span>
-      <span>底部按钮加载状态：<el-switch v-model="btnLoading" inactive-text="false" active-text="true" /></span>
+  <div style="display: flex; flex-direction: column; gap: 24px">
+    <div
+      style="
+        display: flex;
+        gap: 5px;
+        border: 1px solid gray;
+        border-radius: 12px;
+        padding: 8px;
+        flex-direction: column;
+      "
+    >
+      <span
+        >滚动条显示：<el-switch
+          v-model="alwaysShowScrollbar"
+          inactive-text="鼠标悬停展示"
+          active-text="一直展示"
+      /></span>
+      <span
+        >底部按钮加载状态：<el-switch
+          v-model="btnLoading"
+          inactive-text="false"
+          active-text="true"
+      /></span>
       <span>底部按钮颜色： <el-color-picker v-model="btnColor" /></span>
 
       <span>底部按钮位</span>
@@ -96,6 +122,14 @@ function generateFakeItems(count: number): listType[] {
       <span>底部按钮尺寸：<el-slider v-model="btnSize" /></span>
     </div>
 
-    <BubbleList :list="list" max-height="350px" :always-show-scrollbar="alwaysShowScrollbar" :btn-color="btnColor" :btn-loading="btnLoading" :back-button-position="backButtonPosition" :btn-icon-size="btnSize" />
+    <BubbleList
+      :list="list"
+      max-height="350px"
+      :always-show-scrollbar="alwaysShowScrollbar"
+      :btn-color="btnColor"
+      :btn-loading="btnLoading"
+      :back-button-position="backButtonPosition"
+      :btn-icon-size="btnSize"
+    />
   </div>
 </template>

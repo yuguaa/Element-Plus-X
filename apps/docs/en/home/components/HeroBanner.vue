@@ -9,7 +9,9 @@
       <div class="banner-icon text-2xl">🚀</div>
       <div class="banner-text flex-1 text-center">
         <span class="banner-main text-sm font-semibold leading-relaxed"
-          >Launched imitation Doubao/communication, enterprise-level AI-PC application template, helping enterprises quickly build full-stack AI projects</span
+          >Launched imitation Doubao/communication, enterprise-level AI-PC
+          application template, helping enterprises quickly build full-stack AI
+          projects</span
         >
       </div>
       <a

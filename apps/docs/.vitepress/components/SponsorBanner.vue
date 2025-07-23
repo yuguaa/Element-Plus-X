@@ -13,13 +13,13 @@ function dismiss() {
 
 // 多语言配置
 const i18nTexts = {
-  'zh': {
+  zh: {
     main: '模版项目',
     place: ' · MIT · chat-template',
     date: ' · 重磅推出 ',
     action: '在线预览'
   },
-  'en': {
+  en: {
     main: 'Template Project',
     place: ' · MIT · chat-template',
     date: ' · Hot Release ',
@@ -36,7 +36,7 @@ const texts = computed(() => {
 
 <template>
   <div v-if="open" class="banner">
-    <img src="/logo.png" class="logo">
+    <img src="/logo.png" class="logo" />
     <p class="vt-banner-text">
       <span class="vt-main">{{ texts.main }}</span>
       <span class="vt-place">{{ texts.place }}</span>

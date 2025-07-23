@@ -188,7 +188,9 @@ const selfCodeXSlot = {
                       try {
                         const customContent = `🎨 Custom Prefix:\n\n${props.rawContent}\n\n📝 From: Element-Plus-X`;
                         await navigator.clipboard.writeText(customContent);
-                        ElMessage.success('🎉 Component slot custom copy successful!');
+                        ElMessage.success(
+                          '🎉 Component slot custom copy successful!'
+                        );
                       } catch (err) {
                         console.error('❌ Custom copy failed:', err);
                       }

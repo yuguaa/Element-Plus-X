@@ -36,38 +36,38 @@
 
 ## Properties
 
-| Property Name          | Type                          | Required | Default   | Description                                                      |
-| ---------------------- | ----------------------------- | -------- | --------- | ---------------------------------------------------------------- |
-| `items`                | `ConversationItem<T>[]`       | No       | `[]`      | Session item data list, containing `label`, `group`, `disabled` and other fields |
+| Property Name          | Type                          | Required | Default   | Description                                                                              |
+| ---------------------- | ----------------------------- | -------- | --------- | ---------------------------------------------------------------------------------------- |
+| `items`                | `ConversationItem<T>[]`       | No       | `[]`      | Session item data list, containing `label`, `group`, `disabled` and other fields         |
 | `groupable`            | `boolean \| GroupableOptions` | No       | `false`   | Whether to enable grouping, passing object can customize group sorting (`sort` function) |
-| `showBuiltInMenu`      | `boolean`                     | No       | `false`   | Whether to show built-in menu (rename, delete)                   |
-| `loadMore`             | `() => void`                  | No       | -         | Lazy loading callback function, triggered when scrolling to bottom |
-| `loadMoreLoading`      | `boolean`                     | No       | `false`   | Load more state, controls loading animation display              |
-| `showToTopBtn`         | `boolean`                     | No       | `false`   | Whether to show back to top button                               |
-| `labelKey`             | `string`                      | No       | `'label'` | Session item label field name                                    |
-| `rowKey`               | `string`                      | No       | `'id'`    | Session item unique identifier field name                        |
-| `itemsStyle`           | `CSSProperties`               | No       | `{}`      | Session item default style                                       |
-| `itemsHoverStyle`      | `CSSProperties`               | No       | `{}`      | Session item hover style                                         |
-| `itemsActiveStyle`     | `CSSProperties`               | No       | `{}`      | Session item active style                                        |
-| `itemsMenuOpenedStyle` | `CSSProperties`               | No       | `{}`      | Session item style when menu is opened                           |
+| `showBuiltInMenu`      | `boolean`                     | No       | `false`   | Whether to show built-in menu (rename, delete)                                           |
+| `loadMore`             | `() => void`                  | No       | -         | Lazy loading callback function, triggered when scrolling to bottom                       |
+| `loadMoreLoading`      | `boolean`                     | No       | `false`   | Load more state, controls loading animation display                                      |
+| `showToTopBtn`         | `boolean`                     | No       | `false`   | Whether to show back to top button                                                       |
+| `labelKey`             | `string`                      | No       | `'label'` | Session item label field name                                                            |
+| `rowKey`               | `string`                      | No       | `'id'`    | Session item unique identifier field name                                                |
+| `itemsStyle`           | `CSSProperties`               | No       | `{}`      | Session item default style                                                               |
+| `itemsHoverStyle`      | `CSSProperties`               | No       | `{}`      | Session item hover style                                                                 |
+| `itemsActiveStyle`     | `CSSProperties`               | No       | `{}`      | Session item active style                                                                |
+| `itemsMenuOpenedStyle` | `CSSProperties`               | No       | `{}`      | Session item style when menu is opened                                                   |
 
 ## Slots
 
-| Slot Name      | Parameters                                                    | Description                                                    |
-| -------------- | ------------------------------------------------------------- | -------------------------------------------------------------- |
-| `#groupTitle`  | `{ group: GroupItem }`                                        | Custom group title, supports adding icons or special styles    |
-| `#label`       | `{ item: ConversationItem<T> }`                               | Custom session item label content, supports text overflow handling or rich text |
-| `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }`     | Session item right side additional content, displays status indicators (e.g.: disabled mark, action icons) |
-| `#menu`        | `{ item: ConversationItem<T> }`                               | Custom menu content, supports buttons, icons or complex interactive components |
-| `#header`      | -                                                             | Container header slot, for adding search bars, filter buttons and other custom content |
-| `#footer`      | -                                                             | Container footer slot, for adding pagination, statistics and other custom content |
+| Slot Name      | Parameters                                                | Description                                                                                                |
+| -------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `#groupTitle`  | `{ group: GroupItem }`                                    | Custom group title, supports adding icons or special styles                                                |
+| `#label`       | `{ item: ConversationItem<T> }`                           | Custom session item label content, supports text overflow handling or rich text                            |
+| `#more-filled` | `{ item, isHovered, isActive, isMenuOpened, isDisabled }` | Session item right side additional content, displays status indicators (e.g.: disabled mark, action icons) |
+| `#menu`        | `{ item: ConversationItem<T> }`                           | Custom menu content, supports buttons, icons or complex interactive components                             |
+| `#header`      | -                                                         | Container header slot, for adding search bars, filter buttons and other custom content                     |
+| `#footer`      | -                                                         | Container footer slot, for adding pagination, statistics and other custom content                          |
 
 ## Events
 
-| Event          | Parameters                                                               | Description                                                                                                 |
-| -------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
-| `@menuCommand` | `(command: ConversationMenuCommand, item: ConversationItem): void`       | Menu command callback, supports rename, delete and other operations. If you choose custom menu, this method is disabled, you need to handle menu click logic yourself. |
-| `:loadMore`    | --                                                                       | Bind lazy loading callback, triggered when scrolling to bottom                                               |
+| Event          | Parameters                                                         | Description                                                                                                                                                            |
+| -------------- | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@menuCommand` | `(command: ConversationMenuCommand, item: ConversationItem): void` | Menu command callback, supports rename, delete and other operations. If you choose custom menu, this method is disabled, you need to handle menu click logic yourself. |
+| `:loadMore`    | --                                                                 | Bind lazy loading callback, triggered when scrolling to bottom                                                                                                         |
 
 ## Features
 

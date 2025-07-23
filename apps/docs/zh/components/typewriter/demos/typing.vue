@@ -29,10 +29,10 @@ function setContents(type: string) {
     content1.value = '';
     setTimeout(() => {
       content.value = 'typing 属性开启打字效果';
-      content1.value = 'typing 属性也可以是对象，来控制打每次打字吐字、每次打字间隔、和打字器后缀';
+      content1.value =
+        'typing 属性也可以是对象，来控制打每次打字吐字、每次打字间隔、和打字器后缀';
     }, 800);
-  }
-  else if (type === 'markdown') {
+  } else if (type === 'markdown') {
     markdownText.value = '';
     setTimeout(() => {
       markdownText.value = ` ### 🐒 is-markdown 和 typing 结合使用 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` `;
@@ -43,19 +43,30 @@ function setContents(type: string) {
 
 <template>
   <ClientOnly>
-    <div style="display: flex; flex-direction: column; gap: 8px;">
+    <div style="display: flex; flex-direction: column; gap: 8px">
       <div>
-        <el-button style="width: fit-content;" @click="setContents('text')">
+        <el-button style="width: fit-content" @click="setContents('text')">
           重置文本
         </el-button>
-        <el-button style="width: fit-content;" type="primary" @click="setContents('markdown')">
+        <el-button
+          style="width: fit-content"
+          type="primary"
+          @click="setContents('markdown')"
+        >
           重置 markdown
         </el-button>
       </div>
-      <div style="display: flex;  gap: 8px; flex-direction: column;">
+      <div style="display: flex; gap: 8px; flex-direction: column">
         <Typewriter :content="content" :typing="isTyping" />
-        <Typewriter :content="content1" :typing="{ step: 2, interval: 100, suffix: '💩' }" />
-        <Typewriter :content="markdownText" :typing="isTyping" :is-markdown="true" />
+        <Typewriter
+          :content="content1"
+          :typing="{ step: 2, interval: 100, suffix: '💩' }"
+        />
+        <Typewriter
+          :content="markdownText"
+          :typing="isTyping"
+          :is-markdown="true"
+        />
       </div>
     </div>
   </ClientOnly>

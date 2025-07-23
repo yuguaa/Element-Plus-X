@@ -39,7 +39,9 @@ function focus(type = 'all') {
       <el-button dark type="success" plain @click="focus('all')">
         Entire Text
       </el-button>
-      <el-button dark type="success" plain @click="blur"> Remove Focus </el-button>
+      <el-button dark type="success" plain @click="blur">
+        Remove Focus
+      </el-button>
     </div>
     <MentionSender ref="senderRef" v-model="senderValue" />
   </div>

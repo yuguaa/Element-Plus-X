@@ -62,7 +62,9 @@ const content = computed(() => {
         {{ isLoading ? 'Loading...' : 'Get SSE Stream Data' }}
       </el-button>
 
-      <el-button :disabled="!isLoading" @click="cancel()"> Cancel Request </el-button>
+      <el-button :disabled="!isLoading" @click="cancel()">
+        Cancel Request
+      </el-button>
     </div>
     <div v-if="error" class="error">
       {{ error.message }}

@@ -24,11 +24,28 @@ function handleSubmit(value: string) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <MentionSender loading placeholder="Loading..." @submit="handleSubmit" />
-    <MentionSender v-model="senderReadOnlyValue" read-only @submit="handleSubmit" />
-    <MentionSender value="Disabled: 💌 Welcome to Element-Plus-X ~" disabled @submit="handleSubmit" />
-    <MentionSender v-model="senderClearableValue" clearable @submit="handleSubmit" />
-    <MentionSender style="width: fit-content;" value="Input max width: 💌 Welcome to Element-Plus-X ~" input-width="150px" @submit="handleSubmit" />
+    <MentionSender
+      v-model="senderReadOnlyValue"
+      read-only
+      @submit="handleSubmit"
+    />
+    <MentionSender
+      value="Disabled: 💌 Welcome to Element-Plus-X ~"
+      disabled
+      @submit="handleSubmit"
+    />
+    <MentionSender
+      v-model="senderClearableValue"
+      clearable
+      @submit="handleSubmit"
+    />
+    <MentionSender
+      style="width: fit-content"
+      value="Input max width: 💌 Welcome to Element-Plus-X ~"
+      input-width="150px"
+      @submit="handleSubmit"
+    />
   </div>
 </template>

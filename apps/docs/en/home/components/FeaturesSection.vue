@@ -85,7 +85,9 @@ onMounted(() => {
 <template>
   <!-- 特性区域 -->
   <main class="py-24 max-w-6xl mx-auto relative">
-    <h2 class="features-title text-5xl font-black text-center mb-16">Features</h2>
+    <h2 class="features-title text-5xl font-black text-center mb-16">
+      Features
+    </h2>
     <div
       class="features-grid grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 mt-12"
     >

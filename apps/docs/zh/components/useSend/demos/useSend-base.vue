@@ -13,7 +13,7 @@ title: useSend 【单独】 基础用法
 import { useSend } from 'vue-element-plus-x';
 
 const { send, finish, loading } = useSend({
-  sendHandler: startFn,
+  sendHandler: startFn
 });
 
 async function startFn() {
@@ -29,9 +29,7 @@ async function startFn() {
         {{ loading ? '加载中...' : '模拟请求' }}
       </el-button>
 
-      <el-button :disabled="!loading" @click="finish">
-        结束请求
-      </el-button>
+      <el-button :disabled="!loading" @click="finish"> 结束请求 </el-button>
     </div>
   </div>
 </template>
