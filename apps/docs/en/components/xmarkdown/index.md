@@ -255,16 +255,16 @@ If you just want to modify the content of our built-in code block top, you can u
 
 ## Properties
 
-| Property Name     | Type   | Required | Default | Description              |
-| ----------------- | ------ | -------- | ------- | ------------------------ |
-| `markdown`        | string | Yes      | ''      | markdown content         |
-| `allowHtml`       | bool   | No       | `true`  | Whether to render html  |
-| `enableLatex`     | bool   | No       | `true`  | Whether to render latex |
-| `enableBreaks`    | bool   | No       | `true`  | Whether to render breaks|
-| `codeXRender`     | Object | No       | `()=>{}`| Custom code block rendering|
-| `codeXSlot`       | Object | No       | `()=>{}`| Custom code block top slot rendering|
-| `customAttrs`     | Object | No       | `()=>{}`| Custom attributes        |
-| `mermaidConfig`   | Object | No       | `()=>{}`| mermaid configuration   |
+| Property Name   | Type   | Required | Default  | Description                          |
+| --------------- | ------ | -------- | -------- | ------------------------------------ |
+| `markdown`      | string | Yes      | ''       | markdown content                     |
+| `allowHtml`     | bool   | No       | `true`   | Whether to render html               |
+| `enableLatex`   | bool   | No       | `true`   | Whether to render latex              |
+| `enableBreaks`  | bool   | No       | `true`   | Whether to render breaks             |
+| `codeXRender`   | Object | No       | `()=>{}` | Custom code block rendering          |
+| `codeXSlot`     | Object | No       | `()=>{}` | Custom code block top slot rendering |
+| `customAttrs`   | Object | No       | `()=>{}` | Custom attributes                    |
+| `mermaidConfig` | Object | No       | `()=>{}` | mermaid configuration                |
 
 ## Features
 

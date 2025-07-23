@@ -37,8 +37,8 @@ function handleSubmit(value: string) {
     <el-radio-group v-model="activeName">
       <el-radio-button value="enter"> enter </el-radio-button>
       <el-radio-button value="shiftEnter"> shiftEnter </el-radio-button>
-      <el-radio-button value="cmdOrCtrlEnter"> shiftEnter </el-radio-button>
-      <el-radio-button value="altEnter"> shiftEnter </el-radio-button>
+      <el-radio-button value="cmdOrCtrlEnter"> cmdOrCtrlEnter </el-radio-button>
+      <el-radio-button value="altEnter"> altEnter </el-radio-button>
     </el-radio-group>
     <Sender
       v-model="senderValue"

@@ -18,13 +18,13 @@ const str = ref('');
 const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   type: 'fetch',
-  transformer: (e) => {
+  transformer: e => {
     console.log('transformer:', e);
     const a = e.trim().split('\n');
     const r = a.pop();
     return r;
   },
-  onMessage: (msg) => {
+  onMessage: msg => {
     console.log('onMessage:', msg);
     str.value += `\n${msg}`;
   },
@@ -34,25 +34,30 @@ const sse = new XRequest({
   onOpen: () => {
     console.log('onOpen');
   },
-  onAbort: (messages) => {
+  onAbort: messages => {
     console.log('onAbort', messages);
   },
-  onFinish: (data) => {
+  onFinish: data => {
     console.log('onFinish:', data);
-  },
+  }
 });
 </script>
 
 <template>
   <div class="container">
     <div class="btn-list">
-      <el-button @click="() => { str = ''; sse.send('/api/sse') }">
+      <el-button
+        @click="
+          () => {
+            str = '';
+            sse.send('/api/sse');
+          }
+        "
+      >
         发起请求
       </el-button>
 
-      <el-button @click="sse.abort()">
-        取消请求
-      </el-button>
+      <el-button @click="sse.abort()"> 取消请求 </el-button>
     </div>
 
     <div>{{ str }}</div>

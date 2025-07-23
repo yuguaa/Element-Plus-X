@@ -20,20 +20,25 @@ const sse = new XRequest({
     console.log('onMessage:', msg);
     str.value += `
     ${msg.data}`;
-  },
+  }
 });
 </script>
 
 <template>
   <div class="container">
     <div class="btn-list">
-      <el-button @click="() => { str = ''; sse.send('/api/sse') }">
+      <el-button
+        @click="
+          () => {
+            str = '';
+            sse.send('/api/sse');
+          }
+        "
+      >
         发起请求
       </el-button>
 
-      <el-button @click="sse.abort()">
-        取消请求
-      </el-button>
+      <el-button @click="sse.abort()"> 取消请求 </el-button>
     </div>
 
     <div>{{ str }}</div>

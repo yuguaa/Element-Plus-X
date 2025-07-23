@@ -43,7 +43,7 @@ function onTrigger1(event: TriggerEvent) {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 20px">
     <Sender
       v-model="senderValue"
       v-model:trigger-popover-visible="triggerVisible"
@@ -74,10 +74,11 @@ function onTrigger1(event: TriggerEvent) {
       title="💖 欢迎使用 Element-Plus-X"
       width="500"
     >
-      <span>触发事件已经执行，可以是打开弹框、打开抽屉、任何你需要的事件 ~</span>
+      <span
+        >触发事件已经执行，可以是打开弹框、打开抽屉、任何你需要的事件 ~</span
+      >
     </el-dialog>
   </div>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

@@ -28,27 +28,27 @@ The `Welcome` component can clearly communicate to users the scope of achievable
 
 ## Properties
 
-| Property Name   | Type   | Required | Default | Description                                                    |
-| --------------- | ------ | -------- | ------- | -------------------------------------------------------------- |
-| `variant`       | string | No       | filled  | Component style variant (filled/borderless)                    |
-| `direction`     | string | No       | ltr     | Text direction (ltr/rtl)                                       |
-| `icon`          | string | No       | -       | Icon URL address                                               |
-| `title`         | string | No       | -       | Main title text content                                        |
-| `extra`         | string | No       | -       | Subtitle text content                                          |
-| `description`   | string | No       | -       | Description text content                                       |
-| `className`     | string | No       | -       | Custom class name for outer container                          |
-| `rootClassName` | string | No       | -       | Custom class name for root node                                |
+| Property Name   | Type   | Required | Default | Description                                                            |
+| --------------- | ------ | -------- | ------- | ---------------------------------------------------------------------- |
+| `variant`       | string | No       | filled  | Component style variant (filled/borderless)                            |
+| `direction`     | string | No       | ltr     | Text direction (ltr/rtl)                                               |
+| `icon`          | string | No       | -       | Icon URL address                                                       |
+| `title`         | string | No       | -       | Main title text content                                                |
+| `extra`         | string | No       | -       | Subtitle text content                                                  |
+| `description`   | string | No       | -       | Description text content                                               |
+| `className`     | string | No       | -       | Custom class name for outer container                                  |
+| `rootClassName` | string | No       | -       | Custom class name for root node                                        |
 | `classNames`    | object | No       | -       | Custom class names for each part ({ icon, title, extra, description }) |
-| `style`         | object | No       | -       | Custom styles for outer container                              |
-| `styles`        | object | No       | -       | Custom styles for each part ({ icon, title, extra, description }) |
-| `prefixCls`     | string | No       | welcome | Component class name prefix                                    |
+| `style`         | object | No       | -       | Custom styles for outer container                                      |
+| `styles`        | object | No       | -       | Custom styles for each part ({ icon, title, extra, description })      |
+| `prefixCls`     | string | No       | welcome | Component class name prefix                                            |
 
 ## Slots
 
-| Slot Name | Parameters | Type | Description               |
-| --------- | ---------- | ---- | ------------------------- |
+| Slot Name | Parameters | Type | Description                  |
+| --------- | ---------- | ---- | ---------------------------- |
 | `#image`  | -          | Slot | Custom welcome image content |
-| `#extra`  | -          | Slot | Custom subtitle content   |
+| `#extra`  | -          | Slot | Custom subtitle content      |
 
 ## Features
 

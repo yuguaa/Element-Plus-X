@@ -23,7 +23,9 @@ async function copyInstallCommand() {
         <p
           class="quickstart-description text-lg leading-relaxed text-white/80 m-0 max-w-2xl mx-auto"
         >
-          Element Plus X is a modern component library based on Vue 3, offering a rich set of components and elegant design to help you quickly build beautiful and powerful web applications.
+          Element Plus X is a modern component library based on Vue 3, offering
+          a rich set of components and elegant design to help you quickly build
+          beautiful and powerful web applications.
         </p>
 
         <div class="quickstart-actions flex justify-center">

@@ -11,7 +11,7 @@ const longerValue = `💌 欢迎使用 Element-Plus-X ~`.repeat(30);
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <MentionSender :auto-size="{ minRows: 2, maxRows: 5 }" />
     <MentionSender v-model="longerValue" />
   </div>

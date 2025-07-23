@@ -14,13 +14,13 @@ let finish = () => {};
 const sse = new XRequest({
   baseURL: 'https://node-test.element-plus-x.com',
   type: 'fetch',
-  transformer: (e) => {
+  transformer: e => {
     console.log('transformer:', e);
     const a = e.trim().split('\n');
     const r = a.pop();
     return r;
   },
-  onMessage: (msg) => {
+  onMessage: msg => {
     console.log('onMessage:', msg);
     str.value += `\n${msg}`;
   },
@@ -30,16 +30,16 @@ const sse = new XRequest({
   onOpen: () => {
     console.log('onOpen');
   },
-  onAbort: (messages) => {
+  onAbort: messages => {
     console.log('onAbort', messages);
   },
-  onFinish: (data) => {
+  onFinish: data => {
     console.log('onFinish:', data);
     // When called here, eslint will report an error saying 'finish' was used before it was defined.
     // We only defined an empty finish method above and assign it below.
     // Actually, this just executes the finish method from useSend.
     finish();
-  },
+  }
 });
 
 function startFn() {
@@ -50,9 +50,14 @@ function startFn() {
 // The abort and finish methods of useSend are the same.
 // To demonstrate that xrequest requests support manual abort and finish callbacks,
 // a method named finish is also exposed in useSend.
-const { send, loading, abort, finish: _finish } = useSend({
+const {
+  send,
+  loading,
+  abort,
+  finish: _finish
+} = useSend({
   sendHandler: startFn,
-  abortHandler: sse.abort,
+  abortHandler: sse.abort
 });
 
 // Assign to top-level variable

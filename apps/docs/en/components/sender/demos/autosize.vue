@@ -11,7 +11,7 @@ const longerValue = `💌 Welcome to Element-Plus-X ~`.repeat(30);
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <Sender :auto-size="{ minRows: 2, maxRows: 5 }" />
     <Sender v-model="longerValue" />
   </div>

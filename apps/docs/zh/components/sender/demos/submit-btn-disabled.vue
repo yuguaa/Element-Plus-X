@@ -36,19 +36,33 @@ function handleSubmit(value: string) {
 
 function handleCancel() {
   senderLoading.value = false;
-  if (timeValue.value)
-    clearTimeout(timeValue.value);
+  if (timeValue.value) clearTimeout(timeValue.value);
   timeValue.value = null;
   ElMessage.info(`取消发送`);
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <span>这是内置的禁用逻辑：</span>
-    <Sender ref="senderRef" v-model="senderValue" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
+    <Sender
+      ref="senderRef"
+      v-model="senderValue"
+      :loading="senderLoading"
+      clearable
+      @submit="handleSubmit"
+      @cancel="handleCancel"
+    />
 
     <span>自定义禁用逻辑：</span>
-    <Sender ref="senderRef" v-model="senderValue" :submit-btn-disabled="submitBtnDisabled" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
+    <Sender
+      ref="senderRef"
+      v-model="senderValue"
+      :submit-btn-disabled="submitBtnDisabled"
+      :loading="senderLoading"
+      clearable
+      @submit="handleSubmit"
+      @cancel="handleCancel"
+    />
   </div>
 </template>

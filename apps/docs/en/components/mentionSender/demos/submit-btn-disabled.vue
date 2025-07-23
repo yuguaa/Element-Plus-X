@@ -36,19 +36,33 @@ function handleSubmit(value: string) {
 
 function handleCancel() {
   senderLoading.value = false;
-  if (timeValue.value)
-    clearTimeout(timeValue.value);
+  if (timeValue.value) clearTimeout(timeValue.value);
   timeValue.value = null;
   ElMessage.info(`Cancel sending`);
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <span>This is the built-in disable logic:</span>
-    <MentionSender ref="senderRef" v-model="senderValue" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
+    <MentionSender
+      ref="senderRef"
+      v-model="senderValue"
+      :loading="senderLoading"
+      clearable
+      @submit="handleSubmit"
+      @cancel="handleCancel"
+    />
 
     <span>Custom disable logic:</span>
-    <MentionSender ref="senderRef" v-model="senderValue" :submit-btn-disabled="submitBtnDisabled" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
+    <MentionSender
+      ref="senderRef"
+      v-model="senderValue"
+      :submit-btn-disabled="submitBtnDisabled"
+      :loading="senderLoading"
+      clearable
+      @submit="handleSubmit"
+      @cancel="handleCancel"
+    />
   </div>
 </template>

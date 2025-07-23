@@ -27,22 +27,22 @@ const senderValue = ref('');
 const options = [
   {
     value: 'value1',
-    label: 'Option 1',
+    label: 'Option 1'
   },
   {
     value: 'value2',
     label: 'Option 2',
-    disabled: true,
+    disabled: true
   },
   {
     value: 'value3',
-    label: 'Option 3',
-  },
+    label: 'Option 3'
+  }
 ];
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 20px">
     <MentionSender
       v-model="senderValue"
       placeholder="Input / to trigger directive popover"
@@ -53,5 +53,4 @@ const options = [
   </div>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

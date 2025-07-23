@@ -13,21 +13,21 @@ const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
-    avatar: 'https://avatars.githubusercontent.com/u/76239030',
+    avatar: 'https://avatars.githubusercontent.com/u/76239030'
   },
   {
     value: 'JsonLee12138',
-    avatar: 'https://avatars.githubusercontent.com/u/160690954',
+    avatar: 'https://avatars.githubusercontent.com/u/160690954'
   },
   {
     value: 'ageerle',
-    avatar: 'https://avatars.githubusercontent.com/u/32251822',
-  },
+    avatar: 'https://avatars.githubusercontent.com/u/32251822'
+  }
 ]);
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 20px">
     <MentionSender
       v-model="senderValue1"
       placeholder="输入 @ 触发指令弹框"
@@ -46,5 +46,4 @@ const options = ref<MentionOption[]>([
   </div>
 </template>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

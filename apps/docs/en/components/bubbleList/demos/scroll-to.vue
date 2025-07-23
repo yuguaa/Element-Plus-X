@@ -74,7 +74,9 @@ function addMessage() {
   const isUser = !!(i % 2);
   const content = isUser
     ? 'Hahaha, let me try'
-    : '💖 Thank you for using Element Plus X ! Your support is our strongest motivation for open source ~'.repeat(5);
+    : '💖 Thank you for using Element Plus X ! Your support is our strongest motivation for open source ~'.repeat(
+        5
+      );
   const shape = 'corner';
   const variant = !isUser ? 'filled' : 'outlined';
   const placement = isUser ? 'end' : 'start';

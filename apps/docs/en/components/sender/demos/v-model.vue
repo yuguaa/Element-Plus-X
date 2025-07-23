@@ -44,26 +44,46 @@ function handleSubmit(value: string) {
 
 function handleCancel() {
   senderLoading.value = false;
-  if (timeValue.value)
-    clearTimeout(timeValue.value);
+  if (timeValue.value) clearTimeout(timeValue.value);
   timeValue.value = null;
   ElMessage.info(`Cancel sending`);
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
-    <div style="display: flex;">
-      <el-button type="primary" style="width: fit-content;" @click="senderRef.clear()">
+  <div style="display: flex; flex-direction: column; gap: 12px">
+    <div style="display: flex">
+      <el-button
+        type="primary"
+        style="width: fit-content"
+        @click="senderRef.clear()"
+      >
         Clear using component instance
       </el-button>
-      <el-button type="primary" style="width: fit-content;" :disabled="!senderValue" @click="senderRef.submit()">
+      <el-button
+        type="primary"
+        style="width: fit-content"
+        :disabled="!senderValue"
+        @click="senderRef.submit()"
+      >
         Submit using component instance
       </el-button>
-      <el-button type="primary" style="width: fit-content;" @click="senderRef.cancel()">
+      <el-button
+        type="primary"
+        style="width: fit-content"
+        @click="senderRef.cancel()"
+      >
         Cancel using component instance
       </el-button>
     </div>
-    <Sender ref="senderRef" v-model="senderValue" :submit-btn-disabled="submitBtnDisabled" :loading="senderLoading" clearable @submit="handleSubmit" @cancel="handleCancel" />
+    <Sender
+      ref="senderRef"
+      v-model="senderValue"
+      :submit-btn-disabled="submitBtnDisabled"
+      :loading="senderLoading"
+      clearable
+      @submit="handleSubmit"
+      @cancel="handleCancel"
+    />
   </div>
 </template>

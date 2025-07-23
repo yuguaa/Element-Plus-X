@@ -12,7 +12,10 @@ import type { GroupableOptions } from 'vue-element-plus-x/types/Conversations';
 const menuTestItems1 = ref([
   {
     key: 'm1',
-    label: 'Menu Test Item 1 - Long text effect demonstration text length overflow effect test'.repeat(2),
+    label:
+      'Menu Test Item 1 - Long text effect demonstration text length overflow effect test'.repeat(
+        2
+      ),
     group: 'Work'
   },
   {

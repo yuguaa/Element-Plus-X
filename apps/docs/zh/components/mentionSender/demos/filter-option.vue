@@ -15,31 +15,30 @@ const senderValue1 = ref('');
 const options = ref<MentionOption[]>([
   {
     value: 'HeJiaYue520',
-    avatar: 'https://avatars.githubusercontent.com/u/76239030',
+    avatar: 'https://avatars.githubusercontent.com/u/76239030'
   },
   {
     value: 'JsonLee12138',
-    avatar: 'https://avatars.githubusercontent.com/u/160690954',
+    avatar: 'https://avatars.githubusercontent.com/u/160690954'
   },
   {
     value: 'ageerle',
-    avatar: 'https://avatars.githubusercontent.com/u/32251822',
-  },
+    avatar: 'https://avatars.githubusercontent.com/u/32251822'
+  }
 ]);
 
 function filterFunc(_: string, option: MentionOption): any {
   // 这里打印 option 每次触发指令，会遍历 options 触发 filterFunc。
   if (option.value === 'ageerle' || option.value === 'JsonLee12138') {
     return true;
-  }
-  else if (option.value === 'HeJiaYue520') {
+  } else if (option.value === 'HeJiaYue520') {
     return false;
   }
 }
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 20px;">
+  <div style="display: flex; flex-direction: column; gap: 20px">
     <MentionSender
       v-model="senderValue1"
       placeholder="输入 @ 触发指令弹框，此处已经过滤了 HeJiaYue520"

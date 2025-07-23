@@ -48,7 +48,8 @@ Supports image preview, square/rectangle variants, upload status overlay and oth
       <span
         >Image files default rectangle variant
         <span style="color: red"
-          >supports upload status, supports preview on/off, supports preview mask overlay on/off</span
+          >supports upload status, supports preview on/off, supports preview
+          mask overlay on/off</span
         ></span
       >
       <div class="files-card-container">
@@ -82,7 +83,8 @@ Supports image preview, square/rectangle variants, upload status overlay and oth
       <span
         >Image files square variant
         <span style="color: red"
-          >supports upload status, supports preview on/off, supports preview mask overlay on/off</span
+          >supports upload status, supports preview on/off, supports preview
+          mask overlay on/off</span
         ></span
       >
       <div class="files-card-container">

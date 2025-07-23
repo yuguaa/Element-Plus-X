@@ -21,8 +21,7 @@ const senderValue = ref('');
 function onRecordingChange(recording: boolean) {
   if (recording) {
     ElMessage.success('Start recording');
-  }
-  else {
+  } else {
     ElMessage.success('Stop recording');
   }
 }
@@ -33,27 +32,32 @@ function onsubmit() {
 </script>
 
 <template>
-  <div style="display: flex; flex-direction: column; gap: 12px;">
+  <div style="display: flex; flex-direction: column; gap: 12px">
     <span>Built-in voice recognition:</span>
     <MentionSender v-model="senderValue" allow-speech @submit="onsubmit" />
 
     <span>Custom voice recognition:</span>
-    <div style="display: flex;">
+    <div style="display: flex">
       <el-button
         type="primary"
-        style="width: fit-content;"
+        style="width: fit-content"
         @click="senderRef.startRecognition()"
       >
         Start recording using component instance
       </el-button>
       <el-button
         type="primary"
-        style="width: fit-content;"
+        style="width: fit-content"
         @click="senderRef.stopRecognition()"
       >
         Stop recording using component instance
       </el-button>
     </div>
-    <MentionSender ref="senderRef" v-model="senderValue" allow-speech @recording-change="onRecordingChange" />
+    <MentionSender
+      ref="senderRef"
+      v-model="senderValue"
+      allow-speech
+      @recording-change="onRecordingChange"
+    />
   </div>
 </template>

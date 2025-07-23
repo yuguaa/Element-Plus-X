@@ -147,7 +147,9 @@ function handleInputKeydown(e: KeyboardEvent) {
             padding: 8px;
           "
         >
-          This is my custom dropdown header content. You can also add custom key controls for the popover. Try controlling the directions with the w/a/s/d keys.
+          This is my custom dropdown header content. You can also add custom key
+          controls for the popover. Try controlling the directions with the
+          w/a/s/d keys.
         </div>
       </template>
 
