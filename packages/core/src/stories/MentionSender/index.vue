@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { MentionOption } from '@components/MentionSender/types';
+import { ElMessage } from 'element-plus';
 import { MentionSender } from '../../components';
 
 function handleSubmit(value: string) {

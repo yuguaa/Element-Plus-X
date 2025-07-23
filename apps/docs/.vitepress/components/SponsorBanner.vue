@@ -1,27 +1,52 @@
-<!-- 顶部-模版项目跳转-区域 -->
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useData } from 'vitepress';
+import { computed, ref } from 'vue';
+
+const { lang } = useData();
 
 const open = ref(true);
+
 function dismiss() {
   open.value = false;
   document.documentElement.classList.add('banner-dismissed');
 }
+
+// 多语言配置
+const i18nTexts = {
+  zh: {
+    main: '模版项目',
+    place: ' · MIT · chat-template',
+    date: ' · 重磅推出 ',
+    action: '在线预览'
+  },
+  en: {
+    main: 'Template Project',
+    place: ' · MIT · chat-template',
+    date: ' · Hot Release ',
+    action: 'Live Preview'
+  }
+};
+
+// 根据当前语言获取文本
+const texts = computed(() => {
+  const currentLang = lang.value.startsWith('zh') ? 'zh' : 'en';
+  return i18nTexts[currentLang];
+});
 </script>
 
 <template>
   <div v-if="open" class="banner">
     <img src="/logo.png" class="logo" />
     <p class="vt-banner-text">
-      <span class="vt-main">模版项目</span>
-      <span class="vt-place"> · MIT · chat-template</span>
-      <span class="vt-date"> · 重磅推出 </span>
+      <span class="vt-main">{{ texts.main }}</span>
+      <span class="vt-place">{{ texts.place }}</span>
+      <span class="vt-date">{{ texts.date }}</span>
       <a
         target="_blank"
         class="vt-primary-action"
         href="https://chat.element-plus-x.com/chat"
       >
-        在线预览
+        {{ texts.action }}
       </a>
     </p>
     <button @click="dismiss">
@@ -33,7 +58,7 @@ function dismiss() {
         viewBox="0 0 24 24"
       >
         <path
-          d="M18.9,10.9h-6v-6c0-0.6-0.4-1-1-1s-1,0.4-1,1v6h-6c-0.6,0-1,0.4-1,1s0.4,1,1,1h6v6c0,0.6,0.4,1,1,1s1-0.4,1-1v-6h6c0.6,0,1-0.4,1-1S19.5,10.9,18.9,10.9z"
+          d="M18.9,10.9h-6v-6c0-0.6-0.4-1-1s-1,0.4-1,1v6h-6c-0.6,0-1,0.4-1,1s0.4,1,1,1h6v6c0,0.6,0.4,1,1,1s1-0.4,1-1v-6h6c0.6,0,1-0.4,1-1S19.5,10.9,18.9,10.9z"
         />
       </svg>
     </button>
