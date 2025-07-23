@@ -1,21 +1,23 @@
-import type { Theme } from 'vitepress';
+import type { App } from 'vue';
 import { AntdTheme } from 'vite-plugin-vitepress-demo/theme';
-import DefaultTheme from 'vitepress/theme';
+import Theme from 'vitepress/theme';
 import { h } from 'vue';
-// https://vitepress.dev/guide/custom-theme
-import 'virtual:group-icons.css';
-import './style.css';
+import SponsorBanner from '../components/SponsorBanner.vue';
+import 'virtual:uno.css';
+import './var.css';
+
+import './landing.css';
 import './markdown.css';
+import 'virtual:group-icons.css';
 
 export default {
-  extends: DefaultTheme,
-  Layout: () => {
-    return h(DefaultTheme.Layout, null, {
-      // https://vitepress.dev/guide/extending-default-theme#layout-slots
+  ...Theme,
+  Layout() {
+    return h(Theme.Layout, null, {
+      'layout-top': () => h(SponsorBanner)
     });
   },
-  enhanceApp({ app }) {
-    // ...
+  enhanceApp({ app }: { app: App }) {
     app.component('demo', AntdTheme);
   }
-} satisfies Theme;
+};

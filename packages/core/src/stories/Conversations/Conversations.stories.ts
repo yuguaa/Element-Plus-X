@@ -1,5 +1,6 @@
 import type ConversationsSource from '@components/Conversations/index.vue';
 import type { Meta, StoryObj } from '@storybook/vue3';
+import { ElMessage } from 'element-plus';
 import CustomStyleSolt from './CustomStyleSolt.vue';
 import Conversations from './index.vue';
 
