@@ -72,7 +72,7 @@ export default defineConfig({
       Unocss() as unknown as Plugin,
     ],
     ssr: {
-      noExternal: ['element-plus'],
+      noExternal: ['element-plus', 'gsap'],
     },
   },
 });

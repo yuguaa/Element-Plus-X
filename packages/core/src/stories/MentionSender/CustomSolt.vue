@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { MentionOption } from '@components/MentionSender/types.d.ts';
 import { CircleClose, Delete, Position } from '@element-plus/icons-vue';
+import { ElMessage } from 'element-plus';
 import { MentionSender } from '../../components';
 
 const senderRef = ref<InstanceType<typeof MentionSender>>();
