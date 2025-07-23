@@ -131,7 +131,6 @@ function handleDeleteCard(item: SelfFilesCardProps) {
     />
     <div>scrollY</div>
     <Attachments
-      :file-list="files"
       :http-request="handleHttpRequest"
       :items="files"
       drag
@@ -144,7 +143,6 @@ function handleDeleteCard(item: SelfFilesCardProps) {
     />
     <div>wrap</div>
     <Attachments
-      :file-list="files"
       :http-request="handleHttpRequest"
       :items="files"
       drag
