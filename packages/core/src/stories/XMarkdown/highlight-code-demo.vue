@@ -5,7 +5,7 @@ import type {
 } from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
 import XMarkdown from '@components/XMarkdown/index.vue';
 import { SELECT_OPTIONS_ENUM } from '@components/XMarkdownCore/components/RunCode/components/options';
-import { ElButton, ElSpace, ElTooltip } from 'element-plus';
+import { ElButton, ElMessage, ElSpace, ElTooltip } from 'element-plus';
 import { h } from 'vue';
 import CodeHeader from './CodeHeader.vue';
 
