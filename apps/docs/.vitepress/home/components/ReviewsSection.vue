@@ -73,7 +73,7 @@ const reviews = ref([
   <section class="reviews-section py-24 relative">
     <div class="reviews-container max-w-6xl mx-auto px-8">
       <div class="reviews-header text-center mb-16">
-        <h2 class="reviews-title text-5xl font-black m-0 mb-4">社区评价</h2>
+        <h2 class="reviews-title text-5xl font-black mx-a mb-4">社区评价</h2>
         <p class="reviews-subtitle text-lg text-white/70 m-0">
           来自全球开发者的真实反馈
         </p>

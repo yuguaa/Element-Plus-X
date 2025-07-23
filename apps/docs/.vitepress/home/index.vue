@@ -5,7 +5,6 @@ import {
   Contributors,
   FeaturesSection,
   Footer,
-  HeroBanner,
   HeroSection,
   ReviewsSection,
   SupportSection
@@ -17,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 <template>
   <div class="page-container">
     <!-- 顶部横幅广告 -->
-    <HeroBanner />
+    <!-- <HeroBanner /> -->
 
     <!-- 首屏英雄区 -->
     <HeroSection />
