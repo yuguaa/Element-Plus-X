@@ -5,7 +5,7 @@ const config = {
   root: {
     label: 'English',
     lang: 'en',
-    link: '/en/',  // 重要：设置英文版的链接前缀
+    link: '/en/', // 重要：设置英文版的链接前缀
     themeConfig: {
       // 英文导航 - 所有链接都加上 /en/ 前缀
       nav: [
@@ -20,7 +20,7 @@ const config = {
         { text: '🧭 Guide', link: '/en/guide/install' },
         { text: '🎨 Components', link: '/en/components/xmarkdown' },
       ],
-      
+
       // 英文侧边栏
       sidebar: {
         '/en/components/': [
@@ -81,7 +81,7 @@ const config = {
           },
         ],
       },
-      
+
       // 英文搜索配置
       search: {
         provider: 'local',
@@ -103,7 +103,7 @@ const config = {
           },
         },
       },
-      
+
       // 英文页脚
       docFooter: {
         prev: 'Previous',
@@ -119,7 +119,7 @@ const config = {
       },
     },
   },
-  
+
   zh: {
     label: '简体中文',
     lang: 'zh-CN',
@@ -138,7 +138,7 @@ const config = {
         { text: '🧭 指南', link: '/zh/guide/install' },
         { text: '🎨 组件', link: '/zh/components/xmarkdown' },
       ],
-      
+
       // 中文侧边栏
       sidebar: {
         '/zh/components/': [
@@ -199,7 +199,7 @@ const config = {
           },
         ],
       },
-      
+
       // 中文搜索配置
       search: {
         provider: 'local',
@@ -221,7 +221,7 @@ const config = {
           },
         },
       },
-      
+
       // 中文页脚
       docFooter: {
         prev: '上一篇',

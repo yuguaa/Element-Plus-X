@@ -1,5 +1,4 @@
 ---
-title: Element Plus X
 pageClass: landing dark
 
 layout: home

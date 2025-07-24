@@ -32,9 +32,9 @@ export default defineConfig({
         timeStyle: 'short',
       },
     },
-    search: {
-      provider: 'local',
-    },
+    // search: {
+    //   provider: 'local',
+    // },
     // 定义 footer 内容
     // footer: {
     //   message: 'Released under the MIT License.',
