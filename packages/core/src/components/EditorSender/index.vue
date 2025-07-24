@@ -41,23 +41,6 @@ const emits = defineEmits<{
   (e: 'showSelectDialog', key: string, elm: HTMLElement): void;
   (e: 'showTagDialog', prefix: string): void;
 }>();
-const slots = defineSlots();
-/** header相关操作 */
-const visibleHeader = ref(false);
-// 展开头部
-function openHeader() {
-  if (!slots.header) {
-    return false;
-  }
-  visibleHeader.value = true;
-}
-// 关闭头部
-function closeHeader() {
-  if (!slots.header) {
-    return false;
-  }
-  visibleHeader.value = false;
-}
 
 /** 输入框相关 */
 const chat = ref<ChatArea>();
@@ -458,8 +441,6 @@ onBeforeUnmount(() => {
 
 /** 暴露方法 */
 defineExpose({
-  openHeader,
-  closeHeader,
   getCurrentValue,
   focusToStart,
   focusToEnd,
@@ -494,8 +475,8 @@ defineExpose({
   >
     <!-- 头部容器 -->
     <Transition name="slide">
-      <div v-if="visibleHeader" class="el-editor-sender-header">
-        <div v-if="$slots.header" class="el-editor-sender-header-container">
+      <div v-if="$slots.header" class="el-editor-sender-header">
+        <div class="el-editor-sender-header-container">
           <slot name="header" />
         </div>
       </div>

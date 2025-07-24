@@ -49,14 +49,8 @@ function cancel() {
 const showHeaderFlog = ref(false);
 function closeHeader() {
   showHeaderFlog.value = false;
-  editorRef.value?.closeHeader();
 }
 function switchHeader() {
-  if (!showHeaderFlog.value) {
-    editorRef.value?.openHeader();
-  } else {
-    editorRef.value?.closeHeader();
-  }
   showHeaderFlog.value = !showHeaderFlog.value;
 }
 function setMixTags() {
@@ -133,7 +127,6 @@ function openSelectDialog() {
 
 onMounted(() => {
   showHeaderFlog.value = true;
-  editorRef.value?.openHeader();
 });
 </script>
 
@@ -181,7 +174,7 @@ onMounted(() => {
       </template>
 
       <!-- 自定义头部 -->
-      <template #header>
+      <template v-if="showHeaderFlog" #header>
         <div class="header-self-wrap">
           <div class="header-self-title">
             <div class="header-left">💯 欢迎使用 Element Plus X</div>
