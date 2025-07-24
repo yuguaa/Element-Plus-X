@@ -2,7 +2,13 @@
 // import gsap from 'gsap';
 // import ScrollTrigger from 'gsap/ScrollTrigger';
 // import { nextTick, onMounted } from 'vue';
-import { FeaturesSection } from './components';
+import {
+  FeaturesSection,
+  Footer,
+  HeroSection,
+  ReviewsSection,
+  SupportSection
+} from './components';
 
 // gsap.registerPlugin(ScrollTrigger);
 
@@ -55,19 +61,19 @@ import { FeaturesSection } from './components';
     <!-- <HeroBanner /> -->
 
     <!-- 首屏英雄区 -->
-    <!-- <HeroSection /> -->
+    <HeroSection />
 
     <!-- 赞助与支持区域 -->
-    <!-- <SupportSection /> -->
+    <SupportSection />
 
     <!-- 特性区域 -->
     <FeaturesSection />
 
     <!-- 社区评价区域 -->
-    <!-- <ReviewsSection /> -->
+    <ReviewsSection />
 
     <!-- 底部区域 -->
-    <!-- <Footer /> -->
+    <Footer />
   </div>
 </template>
 

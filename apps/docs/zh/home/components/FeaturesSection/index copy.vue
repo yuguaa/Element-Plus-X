@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { nextTick, onMounted, onUnmounted, ref } from 'vue';
 import {
   calculateCardRotation,
@@ -15,13 +13,9 @@ import {
 } from './starfield-manager';
 import { TechCircleManager } from './tech-circle-manager'; // 引入新工具类
 
-// 注册GSAP插件
-gsap.registerPlugin(ScrollTrigger);
-
 // DOM引用
 const cardWrapRef = ref<HTMLElement | null>(null);
 const canvases = ref<(HTMLCanvasElement | null)[]>([]);
-const cards = ref<HTMLElement[]>([]);
 // 背景色圈管理器
 const circleManager = ref<TechCircleManager | null>(null);
 const backgroundContainerRef = ref<HTMLElement | null>(null);
@@ -39,7 +33,6 @@ const items = ref([
 // 动画实例管理
 const starfieldManagers = ref<StarfieldManager[]>([]);
 const cardTweens = ref<(gsap.core.Tween | null)[]>([]);
-const scrollTriggers = ref<(gsap.plugins.ScrollTriggerInstance | null)[]>([]);
 
 /** 处理鼠标移动事件 */
 function handleMouseMove(e: MouseEvent, index: number) {
@@ -123,66 +116,6 @@ async function initStarfields() {
   });
 }
 
-/** 初始化卡片入场动画 */
-async function initCardAnimations() {
-  await nextTick(); // 等待DOM渲染完成
-
-  if (!cardWrapRef.value) return;
-
-  // 获取所有卡片元素
-  const cardElements = Array.from(cardWrapRef.value.children) as HTMLElement[];
-  cards.value = cardElements;
-
-  // 为每张卡片设置初始状态
-  cardElements.forEach(card => {
-    gsap.set(card, {
-      opacity: 0,
-      y: 50,
-      scale: 0.8
-    });
-  });
-
-  // 为每张卡片创建滚动触发动画
-  cardElements.forEach((card, index) => {
-    // 第一行卡片 (索引 0, 1, 2) - 从左到右，从下往上，淡入
-    if (index < 3) {
-      scrollTriggers.value[index] = ScrollTrigger.create({
-        trigger: card,
-        start: 'top 80%', // 当卡片顶部到达视口80%位置时触发
-        once: true, // 只触发一次
-        onEnter: () => {
-          gsap.to(card, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: index * 0.2 // 依次延迟出现
-          });
-        }
-      });
-    }
-    // 第二行卡片 (索引 3, 4, 5) - 从右到左，缩放展示
-    else {
-      scrollTriggers.value[index] = ScrollTrigger.create({
-        trigger: card,
-        start: 'top 80%',
-        once: true,
-        onEnter: () => {
-          gsap.to(card, {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: (5 - index) * 0.2 // 从右到左依次延迟
-          });
-        }
-      });
-    }
-  });
-}
-
 // 初始化背景色圈
 function initBackgroundCircles() {
   nextTick(() => {
@@ -196,10 +129,7 @@ function initBackgroundCircles() {
 // 生命周期
 onMounted(() => {
   initBackgroundCircles(); // 初始化背景色圈
-  setTimeout(() => {
-    initStarfields(); // 初始化星空
-    initCardAnimations(); // 初始化卡片动画
-  }, 100);
+  setTimeout(initStarfields, 100); // 初始化星空
 });
 
 onUnmounted(() => {
@@ -208,10 +138,7 @@ onUnmounted(() => {
 
   // 清理星空动画
   starfieldManagers.value.forEach(manager => manager.destroy());
-
-  // 清理GSAP动画和滚动触发器
   cardTweens.value.forEach(tween => tween?.kill());
-  scrollTriggers.value.forEach(trigger => trigger?.kill());
 });
 </script>
 
@@ -223,12 +150,7 @@ onUnmounted(() => {
     class="tech-background-container"
   />
   <div ref="cardWrapRef" class="component-card-wrap">
-    <Card
-      v-for="(item, index) in items"
-      :key="index"
-      class="component-card"
-      :data-index="index"
-    >
+    <Card v-for="(item, index) in items" :key="index" class="component-card">
       <div
         class="inner-wrap"
         @mousemove="handleMouseMove($event, index)"
@@ -255,15 +177,18 @@ onUnmounted(() => {
   grid-template-columns: 1fr;
   gap: 2rem;
   z-index: 10;
-  position: relative; /* 确保z-index生效 */
 
   .component-card {
     aspect-ratio: 4/3;
+    // 边框
+    // background-color: rgba(255, 255, 255, 0.1);
     position: relative;
     border-radius: 30px;
     overflow: hidden;
     transform-style: preserve-3d;
     transition: transform 0.1s ease-out;
+    // box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2),
+    //         6px 6px 0 rgba(0, 255, 213, 0.1);
     box-shadow:
       0 4px 8px rgba(0, 255, 255, 0.3),
       0 0 20px rgba(0, 255, 255, 0.15);

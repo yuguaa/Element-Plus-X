@@ -96,6 +96,7 @@ const sponsors = ref([
 <style scoped>
 /* 背景渐变 */
 .support-section {
+  z-index: 10;
   background: linear-gradient(
     135deg,
     rgba(139, 92, 246, 0.08) 0%,
