@@ -3,6 +3,7 @@
 // import ScrollTrigger from 'gsap/ScrollTrigger';
 // import { nextTick, onMounted } from 'vue';
 import {
+  Contributors,
   FeaturesSection,
   Footer,
   HeroSection,
@@ -71,6 +72,9 @@ import {
 
     <!-- 社区评价区域 -->
     <ReviewsSection />
+
+    <!-- 贡献者 -->
+    <Contributors />
 
     <!-- 底部区域 -->
     <Footer />

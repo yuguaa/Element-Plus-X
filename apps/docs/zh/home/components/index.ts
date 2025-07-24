@@ -1,3 +1,4 @@
+export { default as Contributors } from './Contributors.vue';
 export { default as FeaturesSection } from './FeaturesSection/index.vue';
 export { default as Footer } from './Footer.vue';
 export { default as HeroBanner } from './HeroBanner.vue';
