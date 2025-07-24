@@ -9,11 +9,13 @@ const siteList = ref([
       {
         icon: null,
         name: 'Ant Design',
+        subName: null,
         url: 'https://ant.design'
       },
       {
         icon: null,
         name: 'Ant Design Pro',
+        subName: null,
         url: 'https://pro.ant.design'
       }
     ]
@@ -25,11 +27,13 @@ const siteList = ref([
       {
         icon: null,
         name: 'Ant Design',
+        subName: null,
         url: 'https://ant.design'
       },
       {
         icon: null,
         name: 'Ant Design Pro',
+        subName: null,
         url: 'https://pro.ant.design'
       }
     ]
@@ -41,11 +45,31 @@ const siteList = ref([
       {
         icon: 'https://automation.vuejs.org/images/daman_game.png',
         name: 'Ant Design',
+        subName: null,
         url: 'https://ant.design'
       },
       {
         icon: 'https://automation.vuejs.org/images/daman_game.png',
         name: 'Ant Design Pro',
+        subName: null,
+        url: 'https://pro.ant.design'
+      }
+    ]
+  },
+  {
+    icon: 'https://automation.vuejs.org/images/daman_game.png',
+    name: '更多产品',
+    sites: [
+      {
+        icon: 'https://automation.vuejs.org/images/daman_game.png',
+        name: '语雀',
+        subName: '构建你的数字花园',
+        url: 'https://ant.design'
+      },
+      {
+        icon: 'https://automation.vuejs.org/images/daman_game.png',
+        name: 'AntV',
+        subName: '数据可视化解决方案',
         url: 'https://pro.ant.design'
       }
     ]
@@ -62,7 +86,7 @@ const siteList = ref([
       <div
         v-for="siteItem in siteList"
         :key="siteItem.name"
-        class="site-list flex-1 min-w-[320px]"
+        class="site-list flex-1 min-w-[235px]"
       >
         <div
           class="site-list-title text-white/80 text-lg font-bold mb-4 flex items-center"
@@ -84,7 +108,12 @@ const siteList = ref([
             class="site-list-item text-white/60 text-sm flex items-center gap-2"
           >
             <img v-if="site.icon" class="w-4 h-4" :src="site.icon" alt="" />
-            <span>{{ site.name }}</span>
+            <span>
+              <span>{{ site.name }}</span>
+              <span v-if="site.subName" class="text-white/40 text-xs">
+                - {{ site.subName }}</span
+              >
+            </span>
           </a>
         </div>
       </div>
@@ -107,6 +136,11 @@ const siteList = ref([
 
 <style scoped lang="less">
 .linear-footer {
-  background-color: #14161c;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.08) 0%,
+    rgba(59, 130, 246, 0.08) 50%,
+    rgba(99, 102, 241, 0.08) 100%
+  );
 }
 </style>
