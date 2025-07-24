@@ -20,9 +20,11 @@ const sponsors = ref([
   <section class="support-section py-12 relative">
     <div class="support-container max-w-4xl mx-auto px-8 flex flex-col gap-8">
       <!-- 紧凑的标题区域 -->
-      <div class="support-header text-center">
+      <div
+        class="support-header text-center flex flex-col justify-center items-center"
+      >
         <h2 class="support-title text-3xl font-extrabold m-0 mb-2">感谢支持</h2>
-        <p class="support-subtitle text-base text-white/70 m-0">
+        <p class="support-subtitle text-base text-white/70 my-2">
           他们的支持让开源项目持续发展
         </p>
       </div>
