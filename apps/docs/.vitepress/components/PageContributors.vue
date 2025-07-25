@@ -6,7 +6,7 @@ import _contributors from 'element-plus-x-metadata/dist/component-contributors.j
 
 const { page, lang } = useData();
 const contributorTitle = computed(() => {
-  return lang.value === 'zh-CN' ? '文档贡献者' : 'Contributors';
+  return lang.value === 'zh-CN' ? '贡献者' : 'Contributors';
 });
 
 const isComponentPage = computed(() => {
