@@ -4,7 +4,8 @@
 
 html:has(.landing) {
   --vp-c-bg: #101010;
-
+  --vp-c-bg2:#050a1a; /* 移动模式下背景颜色*/
+  --vp-c-border:#4c4c69b3;/*下拉框边框颜色*/
   background-color: #101010;
 
   body {
@@ -14,7 +15,7 @@ html:has(.landing) {
 
 .landing {
   overflow-x: hidden;
-  background-color: #101010;
+  /* background-color: #101010; */
 
   * {
     -webkit-font-smoothing: antialiased !important;
@@ -32,10 +33,11 @@ html:has(.landing) {
 
     @media (min-width: 768px) {
       backdrop-filter: blur(10px);
-      background: rgba(15, 15, 15, 0.35) !important;
+      /* background: rgba(15, 15, 15, 0.35) !important; */
       border-bottom: none !important;
     }
-
+ 
+    
     .content-body {
       background: none !important;
       transition: none;
@@ -72,11 +74,16 @@ html:has(.landing) {
   .VPNavBarAppearance {
     display: none;
   }
-
+  .VPMenu {
+    background: none !important;
+    border-color: var(--vp-c-border) !important;
+  }
   .VPMenu .translations + .group {
     display: none;
   }
-
+  .VPNavScreen{
+    background:var(--vp-c-bg2) !important;
+  }
   .VPNavScreenAppearance {
     visibility: hidden;
   }
