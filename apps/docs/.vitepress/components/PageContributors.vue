@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useData } from 'vitepress';
 import { computed } from 'vue';
-import _contributors from 'element-plus-x-metadata/dist/component-contributors.json'
+import _contributors from 'element-plus-x-metadata/dist/component-contributors.json';
 
 
 const { page, lang } = useData();
@@ -11,7 +11,7 @@ const contributorTitle = computed(() => {
 
 const isComponentPage = computed(() => {
   return page.value.filePath.includes('components');
-})
+});
 
 const contributors = computed(() => {
   const filePath = page.value.filePath;
@@ -19,7 +19,7 @@ const contributors = computed(() => {
   const componentName = paths[paths.length - 2].toLowerCase();
   const contributors = _contributors[componentName as keyof typeof _contributors];
   return contributors;
-})
+});
 </script>
 
 <template>
@@ -55,4 +55,5 @@ const contributors = computed(() => {
 .page-contributors-item {
   cursor: pointer;
 }
+
 </style>
