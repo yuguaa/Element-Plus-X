@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { TriggerEvent } from '@components/Sender/types';
+import { ElMessage } from 'element-plus';
 import { Sender } from '../../components';
 
 function handleSubmit(value: string) {

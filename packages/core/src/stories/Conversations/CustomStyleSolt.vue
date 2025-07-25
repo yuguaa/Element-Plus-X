@@ -3,6 +3,7 @@ import type {
   ConversationItem,
   ConversationMenuCommand
 } from '@components/Conversations/types';
+import { ElMessage } from 'element-plus';
 
 const conversationMenuItems1 = [
   {
