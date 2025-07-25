@@ -15,6 +15,7 @@ export const DEFAULT_PROPS = {
   allowHtml: true,
   enableLatex: true,
   enableBreaks: true,
+  enableCodeLineNumber: false,
   codeXRender: () => ({}),
   codeXSlot: () => ({}),
   codeHighlightTheme: null,
@@ -44,6 +45,10 @@ export const MARKDOWN_CORE_PROPS = {
   allowHtml: {
     type: Boolean,
     default: true
+  },
+  enableCodeLineNumber: {
+    type: Boolean,
+    default: false
   },
   enableLatex: {
     type: Boolean,

@@ -194,6 +194,7 @@ onMounted(() => {
     <h4>默认插槽</h4>
     <XMarkdown
       v-bind="$attrs"
+      :enable-code-line-number="true"
       :markdown="content"
       :color-replacements="{
         // 这里传一个默认值 使其不受到其他 colorReplacements 的影响

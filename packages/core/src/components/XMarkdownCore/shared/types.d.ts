@@ -5,6 +5,7 @@ import type { InitShikiOptions } from './shikiHighlighter';
 
 export type MarkdownProps = {
   allowHtml?: boolean;
+  enableCodeLineNumber?: boolean;
   enableLatex?: boolean;
   enableBreaks?: boolean;
   codeXRender?: Record<string, any>;
