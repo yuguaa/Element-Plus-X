@@ -30,9 +30,11 @@
     "./styles/*": "./dist/styles/*",
     "./types/*": "./types/components/*/types.d.ts"
   },
-  "main": "dist/umd/index.js",
+  "main": "dist/es/index.js",
   "module": "dist/es/index.js",
+  "browser": "dist/umd/index.js",
   "unpkg": "dist/umd/index.js",
+  "jsdelivr": "dist/umd/index.js",
   "types": "types/index.d.ts",
   "typesVersions": {
     "*": {
