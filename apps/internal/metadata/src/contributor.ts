@@ -38,7 +38,8 @@ const getCommits = async (subPath: string): Promise<Contributor[]> => {
       ...data
         .map((c: any) => c.author && c.author.login && {
           login: c.author.login, // 贡献者name
-          avatar: c.author.avatar_url // 贡献者头像
+          avatar: c.author.avatar_url, // 贡献者头像
+          homeUrl: c.author.html_url // 贡献者主页
         })
         .filter(Boolean)
     )

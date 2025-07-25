@@ -2,7 +2,6 @@
 import { useData } from 'vitepress';
 import { computed } from 'vue';
 import _contributors from 'element-plus-x-metadata/dist/component-contributors.json'
-console.log(_contributors, '----');
 
 
 const { page, lang } = useData();
@@ -21,25 +20,20 @@ const contributors = computed(() => {
   const contributors = _contributors[componentName as keyof typeof _contributors];
   return contributors;
 })
-
-
-
-
-
-
 </script>
 
 <template>
-  <div v-if="isComponentPage">
+  <div v-if="isComponentPage && contributors.length">
     <div class="page-contributors-title">
       {{ contributorTitle }}
     </div>
     <div class="page-contributors-list">
-      <div v-for="contributor in contributors" :key="contributor.login" class="page-contributors-item">
+      <a v-for="contributor in contributors" :key="contributor.login" class="page-contributors-item"
+        :href="contributor.homeUrl" target="_blank">
         <el-tooltip :content="contributor.login" placement="top-start">
           <el-avatar :size="24" :src="contributor.avatar" />
         </el-tooltip>
-      </div>
+      </a>
     </div>
   </div>
 </template>
