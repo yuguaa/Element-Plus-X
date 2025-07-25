@@ -9,7 +9,12 @@ markdownStyles: false
 ---
 
 <script setup>
-import MainPage from '/.vitepress/home/index.vue'
-</script>
+import { onBeforeMount } from 'vue'
+import { useRouter } from 'vitepress'
 
-<MainPage  />
+const router = useRouter()
+
+onBeforeMount(() => {
+  router.go('/en/')
+})
+</script>
