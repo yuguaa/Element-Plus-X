@@ -52,6 +52,7 @@
   --vp-c-default-1: var(--vp-c-gray-1);
   --vp-c-default-2: var(--vp-c-gray-2);
   --vp-c-default-3: var(--vp-c-gray-3);
+  --vp-c-default-4: #050a1a;/* 移动模式下搜索框背景*/
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
   --vp-c-brand-1: var(--vp-c-indigo-1);
@@ -142,4 +143,7 @@
 
 .VPLocalSearchBox {
   z-index: 10000 !important;
+  .shell{
+    background: var(--vp-c-default-4) !important;
+  }
 }
