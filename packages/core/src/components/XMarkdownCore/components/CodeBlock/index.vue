@@ -68,7 +68,7 @@ async function generateHtml() {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content, {
+  const html = await codeToHtml(content.trim(), {
     colorReplacements: colorReplacements.value,
     lang: language as BundledLanguage,
     themes: themes.value,
