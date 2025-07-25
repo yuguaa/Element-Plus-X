@@ -7,6 +7,8 @@ export interface MarkdownContext {
   markdown?: string;
   // 是否允许 HTML
   allowHtml?: boolean;
+  // 是否启用代码行号
+  enableCodeLineNumber?: boolean;
   // 是否启用 LaTeX 支持
   enableLatex?: boolean;
   // 是否启用换行符转 <br>

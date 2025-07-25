@@ -37,7 +37,11 @@ const props = withDefaults(
 );
 
 const context = useMarkdownContext();
-const { codeXSlot, customAttrs } = toValue(context) || {};
+const {
+  codeXSlot,
+  customAttrs,
+  enableCodeLineNumber = false
+} = toValue(context) || {};
 const renderLines = ref<string[]>([]);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
@@ -234,6 +238,7 @@ watch(
       v-bind="codeAttrs"
     >
       <HighLightCode
+        :enable-code-line-number="enableCodeLineNumber"
         :lang="props.raw?.language ?? 'text'"
         :code="renderLines"
       />
