@@ -8,6 +8,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ArrowLeftBold: typeof import('vue-element-plus-x')['ArrowLeftBold']
+    ArrowRightBold: typeof import('vue-element-plus-x')['ArrowRightBold']
     Attachments: typeof import('vue-element-plus-x')['Attachments']
     Bubble: typeof import('vue-element-plus-x')['Bubble']
     BubbleList: typeof import('vue-element-plus-x')['BubbleList']

@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { nextTick, onMounted, onUnmounted, ref } from 'vue';
+import { markRaw, nextTick, onMounted, onUnmounted, ref } from 'vue';
 import {
   calculateCardRotation,
   createRotationTween,
   resetRotationTween
 } from './animation-utils';
 import Card from './card.vue';
+import Attachments from './components/Attachments.vue';
+import BubbleList from './components/BubbleList.vue';
+import Prompts from './components/Prompts.vue';
+import Sender from './components/Sender.vue';
+import Welcome from './components/Welcome.vue';
+import XMarkdown from './components/XMarkdown.vue';
 import {
   METEOR_CONFIG,
   RAINBOW_COLORS,
@@ -28,12 +34,36 @@ const backgroundContainerRef = ref<HTMLElement | null>(null);
 
 // 状态管理
 const items = ref([
-  { title: '组件化', desc: '组件化的设计，让你可以方便地在项目中使用。' },
-  { title: '可定制', desc: '可定制的设计，让你可以根据项目需求进行定制。' },
-  { title: '可扩展', desc: '可扩展的设计，让你可以根据项目需求进行扩展。' },
-  { title: '组件化', desc: '组件化的设计，让你可以方便地在项目中使用。' },
-  { title: '可定制', desc: '可定制的设计，让你可以根据项目需求进行定制。' },
-  { title: '可扩展', desc: '可扩展的设计，让你可以根据项目需求进行扩展。' }
+  {
+    title: '欢迎组件',
+    desc: '明确产品定位，快速拉进用户体验交互距离。',
+    component: markRaw(Welcome)
+  },
+  {
+    title: '提示集',
+    desc: '推荐更多功能，降底学习产品成本，方便用户上手。',
+    component: markRaw(Prompts)
+  },
+  {
+    title: '输入框',
+    desc: '快捷指令操作、提示词格式标准化，便捷用户操作。',
+    component: markRaw(Sender)
+  },
+  {
+    title: '气泡列表',
+    desc: '多轮对话，自动滚动。生成式AI、智能客服等对话场景适用。',
+    component: markRaw(BubbleList)
+  },
+  {
+    title: '附件上传',
+    desc: '展示文件列表，内置多套文件类型图标。',
+    component: markRaw(Attachments)
+  },
+  {
+    title: 'XMarkdown',
+    desc: '支持最全的Markdown语法，支持代码高亮，高定制化开发。',
+    component: markRaw(XMarkdown)
+  }
 ]);
 
 // 动画实例管理
@@ -62,7 +92,6 @@ function handleMouseMove(e: MouseEvent, index: number) {
 function handleMouseLeave(index: number) {
   const targetElement = cardWrapRef.value?.children[index] as HTMLElement;
   if (!targetElement) return;
-
   cardTweens.value[index]?.kill();
   cardTweens.value[index] = resetRotationTween(targetElement);
 }
@@ -234,8 +263,17 @@ onUnmounted(() => {
         @mousemove="handleMouseMove($event, index)"
         @mouseleave="handleMouseLeave(index)"
       >
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.desc }}</p>
+        <div class="card-content">
+          <component :is="item.component" class="card-content-component" />
+
+          <!-- <div class="card-content-title">
+            {{ item.title }}
+          </div>
+
+          <div class="card-content-desc">
+            {{ item.desc }}
+          </div> -->
+        </div>
         <canvas
           :ref="el => el && (canvases[index] = el as HTMLCanvasElement)"
           class="starfield-canvas"
@@ -249,16 +287,18 @@ onUnmounted(() => {
 /* 保持原有样式不变 */
 .component-card-wrap {
   max-width: 1380px;
-  margin: 0 auto;
+  margin: 70px auto;
   padding: 24px;
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
   z-index: 10;
-  position: relative; /* 确保z-index生效 */
+  position: relative;
 
   .component-card {
-    aspect-ratio: 4/3;
+    user-select: none;
+    width: 100%;
+    height: 310px;
     position: relative;
     border-radius: 30px;
     overflow: hidden;
@@ -300,21 +340,36 @@ onUnmounted(() => {
       z-index: 3;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 1rem;
       background: linear-gradient(135deg, #031025, #161f33, #1f273a);
 
-      h3 {
-        margin-bottom: 0.5rem;
-        font-size: 1.5rem;
-        z-index: 10;
-      }
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        font-family:
+          Outfit,
+          Noto Sans JP,
+          Noto Sans,
+          Vazirmatn,
+          sans-serif;
+        .card-content-title {
+          padding: 0 40px;
+          font-size: 3rem;
+          font-weight: 700;
+          color: oklch(77.383% 0.043 245.096);
+          /* 添加辉光效果，使用相同颜色但降低不透明度并模糊 */
+          text-shadow:
+            0 0 8px oklch(77.383% 0.043 245.096 / 0.8),
+            0 0 12px oklch(77.383% 0.043 245.096 / 0.5);
+        }
 
-      p {
-        z-index: 10;
-        max-width: 80%;
+        .card-content-desc {
+          margin-top: 2rem;
+          color: color-mix(in oklab, oklch(77.383% 0.043 245.096) 80%, #0000);
+          padding: 0 40px;
+          font-size: 15px;
+          font-weight: 700;
+        }
       }
 
       .starfield-canvas {
@@ -357,13 +412,13 @@ onUnmounted(() => {
   will-change: width, height;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 840px) {
   .component-card-wrap {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
   .component-card-wrap {
     grid-template-columns: repeat(3, 1fr);
   }
