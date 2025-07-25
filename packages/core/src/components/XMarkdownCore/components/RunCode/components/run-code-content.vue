@@ -27,7 +27,9 @@ const context = useMarkdownContext();
 const isSafeViewCode = computed(() => {
   return context.value.secureViewCode;
 });
-
+const enableCodeLineNumber = computed(() => {
+  return context.value?.enableCodeLineNumber || false;
+});
 function doRenderIframe() {
   const iframe = iframeRef.value;
   if (!iframe) return;
@@ -150,6 +152,7 @@ onMounted(() => {
                 :class="codeClass"
             >
               <HighLightCode
+              :enable-code-line-number="enableCodeLineNumber"
               :lang="props.lang"
               :code="props.code"
               />

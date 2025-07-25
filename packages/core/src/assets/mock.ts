@@ -70,6 +70,7 @@ $$
 // md 代码块高亮
 export const highlightMdContent = `
 #### 切换右侧的secureViewCode进行安全预览或者不启用安全预览模式下 会呈现不同的网页预览效果
+##### 通过enableCodeLineNumber属性开启代码行号
 \`\`\`html
 <!DOCTYPE html>
 <html lang="en">
