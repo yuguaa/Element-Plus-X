@@ -1,71 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import reviewsJson from './reviews.json';
 
-const reviews = ref([
-  {
-    id: 1,
-    name: '张三',
-    role: '前端工程师',
-    company: '阿里巴巴',
-    avatar: '👨‍💻',
-    content:
-      'Element Plus X 真的很棒！组件设计精美，API 设计合理，大大提升了我们的开发效率。',
-    date: '2024-01-15',
-    likes: 42
-  },
-  {
-    id: 2,
-    name: '李四',
-    role: 'UI/UX 设计师',
-    company: '腾讯',
-    avatar: '👩‍🎨',
-    content:
-      '作为设计师，我非常喜欢这个组件库的视觉设计。玻璃拟态效果和渐变色彩搭配得恰到好处。',
-    date: '2024-01-12',
-    likes: 38
-  },
-  {
-    id: 3,
-    name: '王五',
-    role: '全栈开发者',
-    company: '字节跳动',
-    avatar: '👨‍🔬',
-    content: 'TypeScript 支持非常完善，开发体验很好。文档也很详细，上手很快。',
-    date: '2024-01-10',
-    likes: 35
-  },
-  {
-    id: 4,
-    name: '赵六',
-    role: '产品经理',
-    company: '美团',
-    avatar: '👩‍💼',
-    content:
-      '我们团队使用 Element Plus X 重构了整个后台管理系统，用户反馈非常好！',
-    date: '2024-01-08',
-    likes: 29
-  },
-  {
-    id: 5,
-    name: '孙七',
-    role: '技术总监',
-    company: '滴滴',
-    avatar: '👨‍💼',
-    content: '性能表现出色，组件库的架构设计很合理，适合大型项目使用。',
-    date: '2024-01-05',
-    likes: 51
-  },
-  {
-    id: 6,
-    name: '周八',
-    role: '前端架构师',
-    company: '京东',
-    avatar: '👩‍💻',
-    content: '主题定制功能很强大，我们轻松地定制出了符合品牌风格的界面。',
-    date: '2024-01-03',
-    likes: 33
+const reviews = computed(() => Object.values(reviewsJson));
+
+const WaterfallItem = ref();
+
+async function calcSpan() {
+  for (const el of WaterfallItem.value) {
+    await nextTick();
+    const rows = Math.floor(el.clientHeight / 2) + 18;
+    el.style.gridRowEnd = `span ${rows}`;
   }
-]);
+}
+onMounted(async () => {
+  await calcSpan();
+});
+
+window.addEventListener('resize', calcSpan);
 </script>
 
 <template>
@@ -74,31 +26,39 @@ const reviews = ref([
     <div class="reviews-container max-w-6xl mx-auto px-8">
       <div class="reviews-header text-center mb-16">
         <h2 class="reviews-title text-5xl font-black m-0 mb-4">社区评价</h2>
-        <p class="reviews-subtitle text-lg text-white/70 m-0">
+        <!-- <p class="reviews-subtitle text-lg text-white/70 m-0">
           来自全球开发者的真实反馈
-        </p>
+        </p> -->
       </div>
 
       <!-- 瀑布流布局 -->
-      <div
-        id="reviewsMasonry"
-        class="reviews-masonry grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] gap-8 items-start"
-      >
+      <div id="reviewsMasonry" class="waterfall">
         <div
           v-for="review in reviews"
           :key="review.id"
-          class="review-card backdrop-blur-5 border border-white/10 rounded-4 p-6 transition-all duration-300 cursor-pointer"
+          ref="WaterfallItem"
+          class="waterfall-item review-card backdrop-blur-5 border border-white/10 rounded-2 rounded-bl-12 p-6 transition-all duration-300 cursor-pointer"
         >
-          <div class="review-header mb-4">
+          <div class="review-content mb-4">
+            <p class="review-text text-sm leading-relaxed text-white/80 m-0">
+              {{ review.content }}
+            </p>
+          </div>
+
+          <div class="review-header">
             <div class="reviewer-info flex items-center gap-4">
-              <div
+              <!-- <div
                 class="reviewer-avatar w-12.5 h-12.5 rounded-full flex-center text-2xl border-2 border-white/10"
               >
-                {{ review.avatar }}
-              </div>
+            </div> -->
+              <el-avatar
+                class="reviewer-avatar w-12.5 h-12.5 rounded-full flex-center text-2xl border-2 border-white/10"
+                :size="40"
+                :src="review.avatar"
+              />
               <div class="reviewer-details flex-1">
                 <h4
-                  class="reviewer-name text-lg font-semibold text-white m-0 mb-1"
+                  class="reviewer-name text-sm font-semibold text-white m-0 mb-1"
                 >
                   {{ review.name }}
                 </h4>
@@ -109,18 +69,12 @@ const reviews = ref([
             </div>
           </div>
 
-          <div class="review-content mb-4">
-            <p class="review-text text-base leading-relaxed text-white/80 m-0">
-              {{ review.content }}
-            </p>
-          </div>
-
-          <div
+          <!-- <div
             class="review-footer flex items-center justify-between pt-4 border-t border-white/10"
           >
             <span class="review-date text-sm text-white/50">{{
               review.date
-            }}</span>
+              }}</span>
             <div class="review-actions flex gap-2">
               <button
                 class="like-btn flex items-center gap-1 bg-white/10 border border-white/20 rounded-5 px-3 py-1 text-white/70 text-sm cursor-pointer transition-all duration-300"
@@ -129,7 +83,7 @@ const reviews = ref([
                 <span class="like-count font-medium">{{ review.likes }}</span>
               </button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -166,6 +120,68 @@ const reviews = ref([
   animation: titleGradient 4s ease-in-out infinite;
 }
 
+.waterfall {
+  display: grid;
+  grid-auto-rows: 2px;
+  grid-template-columns: repeat(3, calc((100% - 72px) / 3));
+  align-items: start;
+  justify-content: space-between;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+.waterfall-item {
+  user-select: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.waterfall-item::before {
+  --size: 10px;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    circle closest-side,
+    rgba(100, 100, 100, 0.6),
+    transparent
+  );
+  transform: translate(-50%, 50%);
+  transition: width 0.8s ease, height 0.8s ease;
+}
+
+.waterfall-item:hover::before {
+  --size: 500px;
+}
+
+.waterfall-item:hover {
+  animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both !important;
+}
+
 @keyframes titleGradient {
   0%,
   100% {
@@ -183,7 +199,7 @@ const reviews = ref([
     rgba(255, 255, 255, 0.1) 0%,
     rgba(255, 255, 255, 0.05) 100%
   );
-  animation: cardFadeIn 0.6s ease-out;
+  /* animation: cardFadeIn 0.6s ease-out; */
 }
 
 @keyframes cardFadeIn {
@@ -204,9 +220,8 @@ const reviews = ref([
     rgba(255, 255, 255, 0.08) 100%
   );
   border-color: rgba(99, 102, 241, 0.3);
-  transform: translateY(-5px);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.2),
+  /* transform: translateY(-5px); */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
     0 10px 20px rgba(99, 102, 241, 0.1);
 }
 
@@ -224,11 +239,15 @@ const reviews = ref([
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(99, 102, 241, 0.3);
   color: white;
-  transform: scale(1.05);
+  /* transform: scale(1.05); */
 }
 
 /* 响应式设计 */
 @media (max-width: 768px) {
+  .waterfall {
+    grid-template-columns: repeat(2, calc(50% - 18px));
+  }
+
   .reviews-section {
     @apply py-16;
   }
@@ -267,6 +286,10 @@ const reviews = ref([
 }
 
 @media (max-width: 480px) {
+  .waterfall {
+    grid-template-columns: repeat(1, 100%);
+  }
+
   .reviews-section {
     @apply py-12;
   }
