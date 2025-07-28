@@ -27,12 +27,13 @@ const sponsors = ref([
 
 <template>
   <!-- 赞助与支持区域 - 紧凑设计 -->
-  <section class="support-section py-12 relative">
+  <section class="support-section py-24 relative">
     <div class="support-container max-w-4xl mx-auto px-8 flex flex-col gap-8">
       <!-- 紧凑的标题区域 -->
       <div class="support-header text-center">
         <h2 class="support-title text-3xl font-extrabold m-0 mb-2">
-          Platinum Sponsors
+          <!-- Platinum Sponsors -->
+          白金赞助商
         </h2>
         <!-- <p class="support-subtitle text-base text-white/70 m-0">
           他们的支持让开源项目持续发展
@@ -142,12 +143,32 @@ const sponsors = ref([
   );
 }
 
+@keyframes titleGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
 /* 标题渐变 */
 .support-title {
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  /* background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%); */
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #6366f1 50%,
+    #8b5cf6 75%,
+    #ffffff 100%
+  );
+  background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: titleGradient 4s ease-in-out infinite;
 }
 
 /* 玻璃卡片背景 */
