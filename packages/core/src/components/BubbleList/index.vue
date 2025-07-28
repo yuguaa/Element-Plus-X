@@ -87,17 +87,20 @@ function scrollToBottom() {
         stopAutoScrollToBottom.value = false;
       });
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.warn('[BubbleList error]: ', error);
   }
 }
 // 父组件触发滚动到指定气泡框
 function scrollToBubble(index: number) {
   const container = scrollContainer.value;
-  if (!container) return;
+  if (!container)
+    return;
 
   const bubbles = container.querySelectorAll('.el-bubble');
-  if (index >= bubbles.length) return;
+  if (index >= bubbles.length)
+    return;
 
   stopAutoScrollToBottom.value = true;
   const targetBubble = bubbles[index] as HTMLElement;
@@ -160,7 +163,7 @@ function handleBubbleComplete(index: number, instance: TypewriterInstance) {
       break;
     default:
       props.triggerIndices.includes(index) &&
-        emits('complete', instance, index);
+      emits('complete', instance, index);
       break;
   }
 }
@@ -199,7 +202,8 @@ function handleScroll() {
         // 重置累积距离
         accumulatedScrollUpDistance.value = 0;
       }
-    } else {
+    }
+    else {
       // 如果用户停止向上滚动或开始向下滚动，重置累积距离
       accumulatedScrollUpDistance.value = 0;
     }

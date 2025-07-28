@@ -9,10 +9,8 @@ Supports image preview, square/rectangle variants, upload status overlay and oth
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <div class="files-card-container-wrapper">
-      <span
-        >Image files <span style="color: red">previewable</span> and
-        <span style="color: red">non-previewable</span></span
-      >
+      <span>Image files <span style="color: red">previewable</span> and
+        <span style="color: red">non-previewable</span></span>
       <div class="files-card-container">
         <FilesCard
           name="Previewable image.jpeg"
@@ -21,11 +19,9 @@ Supports image preview, square/rectangle variants, upload status overlay and oth
         />
         <FilesCard name="Non-previewable image.jpeg" show-del-icon />
       </div>
-      <span
-        >Image files
+      <span>Image files
         <span style="color: red">square variant</span>
-        other formats are not affected by variant property</span
-      >
+        other formats are not affected by variant property</span>
       <div class="files-card-container">
         <FilesCard
           name="Previewable image.jpeg"
@@ -45,13 +41,9 @@ Supports image preview, square/rectangle variants, upload status overlay and oth
           :file-size="30000"
         />
       </div>
-      <span
-        >Image files default rectangle variant
-        <span style="color: red"
-          >supports upload status, supports preview on/off, supports preview
-          mask overlay on/off</span
-        ></span
-      >
+      <span>Image files default rectangle variant
+        <span style="color: red">supports upload status, supports preview on/off, supports preview
+          mask overlay on/off</span></span>
       <div class="files-card-container">
         <FilesCard
           name="Upload progress.jpeg"
@@ -80,13 +72,9 @@ Supports image preview, square/rectangle variants, upload status overlay and oth
         />
       </div>
 
-      <span
-        >Image files square variant
-        <span style="color: red"
-          >supports upload status, supports preview on/off, supports preview
-          mask overlay on/off</span
-        ></span
-      >
+      <span>Image files square variant
+        <span style="color: red">supports upload status, supports preview on/off, supports preview
+          mask overlay on/off</span></span>
       <div class="files-card-container">
         <FilesCard
           name="Upload progress.jpeg"

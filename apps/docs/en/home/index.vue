@@ -79,24 +79,9 @@ onMounted(async () => {
 <style scoped>
 .page-container {
   background:
-    linear-gradient(
-      135deg,
-      #0f0f23 0%,
-      #1a1a2e 25%,
-      #16213e 50%,
-      #2d1b69 75%,
-      #4a148c 100%
-    ),
-    radial-gradient(
-      ellipse at top left,
-      rgba(99, 102, 241, 0.15) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      ellipse at bottom right,
-      rgba(139, 92, 246, 0.15) 0%,
-      transparent 50%
-    );
+    linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #2d1b69 75%, #4a148c 100%),
+    radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
   background-size:
     100% 100%,
     80% 80%,

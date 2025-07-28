@@ -97,7 +97,7 @@ onMounted(() => {
             :src="item.avatar"
             class="avatar"
             :style="{ width: item.avatarSize, height: item.avatarSize }"
-          />
+          >
         </template>
 
         <template #header="{ item }">

@@ -15,7 +15,8 @@ const yRange = [-20, 20];
 
 // 卡片移入样式
 function handleMouseMove(e: MouseEvent) {
-  if (!cardWrap.value) return;
+  if (!cardWrap.value)
+    return;
   // 获取鼠标的xy坐标
   const { offsetX, offsetY, clientX, clientY } = e;
   // 获取卡片尺寸
@@ -36,7 +37,8 @@ function handleMouseMove(e: MouseEvent) {
 
 // 恢复样式
 function handleMouseLeave() {
-  if (!cardWrap.value) return;
+  if (!cardWrap.value)
+    return;
   cardWrap.value.style.setProperty('--card-rotate-x', '0deg');
   cardWrap.value.style.setProperty('--card-rotate-y', '0deg');
   cardWrap.value.style.setProperty('--border-x', `-1000px`);
@@ -64,7 +66,6 @@ function getRotate(range: number[], value: number, max: number) {
 <style scoped lang="less">
 .card-wrap {
   transition: 0.25s cubic-bezier(0.25, 0.25, 0.5, 1.5);
-  transform: perspective(1000px) rotateX(var(--card-rotate-x, 0deg))
-    rotateY(var(--card-rotate-y, 0deg));
+  transform: perspective(1000px) rotateX(var(--card-rotate-x, 0deg)) rotateY(var(--card-rotate-y, 0deg));
 }
 </style>

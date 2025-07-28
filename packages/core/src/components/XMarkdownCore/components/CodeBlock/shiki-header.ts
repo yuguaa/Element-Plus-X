@@ -336,7 +336,8 @@ async function copy(v: string) {
     if (!success) {
       throw new Error('复制失败，请检查浏览器权限');
     }
-  } catch (err) {
+  }
+  catch (err) {
     throw new Error(
       `复制失败: ${err instanceof Error ? err.message : String(err)}`
     );
@@ -379,7 +380,8 @@ let isToggling = false;
  * @param ev
  */
 export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
-  if (isToggling) return { isExpand: false }; // 防抖保护
+  if (isToggling)
+    return { isExpand: false }; // 防抖保护
   isToggling = true;
 
   const ele = ev.currentTarget as HTMLElement;
@@ -393,7 +395,8 @@ export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
     if (preMd.classList.contains('is-expanded')) {
       collapse(preMd);
       return { isExpand: false };
-    } else {
+    }
+    else {
       expand(preMd);
       return { isExpand: true };
     }
@@ -415,7 +418,8 @@ export function toggleTheme() {
   isDark.value = theme === 'dark';
   if (isDark.value) {
     document.body.classList.add('dark');
-  } else {
+  }
+  else {
     document.body.classList.remove('dark');
   }
   return isDark.value;
@@ -435,7 +439,8 @@ export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
     isDark.value = defaultThemeMode === 'dark';
     if (defaultThemeMode === 'dark') {
       document.body.classList.add('dark');
-    } else {
+    }
+    else {
       document.body.classList.remove('dark');
     }
   }
@@ -451,12 +456,14 @@ export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
  */
 export function copyCode(codeText: string | string[]) {
   try {
-    if (copyCodeTimer) return false; // 阻止重复点击
+    if (copyCodeTimer)
+      return false; // 阻止重复点击
 
     if (Array.isArray(codeText)) {
       const code = extractCodeFromHtmlLines(codeText);
       copy(code);
-    } else {
+    }
+    else {
       copy(codeText);
     }
 
@@ -465,7 +472,8 @@ export function copyCode(codeText: string | string[]) {
     }, 800);
 
     return true;
-  } catch (error) {
+  }
+  catch (error) {
     console.log('🚀 ~ copyCode ~ error:', error);
     return false;
   }

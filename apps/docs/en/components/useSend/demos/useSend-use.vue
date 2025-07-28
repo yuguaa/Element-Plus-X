@@ -69,11 +69,14 @@ function startFn() {
   if (type.value === 'voice') {
     // Here you can do an async operation, such as making a request
     ElMessage.success('Custom voice button, start recording!');
-  } else if (type.value === 'sender') {
+  }
+  else if (type.value === 'sender') {
     ElMessage.success('Custom send button, start sending text!');
-  } else if (type.value === 'read') {
+  }
+  else if (type.value === 'read') {
     ElMessage.success('Custom play button, start playing!');
-  } else if (type.value === 'record') {
+  }
+  else if (type.value === 'record') {
     ElMessage.success('Custom record button, start recording!');
   }
 }

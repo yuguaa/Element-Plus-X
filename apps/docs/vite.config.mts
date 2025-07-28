@@ -39,7 +39,7 @@ export default defineConfig({
       // glob: ['**/demos/*.vue'],
     }) as PluginOption,
     vueJsx() as PluginOption,
-    // eslint-disable-next-line ts/no-unsafe-call
+
     eslintPlugin({
       include: ['packages/**/*.js', 'packages/**/*.vue', 'packages/**/*.ts'], // 根据你的项目结构调整路径
       exclude: [

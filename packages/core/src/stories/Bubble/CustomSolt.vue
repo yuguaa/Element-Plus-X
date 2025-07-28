@@ -18,23 +18,27 @@ const mdPlugins = [
 <template>
   <ConfigProvider :md-plugins="mdPlugins">
     <div class="component-container">
-      <div class="component-title">头像插槽</div>
+      <div class="component-title">
+        头像插槽
+      </div>
       <Bubble v-bind="{ ...$attrs, ...$props }">
         <template #avatar>
           <img
             src="https://avatars.githubusercontent.com/u/76239030?s=40&v=4"
             class="avatar"
-          />
+          >
         </template>
       </Bubble>
 
-      <div class="component-title">头部插槽</div>
+      <div class="component-title">
+        头部插槽
+      </div>
       <Bubble v-bind="{ ...$attrs, ...props }">
         <template #avatar>
           <img
             src="https://avatars.githubusercontent.com/u/76239030?s=40&v=4"
             class="avatar"
-          />
+          >
         </template>
 
         <template #header>
@@ -44,13 +48,15 @@ const mdPlugins = [
         </template>
       </Bubble>
 
-      <div class="component-title">内容插槽 搭配 noStyle 属性</div>
+      <div class="component-title">
+        内容插槽 搭配 noStyle 属性
+      </div>
       <Bubble v-bind="{ ...$attrs, ...props, noStyle: true }">
         <template #avatar>
           <img
             src="https://avatars.githubusercontent.com/u/76239030?s=40&v=4"
             class="avatar"
-          />
+          >
         </template>
 
         <template #header>
@@ -66,13 +72,15 @@ const mdPlugins = [
         </template>
       </Bubble>
 
-      <div class="component-title">底部插槽</div>
+      <div class="component-title">
+        底部插槽
+      </div>
       <Bubble v-bind="{ ...$attrs, ...props, noStyle: true }">
         <template #avatar>
           <img
             src="https://avatars.githubusercontent.com/u/76239030?s=40&v=4"
             class="avatar"
-          />
+          >
         </template>
 
         <template #header>
@@ -102,7 +110,9 @@ const mdPlugins = [
         </template>
       </Bubble>
 
-      <div class="component-title">加载中插槽 loading 为 true 时展示</div>
+      <div class="component-title">
+        加载中插槽 loading 为 true 时展示
+      </div>
       <Bubble v-bind="{ ...$attrs, ...props }">
         <template #loading>
           <div class="loading-container">

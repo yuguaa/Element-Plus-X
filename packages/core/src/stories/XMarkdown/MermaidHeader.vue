@@ -28,7 +28,8 @@ async function handleCustomCopy() {
     const customContent = `🧩 组件插槽自定义：\n\n${attrs.rawContent}\n\n✨ 使用 Element Plus X 组件`;
     await navigator.clipboard.writeText(customContent);
     ElMessage.success('🎉 组件插槽自定义复制成功！');
-  } catch (err) {
+  }
+  catch (err) {
     console.error('❌ 自定义复制失败:', err);
   }
 }

@@ -53,10 +53,8 @@ onMounted(() => {
       <FilesCard name="Test php suffix.php" />
       <FilesCard name="Test json suffix.json" />
     </div>
-    <span
-      >If there is a suffix but can't match common icons, it defaults to
-      File</span
-    >
+    <span>If there is a suffix but can't match common icons, it defaults to
+      File</span>
     <FilesCard name="https://dd.comMultiple special characters.suffix.self" />
   </div>
 </template>

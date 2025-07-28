@@ -164,7 +164,8 @@ const slotRenderConfig = {
                         const customContent = `🎨 自定义前缀：\n\n${props.rawContent}\n\n📝 来自：Element-Plus-X`;
                         await navigator.clipboard.writeText(customContent);
                         ElMessage.success('🎉 组件插槽自定义复制成功！');
-                      } catch (err) {
+                      }
+                      catch (err) {
                         console.error('❌ 自定义复制失败:', err);
                       }
                     }
@@ -244,9 +245,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElButton @click="start"> 开始 </ElButton>
-  <ElButton @click="pause"> 暂停 </ElButton>
-  <ElButton @click="redo"> 重新开始 </ElButton>
+  <ElButton @click="start">
+    开始
+  </ElButton>
+  <ElButton @click="pause">
+    暂停
+  </ElButton>
+  <ElButton @click="redo">
+    重新开始
+  </ElButton>
   <div class="component-container">
     <div class="demo-section">
       <h4>1. 📋 通过mermaidConfig 配置</h4>

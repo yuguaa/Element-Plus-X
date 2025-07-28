@@ -96,7 +96,7 @@ const siteList = ref([
             class="w-4 h-4 mr-2"
             :src="siteItem.icon"
             alt=""
-          />
+          >
           <span>{{ siteItem.name }}</span>
         </div>
         <div class="site-list-content flex flex-wrap gap-4 flex-col">
@@ -107,12 +107,11 @@ const siteList = ref([
             :href="site.url"
             class="site-list-item text-white/60 text-sm flex items-center gap-2"
           >
-            <img v-if="site.icon" class="w-4 h-4" :src="site.icon" alt="" />
+            <img v-if="site.icon" class="w-4 h-4" :src="site.icon" alt="">
             <span>
               <span>{{ site.name }}</span>
               <span v-if="site.subName" class="text-white/40 text-xs">
-                - {{ site.subName }}</span
-              >
+                - {{ site.subName }}</span>
             </span>
           </a>
         </div>
@@ -126,9 +125,7 @@ const siteList = ref([
         class="copyright-text w-full text-white/60 text-sm flex gap-3 items-center flex-col justify-center"
       >
         <span class="text-center text-sm text-white/40">Copyright © 2025</span>
-        <span class="text-center text-base"
-          >蚂蚁集团和 Ant Design 开源社区</span
-        >
+        <span class="text-center text-base">蚂蚁集团和 Ant Design 开源社区</span>
       </div>
     </section>
   </footer>
