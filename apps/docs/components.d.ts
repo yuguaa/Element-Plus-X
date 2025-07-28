@@ -8,12 +8,9 @@ export {};
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ArrowLeftBold: typeof import('vue-element-plus-x')['ArrowLeftBold']
-    ArrowRightBold: typeof import('vue-element-plus-x')['ArrowRightBold']
     Attachments: typeof import('vue-element-plus-x')['Attachments']
     Bubble: typeof import('vue-element-plus-x')['Bubble']
     BubbleList: typeof import('vue-element-plus-x')['BubbleList']
-    Card: typeof import('vue-element-plus-x')['Card']
     Conversations: typeof import('vue-element-plus-x')['Conversations']
     ElAvatar: typeof import('element-plus')['ElAvatar']
     ElBadge: typeof import('element-plus')['ElBadge']
@@ -29,8 +26,6 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus')['ElSwitch']
     ElTooltip: typeof import('element-plus')['ElTooltip']
     FilesCard: typeof import('vue-element-plus-x')['FilesCard']
-    Footer: typeof import('vue-element-plus-x')['Footer']
-    HeroSection: typeof import('vue-element-plus-x')['HeroSection']
     MentionSender: typeof import('vue-element-plus-x')['MentionSender']
     Prompts: typeof import('vue-element-plus-x')['Prompts']
     ReviewsSection: typeof import('vue-element-plus-x')['ReviewsSection']
@@ -38,7 +33,6 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Sender: typeof import('vue-element-plus-x')['Sender']
-    SupportSection: typeof import('vue-element-plus-x')['SupportSection']
     Thinking: typeof import('vue-element-plus-x')['Thinking']
     ThoughtChain: typeof import('vue-element-plus-x')['ThoughtChain']
     Typewriter: typeof import('vue-element-plus-x')['Typewriter']
