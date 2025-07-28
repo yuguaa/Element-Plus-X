@@ -19,8 +19,10 @@ const hoveredKeys = ref(new Set());
 const activeKeys = ref(new Set());
 
 function handleItemClick(item: PromptsItemsProps) {
-  if (item.disabled) return;
-  if (item.children && item.children.length > 0) return;
+  if (item.disabled)
+    return;
+  if (item.children && item.children.length > 0)
+    return;
   emits('itemClick', item);
 }
 

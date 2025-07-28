@@ -24,27 +24,31 @@ async function startSSE() {
     );
     const readableStream = response.body!;
     await startStream({ readableStream });
-  } catch (err) {
+  }
+  catch (err) {
     console.error('Fetch error:', err);
   }
 }
 
 // 机器人的 content 计算属性
 const content = computed(() => {
-  if (!data.value.length) return '';
+  if (!data.value.length)
+    return '';
   let text = '';
   for (let index = 0; index < data.value.length; index++) {
     const chunk = data.value[index].data;
     try {
       const parsedChunk = JSON.parse(chunk).content;
       text += parsedChunk;
-    } catch (error) {
+    }
+    catch (error) {
       // 这个 结束标识 是后端给的，所以这里这样判断
       // 实际项目中，以项目需要为准
       if (chunk === ' [DONE]') {
         // 处理数据结束的情况
         // console.log('数据接收完毕')
-      } else {
+      }
+      else {
         console.error('解析数据时出错:', error);
       }
     }
@@ -62,7 +66,9 @@ const content = computed(() => {
         {{ isLoading ? '加载中...' : '获取 SSE流数据' }}
       </el-button>
 
-      <el-button :disabled="!isLoading" @click="cancel()"> 中断请求 </el-button>
+      <el-button :disabled="!isLoading" @click="cancel()">
+        中断请求
+      </el-button>
     </div>
     <div v-if="error" class="error">
       {{ error.message }}

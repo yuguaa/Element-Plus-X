@@ -173,11 +173,7 @@ const sponsors = ref([
 
 /* 玻璃卡片背景 */
 .sponsors-glass-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 }
 
 .background-point {
@@ -194,13 +190,11 @@ const sponsors = ref([
   top: 0;
   width: var(--size);
   height: var(--size);
-  background: radial-gradient(
-    circle closest-side,
-    rgba(100, 100, 100, 0.7),
-    transparent
-  );
+  background: radial-gradient(circle closest-side, rgba(100, 100, 100, 0.7), transparent);
   transform: translate(-50%, -50%);
-  transition: width 0.5s ease, height 0.5s ease;
+  transition:
+    width 0.5s ease,
+    height 0.5s ease;
 }
 
 .background-point:hover::before {
@@ -213,29 +207,17 @@ const sponsors = ref([
 
 /* 头像渐变背景 */
 .sponsor-avatar {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.2),
-    rgba(139, 92, 246, 0.2)
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
 }
 
 /* CTA区域背景 */
 .sponsor-cta-compact {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.1) 0%,
-    rgba(139, 92, 246, 0.1) 100%
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
 }
 
 /* CTA图标背景 */
 .cta-icon {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.2),
-    rgba(139, 92, 246, 0.2)
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
 }
 
 /* 按钮样式 */

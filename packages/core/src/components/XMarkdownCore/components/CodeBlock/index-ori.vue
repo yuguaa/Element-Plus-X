@@ -133,10 +133,10 @@ export default defineComponent({
             },
             (codeXSlot?.codeHeader && render('codeHeader')) ?? [
               (codeXSlot?.codeHeaderLanguage && render('codeHeaderLanguage')) ??
-                languageEle(props.raw.language),
+              languageEle(props.raw.language),
               (codeXSlot?.codeHeaderControl && render('codeHeaderControl')) ??
-                // controlEle(renderLines.value)
-                controlEle(() => {})
+              // controlEle(renderLines.value)
+              controlEle(() => {})
             ]
           ),
           h(

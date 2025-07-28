@@ -60,7 +60,8 @@ export class StarfieldManager {
   /** 配置画布尺寸和响应式 */
   private setupCanvas() {
     const innerWrap = this.canvas.parentElement;
-    if (!innerWrap) return;
+    if (!innerWrap)
+      return;
 
     const resizeCanvas = () => {
       const { width, height } = innerWrap.getBoundingClientRect();
@@ -218,9 +219,10 @@ export class StarfieldManager {
   /** 销毁资源 */
   destroy() {
     this.worker?.terminate();
-    if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
+    if (this.animationFrameId)
+      cancelAnimationFrame(this.animationFrameId);
     this.resizeObserver?.disconnect();
     this.worker?.toString().includes('blob:') &&
-      URL.revokeObjectURL(this.worker.toString());
+    URL.revokeObjectURL(this.worker.toString());
   }
 }

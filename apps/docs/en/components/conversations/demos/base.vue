@@ -12,23 +12,23 @@ import type { ConversationItem } from 'vue-element-plus-x/types/Conversations';
 const timeBasedItems = ref<ConversationItem<{ id: string; label: string }>[]>([
   {
     id: '1',
-    label: "Today's Session 111111111111111111111111111",
+    label: 'Today\'s Session 111111111111111111111111111',
     group: 'today'
   },
   {
     id: '2',
     group: 'today',
-    label: "Today's Session 2",
+    label: 'Today\'s Session 2',
     disabled: true
   },
   {
     id: '3',
     group: 'yesterday',
-    label: "Yesterday's Session 1"
+    label: 'Yesterday\'s Session 1'
   },
   {
     id: '4',
-    label: "Yesterday's Session 2"
+    label: 'Yesterday\'s Session 2'
   },
   {
     id: '5',

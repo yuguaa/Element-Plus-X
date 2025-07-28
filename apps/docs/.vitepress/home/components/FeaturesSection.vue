@@ -116,14 +116,7 @@ onMounted(() => {
 <style scoped lang="less">
 /* 标题渐变动画 */
 .features-title {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #e2e8f0 25%,
-    #6366f1 50%,
-    #8b5cf6 75%,
-    #ffffff 100%
-  );
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #6366f1 50%, #8b5cf6 75%, #ffffff 100%);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -150,16 +143,8 @@ onMounted(() => {
 /* 特性卡片样式 */
 .feature-card {
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.08) 0%,
-      rgba(255, 255, 255, 0.02) 100%
-    ),
-    linear-gradient(
-      45deg,
-      rgba(99, 102, 241, 0.05) 0%,
-      rgba(139, 92, 246, 0.05) 100%
-    );
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%),
+    linear-gradient(45deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
   transform-style: preserve-3d;
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.2),
@@ -188,16 +173,8 @@ onMounted(() => {
 .feature-card:hover {
   border-color: rgba(99, 102, 241, 0.6);
   background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.2) 0%,
-      rgba(255, 255, 255, 0.12) 100%
-    ),
-    linear-gradient(
-      45deg,
-      rgba(99, 102, 241, 0.15) 0%,
-      rgba(139, 92, 246, 0.15) 100%
-    );
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.12) 100%),
+    linear-gradient(45deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
   box-shadow:
     0 40px 80px rgba(0, 0, 0, 0.4),
     0 20px 40px rgba(99, 102, 241, 0.3),
@@ -209,8 +186,7 @@ onMounted(() => {
 
 /* 图标样式和动画 */
 .feature-icon {
-  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6))
-    drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6)) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: translateZ(30px);
   text-shadow:
@@ -222,19 +198,16 @@ onMounted(() => {
 @keyframes iconGlow {
   0%,
   100% {
-    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6))
-      drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.6)) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
   }
   50% {
-    filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.8))
-      drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.8)) drop-shadow(0 8px 20px rgba(0, 0, 0, 0.4));
   }
 }
 
 .feature-card:hover .feature-icon {
   transform: translateZ(30px) scale(1.2);
-  filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8))
-    drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.8)) drop-shadow(0 10px 20px rgba(0, 0, 0, 0.5));
   text-shadow:
     0 0 20px rgba(255, 255, 255, 0.8),
     0 0 40px rgba(99, 102, 241, 0.6);
@@ -242,14 +215,7 @@ onMounted(() => {
 
 /* 特性标题样式 */
 .feature-title {
-  background: linear-gradient(
-    135deg,
-    #6366f1 0%,
-    #8b5cf6 25%,
-    #3b82f6 50%,
-    #ec4899 75%,
-    #6366f1 100%
-  );
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #3b82f6 50%, #ec4899 75%, #6366f1 100%);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -293,23 +259,9 @@ onMounted(() => {
   right: -5px;
   bottom: -5px;
   background:
-    radial-gradient(
-      circle at 30% 30%,
-      rgba(99, 102, 241, 0.2) 0%,
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at 70% 70%,
-      rgba(139, 92, 246, 0.2) 0%,
-      transparent 50%
-    ),
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(0, 212, 255, 0.3),
-      rgba(156, 39, 176, 0.3),
-      transparent
-    );
+    radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+    linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), rgba(156, 39, 176, 0.3), transparent);
   opacity: 0;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: none;

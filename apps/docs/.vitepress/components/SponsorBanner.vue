@@ -36,7 +36,7 @@ const texts = computed(() => {
 
 <template>
   <div v-if="open" class="banner">
-    <img src="/logo.png" class="logo" />
+    <img src="/logo.png" class="logo">
     <p class="vt-banner-text">
       <span class="vt-main">{{ texts.main }}</span>
       <span class="vt-place">{{ texts.place }}</span>

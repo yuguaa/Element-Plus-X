@@ -61,7 +61,8 @@ const lazyItems = shallowRef([
 const isLoading = ref(false);
 
 function loadMoreItems() {
-  if (isLoading.value) return;
+  if (isLoading.value)
+    return;
 
   isLoading.value = true;
   console.log('Loading more data...');

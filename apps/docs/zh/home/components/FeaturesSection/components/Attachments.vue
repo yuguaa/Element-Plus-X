@@ -87,11 +87,7 @@ onMounted(() => {
 
   :deep(.elx-files-card) {
     border-radius: 15px;
-    background: linear-gradient(
-      97deg,
-      rgba(90, 196, 255, 0.12) 0%,
-      rgba(174, 136, 255, 0.12) 100%
-    );
+    background: linear-gradient(97deg, rgba(90, 196, 255, 0.12) 0%, rgba(174, 136, 255, 0.12) 100%);
 
     .elx-files-card-name-prefix {
       overflow: initial;

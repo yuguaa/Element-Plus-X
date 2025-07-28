@@ -24,27 +24,31 @@ async function startSSE() {
     );
     const readableStream = response.body!;
     await startStream({ readableStream });
-  } catch (err) {
+  }
+  catch (err) {
     console.error('Fetch error:', err);
   }
 }
 
 // Robot content computed property
 const content = computed(() => {
-  if (!data.value.length) return '';
+  if (!data.value.length)
+    return '';
   let text = '';
   for (let index = 0; index < data.value.length; index++) {
     const chunk = data.value[index].data;
     try {
       const parsedChunk = JSON.parse(chunk).content;
       text += parsedChunk;
-    } catch (error) {
+    }
+    catch (error) {
       // This end flag is given by the backend, so judge like this here
       // In actual projects, follow project requirements
       if (chunk === ' [DONE]') {
         // Handle data end
         // console.log('Data reception complete')
-      } else {
+      }
+      else {
         console.error('Error parsing data:', error);
       }
     }

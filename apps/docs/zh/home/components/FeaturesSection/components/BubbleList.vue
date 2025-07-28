@@ -47,7 +47,7 @@ function generateFakeItems(count: number): listType[] {
     <!-- 自定义头像 -->
     <template #avatar="{ item }">
       <div class="avatar-wrapper">
-        <img :src="item.avatar" alt="avatar" />
+        <img :src="item.avatar" alt="avatar">
       </div>
     </template>
 
@@ -80,11 +80,7 @@ function generateFakeItems(count: number): listType[] {
     /* 青色 */ 0 0 20px rgba(138, 43, 226, 0.4),
     /* 蓝紫 */ 0 0 30px rgba(0, 191, 255, 0.3);
   overflow: hidden;
-  background: linear-gradient(
-    97deg,
-    rgba(90, 196, 255, 0.12) 0%,
-    rgba(174, 136, 255, 0.12) 100%
-  );
+  background: linear-gradient(97deg, rgba(90, 196, 255, 0.12) 0%, rgba(174, 136, 255, 0.12) 100%);
 
   .avatar-wrapper {
     width: 32px;
