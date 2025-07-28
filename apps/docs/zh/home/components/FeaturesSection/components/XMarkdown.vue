@@ -74,11 +74,7 @@ $$
     width: 100%;
     height: 100%;
     padding: 10px 10px 5px 50px;
-    background: linear-gradient(
-      97deg,
-      rgba(90, 196, 255, 0.12) 0%,
-      rgba(174, 136, 255, 0.12) 100%
-    );
+    background: linear-gradient(97deg, rgba(90, 196, 255, 0.12) 0%, rgba(174, 136, 255, 0.12) 100%);
   }
 
   :deep(.katex) {

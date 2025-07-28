@@ -13,7 +13,7 @@ export type MarkdownProps = {
   rehypePluginsAhead?: PluggableList;
   mermaidConfig?: Partial<MermaidToolbarConfig>;
 } & Partial<Pick<InitShikiOptions, 'langs' | 'themes'>> &
-  Pick<
+Pick<
     TVueMarkdownProps,
     | 'markdown'
     | 'customAttrs'

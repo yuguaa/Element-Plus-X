@@ -36,7 +36,8 @@ function handleSearch(searchValue: string, prefix: string) {
     // 所以这里需要判断是否包含输入的内容
     if (searchValue) {
       return option.value.includes(searchValue);
-    } else {
+    }
+    else {
       // 如果没有输入内容，则显示所有选项
       return option;
     }

@@ -6,20 +6,18 @@
     <div
       class="banner-content flex items-center justify-between gap-4 relative z-2"
     >
-      <div class="banner-icon text-2xl">🚀</div>
+      <div class="banner-icon text-2xl">
+        🚀
+      </div>
       <div class="banner-text flex-1 text-center">
-        <span class="banner-main text-sm font-semibold leading-relaxed"
-          >推出仿豆包/通义，企业级AI-PC端应用模版，助力企业快速搭建-全栈AI项目</span
-        >
+        <span class="banner-main text-sm font-semibold leading-relaxed">推出仿豆包/通义，企业级AI-PC端应用模版，助力企业快速搭建-全栈AI项目</span>
       </div>
       <a
         href="https://chat.element-plus-x.com/chat"
         class="banner-cta flex items-center gap-2 px-4 py-2 rounded-2 text-white no-underline font-semibold text-sm transition-all duration-300 backdrop-blur-[10px]"
       >
         <span class="cta-text font-semibold">X Chat</span>
-        <span class="cta-arrow text-base transition-transform duration-300"
-          >→</span
-        >
+        <span class="cta-arrow text-base transition-transform duration-300">→</span>
       </a>
     </div>
   </section>
@@ -104,20 +102,12 @@
 
 /* CTA按钮样式 */
 .banner-cta {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.2) 0%,
-    rgba(139, 92, 246, 0.2) 100%
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
   border: 1px solid rgba(99, 102, 241, 0.3);
 }
 
 .banner-cta:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.3) 0%,
-    rgba(139, 92, 246, 0.3) 100%
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
   border-color: rgba(99, 102, 241, 0.5);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);

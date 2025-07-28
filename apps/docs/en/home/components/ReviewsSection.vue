@@ -153,14 +153,7 @@ const reviews = ref([
 
 /* 标题渐变动画 */
 .reviews-title {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #e2e8f0 25%,
-    #6366f1 50%,
-    #8b5cf6 75%,
-    #ffffff 100%
-  );
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #6366f1 50%, #8b5cf6 75%, #ffffff 100%);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -180,11 +173,7 @@ const reviews = ref([
 
 /* 卡片样式 */
 .review-card {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1) 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
   animation: cardFadeIn 0.6s ease-out;
 }
 
@@ -200,11 +189,7 @@ const reviews = ref([
 }
 
 .review-card:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.08) 100%
-  );
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
   border-color: rgba(99, 102, 241, 0.3);
   transform: translateY(-5px);
   box-shadow:
@@ -214,11 +199,7 @@ const reviews = ref([
 
 /* 头像渐变背景 */
 .reviewer-avatar {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.2),
-    rgba(139, 92, 246, 0.2)
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
 }
 
 /* 点赞按钮悬停效果 */

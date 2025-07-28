@@ -253,10 +253,8 @@ const value2 = ref(false);
   <div style="display: flex; flex-direction: column; gap: 12px">
     <span>是否显示 html 预览按钮 <el-switch v-model="value1" /></span>
     <span>是否开启安全预览 <el-switch v-model="value2" /></span>
-    <span
-      >开启安全预览后，尝试点击加入购物车按钮，不会触发 script
-      标签中的事件</span
-    >
+    <span>开启安全预览后，尝试点击加入购物车按钮，不会触发 script
+      标签中的事件</span>
     <XMarkdown
       :markdown="markdown"
       :need-view-code-btn="value1"

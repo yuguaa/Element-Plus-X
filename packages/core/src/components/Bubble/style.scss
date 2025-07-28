@@ -72,10 +72,7 @@
     color: var(--el-text-color-primary);
     font-size: var(--el-font-size-base);
     line-height: var(--el-font-line-height-primary);
-    min-height: calc(
-      var(--el-padding-sm, 12px) * 2 + var(--el-font-line-height-primary) *
-        var(--el-font-size-base)
-    );
+    min-height: calc(var(--el-padding-sm, 12px) * 2 + var(--el-font-line-height-primary) * var(--el-font-size-base));
     word-break: break-word;
 
     // 打字器没有内容时候展示高度

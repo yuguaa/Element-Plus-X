@@ -34,7 +34,9 @@ const avatarAI =
 
     <Bubble :avatar-size="avatarSize" typing no-style variant="borderless">
       <template #header>
-        <div class="content-container-header">推荐内容 自定义气泡</div>
+        <div class="content-container-header">
+          推荐内容 自定义气泡
+        </div>
       </template>
       <template #content>
         <div class="content-borderless-container">

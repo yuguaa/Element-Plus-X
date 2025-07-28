@@ -101,17 +101,15 @@ function generateFakeItems(count: number): listType[] {
         flex-direction: column;
       "
     >
-      <span
-        >滚动条显示：<el-switch
-          v-model="alwaysShowScrollbar"
-          inactive-text="鼠标悬停展示"
-          active-text="一直展示"
+      <span>滚动条显示：<el-switch
+        v-model="alwaysShowScrollbar"
+        inactive-text="鼠标悬停展示"
+        active-text="一直展示"
       /></span>
-      <span
-        >底部按钮加载状态：<el-switch
-          v-model="btnLoading"
-          inactive-text="false"
-          active-text="true"
+      <span>底部按钮加载状态：<el-switch
+        v-model="btnLoading"
+        inactive-text="false"
+        active-text="true"
       /></span>
       <span>底部按钮颜色： <el-color-picker v-model="btnColor" /></span>
 

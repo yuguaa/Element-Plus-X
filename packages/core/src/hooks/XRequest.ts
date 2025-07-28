@@ -76,7 +76,7 @@ export class XRequest<T> {
     onError && (this.#onError = onError);
     onFinish && (this.#onFinish = onFinish);
     (props as SSEWithSSEProps).onOpen &&
-      (this.#onOpen = (props as SSEWithSSEProps).onOpen);
+    (this.#onOpen = (props as SSEWithSSEProps).onOpen);
     transformer && (this.#transformer = transformer);
     type && (this.#type = type);
     this.abort = this.abort.bind(this);
@@ -119,7 +119,8 @@ export class XRequest<T> {
                 : (chunkUse as T);
               this.#messages.push(res);
               this.#onMessage?.(res);
-            } catch (error) {
+            }
+            catch (error) {
               (this.#onError as SSEWithFetchProps['onError'])?.(error);
               this.#controller?.abort();
               return Promise.reject(error);
@@ -154,7 +155,8 @@ export class XRequest<T> {
     es.onerror = (ev: Event) => {
       if (es.readyState === EventSource.CLOSED) {
         this.#onFinish?.(this.#messages);
-      } else {
+      }
+      else {
         this.#onError?.(es, ev);
       }
       this.abort();

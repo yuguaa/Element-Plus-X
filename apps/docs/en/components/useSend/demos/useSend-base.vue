@@ -29,7 +29,9 @@ async function startFn() {
         {{ loading ? 'Loading...' : 'Simulate Request' }}
       </el-button>
 
-      <el-button :disabled="!loading" @click="finish"> End Request </el-button>
+      <el-button :disabled="!loading" @click="finish">
+        End Request
+      </el-button>
     </div>
   </div>
 </template>

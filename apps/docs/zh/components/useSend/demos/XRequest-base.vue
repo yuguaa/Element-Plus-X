@@ -38,7 +38,9 @@ const sse = new XRequest({
         发起请求
       </el-button>
 
-      <el-button @click="sse.abort()"> 取消请求 </el-button>
+      <el-button @click="sse.abort()">
+        取消请求
+      </el-button>
     </div>
 
     <div>{{ str }}</div>

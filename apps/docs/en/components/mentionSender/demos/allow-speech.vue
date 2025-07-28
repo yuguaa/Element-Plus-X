@@ -21,7 +21,8 @@ const senderValue = ref('');
 function onRecordingChange(recording: boolean) {
   if (recording) {
     ElMessage.success('Start recording');
-  } else {
+  }
+  else {
     ElMessage.success('Stop recording');
   }
 }

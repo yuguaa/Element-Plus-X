@@ -110,7 +110,8 @@ const runCodeOptions = reactive<ElxRunCodeProps>({
   preStyle: {}
 });
 function viewCode(renderLines: string[]) {
-  if (!renderLines?.length) return;
+  if (!renderLines?.length)
+    return;
 
   Object.assign(runCodeOptions, {
     code: renderLines,

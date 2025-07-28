@@ -87,7 +87,8 @@ const { data: cachedSvg } = useSWRV<string>(
         );
         return svg;
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.log('Mermaid parse error:', error);
     }
     return '';
@@ -239,8 +240,7 @@ const exposedMethods = computed(() => {
     >
       <pre v-if="showSourceCode" key="source" class="mermaid-source-code">
     {{ props.raw.content }}
-  </pre
-      >
+  </pre>
       <div v-else class="mermaid-content" v-html="svg" />
     </Transition>
   </div>

@@ -19,7 +19,9 @@ const {
 
 <template>
   <div class="component-container">
-    <div class="component-title">附件上传组件-自定义左右按钮、列表内容</div>
+    <div class="component-title">
+      附件上传组件-自定义左右按钮、列表内容
+    </div>
     <Attachments
       v-bind="{ ...$attrs }"
       :items="files"

@@ -42,8 +42,10 @@ const _previewImg = ref<string | undefined>(undefined);
 /* 图片类型文件预览 结束 */
 
 const _fileType = computed(() => {
-  if (fileType.value) return fileType.value;
-  if (!name.value) return undefined;
+  if (fileType.value)
+    return fileType.value;
+  if (!name.value)
+    return undefined;
   if (!nameSuffix.value) {
     return 'unknown';
   }
@@ -53,7 +55,8 @@ const _fileType = computed(() => {
 const _fileTypeUpperCase = computed(() => {
   if (fileType.value)
     return fileType.value.replace(/^\w/, match => match.toUpperCase());
-  if (!name.value) return '';
+  if (!name.value)
+    return '';
   if (!nameSuffix.value) {
     return 'Unknown';
   }
@@ -78,9 +81,12 @@ const _description = computed(() => {
 const isImageFile = computed(() => _fileType.value === 'image');
 const isSquareVariant = computed(() => imgVariant.value === 'square');
 const _previewImgUrl = computed(() => {
-  if (!isImageFile.value) return undefined;
-  if (thumbUrl.value) return thumbUrl.value;
-  if (url.value) return url.value;
+  if (!isImageFile.value)
+    return undefined;
+  if (thumbUrl.value)
+    return thumbUrl.value;
+  if (url.value)
+    return url.value;
   return _previewImg.value;
 });
 
@@ -101,10 +107,12 @@ watch(
       try {
         const url = await previewImage(newFile);
         _previewImg.value = url;
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Preview failed:', error);
       }
-    } else {
+    }
+    else {
       _previewImg.value = undefined;
     }
   },
@@ -201,10 +209,10 @@ defineExpose({
           <transition name="fade">
             <slot
               v-if="
-                imageHovered &&
-                _previewImgUrl &&
-                props.imgPreviewMask &&
-                props.imgPreview
+                imageHovered
+                  && _previewImgUrl
+                  && props.imgPreviewMask
+                  && props.imgPreview
               "
               name="image-preview-actions"
               v-bind="{
@@ -245,8 +253,8 @@ defineExpose({
 
     <slot
       v-if="
-        ($slots.content || props.name || description) &&
-        !(isSquareVariant && isImageFile)
+        ($slots.content || props.name || description)
+          && !(isSquareVariant && isImageFile)
       "
       name="content"
       v-bind="{ item: props }"

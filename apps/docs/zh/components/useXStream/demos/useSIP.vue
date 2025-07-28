@@ -30,21 +30,24 @@ async function startSIPStream() {
     });
 
     await startStream({ readableStream, transformStream: sipTransformStream });
-  } catch (err) {
+  }
+  catch (err) {
     console.error('Fetch error:', err);
   }
 }
 
 // 计算属性
 const content = computed(() => {
-  if (!data.value.length) return '';
+  if (!data.value.length)
+    return '';
   let text = '';
   for (let index = 0; index < data.value.length; index++) {
     const chunk = data.value[index];
     try {
       console.log('chunk', chunk);
       text += chunk;
-    } catch (error) {
+    }
+    catch (error) {
       console.error('解析数据时出错:', error);
     }
     // console.log('New chunk:', chunk)
@@ -61,7 +64,9 @@ const content = computed(() => {
         {{ isLoading ? '加载中...' : '获取 SIP 协议数据' }}
       </el-button>
 
-      <el-button :disabled="!isLoading" @click="cancel()"> 中断请求 </el-button>
+      <el-button :disabled="!isLoading" @click="cancel()">
+        中断请求
+      </el-button>
     </div>
     <div v-if="error" class="error">
       {{ error.message }}

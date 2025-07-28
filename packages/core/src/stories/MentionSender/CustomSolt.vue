@@ -41,7 +41,8 @@ function focus(type = 'all') {
 function openCloseHeader() {
   if (!showHeaderFlog.value) {
     senderRef.value?.openHeader();
-  } else {
+  }
+  else {
     senderRef.value?.closeHeader();
   }
   showHeaderFlog.value = !showHeaderFlog.value;
@@ -129,7 +130,7 @@ function handleInputKeydown(e: KeyboardEvent) {
           使用组件实例取消
         </el-button>
       </div>
-      <br />
+      <br>
       <div style="display: flex">
         <el-button dark type="success" plain @click="focus('start')">
           文本最前方
@@ -144,7 +145,7 @@ function handleInputKeydown(e: KeyboardEvent) {
           失去焦点
         </el-button>
       </div>
-      <br />
+      <br>
       <MentionSender
         v-bind="$attrs"
         ref="senderRef"
@@ -169,7 +170,9 @@ function handleInputKeydown(e: KeyboardEvent) {
         <template #header>
           <div class="header-self-wrap">
             <div class="header-self-title">
-              <div class="header-left">💯 欢迎使用 Element Plus X</div>
+              <div class="header-left">
+                💯 欢迎使用 Element Plus X
+              </div>
               <div class="header-right">
                 <el-button @click.stop="closeHeader">
                   <el-icon><CircleClose /></el-icon>
@@ -177,7 +180,9 @@ function handleInputKeydown(e: KeyboardEvent) {
                 </el-button>
               </div>
             </div>
-            <div class="header-self-content">🦜 自定义头部内容</div>
+            <div class="header-self-content">
+              🦜 自定义头部内容
+            </div>
           </div>
         </template>
 

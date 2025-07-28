@@ -4,9 +4,11 @@ import { FilesCard } from '../../components';
 
 <template>
   <div class="component-container">
-    <div class="component-title">文件卡片</div>
+    <div class="component-title">
+      文件卡片
+    </div>
     <FilesCard v-bind="$attrs" />
-    <br />
+    <br>
     <FilesCard
       v-bind="$attrs"
       name="FilesCardDemo.png"

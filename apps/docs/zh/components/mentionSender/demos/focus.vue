@@ -39,7 +39,9 @@ function focus(type = 'all') {
       <el-button dark type="success" plain @click="focus('all')">
         整个文本
       </el-button>
-      <el-button dark type="success" plain @click="blur"> 失去焦点 </el-button>
+      <el-button dark type="success" plain @click="blur">
+        失去焦点
+      </el-button>
     </div>
     <MentionSender ref="senderRef" v-model="senderValue" />
   </div>
