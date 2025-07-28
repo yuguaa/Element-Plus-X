@@ -15,7 +15,8 @@ const config = {
         { text: '🌱 Ecosystem', items: [
           { text: 'ruoyi-element-ai (Template)', link: 'https://chat-docs.element-plus-x.com/' },
           { text: 'element-ui-x (Vue2)', link: 'https://element-ui-x.com/' },
-          { text: 'hook-fetch (Request Lib)', link: 'https://jsonlee12138.github.io/hook-fetch/' }
+          { text: 'hook-fetch (Request Lib)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
+          { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '🧭 Guide', link: '/en/guide/install' },
         { text: '🎨 Components', link: '/en/components/xmarkdown' },
@@ -133,7 +134,8 @@ const config = {
         { text: '🌱 生态', items: [
           { text: 'ruoyi-element-ai (模板项目)', link: 'https://chat-docs.element-plus-x.com/' },
           { text: 'element-ui-x (vue2版本)', link: 'https://element-ui-x.com/' },
-          { text: 'hook-fetch (请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' }
+          { text: 'hook-fetch (优雅请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
+          { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '🧭 指南', link: '/zh/guide/install' },
         { text: '🎨 组件', link: '/zh/components/xmarkdown' },

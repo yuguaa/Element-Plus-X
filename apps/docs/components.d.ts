@@ -29,7 +29,6 @@ declare module 'vue' {
     Footer: typeof import('vue-element-plus-x')['Footer']
     HeroBanner: typeof import('vue-element-plus-x')['HeroBanner']
     HeroSection: typeof import('vue-element-plus-x')['HeroSection']
-    HeroBanner: typeof import('vue-element-plus-x')['HeroBanner']
     MentionSender: typeof import('vue-element-plus-x')['MentionSender']
     Prompts: typeof import('vue-element-plus-x')['Prompts']
     ReviewsSection: typeof import('vue-element-plus-x')['ReviewsSection']

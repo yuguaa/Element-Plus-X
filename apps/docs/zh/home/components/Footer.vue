@@ -4,19 +4,25 @@ import { ref } from 'vue';
 const siteList = ref([
   {
     icon: null,
-    name: '相关资源',
+    name: '相关生态',
     sites: [
       {
         icon: null,
-        name: 'Ant Design',
-        subName: null,
-        url: 'https://ant.design'
+        name: 'hook-fetch',
+        subName: '优雅请求库',
+        url: 'https://jsonlee12138.github.io/hook-fetch/'
       },
       {
         icon: null,
-        name: 'Ant Design Pro',
-        subName: null,
-        url: 'https://pro.ant.design'
+        name: 'element-ui-x',
+        subName: 'vue2 版本支持',
+        url: 'https://element-ui-x.com/'
+      },
+      {
+        icon: null,
+        name: 'ChatArea',
+        subName: '轻量级聊天框',
+        url: 'https://jianfv.top/ChatAreaDoc/'
       }
     ]
   },
@@ -25,52 +31,64 @@ const siteList = ref([
     name: '社区',
     sites: [
       {
-        icon: null,
-        name: 'Ant Design',
-        subName: null,
-        url: 'https://ant.design'
+        icon: 'https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico',
+        name: '微信交流群',
+        subName: '二维码',
+        url: 'https://element-plus-x.com/introduce.html'
       },
       {
-        icon: null,
-        name: 'Ant Design Pro',
-        subName: null,
+        icon: 'https://qzonestyle.gtimg.cn/qzone/qzact/act/external/tiqq/logo.png',
+        name: 'QQ频道',
+        subName: '二维码',
         url: 'https://pro.ant.design'
+      },
+      {
+        icon: 'https://web-cdn.bsky.app/static/favicon-32x32.png',
+        name: 'bsky',
+        subName: null,
+        url: 'https://bsky.app/profile'
+      },
+      {
+        icon: 'https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png',
+        name: 'x',
+        subName: null,
+        url: 'https://x.com/'
+      },
+      {
+        icon: '/sq/discord.png',
+        name: 'discord',
+        subName: null,
+        url: 'https://discord.com/'
       }
     ]
   },
   {
-    icon: 'https://automation.vuejs.org/images/daman_game.png',
+    icon: null,
     name: '帮助',
     sites: [
       {
-        icon: 'https://automation.vuejs.org/images/daman_game.png',
-        name: 'Ant Design',
+        icon: 'https://github.githubassets.com/assets/apple-touch-icon-144x144-b882e354c005.png',
+        name: 'gihub',
         subName: null,
-        url: 'https://ant.design'
+        url: 'https://github.com/element-plus-x/Element-Plus-X'
       },
       {
-        icon: 'https://automation.vuejs.org/images/daman_game.png',
-        name: 'Ant Design Pro',
+        icon: 'https://element-plus-x.com/logo.png',
+        name: '更新日志',
         subName: null,
-        url: 'https://pro.ant.design'
+        url: 'https://element-plus-x.com/update-log.html'
       }
     ]
   },
   {
-    icon: 'https://automation.vuejs.org/images/daman_game.png',
+    icon: null,
     name: '更多产品',
     sites: [
       {
-        icon: 'https://automation.vuejs.org/images/daman_game.png',
-        name: '语雀',
-        subName: '构建你的数字花园',
-        url: 'https://ant.design'
-      },
-      {
-        icon: 'https://automation.vuejs.org/images/daman_game.png',
-        name: 'AntV',
-        subName: '数据可视化解决方案',
-        url: 'https://pro.ant.design'
+        icon: null,
+        name: 'ruoyi-element-ai',
+        subName: '仿豆包 模版项目',
+        url: 'https://github.com/element-plus-x/ruoyi-element-ai'
       }
     ]
   }
@@ -96,7 +114,7 @@ const siteList = ref([
             class="w-4 h-4 mr-2"
             :src="siteItem.icon"
             alt=""
-          >
+          />
           <span>{{ siteItem.name }}</span>
         </div>
         <div class="site-list-content flex flex-wrap gap-4 flex-col">
@@ -107,11 +125,12 @@ const siteList = ref([
             :href="site.url"
             class="site-list-item text-white/60 text-sm flex items-center gap-2"
           >
-            <img v-if="site.icon" class="w-4 h-4" :src="site.icon" alt="">
+            <img v-if="site.icon" class="w-4 h-4" :src="site.icon" alt="" />
             <span>
               <span>{{ site.name }}</span>
               <span v-if="site.subName" class="text-white/40 text-xs">
-                - {{ site.subName }}</span>
+                - {{ site.subName }}</span
+              >
             </span>
           </a>
         </div>
@@ -124,8 +143,17 @@ const siteList = ref([
       <div
         class="copyright-text w-full text-white/60 text-sm flex gap-3 items-center flex-col justify-center"
       >
-        <span class="text-center text-sm text-white/40">Copyright © 2025</span>
-        <span class="text-center text-base">蚂蚁集团和 Ant Design 开源社区</span>
+        <span class="text-center text-sm text-white/40"
+          >Released under the MIT License.</span
+        >
+        <span class="text-center text-base">
+          Copyright © Element-Plus-X
+          {{ new Date().getFullYear() }}&nbsp;&nbsp;<a
+            href="https://beian.miit.gov.cn/"
+            target="_blank"
+            >赣ICP备2025057058号-1</a
+          >
+        </span>
       </div>
     </section>
   </footer>
