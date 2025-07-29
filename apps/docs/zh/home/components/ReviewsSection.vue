@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import reviewsJson from './reviews.json';
-
-const reviews = computed(() => Object.values(reviewsJson));
+import { reviews } from './reviews.json';
 
 const WaterfallItem = ref();
 
@@ -25,9 +23,7 @@ window.addEventListener('resize', calcSpan);
   <section class="reviews-section py-24 relative">
     <div class="reviews-container max-w-6xl mx-auto px-8">
       <div class="reviews-header text-center mb-16">
-        <h2 class="reviews-title text-5xl font-black m-0 mb-4">
-          社区评价
-        </h2>
+        <h2 class="reviews-title text-5xl font-black m-0 mb-4">社区评价</h2>
         <!-- <p class="reviews-subtitle text-lg text-white/70 m-0">
           来自全球开发者的真实反馈
         </p> -->
@@ -49,15 +45,17 @@ window.addEventListener('resize', calcSpan);
 
           <div class="review-header">
             <div class="reviewer-info flex items-center gap-4">
-              <!-- <div
-                class="reviewer-avatar w-12.5 h-12.5 rounded-full flex-center text-2xl border-2 border-white/10"
+              <a
+                :href="review.userInfoUrl || 'javascript:void(0);'"
+                :target="review.userInfoUrl ? '_blank' : '_self'"
+                class="background-scale"
               >
-            </div> -->
-              <el-avatar
-                class="reviewer-avatar w-12.5 h-12.5 rounded-full flex-center text-2xl border-2 border-white/10"
-                :size="40"
-                :src="review.avatar"
-              />
+                <el-avatar
+                  class="reviewer-avatar w-12.5 h-12.5 rounded-full flex-center text-2xl border-2 border-white/10"
+                  :size="40"
+                  :src="review.avatar"
+                />
+              </a>
               <div class="reviewer-details flex-1">
                 <h4
                   class="reviewer-name text-sm font-semibold text-white m-0 mb-1"
@@ -107,7 +105,14 @@ window.addEventListener('resize', calcSpan);
 
 /* 标题渐变动画 */
 .reviews-title {
-  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #6366f1 50%, #8b5cf6 75%, #ffffff 100%);
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #6366f1 50%,
+    #8b5cf6 75%,
+    #ffffff 100%
+  );
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -156,15 +161,18 @@ window.addEventListener('resize', calcSpan);
   --size: 10px;
   content: '';
   position: absolute;
+  z-index: -1;
   left: 0;
   bottom: 0;
   width: var(--size);
   height: var(--size);
-  background: radial-gradient(circle closest-side, rgba(100, 100, 100, 0.6), transparent);
+  background: radial-gradient(
+    circle closest-side,
+    rgba(100, 100, 100, 0.6),
+    transparent
+  );
   transform: translate(-50%, 50%);
-  transition:
-    width 0.8s ease,
-    height 0.8s ease;
+  transition: width 0.8s ease, height 0.8s ease;
 }
 
 .waterfall-item:hover::before {
@@ -172,7 +180,11 @@ window.addEventListener('resize', calcSpan);
 }
 
 .waterfall-item:hover {
-  animation: shake 1s cubic-bezier(0.36, 0.07, 0.19, 0.97) both !important;
+  animation: shake 0.8s cubic-bezier(0.06, 0.17, 0.29, 0.67) both !important;
+}
+
+.background-scale:hover {
+  transform: scale(1.02);
 }
 
 @keyframes titleGradient {
@@ -180,6 +192,7 @@ window.addEventListener('resize', calcSpan);
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -187,7 +200,11 @@ window.addEventListener('resize', calcSpan);
 
 /* 卡片样式 */
 .review-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
   /* animation: cardFadeIn 0.6s ease-out; */
 }
 
@@ -196,6 +213,7 @@ window.addEventListener('resize', calcSpan);
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -203,17 +221,24 @@ window.addEventListener('resize', calcSpan);
 }
 
 .review-card:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.08) 100%
+  );
   border-color: rgba(99, 102, 241, 0.3);
   /* transform: translateY(-5px); */
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.2),
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
     0 10px 20px rgba(99, 102, 241, 0.1);
 }
 
 /* 头像渐变背景 */
 .reviewer-avatar {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.2),
+    rgba(139, 92, 246, 0.2)
+  );
 }
 
 /* 点赞按钮悬停效果 */
