@@ -1,4 +1,4 @@
-# FilesCard File Card 📇
+# FilesCard 📇
 
 ## Introduction
 
