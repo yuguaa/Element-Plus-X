@@ -31,25 +31,25 @@ const siteList = ref([
     name: '社区',
     sites: [
       {
-        icon: 'https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico',
+        icon: '/sq/wx.png',
         name: '微信交流群',
         subName: '二维码',
         url: 'https://element-plus-x.com/introduce.html'
       },
       {
-        icon: 'https://qzonestyle.gtimg.cn/qzone/qzact/act/external/tiqq/logo.png',
+        icon: '/sq/qq.png',
         name: 'QQ频道',
         subName: '二维码',
         url: 'https://pro.ant.design'
       },
       {
-        icon: 'https://web-cdn.bsky.app/static/favicon-32x32.png',
+        icon: '/sq/bsky.png',
         name: 'bsky',
         subName: null,
         url: 'https://bsky.app/profile'
       },
       {
-        icon: 'https://abs.twimg.com/responsive-web/client-web/icon-default.522d363a.png',
+        icon: '/sq/x.png',
         name: 'x',
         subName: null,
         url: 'https://x.com/'
@@ -138,7 +138,7 @@ const siteList = ref([
     </section>
     <section
       class="copyright-container pt-8 max-w-6xl mx-auto px-8 flex justify-between items-center mt-12"
-      style="border-top: 1px solid #26282f"
+      style="border-top: 1px solid rgba(255, 255, 255, 0.2)"
     >
       <div
         class="copyright-text w-full text-white/60 text-sm flex gap-3 items-center flex-col justify-center"

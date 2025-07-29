@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { reviews } from './reviews.json';
+import { reviews, shuffleReviews } from './reviews';
 
 const WaterfallItem = ref();
 
@@ -32,7 +32,7 @@ window.addEventListener('resize', calcSpan);
       <!-- 瀑布流布局 -->
       <div id="reviewsMasonry" class="waterfall">
         <div
-          v-for="review in reviews"
+          v-for="review in shuffleReviews(reviews)"
           :key="review.id"
           ref="WaterfallItem"
           class="waterfall-item review-card backdrop-blur-5 border border-white/10 rounded-2 rounded-bl-12 p-6 transition-all duration-300 cursor-pointer"
@@ -63,7 +63,8 @@ window.addEventListener('resize', calcSpan);
                   {{ review.name }}
                 </h4>
                 <p class="reviewer-role text-sm text-white/60 m-0">
-                  {{ review.role }} @ {{ review.company }}
+                  {{ review.role }}
+                  {{ review.company ? `@${review.company}` : '' }}
                 </p>
               </div>
             </div>
@@ -172,7 +173,9 @@ window.addEventListener('resize', calcSpan);
     transparent
   );
   transform: translate(-50%, 50%);
-  transition: width 0.8s ease, height 0.8s ease;
+  transition:
+    width 0.8s ease,
+    height 0.8s ease;
 }
 
 .waterfall-item:hover::before {
@@ -228,7 +231,8 @@ window.addEventListener('resize', calcSpan);
   );
   border-color: rgba(99, 102, 241, 0.3);
   /* transform: translateY(-5px); */
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2),
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.2),
     0 10px 20px rgba(99, 102, 241, 0.1);
 }
 

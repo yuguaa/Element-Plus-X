@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue';
 import { ref } from 'vue';
-import { sponsors } from './reviews.json';
+import { sponsors } from './reviews';
 
 const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
 </script>
@@ -141,7 +141,9 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
     transparent
   );
   transform: translate(-50%, -50%);
-  transition: width 0.5s ease, height 0.5s ease;
+  transition:
+    width 0.5s ease,
+    height 0.5s ease;
 }
 
 .background-point:hover::before {
@@ -213,7 +215,7 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
   }
 
   .sponsors-list {
-    @apply grid-cols-[repeat(auto-fit, minmax(120px, 1fr))];
+    @apply grid-cols-[repeat(auto-fit,minmax(120px,1fr))];
   }
 
   .cta-content {
