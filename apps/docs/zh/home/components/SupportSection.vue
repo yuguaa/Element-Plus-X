@@ -1,28 +1,9 @@
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue';
 import { ref } from 'vue';
+import { sponsors } from './reviews.json';
 
-const sponsors = ref([
-  {
-    company: '公司1',
-    logo: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-  },
-  {
-    company: '欢迎赞助',
-    logo: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-  },
-  {
-    company: '欢迎赞助',
-    logo: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-  }
-  // { company: 'DataFlow', logo: '📊' },
-  // { company: 'WebForge', logo: '🔧' },
-  // { company: 'CodeLab', logo: '🧪' },
-  // { company: 'PixelCraft', logo: '🎨' },
-  // { company: 'ByteWorks', logo: '⚡' },
-  // { company: 'NetSphere', logo: '🌐' },
-  // { company: 'AppVault', logo: '🔐' }
-]);
+const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
 </script>
 
 <template>
@@ -35,9 +16,6 @@ const sponsors = ref([
           <!-- Platinum Sponsors -->
           白金赞助商
         </h2>
-        <!-- <p class="support-subtitle text-base text-white/70 m-0">
-          他们的支持让开源项目持续发展
-        </p> -->
       </div>
 
       <!-- 玻璃拟态赞助商卡片 -->
@@ -48,9 +26,11 @@ const sponsors = ref([
         <div
           class="sponsors-list grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-4"
         >
-          <div
+          <a
             v-for="sponsor in sponsors"
             :key="sponsor.company"
+            :href="sponsor.companyUrl || 'javascript:void(0);'"
+            :target="sponsor.companyUrl ? '_blank' : '_self'"
             class="background-point background-scale sponsor-compact flex flex-col items-center gap-2 p-4 bg-white/5 border border-white/10 rounded-3 transition-all duration-300 cursor-pointer"
           >
             <el-badge :value="12" :max="999" hidden>
@@ -65,9 +45,11 @@ const sponsors = ref([
             >
               {{ sponsor.company }}
             </div>
-          </div>
+            <!-- </div> -->
+          </a>
           <a
-            href="https://chat.element-plus-x.com/chat"
+            :href="toBeSponsor"
+            target="_blank"
             class="background-scale banner-cta no-underline sponsor-compact flex flex-col items-center gap-2 p-4 bg-white/5 border border-white/10 rounded-3 transition-all duration-300 cursor-pointer"
           >
             <div
@@ -83,50 +65,8 @@ const sponsors = ref([
               成为赞助商
             </div>
           </a>
-
-          <!-- <div
-            class="sponsor-compact flex flex-col items-center gap-2 p-4 bg-white/5 border border-white/10 rounded-3 transition-all duration-300 cursor-pointer"
-            @click="beSponsorsFn">
-            <div class="sponsor-avatar text-3xl w-12.5 h-12.5 flex-center rounded-full border border-white/20">
-              <el-icon class="text-4xl text-red-500">
-                <Plus />
-              </el-icon>
-            </div>
-            <div class="sponsor-name text-sm font-semibold text-white/90 text-center">
-              成为赞助商
-            </div>
-          </div> -->
         </div>
-
-        <!-- 更多赞助商指示器 -->
-        <!-- <div class="more-sponsors text-center p-4 border-t border-white/10">
-          <span class="more-text text-sm text-white/60 italic">+{{ sponsors.length - 6 }} 更多赞助商</span>
-        </div> -->
       </div>
-
-      <!-- 紧凑的CTA区域 -->
-      <!-- <div class="sponsor-cta-compact border border-indigo-500/20 rounded-4 p-6 backdrop-blur-[10px]">
-        <div class="cta-content flex items-center justify-between gap-8">
-          <div class="cta-left flex items-center gap-4">
-            <div class="cta-icon text-3xl w-15 h-15 flex-center rounded-full border border-white/20">
-              🤝
-            </div>
-            <div class="cta-text flex-1">
-              <h3 class="cta-title text-xl font-bold m-0 mb-1 text-white">
-                成为赞助商
-              </h3>
-              <p class="cta-desc text-sm text-white/70 m-0">
-                支持开源项目，获得品牌曝光
-              </p>
-            </div>
-          </div>
-          <button
-            class="sponsor-btn-compact flex items-center gap-2 px-6 py-3 border-none rounded-2.5 text-white font-semibold cursor-pointer transition-all duration-300">
-            <span class="btn-text">立即赞助</span>
-            <span class="btn-arrow transition-transform duration-300">→</span>
-          </button>
-        </div>
-      </div> -->
     </div>
   </section>
 </template>
@@ -148,6 +88,7 @@ const sponsors = ref([
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -173,7 +114,11 @@ const sponsors = ref([
 
 /* 玻璃卡片背景 */
 .sponsors-glass-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
 }
 
 .background-point {
@@ -190,11 +135,13 @@ const sponsors = ref([
   top: 0;
   width: var(--size);
   height: var(--size);
-  background: radial-gradient(circle closest-side, rgba(100, 100, 100, 0.7), transparent);
+  background: radial-gradient(
+    circle closest-side,
+    rgba(100, 100, 100, 0.7),
+    transparent
+  );
   transform: translate(-50%, -50%);
-  transition:
-    width 0.5s ease,
-    height 0.5s ease;
+  transition: width 0.5s ease, height 0.5s ease;
 }
 
 .background-point:hover::before {
@@ -207,17 +154,29 @@ const sponsors = ref([
 
 /* 头像渐变背景 */
 .sponsor-avatar {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.2),
+    rgba(139, 92, 246, 0.2)
+  );
 }
 
 /* CTA区域背景 */
 .sponsor-cta-compact {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.1) 0%,
+    rgba(139, 92, 246, 0.1) 100%
+  );
 }
 
 /* CTA图标背景 */
 .cta-icon {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.2),
+    rgba(139, 92, 246, 0.2)
+  );
 }
 
 /* 按钮样式 */
