@@ -7,7 +7,7 @@ editLink: false
 markdownStyles: false
 ---
 
-<script setup>
+<script setup lang="ts">
 import { onBeforeMount } from 'vue'
 import { useRouter } from 'vitepress'
 
