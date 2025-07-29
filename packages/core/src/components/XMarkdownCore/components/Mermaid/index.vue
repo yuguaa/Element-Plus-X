@@ -2,7 +2,9 @@
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
 import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
-import mermaid from 'mermaid';
+// 移除静态导入，使用动态导入实现按需加载
+// import mermaid from 'mermaid';
+import { safeLoadMermaid } from '@components/XMarkdownCore/shared/mermaidLoader';
 import { debounce } from 'radash';
 import useSWRV from 'swrv';
 import { Md5 } from 'ts-md5';
@@ -72,6 +74,13 @@ const { data: cachedSvg } = useSWRV<string>(
   cacheKey,
   async () => {
     try {
+      // 动态加载mermaid，如果加载失败则返回错误提示
+      const mermaid = await safeLoadMermaid();
+
+      if (!mermaid) {
+        return '<div style="padding: 16px; border: 1px solid #ff6b6b; border-radius: 4px; background: #ffe0e0; color: #d63031;"><strong>Mermaid not available</strong><br>Please install "mermaid" package to render diagrams.</div>';
+      }
+
       const valid = await mermaid.parse(props.raw.content);
       if (valid) {
         mermaid.initialize({
@@ -89,6 +98,10 @@ const { data: cachedSvg } = useSWRV<string>(
       }
     } catch (error) {
       console.log('Mermaid parse error:', error);
+      // 返回错误提示
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      return `<div style="padding: 16px; border: 1px solid #ff6b6b; border-radius: 4px; background: #ffe0e0; color: #d63031;"><strong>Mermaid render error:</strong><br>${errorMessage}</div>`;
     }
     return '';
   },

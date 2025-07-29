@@ -50,7 +50,13 @@ const buildConfig: BuildEnvironmentOptions = {
       'vue',
       'vue/jsx-runtime',
       'element-plus',
-      '@element-plus/icons-vue'
+      '@element-plus/icons-vue',
+      // 将shiki相关包外部化，实现按需加载
+      'shiki',
+      '@shikijs/transformers',
+      '@shikijs/markdown-it',
+      // 将mermaid外部化，实现按需加载
+      'mermaid'
     ],
     output: {
       // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量

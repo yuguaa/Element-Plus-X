@@ -5,8 +5,9 @@ import type {
   ThemeRegistrationResolved
 } from 'shiki';
 import type { InitShikiOptions } from '../shared';
-import { createHighlighter } from 'shiki';
 import { shikiThemeDefault } from '../shared';
+// 使用新的shiki加载器，实现按需加载
+import { safeCreateShikiHighlighter } from '../shared/shikiLoader';
 import { useDarkModeWatcher } from './useThemeMode';
 
 interface UseShikiOptions {
@@ -38,6 +39,7 @@ export function useGlobalShikiHighlighter(options?: UseShikiOptions) {
   };
 
   const init = async () => {
+    // 检查是否已经创建并且主题配置没有变化
     if (
       hasCreated.value &&
       JSON.stringify(oldThemes.value) === JSON.stringify(options?.themes)
@@ -49,11 +51,19 @@ export function useGlobalShikiHighlighter(options?: UseShikiOptions) {
     const themes = [...themeArr.value];
     if (!themes.length) return;
 
-    const newHighlighter = await createHighlighter({
+    // 使用安全的shiki加载器，如果加载失败会返回null
+    const newHighlighter = await safeCreateShikiHighlighter({
       themes: themes as any[],
       langs: []
     });
 
+    // 如果加载失败，设置为未创建状态
+    if (!newHighlighter) {
+      hasCreated.value = false;
+      return;
+    }
+
+    // 释放旧的高亮器资源
     highlighter.value?.dispose?.();
     highlighter.value = newHighlighter;
     oldThemes.value = options?.themes;

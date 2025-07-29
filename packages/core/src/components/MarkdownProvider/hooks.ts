@@ -10,8 +10,9 @@ import {
   useDarkModeWatcher,
   usePlugins
 } from '@components/XMarkdownCore/hooks';
+// 使用新的shiki加载器，实现按需加载
+import { safeCreateShikiHighlighter } from '@components/XMarkdownCore/shared/shikiLoader';
 import deepmerge from 'deepmerge';
-import { createHighlighter } from 'shiki';
 import { MARKDOWN_PROVIDER_KEY, shikiThemeDefault } from './constants';
 
 export function useMarkdownContext() {
@@ -59,14 +60,19 @@ export function useMarkdownProps(props: MarkdownProps) {
   });
   watch(
     () => [highlighterTheme.value, isDark.value],
-    ([highlighterTheme, isDark]) => {
+    async ([highlighterTheme, isDark]) => {
       if (highlighterTheme !== oldHighlighterTheme.value) {
         oldHighlighterTheme.value =
           highlighterTheme as InitShikiOptions['themes'];
-        createHighlighter({
+
+        // 使用安全的shiki加载器，如果加载失败会返回null
+        const res = await safeCreateShikiHighlighter({
           themes: [...themeArr.value] as any[],
           langs: ['javascript']
-        }).then(res => {
+        });
+
+        if (res) {
+          // 释放旧的高亮器资源
           if (highlighter.value) {
             highlighter.value.dispose();
           }
@@ -74,7 +80,11 @@ export function useMarkdownProps(props: MarkdownProps) {
           shikiThemeColor.value = res.getTheme(
             isDark ? (themeArr.value[1] as any) : (themeArr.value[0] as any)
           );
-        });
+        } else {
+          // 如果shiki加载失败，清理相关状态
+          highlighter.value = undefined;
+          shikiThemeColor.value = undefined;
+        }
       }
 
       if (highlighter.value) {
