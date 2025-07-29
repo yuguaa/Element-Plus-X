@@ -1,7 +1,3 @@
----
-layout: docs
----
-
 # Attachments File Upload Component 📪️
 
 ## Introduction
