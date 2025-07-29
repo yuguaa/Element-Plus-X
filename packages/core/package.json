@@ -22,6 +22,11 @@
     "vue3-element-plus-x",
     "vue3-element-plus-x-components"
   ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss",
+    "**/*.vue"
+  ],
   "exports": {
     ".": {
       "types": "./types/index.d.ts",
