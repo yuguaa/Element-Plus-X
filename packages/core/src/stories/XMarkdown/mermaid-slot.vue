@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { MermaidToolbarConfig } from '../../components/XMarkdownCore/components/Mermaid/types';
 import XMarkdown from '@components/XMarkdown/index.vue';
+import { useShiki } from '@hooks/useShiki';
 import { ElButton, ElMessage, ElTooltip } from 'element-plus';
 import { computed, h, onMounted, ref } from 'vue';
 import MermaidHeader from './MermaidHeader.vue';
@@ -238,6 +239,11 @@ function redo() {
   }
   start();
 }
+// 得全局注册最好是在app vue中
+useShiki({
+  langs: ['html'],
+  themes: ['vitesse-light', 'vitesse-dark']
+});
 onMounted(() => {
   start();
 });

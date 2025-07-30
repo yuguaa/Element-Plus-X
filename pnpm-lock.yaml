@@ -132,9 +132,6 @@ importers:
       dompurify:
         specifier: ^3.2.6
         version: 3.2.6
-      element-plus:
-        specifier: ^2.9.7
-        version: 2.10.2(vue@3.5.17(typescript@5.8.3))
       github-markdown-css:
         specifier: ^5.8.1
         version: 5.8.1
@@ -262,6 +259,9 @@ importers:
       '@vue/tsconfig':
         specifier: ^0.7.0
         version: 0.7.0(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
+      element-plus:
+        specifier: ^2.9.7
+        version: 2.10.2(vue@3.5.17(typescript@5.8.3))
       esno:
         specifier: ^4.8.0
         version: 4.8.0

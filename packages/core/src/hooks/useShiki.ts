@@ -9,6 +9,7 @@ import { GLOBAL_SHIKI_KEY } from '@components/XMarkdownCore/shared';
 import { createHighlighterCore } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
 import { provide } from 'vue';
+import { loadLanguageLoader, loadThemeLoader } from './shiki-loader';
 
 export interface ShikiConfig {
   langs: BundledLanguage[];
@@ -152,15 +153,8 @@ class ShikiManager {
 
     if (!this.getLoadedLanguages().includes(language)) {
       try {
-        const { bundledLanguages } = await import('shiki/langs');
-        const importFn = (bundledLanguages as any)[language];
+        const langDef = await loadLanguageLoader(language);
 
-        if (!importFn) {
-          console.warn(`Language "${language}" not found in bundled languages`);
-          return;
-        }
-
-        const langDef = await importFn();
         await this.highlighter.loadLanguage(langDef);
         this.loadedLanguages.add(language);
       } catch (error) {
@@ -178,16 +172,8 @@ class ShikiManager {
 
     if (!this.getLoadedThemes().includes(themeName)) {
       try {
-        const { bundledThemes } = await import('shiki/themes');
-        const importFn = (bundledThemes as any)[themeName];
-
-        if (!importFn) {
-          console.warn(`Theme "${themeName}" not found in bundled themes`);
-          return;
-        }
-
-        const themeDef = await importFn();
-        await this.highlighter.loadTheme(themeDef);
+        const langDef = await loadThemeLoader(themeName);
+        await this.highlighter.loadTheme(langDef as any);
         this.loadedThemes.add(themeName);
       } catch (error) {
         console.error(`Failed to load theme "${themeName}":`, error);

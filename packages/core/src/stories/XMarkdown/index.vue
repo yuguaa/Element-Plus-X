@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useShiki } from '@hooks/useShiki';
 import { ConfigProvider } from '../../components';
 
 const props = defineProps<{
@@ -34,6 +35,11 @@ function redo() {
   }
   start();
 }
+// 得全局注册最好是在app vue中
+useShiki({
+  langs: ['html'],
+  themes: ['vitesse-light', 'vitesse-dark']
+});
 onMounted(() => {
   start();
 });
