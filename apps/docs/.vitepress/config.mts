@@ -25,6 +25,7 @@ export default defineConfig({
       })();
     `],
   ],
+  lastUpdated: true,
   // 全局主题配置（会被 locales 中的配置覆盖）
   themeConfig: {
     logo: '/logo.png',
@@ -37,13 +38,6 @@ export default defineConfig({
         link: 'https://www.npmjs.com/package/vue-element-plus-x',
       },
     ],
-    lastUpdated: {
-      text: 'Last updated',
-      formatOptions: {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      },
-    },
     search: {
       provider: 'local',
     },
