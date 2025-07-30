@@ -3,6 +3,11 @@ import { useData } from 'vitepress';
 import { computed } from 'vue';
 import _contributors from 'element-plus-x-metadata/dist/component-contributors.json';
 
+interface Contributor {
+  login: string;
+  avatar_url: string;
+  html_url: string;
+}
 
 const { page, lang } = useData();
 const contributorTitle = computed(() => {
@@ -13,13 +18,19 @@ const isComponentPage = computed(() => {
   return page.value.filePath.includes('components');
 });
 
-const contributors = computed(() => {
+const contributors = computed<Contributor[]>(() => {
   const filePath = page.value.filePath;
   const paths = filePath.split('/');
   const componentName = paths[paths.length - 2].toLowerCase();
-  const contributors = _contributors[componentName as keyof typeof _contributors];
+  const contributors = _contributors[componentName as keyof typeof _contributors] as Contributor[];
   return contributors;
 });
+
+// 处理图片加载错误
+function handleImageError(event: Event) {
+  const img = event.target as HTMLImageElement;
+  img.src = `https://ui-avatars.com/api/?name=${img.alt}&background=6366f1&color=fff&size=64`;
+}
 </script>
 
 <template>
@@ -29,9 +40,9 @@ const contributors = computed(() => {
     </div>
     <div class="page-contributors-list">
       <a v-for="contributor in contributors" :key="contributor.login" class="page-contributors-item"
-        :href="contributor.homeUrl" target="_blank">
+        :href="contributor.html_url" target="_blank">
         <el-tooltip :content="contributor.login" placement="top-start">
-          <el-avatar :size="24" :src="contributor.avatar" />
+          <el-avatar :size="24" :src="contributor.avatar_url" :alt="contributor.login" @error="handleImageError" />
         </el-tooltip>
       </a>
     </div>
