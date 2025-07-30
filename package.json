@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "turbo run build",
-    "build:core": "turbo run build --filter=vue-element-plus-x",
+    "build:core": "set NODE_OPTIONS=\"--max-old-space-size=4096\" && turbo run build --filter=vue-element-plus-x",
     "publish:core": "cd packages/core && npm publish",
     "publish:core:beta": "cd packages/core && npm publish --tag beta",
     "dev:core": "turbo run dev --filter=vue-element-plus-x",
@@ -49,5 +49,13 @@
     "commitizen": {
       "path": "node_modules/cz-git"
     }
+  },
+  "pnpm": {
+    "overrides": {
+      "vue-element-plus-x": "link:packages/core"
+    }
+  },
+  "dependencies": {
+    "vue-element-plus-x": "link:packages/core"
   }
 }

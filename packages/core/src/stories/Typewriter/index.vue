@@ -5,7 +5,7 @@ import markdownItMermaid from '@jsonlee_12138/markdown-it-mermaid';
 
 const mdPlugins = [
   markdownItMermaid({
-    forceLegacyMathML: true,
+    legacyMathML: true,
     delay: 100
   })
 ];

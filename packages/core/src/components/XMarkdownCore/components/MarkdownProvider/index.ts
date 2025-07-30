@@ -13,8 +13,7 @@ import {
   toValue,
   watch
 } from 'vue';
-import { usePlugins } from '../../hooks';
-import { useShiki } from '../../hooks/useShiki';
+import { usePlugins, useShiki } from '../../hooks';
 
 import { MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';

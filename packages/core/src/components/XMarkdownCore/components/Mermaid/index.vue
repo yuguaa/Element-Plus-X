@@ -3,9 +3,7 @@ import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
 import { debounce } from 'radash';
 import { computed, nextTick, ref, toValue, watch } from 'vue';
-import { useMermaidZoom } from '../../hooks';
-// 使用简化的 useMermaid hook
-import { useMermaid } from '../../hooks/useMermaid';
+import { useMermaid, useMermaidZoom } from '../../hooks';
 import { useMarkdownContext } from '../MarkdownProvider';
 import { copyToClipboard, downloadSvgAsPng } from './composables';
 import MermaidToolbar from './MermaidToolbar.vue';
@@ -19,16 +17,9 @@ const props = withDefaults(defineProps<MermaidProps>(), {
   toolbarConfig: () => ({})
 });
 
-// 使用简化的 useMermaid hook
 const mermaidContent = computed(() => props.raw?.content || '');
 const mermaidResult = useMermaid(mermaidContent, {
-  id: `mermaid-${props.raw?.key || 'default'}`,
-  theme: 'default',
-  config: {
-    suppressErrorRendering: true,
-    startOnLoad: false,
-    securityLevel: 'loose'
-  }
+  id: `mermaid-${props.raw?.key || 'default'}`
 });
 
 // 使用独立的 ref 存储 SVG 内容，避免闪烁
@@ -66,10 +57,7 @@ const zoomControls = useMermaidZoom({
   maxScale: 5
 });
 
-// 使用 radash 防抖函数，确保只在最后一次更新后初始化
 const debouncedInitialize = debounce({ delay: 500 }, onContentTransitionEnter);
-
-// 监听 mermaidResult 数据变化，只在有新数据时更新 svg
 watch(
   () => mermaidResult.data.value,
   newSvg => {
@@ -79,8 +67,6 @@ watch(
     }
   }
 );
-
-// 监听SVG数据变化并初始化缩放（保留原有逻辑以防万一）
 watch(svg, newSvg => {
   if (newSvg) {
     debouncedInitialize();

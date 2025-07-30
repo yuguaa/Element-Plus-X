@@ -1,9 +1,3 @@
-/**
- * XMarkdown Mermaid 渲染 Hook
- *
- * 简洁的 Mermaid 图表渲染解决方案，使用 useSWRV 缓存
- */
-
 import type { Ref } from 'vue';
 import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
 import mermaid from 'mermaid';
@@ -11,19 +5,12 @@ import useSWRV from 'swrv';
 import { Md5 } from 'ts-md5';
 import { computed } from 'vue';
 
-/**
- * Mermaid 配置选项接口
- */
 interface UseMermaidOptions {
-  /** 图表ID */
   id?: string;
-  /** 主题配置 */
   theme?: 'default' | 'dark' | 'forest' | 'neutral' | string;
-  /** Mermaid 配置 */
   config?: any;
 }
 
-// 确保有一个用于 mermaid 渲染的容器
 let mermaidContainer: HTMLElement | null = null;
 
 function getMermaidContainer(): HTMLElement {
@@ -44,9 +31,6 @@ function getMermaidContainer(): HTMLElement {
   return mermaidContainer;
 }
 
-/**
- * Mermaid 图表渲染 Hook
- */
 export function useMermaid(
   content: string | Ref<string>,
   options: UseMermaidOptions = {}

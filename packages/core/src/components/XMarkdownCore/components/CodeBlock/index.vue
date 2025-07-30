@@ -5,8 +5,7 @@ import type { CodeBlockExpose } from './shiki-header';
 import type { RawProps } from './types';
 import { computed, h, reactive, ref, toValue, watch } from 'vue';
 import HighLightCode from '../../components/HighLightCode/index.vue';
-// 使用优化后的 XMarkdown 内置 hook
-import { useShiki } from '../../hooks/useShiki';
+import { useShiki } from '../../hooks';
 import { SHIKI_SUPPORT_LANGS } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
@@ -53,7 +52,6 @@ const codeAttrs =
     ? customAttrs.code(props.raw)
     : customAttrs?.code || {};
 
-// 生成高亮HTML
 async function generateHtml() {
   let { language = 'text', content = '' } = props.raw || {};
   if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
@@ -61,7 +59,6 @@ async function generateHtml() {
   }
   nowCodeLanguage.value = language as BundledLanguage;
 
-  // 使用优化后的 XMarkdown 内置 hook 进行高亮
   const html = await highlight(
     content.trim(),
     language,
@@ -76,8 +73,8 @@ async function generateHtml() {
   preClass.value = preClassNames ?? '';
   const codeElement = doc.querySelector('pre code');
   if (codeElement) {
-    const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
-    renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
+    const lines = codeElement.querySelectorAll('.line');
+    renderLines.value = Array.from(lines).map(line => line.outerHTML);
   }
 }
 

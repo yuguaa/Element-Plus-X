@@ -1,9 +1,3 @@
-/**
- * XMarkdown 代码高亮 Hook
- *
- * 统一的代码高亮解决方案，集成主题管理和动态加载
- */
-
 import type { BundledLanguage, ThemeRegistrationResolved } from 'shiki';
 import type { InitShikiOptions } from '../shared';
 import { computed, ref, shallowRef, watch } from 'vue';
@@ -14,7 +8,6 @@ interface UseShikiOptions {
   themes?: InitShikiOptions['themes'];
 }
 
-// 懒加载 Shiki
 function loadShiki(): Promise<typeof import('shiki').codeToHtml | null> {
   if (typeof window === 'undefined') return Promise.resolve(null);
   return import('shiki').then(mod => mod.codeToHtml).catch(() => null);
@@ -22,7 +15,6 @@ function loadShiki(): Promise<typeof import('shiki').codeToHtml | null> {
 
 const shikiPromise = loadShiki();
 
-// 全局状态
 const shikiThemeColor = ref<ThemeRegistrationResolved>();
 const hasCreated = ref(false);
 
@@ -43,10 +35,6 @@ export function useShiki(options?: UseShikiOptions) {
     }
     return isDark.value ? themes[1] || themes[0] : themes[0] || themes[1];
   });
-
-  /**
-   * 代码高亮函数
-   */
   const highlight = async (
     code: string,
     language?: string,
@@ -56,7 +44,6 @@ export function useShiki(options?: UseShikiOptions) {
 
     try {
       const codeToHtml = await shikiPromise;
-
       if (!codeToHtml) {
         return `<pre><code>${escapeHtml(code)}</code></pre>`;
       }
@@ -96,8 +83,6 @@ export function useShiki(options?: UseShikiOptions) {
   const destroy = () => {
     hasCreated.value = false;
   };
-
-  // 兼容性：返回模拟的highlighter对象
   const highlighter = shallowRef({
     codeToHtml: highlight
   });
@@ -108,15 +93,10 @@ export function useShiki(options?: UseShikiOptions) {
     isDark,
     init,
     destroy,
-    // 新的API
     highlight,
     currentTheme
   };
 }
-
-/**
- * HTML 转义工具函数
- */
 function escapeHtml(text: string): string {
   const div = document.createElement('div');
   div.textContent = text;

@@ -1,10 +1,9 @@
 import type { MarkdownProps } from './types';
 import {
   useDarkModeWatcher,
-  usePlugins
+  usePlugins,
+  useShiki
 } from '@components/XMarkdownCore/hooks';
-// 使用优化后的 XMarkdown 内置 hook
-import { useShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import deepmerge from 'deepmerge';
 import { computed, inject, toValue } from 'vue';
 import { MARKDOWN_PROVIDER_KEY, shikiThemeDefault } from './constants';

@@ -20,7 +20,7 @@ import { usePrism } from 'vue-element-plus-x';
 // import 'vue-element-plus-x/styles/prism.min.css';
 import 'prismjs/themes/prism.min.css';
 
-const mdPlugins = [markdownItMermaid({ delay: 100, forceLegacyMathML: true })];
+const mdPlugins = [markdownItMermaid({ delay: 100, legacyMathML: true })];
 const highlight = usePrism();
 
 const markdownText =
