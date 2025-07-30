@@ -74,8 +74,7 @@ const scrollTriggers = ref<(gsap.plugins.ScrollTriggerInstance | null)[]>([]);
 /** 处理鼠标移动事件 */
 function handleMouseMove(e: MouseEvent, index: number) {
   const card = (e.currentTarget as HTMLElement).closest('.component-card');
-  if (!(card instanceof HTMLElement))
-    return; // 类型检查确保是 HTMLElement
+  if (!(card instanceof HTMLElement)) return; // 类型检查确保是 HTMLElement
 
   const rect = card.getBoundingClientRect();
   const { xRotation, yRotation } = calculateCardRotation(
@@ -92,8 +91,7 @@ function handleMouseMove(e: MouseEvent, index: number) {
 /** 处理鼠标离开事件 */
 function handleMouseLeave(index: number) {
   const targetElement = cardWrapRef.value?.children[index] as HTMLElement;
-  if (!targetElement)
-    return;
+  if (!targetElement) return;
   cardTweens.value[index]?.kill();
   cardTweens.value[index] = resetRotationTween(targetElement);
 }
@@ -102,14 +100,12 @@ function handleMouseLeave(index: number) {
 async function initStarfields() {
   await nextTick(); // 等待DOM渲染完成
   canvases.value.forEach((canvas, index) => {
-    if (!canvas)
-      return;
+    if (!canvas) return;
 
     // 创建星空管理器并注册更新回调
     const manager = new StarfieldManager(canvas, (stars, meteors) => {
       const ctx = canvas.getContext('2d');
-      if (!ctx)
-        return;
+      if (!ctx) return;
 
       // 清空画布
       ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
@@ -160,8 +156,7 @@ async function initStarfields() {
 async function initCardAnimations() {
   await nextTick(); // 等待DOM渲染完成
 
-  if (!cardWrapRef.value)
-    return;
+  if (!cardWrapRef.value) return;
 
   // 获取所有卡片元素
   const cardElements = Array.from(cardWrapRef.value.children) as HTMLElement[];
@@ -272,12 +267,12 @@ onUnmounted(() => {
           <component :is="item.component" class="card-content-component" />
 
           <!-- <div class="card-content-title">
-            {{ item.title }}
-          </div>
+        {{ item.title }}
+      </div>
 
-          <div class="card-content-desc">
-            {{ item.desc }}
-          </div> -->
+      <div class="card-content-desc">
+        {{ item.desc }}
+      </div> -->
         </div>
         <canvas
           :ref="el => el && (canvases[index] = el as HTMLCanvasElement)"
@@ -403,7 +398,7 @@ onUnmounted(() => {
   overflow: hidden; /* 关键：限制内部元素不溢出容器 */
   z-index: 0;
   background-color: #050a1a;
-
+  // background-color: oklch(22% 0.019 237.69);
   /* 消除可能的边距影响 */
   margin: 0;
   padding: 0;

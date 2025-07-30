@@ -32,12 +32,10 @@ async function fetchContributors() {
     contributors.value = data.sort(
       (a: Contributor, b: Contributor) => b.contributions - a.contributions
     );
-  }
-  catch (err) {
+  } catch (err) {
     console.error('Failed to fetch contributors:', err);
     error.value = 'Failed to load contributors. Please try again later.';
-  }
-  finally {
+  } finally {
     loading.value = false;
   }
 }
@@ -60,8 +58,9 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- bg-gradient-to-br -->
   <section
-    class="relative py-16 px-6 overflow-hidden bg-gradient-to-br from-[#0f0f23] via-[#1a1a2e] to-[#16213e] text-white"
+    class="relative py-16 px-6 overflow-hidden from-[#0f0f23] via-[#1a1a2e] to-[#16213e] text-white"
   >
     <!-- 背景装饰 -->
     <div class="absolute inset-0 pointer-events-none">
@@ -81,9 +80,7 @@ onMounted(() => {
             <Loading />
           </el-icon>
         </div>
-        <p class="text-lg text-white/70 m-0">
-          正在加载贡献者信息...
-        </p>
+        <p class="text-lg text-white/70 m-0">正在加载贡献者信息...</p>
       </div>
 
       <!-- Error State -->
@@ -132,7 +129,8 @@ onMounted(() => {
           >
             <span
               class="text-2xl font-black bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent"
-            >{{ contributors.length }}</span>
+              >{{ contributors.length }}</span
+            >
             <span class="text-white/80 font-medium">位贡献者</span>
           </div>
         </div>
@@ -166,7 +164,7 @@ onMounted(() => {
                     class="w-20 h-20 rounded-full border-3 border-white/10 transition-all duration-300 filter grayscale-30 block mx-auto hover:border-indigo-500 hover:grayscale-0 hover:shadow-lg hover:shadow-indigo-500/30"
                     loading="lazy"
                     @error="handleImageError"
-                  >
+                  />
                   <div
                     class="avatar-overlay absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl px-2 py-1 text-xs font-semibold opacity-0 transition-all duration-300 border-2 border-white/20 hover:opacity-100 hover:-translate-y-1"
                   >
@@ -197,7 +195,11 @@ onMounted(() => {
 .orb-1 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.3) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.3) 0%,
+    transparent 70%
+  );
   top: 10%;
   left: 5%;
   animation-delay: 0s;
@@ -206,7 +208,11 @@ onMounted(() => {
 .orb-2 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.25) 0%,
+    transparent 70%
+  );
   bottom: 15%;
   right: 10%;
   animation-delay: -5s;
@@ -285,7 +291,12 @@ onMounted(() => {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.5s ease;
 }
 

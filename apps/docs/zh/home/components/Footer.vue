@@ -162,11 +162,5 @@ const siteList = ref([
 <style scoped lang="less">
 .linear-footer {
   position: relative;
-  background: linear-gradient(
-    135deg,
-    rgba(139, 92, 246, 0.08) 0%,
-    rgba(59, 130, 246, 0.08) 50%,
-    rgba(99, 102, 241, 0.08) 100%
-  );
 }
 </style>

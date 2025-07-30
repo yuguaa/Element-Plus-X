@@ -30,6 +30,7 @@ declare module 'vue' {
     HeroBanner: typeof import('vue-element-plus-x')['HeroBanner']
     HeroSection: typeof import('vue-element-plus-x')['HeroSection']
     MentionSender: typeof import('vue-element-plus-x')['MentionSender']
+    ProductDisplayArea: typeof import('vue-element-plus-x')['ProductDisplayArea']
     Prompts: typeof import('vue-element-plus-x')['Prompts']
     ReviewsSection: typeof import('vue-element-plus-x')['ReviewsSection']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -19,7 +19,7 @@ const TECH_COLORS = [
   'rgba(120, 53, 255, 0.2)', // 科技紫
   'rgba(0, 255, 200, 0.2)', // 科技青
   'rgba(255, 99, 200, 0.15)', // 科技粉
-  'rgba(255, 214, 0, 0.15)' // 科技黄
+  'rgba(255, 165, 0, 0.2)' // 可爱橙
 ];
 
 export class TechCircleManager {

@@ -85,8 +85,8 @@
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
-    "swrv": "^1.1.0",
     "shiki": "^3.7.0",
+    "swrv": "^1.1.0",
     "ts-md5": "^2.0.1",
     "typescript-api-pro": "^0.0.6",
     "unified": "^11.0.5"

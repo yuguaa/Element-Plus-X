@@ -7,6 +7,7 @@ import {
   FeaturesSection,
   Footer,
   HeroSection,
+  ProductDisplayArea,
   ReviewsSection,
   SupportSection
 } from './components';
@@ -58,9 +59,6 @@ import {
 
 <template>
   <div class="page-container">
-    <!-- 顶部横幅广告 -->
-    <!-- <HeroBanner /> -->
-
     <!-- 首屏英雄区 -->
     <HeroSection />
 
@@ -69,6 +67,9 @@ import {
 
     <!-- 特性区域 -->
     <FeaturesSection />
+
+    <!-- 产品展示区域 -->
+    <ProductDisplayArea />
 
     <!-- 社区评价区域 -->
     <ReviewsSection />

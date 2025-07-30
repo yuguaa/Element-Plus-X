@@ -95,12 +95,6 @@ window.addEventListener('resize', calcSpan);
 /* 社区评价区域 */
 .reviews-section {
   padding: 6rem 0;
-  background: linear-gradient(
-    135deg,
-    rgba(59, 130, 246, 0.05) 0%,
-    rgba(99, 102, 241, 0.05) 50%,
-    rgba(139, 92, 246, 0.05) 100%
-  );
   position: relative;
 }
 
