@@ -60,30 +60,30 @@ const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
       {
         default: () => [
           props.nowViewBtnShow &&
-            h(
-              ElTooltip,
-              {
-                content: '预览代码',
-                placement: 'top'
-              },
-              {
-                default: () =>
-                  h(
-                    ElButton,
-                    {
-                      class: 'shiki-header-button',
-                      onClick: () => {
-                        if (props.raw.language !== 'html') {
-                          ElMessage.warning('当前语言不支持预览代码');
-                          return;
-                        }
-                        props.viewCode(props.renderLines);
+          h(
+            ElTooltip,
+            {
+              content: '预览代码',
+              placement: 'top'
+            },
+            {
+              default: () =>
+                h(
+                  ElButton,
+                  {
+                    class: 'shiki-header-button',
+                    onClick: () => {
+                      if (props.raw.language !== 'html') {
+                        ElMessage.warning('当前语言不支持预览代码');
+                        return;
                       }
-                    },
-                    { default: () => '👀' }
-                  )
-              }
-            ),
+                      props.viewCode(props.renderLines);
+                    }
+                  },
+                  { default: () => '👀' }
+                )
+            }
+          ),
           h(
             ElTooltip,
             {
@@ -136,7 +136,8 @@ const codeXSlotConfig: CodeBlockHeaderFunctionExpose = {
         onClick: () => {
           if (props.value === SELECT_OPTIONS_ENUM.VIEW) {
             props.changeSelectValue(SELECT_OPTIONS_ENUM.CODE);
-          } else {
+          }
+          else {
             props.changeSelectValue(SELECT_OPTIONS_ENUM.VIEW);
           }
         }
@@ -187,13 +188,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <ElButton @click="start"> 开始 </ElButton>
-  <ElButton @click="pause"> 暂停 </ElButton>
-  <ElButton @click="redo"> 重新开始 </ElButton>
+  <ElButton @click="start">
+    开始
+  </ElButton>
+  <ElButton @click="pause">
+    暂停
+  </ElButton>
+  <ElButton @click="redo">
+    重新开始
+  </ElButton>
   <div class="component-container">
     <h4>默认插槽</h4>
     <XMarkdown
       v-bind="$attrs"
+      :enable-code-line-number="true"
       :markdown="content"
       :color-replacements="{
         // 这里传一个默认值 使其不受到其他 colorReplacements 的影响

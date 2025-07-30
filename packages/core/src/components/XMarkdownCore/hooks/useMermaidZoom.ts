@@ -61,7 +61,8 @@ export function useMermaidZoom(
 
     // 鼠标事件
     const onMouseDown = (e: MouseEvent) => {
-      if (e.button !== 0) return; // ⭐️ 只响应鼠标左键
+      if (e.button !== 0)
+        return; // ⭐️ 只响应鼠标左键
       e.preventDefault();
       onStart(e.clientX, e.clientY);
     };
@@ -125,17 +126,20 @@ export function useMermaidZoom(
   };
 
   const fullscreen = () => {
-    if (!container.value) return;
+    if (!container.value)
+      return;
 
     if (document.fullscreenElement) {
       document.exitFullscreen();
-    } else {
+    }
+    else {
       container.value.requestFullscreen?.();
     }
   };
 
   const initialize = () => {
-    if (!container.value) return;
+    if (!container.value)
+      return;
 
     resetState();
 

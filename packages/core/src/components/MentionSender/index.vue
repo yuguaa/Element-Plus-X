@@ -51,7 +51,8 @@ const internalValue = computed({
     return props.modelValue;
   },
   set(val) {
-    if (props.readOnly || props.disabled) return;
+    if (props.readOnly || props.disabled)
+      return;
     emits('update:modelValue', val);
   }
 });
@@ -91,15 +92,19 @@ function onContentMouseDown(e: MouseEvent) {
 /* 头部显示隐藏 开始 */
 const visiableHeader = ref(false);
 function openHeader() {
-  if (!slots.header) return false;
+  if (!slots.header)
+    return false;
 
-  if (props.readOnly) return false;
+  if (props.readOnly)
+    return false;
 
   visiableHeader.value = true;
 }
 function closeHeader() {
-  if (!slots.header) return;
-  if (props.readOnly) return;
+  if (!slots.header)
+    return;
+  if (props.readOnly)
+    return;
   visiableHeader.value = false;
 }
 /* 头部显示隐藏 结束 */
@@ -109,7 +114,8 @@ const recognition = ref<SpeechRecognition | null>(null);
 const speechLoading = ref<boolean>(false);
 
 function startRecognition() {
-  if (props.readOnly) return; // 直接返回，不执行后续逻辑
+  if (props.readOnly)
+    return; // 直接返回，不执行后续逻辑
   if (hasOnRecordingChangeListener.value) {
     speechLoading.value = true;
     emits('recordingChange', true);
@@ -140,7 +146,8 @@ function startRecognition() {
       speechLoading.value = false;
     };
     recognition.value.start();
-  } else {
+  }
+  else {
     console.error('浏览器不支持 Web Speech API');
   }
 }
@@ -173,19 +180,22 @@ function submit() {
 }
 // 取消按钮
 function cancel() {
-  if (props.readOnly) return;
+  if (props.readOnly)
+    return;
   emits('cancel', internalValue.value);
 }
 
 function clear() {
-  if (props.readOnly) return; // 直接返回，不执行后续逻辑
+  if (props.readOnly)
+    return; // 直接返回，不执行后续逻辑
   inputRef.value.input.clear();
   internalValue.value = '';
 }
 
 // 在这判断组合键的回车键 (目前支持四种模式)
 function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
-  if (props.readOnly) return; // 直接返回，不执行后续逻辑
+  if (props.readOnly)
+    return; // 直接返回，不执行后续逻辑
   const _resetSelectionRange = () => {
     const cursorPosition = e.target.selectionStart; // 获取光标位置
     const textBeforeCursor = internalValue.value.slice(0, cursorPosition); // 光标前的文本
@@ -216,7 +226,8 @@ function handleKeyDown(e: { target: HTMLTextAreaElement } & KeyboardEvent) {
     e.preventDefault();
     if (props.submitType === 'enter') {
       _isComKeyDown ? _resetSelectionRange() : submit();
-    } else {
+    }
+    else {
       _isComKeyDown ? submit() : _resetSelectionRange();
     }
   }
@@ -237,9 +248,11 @@ function focus(type = 'all') {
   }
   if (type === 'all') {
     inputRef.value.input.select();
-  } else if (type === 'start') {
+  }
+  else if (type === 'start') {
     focusToStart();
-  } else if (type === 'end') {
+  }
+  else if (type === 'end') {
     focusToEnd();
   }
 }

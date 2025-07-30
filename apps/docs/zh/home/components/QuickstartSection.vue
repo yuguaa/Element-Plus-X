@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const installCommand = ref('npm install element-plus-x');
+const installCommand = ref('pnpm install vue-element-plus-x');
 
 async function copyInstallCommand() {
   try {
@@ -117,7 +117,7 @@ async function copyInstallCommand() {
   }
 
   .install-command {
-    @apply min-w-auto w-full px-4 py-3 text-sm;
+    @apply min-w-0 w-full px-4 py-3 text-sm;
   }
 }
 

@@ -9,10 +9,8 @@ title: 图片文件专区
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <div class="files-card-container-wrapper">
-      <span
-        >图片文件 <span style="color: red">可预览</span> 和
-        <span style="color: red">不可预览</span></span
-      >
+      <span>图片文件 <span style="color: red">可预览</span> 和
+        <span style="color: red">不可预览</span></span>
       <div class="files-card-container">
         <FilesCard
           name="可预览的图片.jpeg"
@@ -21,11 +19,9 @@ title: 图片文件专区
         />
         <FilesCard name="无法预览的图片.jpeg" show-del-icon />
       </div>
-      <span
-        >图片文件
+      <span>图片文件
         <span style="color: red">正方形变体</span>
-        其他格式不受变体属性影响</span
-      >
+        其他格式不受变体属性影响</span>
       <div class="files-card-container">
         <FilesCard
           name="可预览的图片.jpeg"
@@ -45,12 +41,8 @@ title: 图片文件专区
           :file-size="30000"
         />
       </div>
-      <span
-        >图片文件 默认长方形变体
-        <span style="color: red"
-          >支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span
-        ></span
-      >
+      <span>图片文件 默认长方形变体
+        <span style="color: red">支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span></span>
       <div class="files-card-container">
         <FilesCard
           name="上传进度.jpeg"
@@ -79,12 +71,8 @@ title: 图片文件专区
         />
       </div>
 
-      <span
-        >图片文件 正方形变体
-        <span style="color: red"
-          >支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span
-        ></span
-      >
+      <span>图片文件 正方形变体
+        <span style="color: red">支持上传状态 、支持预览开启关闭 、支持预览遮罩蒙层开启关闭</span></span>
       <div class="files-card-container">
         <FilesCard
           name="上传进度.jpeg"

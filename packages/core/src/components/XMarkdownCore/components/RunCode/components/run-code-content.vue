@@ -27,10 +27,13 @@ const context = useMarkdownContext();
 const isSafeViewCode = computed(() => {
   return context.value.secureViewCode;
 });
-
+const enableCodeLineNumber = computed(() => {
+  return context.value?.enableCodeLineNumber || false;
+});
 function doRenderIframe() {
   const iframe = iframeRef.value;
-  if (!iframe) return;
+  if (!iframe)
+    return;
 
   isLoading.value = true;
 
@@ -61,14 +64,16 @@ function doRenderIframe() {
         match => `${match}<meta charset="UTF-8">`
       );
     }
-  } else {
+  }
+  else {
     // 没有 <head>，插入 <head><meta charset="UTF-8"></head> 到 <html> 或最前
     if (/<html[^>]*>/i.test(sanitizedHtml)) {
       finalHtml = sanitizedHtml.replace(
         /<html[^>]*>/i,
         match => `${match}<head><meta charset="UTF-8"></head>`
       );
-    } else {
+    }
+    else {
       // 甚至没有 <html>，包一层完整结构
       finalHtml = `
         <!DOCTYPE html>
@@ -150,6 +155,7 @@ onMounted(() => {
                 :class="codeClass"
             >
               <HighLightCode
+              :enable-code-line-number="enableCodeLineNumber"
               :lang="props.lang"
               :code="props.code"
               />

@@ -15,8 +15,7 @@ title: status 和 percent 属性
         <FilesCard name="done 测试文件.pdf" status="done" />
         <FilesCard name="error 测试文件.pdf" status="error" />
       </div>
-      <span
-        >"uploading"+"percent"
+      <span>"uploading"+"percent"
         控制上传进度，"error"+"errorTip"控制自定义失败提示
       </span>
       <div class="files-card-container">

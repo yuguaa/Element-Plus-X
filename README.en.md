@@ -108,6 +108,7 @@ app.mount('#app');
 <!-- This method is still under testing -->
 <!-- CDN Import -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
+
 ```
 
 ## 🌟 Implemented Components and Hooks
@@ -150,7 +151,7 @@ We welcome:
 ## 👥 Community Support
 
 <div align="center">
-<img src="https://cdn.element-plus-x.com/vx-2025-07-21.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
+<img src="https://cdn.element-plus-x.com/vx-2025-07-28.png" alt="WeChat communication group" width="180" style="margin: 20px;" />
 <p>Join the WeChat communication group to get the latest news and technical support</p>
 
 <p>If the group link expires, scan the author's QR code:</p>

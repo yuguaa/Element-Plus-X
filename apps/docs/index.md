@@ -1,5 +1,4 @@
 ---
-title: Element Plus X
 pageClass: landing dark
 
 layout: home
@@ -8,8 +7,13 @@ editLink: false
 markdownStyles: false
 ---
 
-<script setup>
-import MainPage from '/.vitepress/home/index.vue'
-</script>
+<script setup lang="ts">
+import { onBeforeMount } from 'vue'
+import { useRouter } from 'vitepress'
 
-<MainPage  />
+const router = useRouter()
+
+onBeforeMount(() => {
+  router.go('/en/')
+})
+</script>

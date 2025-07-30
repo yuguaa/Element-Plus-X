@@ -14,10 +14,12 @@ const props = defineProps<
   <div class="Welcome-demo-box">
     <Welcome v-bind="props">
       <template v-if="props.showExtraSlot" #extra>
-        <el-button link type="primary"> 关于我 </el-button>
+        <el-button link type="primary">
+          关于我
+        </el-button>
       </template>
       <template v-if="props.showImageSlot" #image>
-        <img src="https://element-plus-x.com/logo.png" style="width: 80px" />
+        <img src="https://element-plus-x.com/logo.png" style="width: 80px">
       </template>
     </Welcome>
   </div>

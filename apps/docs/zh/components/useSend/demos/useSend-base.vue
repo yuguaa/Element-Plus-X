@@ -29,7 +29,9 @@ async function startFn() {
         {{ loading ? '加载中...' : '模拟请求' }}
       </el-button>
 
-      <el-button :disabled="!loading" @click="finish"> 结束请求 </el-button>
+      <el-button :disabled="!loading" @click="finish">
+        结束请求
+      </el-button>
     </div>
   </div>
 </template>

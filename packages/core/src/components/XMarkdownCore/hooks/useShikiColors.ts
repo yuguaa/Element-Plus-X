@@ -30,7 +30,8 @@ export function useGlobalShikiHighlighter(options?: UseShikiOptions) {
   });
 
   const updateThemeColor = () => {
-    if (!highlighter.value || !hasCreated.value) return;
+    if (!highlighter.value || !hasCreated.value)
+      return;
 
     const themeName = isDark.value ? themeArr.value[1] : themeArr.value[0];
 
@@ -47,7 +48,8 @@ export function useGlobalShikiHighlighter(options?: UseShikiOptions) {
     }
 
     const themes = [...themeArr.value];
-    if (!themes.length) return;
+    if (!themes.length)
+      return;
 
     const newHighlighter = await createHighlighter({
       themes: themes as any[],

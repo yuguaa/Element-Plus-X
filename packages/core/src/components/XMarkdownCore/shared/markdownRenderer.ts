@@ -14,6 +14,10 @@ const MarkdownProps = {
     type: Boolean,
     default: true
   },
+  enableCodeLineNumber: {
+    type: Boolean,
+    default: false
+  },
   enableLatex: {
     type: Boolean,
     default: true

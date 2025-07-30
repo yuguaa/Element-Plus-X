@@ -37,7 +37,11 @@ const props = withDefaults(
 );
 
 const context = useMarkdownContext();
-const { codeXSlot, customAttrs } = toValue(context) || {};
+const {
+  codeXSlot,
+  customAttrs,
+  enableCodeLineNumber = false
+} = toValue(context) || {};
 const renderLines = ref<string[]>([]);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
@@ -68,7 +72,7 @@ async function generateHtml() {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content, {
+  const html = await codeToHtml(content.trim(), {
     colorReplacements: colorReplacements.value,
     lang: language as BundledLanguage,
     themes: themes.value,
@@ -106,7 +110,8 @@ const runCodeOptions = reactive<ElxRunCodeProps>({
   preStyle: {}
 });
 function viewCode(renderLines: string[]) {
-  if (!renderLines?.length) return;
+  if (!renderLines?.length)
+    return;
 
   Object.assign(runCodeOptions, {
     code: renderLines,
@@ -234,6 +239,7 @@ watch(
       v-bind="codeAttrs"
     >
       <HighLightCode
+        :enable-code-line-number="enableCodeLineNumber"
         :lang="props.raw?.language ?? 'text'"
         :code="renderLines"
       />

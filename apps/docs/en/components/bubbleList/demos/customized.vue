@@ -56,18 +56,17 @@ function setLoading(loading: boolean) {
   <div style="display: flex; flex-direction: column; gap: 12px">
     <div style="display: flex; gap: 12px">
       <span>Dynamic content setting <el-switch v-model="switchValue" /></span>
-      <span
-        >Custom loading
+      <span>Custom loading
         <el-switch
           v-model="loading"
           @change="(value: any) => setLoading(value as boolean)"
-      /></span>
+        /></span>
     </div>
     <BubbleList :list="bubbleItems" max-height="350px">
       <!-- Custom avatar -->
       <template #avatar="{ item }">
         <div class="avatar-wrapper">
-          <img :src="item.role === 'ai' ? avartAi : avatar" alt="avatar" />
+          <img :src="item.role === 'ai' ? avartAi : avatar" alt="avatar">
         </div>
       </template>
 

@@ -252,7 +252,8 @@ const selfCodeXSlot4 = {
                         ElMessage.success(
                           '🎉 Component slot custom copy successful!'
                         );
-                      } catch (err) {
+                      }
+                      catch (err) {
                         console.error('❌ Custom copy failed:', err);
                       }
                     }

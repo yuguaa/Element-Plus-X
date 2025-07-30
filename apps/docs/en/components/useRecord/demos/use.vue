@@ -61,7 +61,9 @@ watch(
       <el-button :disabled="loading" @click="handleStart">
         {{ loading ? 'Recording' : 'Start Recording' }}
       </el-button>
-      <el-button :disabled="!loading" @click="stop"> Stop Recording </el-button>
+      <el-button :disabled="!loading" @click="stop">
+        Stop Recording
+      </el-button>
     </div>
 
     <Sender ref="senderRef" v-model="value" @submit="submit">

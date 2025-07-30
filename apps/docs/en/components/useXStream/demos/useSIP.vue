@@ -30,21 +30,24 @@ async function startSIPStream() {
     });
 
     await startStream({ readableStream, transformStream: sipTransformStream });
-  } catch (err) {
+  }
+  catch (err) {
     console.error('Fetch error:', err);
   }
 }
 
 // Computed property
 const content = computed(() => {
-  if (!data.value.length) return '';
+  if (!data.value.length)
+    return '';
   let text = '';
   for (let index = 0; index < data.value.length; index++) {
     const chunk = data.value[index];
     try {
       console.log('chunk', chunk);
       text += chunk;
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Error parsing data:', error);
     }
     // console.log('New chunk:', chunk)

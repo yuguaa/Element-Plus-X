@@ -33,7 +33,8 @@ const avatarAI =
 
 function changeContent() {
   num.value++;
-  if (num.value > 3) num.value = 1;
+  if (num.value > 3)
+    num.value = 1;
 }
 </script>
 

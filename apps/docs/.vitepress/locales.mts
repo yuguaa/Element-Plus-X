@@ -5,7 +5,7 @@ const config = {
   root: {
     label: 'English',
     lang: 'en',
-    link: '/en/',  // 重要：设置英文版的链接前缀
+    link: '/en/', // 重要：设置英文版的链接前缀
     themeConfig: {
       lastUpdated: {
         text: 'Last updated',
@@ -32,12 +32,13 @@ const config = {
         { text: '🌱 Ecosystem', items: [
           { text: 'ruoyi-element-ai (Template)', link: 'https://chat-docs.element-plus-x.com/' },
           { text: 'element-ui-x (Vue2)', link: 'https://element-ui-x.com/' },
-          { text: 'hook-fetch (Request Lib)', link: 'https://jsonlee12138.github.io/hook-fetch/' }
+          { text: 'hook-fetch (Request Lib)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
+          { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '🧭 Guide', link: '/en/guide/install' },
         { text: '🎨 Components', link: '/en/components/xmarkdown' },
       ],
-      
+
       // 英文侧边栏
       sidebar: {
         '/en/components/': [
@@ -98,7 +99,7 @@ const config = {
           },
         ],
       },
-      
+
       // 英文搜索配置
       search: {
         provider: 'local',
@@ -120,7 +121,7 @@ const config = {
           },
         },
       },
-      
+
       // 英文页脚
       docFooter: {
         prev: 'Previous',
@@ -136,7 +137,7 @@ const config = {
       },
     },
   },
-  
+
   zh: {
     label: '简体中文',
     lang: 'zh-CN',
@@ -161,12 +162,13 @@ const config = {
         { text: '🌱 生态', items: [
           { text: 'ruoyi-element-ai (模板项目)', link: 'https://chat-docs.element-plus-x.com/' },
           { text: 'element-ui-x (vue2版本)', link: 'https://element-ui-x.com/' },
-          { text: 'hook-fetch (请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' }
+          { text: 'hook-fetch (优雅请求库)', link: 'https://jsonlee12138.github.io/hook-fetch/' },
+          { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '🧭 指南', link: '/zh/guide/install' },
         { text: '🎨 组件', link: '/zh/components/xmarkdown' },
       ],
-      
+
       // 中文侧边栏
       sidebar: {
         '/zh/components/': [
@@ -227,7 +229,7 @@ const config = {
           },
         ],
       },
-      
+
       // 中文搜索配置
       search: {
         provider: 'local',
@@ -249,7 +251,7 @@ const config = {
           },
         },
       },
-      
+
       // 中文页脚
       docFooter: {
         prev: '上一篇',

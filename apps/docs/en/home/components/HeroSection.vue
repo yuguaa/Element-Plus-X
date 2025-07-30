@@ -72,7 +72,8 @@ async function copyInstallCommand() {
   try {
     await navigator.clipboard.writeText(installCommand.value);
     // 可以添加复制成功的提示
-  } catch (err) {
+  }
+  catch (err) {
     console.error('复制失败:', err);
   }
 }
@@ -83,7 +84,8 @@ if (typeof window !== 'undefined') {
   const browserLang = navigator.language.toLowerCase();
   if (browserLang.includes('zh')) {
     currentLang.value = 'zh';
-  } else {
+  }
+  else {
     currentLang.value = 'en';
   }
 }
@@ -117,8 +119,7 @@ function handleClick() {
           <span class="text-white">{{ t.badge }}</span>
           <span
             class="badge-version px-3 py-1 rounded-full text-xs font-bold"
-            >{{ t.version }}</span
-          >
+          >{{ t.version }}</span>
         </div>
       </div>
 
@@ -229,12 +230,10 @@ function handleClick() {
         >
           <span
             class="text-indigo-400 font-mono font-semibold px-4 text-sm md:text-base"
-            >$</span
-          >
+          >$</span>
           <span
             class="flex-1 text-white/90 font-mono text-sm md:text-base text-left px-2"
-            >{{ installCommand }}</span
-          >
+          >{{ installCommand }}</span>
           <button
             class="install-command bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 hover:border-indigo-500/50 rounded-xl p-3 text-white/80 hover:text-white transition-all duration-300 hover:scale-105 flex-shrink-0"
             @click="copyInstallCommand"
@@ -272,11 +271,7 @@ function handleClick() {
 .orb-1 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(99, 102, 241, 0.4) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.4) 0%, transparent 70%);
   top: 20%;
   left: 10%;
   animation-delay: 0s;
@@ -285,11 +280,7 @@ function handleClick() {
 .orb-2 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.3) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
   bottom: 20%;
   right: 10%;
   animation-delay: -4s;
@@ -326,11 +317,7 @@ function handleClick() {
 
 /* 徽章样式 */
 .hero-badge {
-  background: linear-gradient(
-    135deg,
-    rgba(99, 102, 241, 0.15) 0%,
-    rgba(139, 92, 246, 0.15) 100%
-  );
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 100%);
   animation: badgeGlow 3s ease-in-out infinite;
 }
 
@@ -353,14 +340,7 @@ function handleClick() {
 
 /* 标题渐变动画 */
 .title-line {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #e2e8f0 25%,
-    #6366f1 50%,
-    #8b5cf6 75%,
-    #ffffff 100%
-  );
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 25%, #6366f1 50%, #8b5cf6 75%, #ffffff 100%);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;
@@ -406,14 +386,7 @@ function handleClick() {
 
 /* Logo渐变动画 */
 .linear-logo-x {
-  background: linear-gradient(
-    135deg,
-    #6366f1 0%,
-    #8b5cf6 25%,
-    #3b82f6 50%,
-    #ec4899 75%,
-    #6366f1 100%
-  );
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 25%, #3b82f6 50%, #ec4899 75%, #6366f1 100%);
   background-size: 200% 200%;
   background-clip: text;
   -webkit-background-clip: text;

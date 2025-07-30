@@ -5,6 +5,7 @@ import type { InitShikiOptions } from './shikiHighlighter';
 
 export type MarkdownProps = {
   allowHtml?: boolean;
+  enableCodeLineNumber?: boolean;
   enableLatex?: boolean;
   enableBreaks?: boolean;
   codeXRender?: Record<string, any>;
@@ -18,7 +19,7 @@ export type MarkdownProps = {
   viewCodeModalOptions?: ElxRunCodeOptions;
   mermaidConfig?: Partial<MermaidToolbarConfig>;
 } & Partial<Pick<InitShikiOptions, 'langs' | 'themes' | 'colorReplacements'>> &
-  Pick<
+Pick<
     TVueMarkdownProps,
     | 'markdown'
     | 'customAttrs'

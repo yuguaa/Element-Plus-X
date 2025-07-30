@@ -12,7 +12,19 @@ export default defineConfig({
   title: 'Element-Plus-X',
   description: 'A Vue3 + Element-Plus AI Experience Component Library',
   locales,
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    // 添加百度统计（勿删）
+    ['script', {}, `
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?0d135e597fd834dbf14cf74dee3c6fdf";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+    `],
+  ],
   lastUpdated: true,
   // 全局主题配置（会被 locales 中的配置覆盖）
   themeConfig: {

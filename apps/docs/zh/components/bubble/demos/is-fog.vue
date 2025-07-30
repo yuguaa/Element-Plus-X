@@ -20,7 +20,8 @@ function changeContent(type: number) {
   setTimeout(() => {
     if (type === 1) {
       content.value = `## 🔥Element-Plus-X \n 🥰 感谢使用 Element-Plus-X! \n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n`;
-    } else if (type === 2) {
+    }
+    else if (type === 2) {
       content.value = `🔥Element-Plus-X `.repeat(10);
     }
   }, 80);

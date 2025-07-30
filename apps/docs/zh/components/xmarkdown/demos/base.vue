@@ -127,9 +127,15 @@ onMounted(() => {
   <div style="display: flex; flex-direction: column; gap: 12px">
     <span style="font-size: 20px; font-weight: 700">控制台查看增量渲染</span>
     <div style="display: flex; gap: 8px">
-      <el-button @click="start"> 开始 </el-button>
-      <el-button @click="pause"> 暂停 </el-button>
-      <el-button @click="redo"> 重新开始 </el-button>
+      <el-button @click="start">
+        开始
+      </el-button>
+      <el-button @click="pause">
+        暂停
+      </el-button>
+      <el-button @click="redo">
+        重新开始
+      </el-button>
     </div>
     <XMarkdown :markdown="content" class="vp-raw" />
   </div>

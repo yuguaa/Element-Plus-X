@@ -5,6 +5,7 @@ import { computed } from 'vue';
 export interface HighLightCodeProps {
   code: string[];
   lang: string;
+  enableCodeLineNumber: boolean;
 }
 
 const props = defineProps<HighLightCodeProps>();
@@ -14,7 +15,7 @@ const codeClass = computed(() => `language-${props.lang || 'text'}`);
 
 <template>
   <div class="elx-highlight-code-wrapper">
-    <div class="line-numbers">
+    <div v-if="props.enableCodeLineNumber" class="line-numbers">
       <span
         v-for="(_line, index) in props.code"
         :key="index"
