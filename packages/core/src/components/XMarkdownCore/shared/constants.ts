@@ -1,3 +1,4 @@
+import type { GlobalShiki } from '@hooks/useShiki';
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
@@ -135,6 +136,14 @@ export const MARKDOWN_CORE_PROPS = {
   },
   viewCodeModalOptions: {
     type: Object as PropType<ElxRunCodeOptions>,
+    default: () => ({})
+  },
+  isDark: {
+    type: Boolean,
+    default: false
+  },
+  globalShikiL: {
+    type: Object as PropType<GlobalShiki>,
     default: () => ({})
   }
 };

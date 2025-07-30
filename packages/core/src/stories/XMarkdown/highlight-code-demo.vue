@@ -5,6 +5,7 @@ import type {
 } from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
 import XMarkdown from '@components/XMarkdown/index.vue';
 import { SELECT_OPTIONS_ENUM } from '@components/XMarkdownCore/components/RunCode/components/options';
+import { useShiki } from '@hooks/useShiki';
 import { ElButton, ElMessage, ElSpace, ElTooltip } from 'element-plus';
 import { h } from 'vue';
 import CodeHeader from './CodeHeader.vue';
@@ -181,6 +182,13 @@ function redo() {
   }
   start();
 }
+
+// 得全局注册最好是在app vue中
+useShiki({
+  langs: [],
+  themes: ['vitesse-light', 'vitesse-dark']
+});
+
 onMounted(() => {
   start();
 });

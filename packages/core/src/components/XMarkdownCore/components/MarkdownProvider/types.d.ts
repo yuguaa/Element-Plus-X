@@ -1,3 +1,4 @@
+import type { GlobalShiki } from '@hooks/useShiki';
 import type { ThemeRegistrationResolved } from 'shiki';
 import type { InitShikiOptions } from '../../shared';
 import type { ElxRunCodeOptions } from '../RunCode/type';
@@ -51,4 +52,6 @@ export interface MarkdownContext {
   secureViewCode?: boolean;
   // 预览代码弹窗部分配置
   viewCodeModalOptions?: ElxRunCodeOptions;
+  // 全局shiki
+  globalShiki?: GlobalShiki;
 }

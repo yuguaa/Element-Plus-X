@@ -141,9 +141,6 @@ importers:
       highlight.js:
         specifier: ^11.11.1
         version: 11.11.1
-      markdown-it-async:
-        specifier: ^2.2.0
-        version: 2.2.0
       prismjs:
         specifier: ^1.30.0
         version: 1.30.0
@@ -208,9 +205,6 @@ importers:
       '@jsonlee_12138/markdown-it-mermaid':
         specifier: 0.0.6
         version: 0.0.6(markdown-it@14.1.0)(mermaid@11.6.0)
-      '@shikijs/markdown-it':
-        specifier: ^3.7.0
-        version: 3.7.0(markdown-it-async@2.2.0)
       '@storybook/addon-essentials':
         specifier: ^8.6.14
         version: 8.6.14(@types/react@19.1.8)(storybook@8.6.14(prettier@3.6.2))
@@ -1682,14 +1676,6 @@ packages:
 
   '@shikijs/langs@3.7.0':
     resolution: {integrity: sha512-1zYtdfXLr9xDKLTGy5kb7O0zDQsxXiIsw1iIBcNOO8Yi5/Y1qDbJ+0VsFoqTlzdmneO8Ij35g7QKF8kcLyznCQ==}
-
-  '@shikijs/markdown-it@3.7.0':
-    resolution: {integrity: sha512-USPP1mn9vdA0lDb/Delrqrf3prCmt4MObSYqyHeXlvMMG+dPRs3B8wrEJr17fYOsnU+kPLV5ahyQL0GhG8KyVw==}
-    peerDependencies:
-      markdown-it-async: ^2.2.0
-    peerDependenciesMeta:
-      markdown-it-async:
-        optional: true
 
   '@shikijs/themes@2.5.0':
     resolution: {integrity: sha512-wGrk+R8tJnO0VMzmUExHR+QdSaPUl/NKs+a4cQQRWyoc3YFbUzuLEi/KWK1hj+8BfHRKm2jNhhJck1dfstJpiw==}
@@ -4586,9 +4572,6 @@ packages:
 
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
-
-  markdown-it-async@2.2.0:
-    resolution: {integrity: sha512-sITME+kf799vMeO/ww/CjH6q+c05f6TLpn6VOmmWCGNqPJzSh+uFgZoMB9s0plNtW6afy63qglNAC3MhrhP/gg==}
 
   markdown-it@14.1.0:
     resolution: {integrity: sha512-a54IwgWPaeBCAAsv13YgmALOF1elABB08FxO9i+r4VFk5Vl4pKokRPeX8u5TCgSsPi6ec1otfLjdOpVcgbpshg==}
@@ -7852,13 +7835,6 @@ snapshots:
   '@shikijs/langs@3.7.0':
     dependencies:
       '@shikijs/types': 3.7.0
-
-  '@shikijs/markdown-it@3.7.0(markdown-it-async@2.2.0)':
-    dependencies:
-      markdown-it: 14.1.0
-      shiki: 3.7.0
-    optionalDependencies:
-      markdown-it-async: 2.2.0
 
   '@shikijs/themes@2.5.0':
     dependencies:
@@ -11421,11 +11397,6 @@ snapshots:
   map-or-similar@1.5.0: {}
 
   mark.js@8.11.1: {}
-
-  markdown-it-async@2.2.0:
-    dependencies:
-      '@types/markdown-it': 14.1.2
-      markdown-it: 14.1.0
 
   markdown-it@14.1.0:
     dependencies:

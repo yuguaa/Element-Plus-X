@@ -1,12 +1,12 @@
+import type { GlobalShiki } from '@hooks/useShiki';
 import type { Ref } from 'vue';
+
 import type { MarkdownContext } from './types';
-
 import deepmerge from 'deepmerge';
-import { computed, defineComponent, h, inject, provide } from 'vue';
-import { usePlugins } from '../../hooks';
-import { useGlobalShikiHighlighter } from '../../hooks/useShikiColors';
 
-import { MARKDOWN_PROVIDER_KEY } from '../../shared';
+import { computed, defineComponent, h, inject, provide } from 'vue';
+import { useDarkModeWatcher, usePlugins } from '../../hooks';
+import { GLOBAL_SHIKI_KEY, MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
 import { initThemeMode } from '../CodeBlock/shiki-header';
 import '../../style/index.scss';
@@ -16,6 +16,9 @@ const MarkdownProvider = defineComponent({
   props: MARKDOWN_CORE_PROPS,
   setup(props, { slots, attrs }) {
     const { rehypePlugins, remarkPlugins } = usePlugins(props);
+    const { isDark } = useDarkModeWatcher();
+
+    const globalShiki = inject<GlobalShiki>(GLOBAL_SHIKI_KEY);
 
     watch(
       () => props.defaultThemeMode,
@@ -26,26 +29,14 @@ const MarkdownProvider = defineComponent({
       },
       { immediate: true }
     );
-    const { shikiThemeColor, init, destroy, isDark } =
-      useGlobalShikiHighlighter({
-        themes: props.themes
-      });
-
-    onMounted(() => {
-      init();
-    });
-
-    onUnmounted(() => {
-      destroy();
-    });
 
     const contextProps = computed(() => {
       return deepmerge(
         {
           rehypePlugins: toValue(rehypePlugins),
           remarkPlugins: toValue(remarkPlugins),
-          isDarkMode: toValue(isDark),
-          themeColors: toValue(shikiThemeColor)
+          isDark: toValue(isDark),
+          globalShiki: toValue(globalShiki)
         },
         props
       );

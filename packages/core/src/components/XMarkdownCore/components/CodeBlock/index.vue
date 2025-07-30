@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { GlobalShiki } from '@hooks/useShiki';
 import type { BundledLanguage } from 'shiki';
 import type { ElxRunCodeProps } from '../RunCode/type';
 import type { CodeBlockExpose } from './shiki-header';
@@ -10,7 +11,6 @@ import {
   transformerNotationHighlight,
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
-import { codeToHtml } from 'shiki';
 import { computed, h, reactive, ref, toValue, watch } from 'vue';
 import HighLightCode from '../../components/HighLightCode/index.vue';
 import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
@@ -40,7 +40,8 @@ const context = useMarkdownContext();
 const {
   codeXSlot,
   customAttrs,
-  enableCodeLineNumber = false
+  enableCodeLineNumber = false,
+  globalShiki
 } = toValue(context) || {};
 const renderLines = ref<string[]>([]);
 const preStyle = ref<any | null>(null);
@@ -65,6 +66,7 @@ const shikiTransformers = [
   transformerNotationWordHighlight()
 ];
 
+const { highlight } = globalShiki as GlobalShiki;
 // 生成高亮HTML
 async function generateHtml() {
   let { language = 'text', content = '' } = props.raw || {};
@@ -72,12 +74,15 @@ async function generateHtml() {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content.trim(), {
-    colorReplacements: colorReplacements.value,
-    lang: language as BundledLanguage,
-    themes: themes.value,
-    transformers: shikiTransformers
-  });
+  const html = await highlight(
+    content.trim(),
+    language as BundledLanguage,
+    themes.value,
+    {
+      colorReplacements: colorReplacements.value,
+      transformers: shikiTransformers
+    }
+  );
   const parse = new DOMParser();
   const doc = parse.parseFromString(html, 'text/html');
   const preElement = doc.querySelector('pre');
