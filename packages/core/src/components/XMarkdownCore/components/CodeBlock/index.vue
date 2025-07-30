@@ -3,17 +3,11 @@ import type { BundledLanguage } from 'shiki';
 import type { ElxRunCodeProps } from '../RunCode/type';
 import type { CodeBlockExpose } from './shiki-header';
 import type { RawProps } from './types';
-import {
-  transformerNotationDiff,
-  transformerNotationErrorLevel,
-  transformerNotationFocus,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight
-} from '@shikijs/transformers';
-import { codeToHtml } from 'shiki';
 import { computed, h, reactive, ref, toValue, watch } from 'vue';
 import HighLightCode from '../../components/HighLightCode/index.vue';
-import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
+// 使用优化后的 XMarkdown 内置 hook
+import { useShiki } from '../../hooks/useShiki';
+import { SHIKI_SUPPORT_LANGS } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
 import {
@@ -36,6 +30,9 @@ const props = withDefaults(
   }
 );
 
+// 使用优化后的 XMarkdown 内置 hook
+const { highlight, currentTheme } = useShiki();
+
 const context = useMarkdownContext();
 const {
   codeXSlot,
@@ -45,8 +42,6 @@ const {
 const renderLines = ref<string[]>([]);
 const preStyle = ref<any | null>(null);
 const preClass = ref<string | null>(null);
-const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
-const colorReplacements = computed(() => context?.value?.colorReplacements);
 const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn ?? false);
 const viewCodeModalOptions = computed(
   () => context?.value?.viewCodeModalOptions
@@ -57,13 +52,6 @@ const codeAttrs =
   typeof customAttrs?.code === 'function'
     ? customAttrs.code(props.raw)
     : customAttrs?.code || {};
-const shikiTransformers = [
-  transformerNotationDiff(),
-  transformerNotationErrorLevel(),
-  transformerNotationFocus(),
-  transformerNotationHighlight(),
-  transformerNotationWordHighlight()
-];
 
 // 生成高亮HTML
 async function generateHtml() {
@@ -72,12 +60,10 @@ async function generateHtml() {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content.trim(), {
-    colorReplacements: colorReplacements.value,
-    lang: language as BundledLanguage,
-    themes: themes.value,
-    transformers: shikiTransformers
-  });
+
+  // 使用优化后的 XMarkdown 内置 hook 进行高亮
+  const html = await highlight(content.trim(), language, currentTheme.value);
+
   const parse = new DOMParser();
   const doc = parse.parseFromString(html, 'text/html');
   const preElement = doc.querySelector('pre');
@@ -100,6 +86,13 @@ watch(
   },
   { immediate: true }
 );
+
+// 监听主题变化
+watch(isDark, async () => {
+  if (props.raw?.content) {
+    await generateHtml();
+  }
+});
 
 const runCodeOptions = reactive<ElxRunCodeProps>({
   code: [],

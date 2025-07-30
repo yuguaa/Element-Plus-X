@@ -1,15 +1,11 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
 import type { MermaidToolbarConfig } from './types';
-import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
-// 移除静态导入，使用动态导入实现按需加载
-// import mermaid from 'mermaid';
-import { safeLoadMermaid } from '@components/XMarkdownCore/shared/mermaidLoader';
 import { debounce } from 'radash';
-import useSWRV from 'swrv';
-import { Md5 } from 'ts-md5';
 import { computed, nextTick, ref, toValue, watch } from 'vue';
 import { useMermaidZoom } from '../../hooks';
+// 使用简化的 useMermaid hook
+import { useMermaid } from '../../hooks/useMermaid';
 import { useMarkdownContext } from '../MarkdownProvider';
 import { copyToClipboard, downloadSvgAsPng } from './composables';
 import MermaidToolbar from './MermaidToolbar.vue';
@@ -22,19 +18,25 @@ const props = withDefaults(defineProps<MermaidProps>(), {
   raw: () => ({}),
   toolbarConfig: () => ({})
 });
-// should provide a element with class `elx-markdown-mermaid-container` for mermaid to render?
-let merMaindContainer = document.querySelector(
-  '.elx-markdown-mermaid-container'
-) as HTMLElement;
-if (!merMaindContainer) {
-  merMaindContainer = document.createElement('div') as HTMLElement;
-  merMaindContainer.ariaHidden = 'true';
-  merMaindContainer.style.maxHeight = '0';
-  merMaindContainer.style.opacity = '0';
-  merMaindContainer.style.overflow = 'hidden';
-  merMaindContainer.classList.add('elx-markdown-mermaid-container');
-  document.body.append(merMaindContainer);
-}
+
+// 使用简化的 useMermaid hook
+const mermaidContent = computed(() => props.raw?.content || '');
+const mermaidResult = useMermaid(mermaidContent, {
+  id: `mermaid-${props.raw?.key || 'default'}`,
+  theme: 'default',
+  config: {
+    suppressErrorRendering: true,
+    startOnLoad: false,
+    securityLevel: 'loose'
+  }
+});
+
+// 使用独立的 ref 存储 SVG 内容，避免闪烁
+const svg = ref('');
+const isLoading = computed(
+  () => !mermaidResult.data.value && !mermaidResult.error.value
+);
+
 // 获取插槽上下文
 const context = useMarkdownContext();
 const { codeXSlot } = toValue(context);
@@ -53,7 +55,6 @@ const toolbarConfig = computed(() => {
   };
 });
 
-const svg = ref('');
 const containerRef = ref<HTMLElement | null>(null);
 const showSourceCode = ref(false);
 
@@ -64,61 +65,24 @@ const zoomControls = useMermaidZoom({
   minScale: 0.1,
   maxScale: 5
 });
-const cacheKey = computed(() => {
-  const content = props.raw?.content ?? '';
-  return content.length > MERMAID_CACHE_KEY_LENGTH
-    ? `mermaid-${Md5.hashStr(content)}`
-    : `mermaid-${content}`;
-});
-const { data: cachedSvg } = useSWRV<string>(
-  cacheKey,
-  async () => {
-    try {
-      // 动态加载mermaid，如果加载失败则返回错误提示
-      const mermaid = await safeLoadMermaid();
-
-      if (!mermaid) {
-        return '<div style="padding: 16px; border: 1px solid #ff6b6b; border-radius: 4px; background: #ffe0e0; color: #d63031;"><strong>Mermaid not available</strong><br>Please install "mermaid" package to render diagrams.</div>';
-      }
-
-      const valid = await mermaid.parse(props.raw.content);
-      if (valid) {
-        mermaid.initialize({
-          suppressErrorRendering: true,
-          startOnLoad: false,
-          securityLevel: 'loose'
-        });
-        const key = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
-        const { svg } = await mermaid.render(
-          key,
-          props.raw.content,
-          merMaindContainer
-        );
-        return svg;
-      }
-    } catch (error) {
-      console.log('Mermaid parse error:', error);
-      // 返回错误提示
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      return `<div style="padding: 16px; border: 1px solid #ff6b6b; border-radius: 4px; background: #ffe0e0; color: #d63031;"><strong>Mermaid render error:</strong><br>${errorMessage}</div>`;
-    }
-    return '';
-  },
-  {
-    dedupingInterval: 3000,
-    errorRetryCount: 2,
-    revalidateOnFocus: false,
-    revalidateDebounce: 300
-  }
-);
 
 // 使用 radash 防抖函数，确保只在最后一次更新后初始化
 const debouncedInitialize = debounce({ delay: 500 }, onContentTransitionEnter);
 
-watch(cachedSvg, newSvg => {
+// 监听 mermaidResult 数据变化，只在有新数据时更新 svg
+watch(
+  () => mermaidResult.data.value,
+  newSvg => {
+    if (newSvg) {
+      svg.value = newSvg;
+      debouncedInitialize();
+    }
+  }
+);
+
+// 监听SVG数据变化并初始化缩放（保留原有逻辑以防万一）
+watch(svg, newSvg => {
   if (newSvg) {
-    svg.value = newSvg as string;
     debouncedInitialize();
   }
 });
@@ -184,6 +148,7 @@ const exposedMethods = computed(() => {
     svg: svg.value,
     rawContent: props.raw.content || '',
     toolbarConfig: toolbarConfig.value,
+    isLoading: isLoading.value,
 
     // 缩放控制方法
     zoomIn: handleZoomIn,

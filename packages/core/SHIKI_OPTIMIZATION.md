@@ -32,7 +32,7 @@
 
 ### 3. 代码重构
 
-- **useShikiColors.ts**：重构为使用动态导入
+- **useShiki.ts**：重构为使用动态导入
 - **MarkdownProvider hooks.ts**：更新为使用新的shiki加载器
 - **Mermaid/index.vue**：重构为使用动态导入的mermaid
 - **错误处理**：添加了详细的错误处理和开发环境警告
