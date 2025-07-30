@@ -1,60 +1,28 @@
 <script setup lang="ts">
-import { Loading, Warning } from '@element-plus/icons-vue';
-import { onMounted, ref } from 'vue';
+// import { Loading, Warning } from '@element-plus/icons-vue';
+// import { ref } from 'vue';
+import _repo_contributors from 'element-plus-x-metadata/dist/component-contributors.json';
 
-interface Contributor {
+interface RepoContributor {
   login: string;
   avatar_url: string;
   html_url: string;
   contributions: number;
 }
 
-const contributors = ref<Contributor[]>([]);
-const loading = ref(true);
-const error = ref('');
+const repo = 'Element-Plus-X';
 
-// 获取贡献者数据
-async function fetchContributors() {
-  try {
-    loading.value = true;
-    error.value = '';
-
-    const response = await fetch(
-      'https://api.github.com/repos/element-plus-x/Element-Plus-X/contributors?per_page=100'
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    // 按贡献数量排序
-    contributors.value = data.sort(
-      (a: Contributor, b: Contributor) => b.contributions - a.contributions
-    );
-  } catch (err) {
-    console.error('Failed to fetch contributors:', err);
-    error.value = 'Failed to load contributors. Please try again later.';
-  } finally {
-    loading.value = false;
-  }
-}
-
-// 重试功能
-function retry() {
-  fetchContributors();
-}
+const contributors: RepoContributor[] = _repo_contributors[
+  repo as keyof typeof _repo_contributors
+] as RepoContributor[];
+// const loading = ref(false);
+// const error = ref('');
 
 // 处理图片加载错误
 function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   img.src = `https://ui-avatars.com/api/?name=${img.alt}&background=6366f1&color=fff&size=64`;
 }
-
-// 组件挂载时获取数据
-onMounted(() => {
-  fetchContributors();
-});
 </script>
 
 <template>
@@ -71,7 +39,7 @@ onMounted(() => {
 
     <div class="relative z-10 max-w-6xl mx-auto">
       <!-- Loading State -->
-      <div
+      <!-- <div
         v-if="loading"
         class="flex flex-col items-center justify-center py-16 gap-4"
       >
@@ -80,11 +48,13 @@ onMounted(() => {
             <Loading />
           </el-icon>
         </div>
-        <p class="text-lg text-white/70 m-0">正在加载贡献者信息...</p>
-      </div>
+        <p class="text-lg text-white/70 m-0">
+          正在加载贡献者信息...
+        </p>
+      </div> -->
 
       <!-- Error State -->
-      <div
+      <!-- <div
         v-else-if="error"
         class="flex flex-col items-center justify-center py-16 gap-6"
       >
@@ -105,10 +75,10 @@ onMounted(() => {
             重试
           </button>
         </div>
-      </div>
+      </div> -->
 
       <!-- Contributors Content -->
-      <div v-else>
+      <div>
         <!-- 标题区域 -->
         <div class="text-center mb-12">
           <div
@@ -125,6 +95,7 @@ onMounted(() => {
           </p>
 
           <div
+            v-if="contributors.length > 0"
             class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm"
           >
             <span
@@ -137,6 +108,7 @@ onMounted(() => {
 
         <!-- 贡献者网格 -->
         <div
+          v-if="contributors.length > 0"
           class="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-6 mb-16 max-w-4xl mx-auto"
         >
           <div

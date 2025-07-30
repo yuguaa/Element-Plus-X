@@ -25,6 +25,7 @@ export default defineConfig({
       })();
     `],
   ],
+  lastUpdated: true,
   // 全局主题配置（会被 locales 中的配置覆盖）
   themeConfig: {
     logo: '/logo.png',
@@ -37,41 +38,8 @@ export default defineConfig({
         link: 'https://www.npmjs.com/package/vue-element-plus-x',
       },
     ],
-    lastUpdated: {
-      text: 'Last updated',
-      formatOptions: {
-        dateStyle: 'medium',
-        timeStyle: 'short',
-      },
-    },
     search: {
       provider: 'local',
-    },
-    // 定义 footer 内容
-    // footer: {
-    //   message: 'Released under the MIT License.',
-    //   copyright: `Copyright © Element-Plus-X ${new Date().getFullYear()}&nbsp;&nbsp;<a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2025057058号-1</a> `,
-    // },
-
-    // 中文配置
-    // 文档底部
-    docFooter: {
-      prev: '上一篇',
-      next: '下一篇',
-    },
-    sidebarMenuLabel: '菜单',
-    returnToTopLabel: '返回顶部',
-    lastUpdatedText: '最后更新于',
-    // editLink: {
-    //   pattern: "https://github.com/yunyoujun/chat-ui/edit/main/docs/:path",
-    //   text: "在 GitHub 上编辑此页",
-    // },
-    darkModeSwitchLabel: '深色模式',
-    // lightModeSwitchTitle: '切换到浅色模式',
-    // darkModeSwitchTitle: '切换到深色模式',
-    outline: {
-      label: '📖 目录',
-      level: [2, 6],
     },
   },
   // markdown 配置
