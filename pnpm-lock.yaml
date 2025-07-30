@@ -4,9 +4,16 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  vue-element-plus-x: link:packages/core
+
 importers:
 
   .:
+    dependencies:
+      vue-element-plus-x:
+        specifier: link:packages/core
+        version: link:packages/core
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^4.16.1
@@ -72,7 +79,7 @@ importers:
         specifier: ^3.5.17
         version: 3.5.17(typescript@5.8.3)
       vue-element-plus-x:
-        specifier: workspace:^
+        specifier: link:../../packages/core
         version: link:../../packages/core
     devDependencies:
       '@ant-design/colors':

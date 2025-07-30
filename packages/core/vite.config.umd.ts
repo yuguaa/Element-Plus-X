@@ -39,7 +39,14 @@ export default defineConfig({
     },
     rollupOptions: {
       // 外部依赖配置，这些依赖不会被打包，需要用户自行提供
-      external: ['vue', 'vue/jsx-runtime'],
+      external: [
+        'vue',
+        'vue/jsx-runtime',
+        '@element-plus/icons-vue',
+        'shiki',
+        '@shikijs/transformers',
+        'mermaid'
+      ],
       output: {
         // 全局变量映射，用于 UMD 格式
         globals: {
