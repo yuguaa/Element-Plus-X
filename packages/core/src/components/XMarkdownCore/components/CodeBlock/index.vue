@@ -62,7 +62,11 @@ async function generateHtml() {
   nowCodeLanguage.value = language as BundledLanguage;
 
   // 使用优化后的 XMarkdown 内置 hook 进行高亮
-  const html = await highlight(content.trim(), language, currentTheme.value);
+  const html = await highlight(
+    content.trim(),
+    language,
+    currentTheme.value as string
+  );
 
   const parse = new DOMParser();
   const doc = parse.parseFromString(html, 'text/html');
