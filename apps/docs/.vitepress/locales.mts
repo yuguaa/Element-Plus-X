@@ -45,47 +45,47 @@ const config = {
           {
             text: 'New',
             items: [
-              { text: 'XMarkdown Render 📜', link: '/en/components/xmarkdown' },
+              { text: 'XMarkdown Render 📜', link: '/en/components/xmarkdown/' },
             ],
           },
           {
             text: 'General',
             items: [
-              { text: 'Typewriter ✍', link: '/en/components/typewriter' },
-              { text: 'Bubble 🔥', link: '/en/components/bubble' },
-              { text: 'BubbleList 🍅', link: '/en/components/bubbleList' },
-              { text: 'Conversations 📱', link: '/en/components/conversations' },
+              { text: 'Typewriter ✍', link: '/en/components/typewriter/' },
+              { text: 'Bubble 🔥', link: '/en/components/bubble/' },
+              { text: 'BubbleList 🍅', link: '/en/components/bubbleList/' },
+              { text: 'Conversations 📱', link: '/en/components/conversations/' },
             ],
           },
           {
             text: 'Awakening',
             items: [
-              { text: 'Welcome 🌹', link: '/en/components/welcome' },
-              { text: 'Prompts 🎁', link: '/en/components/prompts' },
+              { text: 'Welcome 🌹', link: '/en/components/welcome/' },
+              { text: 'Prompts 🎁', link: '/en/components/prompts/' },
             ],
           },
           {
             text: 'Expression',
             items: [
-              { text: 'FilesCard 📇', link: '/en/components/filesCard' },
-              { text: 'Attachments 📪️', link: '/en/components/attachments' },
-              { text: 'Sender 💭', link: '/en/components/sender' },
-              { text: 'MentionSender 🦥', link: '/en/components/mentionSender' },
+              { text: 'FilesCard 📇', link: '/en/components/filesCard/' },
+              { text: 'Attachments 📪️', link: '/en/components/attachments/' },
+              { text: 'Sender 💭', link: '/en/components/sender/' },
+              { text: 'MentionSender 🦥', link: '/en/components/mentionSender/' },
             ],
           },
           {
             text: 'Confirmation',
             items: [
-              { text: 'Thinking 🍓', link: '/en/components/thinking' },
-              { text: 'ThoughtChain 🔗', link: '/en/components/thoughtChain' },
+              { text: 'Thinking 🍓', link: '/en/components/thinking/' },
+              { text: 'ThoughtChain 🔗', link: '/en/components/thoughtChain/' },
             ],
           },
           {
             text: 'Tools',
             items: [
-              { text: 'useRecord 🌴', link: '/en/components/useRecord' },
-              { text: 'useXStream 🌱', link: '/en/components/useXStream' },
-              { text: 'useSend & XRequest 🌳', link: '/en/components/useSend' },
+              { text: 'useRecord 🌴', link: '/en/components/useRecord/' },
+              { text: 'useXStream 🌱', link: '/en/components/useXStream/' },
+              { text: 'useSend & XRequest 🌳', link: '/en/components/useSend/' },
             ],
           },
         ],
@@ -175,47 +175,47 @@ const config = {
           {
             text: '上新',
             items: [
-              { text: 'XMarkdown 渲染组件 📜', link: '/zh/components/xmarkdown' },
+              { text: 'XMarkdown 渲染组件 📜', link: '/zh/components/xmarkdown/' },
             ],
           },
           {
             text: '通用',
             items: [
-              { text: 'Typewriter 打字器 ✍', link: '/zh/components/typewriter' },
-              { text: 'Bubble 对话气泡 🔥', link: '/zh/components/bubble' },
-              { text: 'BubbleList 气泡列表 🍅', link: '/zh/components/bubbleList' },
-              { text: 'Conversations 会话管理 📱', link: '/zh/components/conversations' },
+              { text: 'Typewriter 打字器 ✍', link: '/zh/components/typewriter/' },
+              { text: 'Bubble 对话气泡 🔥', link: '/zh/components/bubble/' },
+              { text: 'BubbleList 气泡列表 🍅', link: '/zh/components/bubbleList/' },
+              { text: 'Conversations 会话管理 📱', link: '/zh/components/conversations/' },
             ],
           },
           {
             text: '唤醒',
             items: [
-              { text: 'Welcome 欢迎 🌹', link: '/zh/components/welcome' },
-              { text: 'Prompts 提示集 🎁', link: '/zh/components/prompts' },
+              { text: 'Welcome 欢迎 🌹', link: '/zh/components/welcome/' },
+              { text: 'Prompts 提示集 🎁', link: '/zh/components/prompts/' },
             ],
           },
           {
             text: '表达',
             items: [
-              { text: 'FilesCard 文件卡片 📇', link: '/zh/components/filesCard' },
-              { text: 'Attachments 输入附件 📪️', link: '/zh/components/attachments' },
-              { text: 'Sender 输入框 💭', link: '/zh/components/sender' },
-              { text: 'MentionSender 提及输入框 🦥', link: '/zh/components/mentionSender' },
+              { text: 'FilesCard 文件卡片 📇', link: '/zh/components/filesCard/' },
+              { text: 'Attachments 输入附件 📪️', link: '/zh/components/attachments/' },
+              { text: 'Sender 输入框 💭', link: '/zh/components/sender/' },
+              { text: 'MentionSender 提及输入框 🦥', link: '/zh/components/mentionSender/' },
             ],
           },
           {
             text: '确认',
             items: [
-              { text: 'Thinking 思考中 🍓', link: '/zh/components/thinking' },
-              { text: 'ThoughtChain 思维链 🔗', link: '/zh/components/thoughtChain' },
+              { text: 'Thinking 思考中 🍓', link: '/zh/components/thinking/' },
+              { text: 'ThoughtChain 思维链 🔗', link: '/zh/components/thoughtChain/' },
             ],
           },
           {
             text: '工具',
             items: [
-              { text: 'useRecord 🌴', link: '/zh/components/useRecord' },
-              { text: 'useXStream 🌱', link: '/zh/components/useXStream' },
-              { text: 'useSend & XRequest 🌳', link: '/zh/components/useSend' },
+              { text: 'useRecord 🌴', link: '/zh/components/useRecord/' },
+              { text: 'useXStream 🌱', link: '/zh/components/useXStream/' },
+              { text: 'useSend & XRequest 🌳', link: '/zh/components/useSend/' },
             ],
           },
         ],
