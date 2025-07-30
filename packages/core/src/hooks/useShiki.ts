@@ -3,13 +3,15 @@ import type {
   BundledLanguage,
   BundledTheme,
   CodeToHastOptions,
-  Highlighter
+  HighlighterCore
 } from 'shiki';
 import { GLOBAL_SHIKI_KEY } from '@components/XMarkdownCore/shared';
-import { createHighlighter } from 'shiki';
+import { createHighlighterCore } from 'shiki/core';
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
+import { provide } from 'vue';
 
-interface ShikiConfig {
-  langs: InitShikiOptions['langs'];
+export interface ShikiConfig {
+  langs: BundledLanguage[];
   themes: BundledTheme[];
 }
 
@@ -22,8 +24,8 @@ interface ShikiConfig {
  */
 class ShikiManager {
   private static instance: ShikiManager | null = null;
-  private highlighter: Highlighter | null = null;
-  private initPromise: Promise<Highlighter> | null = null;
+  private highlighter: HighlighterCore | null = null;
+  private initPromise: Promise<HighlighterCore> | null = null;
   private loadedLanguages = new Set<string>();
   private loadedThemes = new Set<string>();
 
@@ -50,10 +52,9 @@ class ShikiManager {
    * @author tingfeng
    *
    * @async
-   * @param [config]
-   * @returns  Promise<Highlighter>
+   * @returns  Promise<HighlighterCore>
    */
-  async getHighlighter(config?: ShikiConfig): Promise<Highlighter> {
+  async getHighlighter(): Promise<HighlighterCore> {
     if (this.highlighter) {
       return this.highlighter;
     }
@@ -62,7 +63,7 @@ class ShikiManager {
       return this.initPromise;
     }
 
-    this.initPromise = this.initializeHighlighter(config);
+    this.initPromise = this.initializeHighlighter();
     this.highlighter = await this.initPromise;
     return this.highlighter;
   }
@@ -74,36 +75,18 @@ class ShikiManager {
    *
    * @private
    * @async
-   * @param [config]
-   * @returns  Promise<Highlighter>
+   * @returns  Promise<HighlighterCore>
    */
-  private async initializeHighlighter(
-    config?: ShikiConfig
-  ): Promise<Highlighter> {
+  private async initializeHighlighter(): Promise<HighlighterCore> {
     console.log(
       '🚀 ~ ShikiManager ~ initializeHighlighter ~ initializeHighlighter:'
     );
-    const highlighter = await createHighlighter({
-      langs: [...(config?.langs ?? [])],
-      themes: config?.themes ?? []
+    // 只创建基础 highlighter，不预加载任何语言和主题
+    const highlighter = await createHighlighterCore({
+      langs: [],
+      themes: [],
+      engine: createJavaScriptRegexEngine()
     });
-
-    // 存储已经加载的语言和主题
-    if (config?.langs) {
-      config.langs.forEach(lang => {
-        if (typeof lang === 'string') {
-          this.loadedLanguages.add(lang);
-        }
-      });
-    }
-
-    if (config?.themes) {
-      config.themes.forEach(theme => {
-        if (typeof theme === 'string') {
-          this.loadedThemes.add(theme);
-        }
-      });
-    }
 
     return highlighter;
   }
@@ -139,7 +122,95 @@ class ShikiManager {
    * @param lang
    */
   async loadLanguage(lang: BundledLanguage): Promise<void> {
-    return await this.highlighter?.loadLanguage(lang);
+    return await this.highlighter?.loadLanguage(lang as any);
+  }
+
+  /**
+   * @description 懒加载指定语言模块
+   * @param language 语言名称
+   * @param languageModule 语言模块的导入函数
+   */
+  async loadLanguageLazily(
+    language: string,
+    languageModule: () => Promise<any>
+  ): Promise<void> {
+    if (!this.highlighter) return;
+
+    if (!this.getLoadedLanguages().includes(language)) {
+      const langDef = await languageModule();
+      await this.highlighter.loadLanguage(langDef);
+      this.loadedLanguages.add(language);
+    }
+  }
+
+  /**
+   * @description 使用 bundledLanguages 懒加载语言
+   * @param language 语言名称
+   */
+  async loadLanguageFromBundle(language: string): Promise<void> {
+    if (!this.highlighter) return;
+
+    if (!this.getLoadedLanguages().includes(language)) {
+      try {
+        const { bundledLanguages } = await import('shiki/langs');
+        const importFn = (bundledLanguages as any)[language];
+
+        if (!importFn) {
+          console.warn(`Language "${language}" not found in bundled languages`);
+          return;
+        }
+
+        const langDef = await importFn();
+        await this.highlighter.loadLanguage(langDef);
+        this.loadedLanguages.add(language);
+      } catch (error) {
+        console.error(`Failed to load language "${language}":`, error);
+      }
+    }
+  }
+
+  /**
+   * @description 使用 bundledThemes 懒加载主题
+   * @param themeName 主题名称
+   */
+  async loadThemeFromBundle(themeName: string): Promise<void> {
+    if (!this.highlighter) return;
+
+    if (!this.getLoadedThemes().includes(themeName)) {
+      try {
+        const { bundledThemes } = await import('shiki/themes');
+        const importFn = (bundledThemes as any)[themeName];
+
+        if (!importFn) {
+          console.warn(`Theme "${themeName}" not found in bundled themes`);
+          return;
+        }
+
+        const themeDef = await importFn();
+        await this.highlighter.loadTheme(themeDef);
+        this.loadedThemes.add(themeName);
+      } catch (error) {
+        console.error(`Failed to load theme "${themeName}":`, error);
+      }
+    }
+  }
+
+  /**
+   * @description 懒加载指定主题模块
+   * @param themeName 主题名称
+   * @param themeModule 主题模块的导入函数
+   */
+  async loadThemeLazily(
+    themeName: string,
+    themeModule: () => Promise<any>
+  ): Promise<void> {
+    if (!this.highlighter) return;
+
+    if (!this.getLoadedThemes().includes(themeName)) {
+      const themeDef = await themeModule();
+      await this.highlighter.loadTheme(themeDef);
+      this.loadedThemes.add(themeName);
+    }
   }
 
   /**
@@ -151,7 +222,7 @@ class ShikiManager {
    * @param theme
    */
   async loadTheme(theme: BundledTheme): Promise<void> {
-    return await this.highlighter?.loadTheme(theme);
+    return await this.highlighter?.loadTheme(theme as any);
   }
 
   /**
@@ -178,6 +249,19 @@ class ShikiManager {
     }
   }
 
+  async preload(config?: ShikiConfig) {
+    if (config?.langs) {
+      for (const lang of config.langs) {
+        await this.loadLanguageFromBundle(lang);
+      }
+    }
+    if (config?.themes) {
+      for (const theme of config.themes) {
+        await this.loadThemeFromBundle(theme);
+      }
+    }
+  }
+
   destroy(): void {
     this.highlighter?.dispose();
     this.highlighter = null;
@@ -188,7 +272,7 @@ class ShikiManager {
 }
 
 export interface GlobalShiki {
-  getHighlighter: () => Promise<Highlighter>;
+  getHighlighter: () => Promise<HighlighterCore>;
   highlight: (
     code: string,
     lang: BundledLanguage,
@@ -200,6 +284,16 @@ export interface GlobalShiki {
   ) => Promise<string>;
   getLoadedLanguages: () => string[];
   getLoadedThemes: () => string[];
+  loadLanguageLazily: (
+    language: string,
+    languageModule: () => Promise<any>
+  ) => Promise<void>;
+  loadThemeLazily: (
+    themeName: string,
+    themeModule: () => Promise<any>
+  ) => Promise<void>;
+  loadLanguageFromBundle: (language: string) => Promise<void>;
+  loadThemeFromBundle: (themeName: string) => Promise<void>;
 }
 
 /**
@@ -211,10 +305,13 @@ export interface GlobalShiki {
  * @param config
  * @returns  GlobalShiki
  */
-export function useShiki(config: ShikiConfig): GlobalShiki {
+export function useShiki(config?: ShikiConfig): GlobalShiki {
   const manager = ShikiManager.getInstance();
 
-  const getHighlighter = () => manager.getHighlighter(config);
+  const getHighlighter = () => manager.getHighlighter();
+
+  //   这里预加载传进来的config
+  manager.preload(config);
 
   const highlight = async (
     code: string,
@@ -227,21 +324,19 @@ export function useShiki(config: ShikiConfig): GlobalShiki {
   ) => {
     const highlighter = await getHighlighter();
 
-    // 跳过已加载语言
+    // 懒加载语言：优先使用 bundledLanguages
     if (!manager.getLoadedLanguages().includes(lang)) {
-      await manager.loadLanguage(lang);
-      manager.addLanguage(lang);
+      await manager.loadLanguageFromBundle(lang);
     }
 
-    // 跳过已加载主题
+    // 懒加载主题：支持多种主题格式
     if (themes && typeof themes === 'object') {
       for (const theme of Object.values(themes)) {
         if (
           typeof theme === 'string' &&
           !manager.getLoadedThemes().includes(theme)
         ) {
-          await manager.loadTheme(theme as BundledTheme);
-          manager.addTheme(theme);
+          await manager.loadThemeFromBundle(theme);
         }
       }
     }
@@ -249,17 +344,40 @@ export function useShiki(config: ShikiConfig): GlobalShiki {
     return highlighter.codeToHtml(code, { ...options, lang, themes });
   };
 
-  provide(GLOBAL_SHIKI_KEY, {
-    getHighlighter,
-    highlight,
-    getLoadedLanguages: () => manager.getLoadedLanguages(),
-    getLoadedThemes: () => manager.getLoadedThemes()
-  });
-
-  return {
-    getHighlighter,
-    highlight,
-    getLoadedLanguages: () => manager.getLoadedLanguages(),
-    getLoadedThemes: () => manager.getLoadedThemes()
+  const loadLanguageLazily = async (
+    language: string,
+    languageModule: () => Promise<any>
+  ) => {
+    return await manager.loadLanguageLazily(language, languageModule);
   };
+
+  const loadThemeLazily = async (
+    themeName: string,
+    themeModule: () => Promise<any>
+  ) => {
+    return await manager.loadThemeLazily(themeName, themeModule);
+  };
+
+  const loadLanguageFromBundle = async (language: string) => {
+    return await manager.loadLanguageFromBundle(language);
+  };
+
+  const loadThemeFromBundle = async (themeName: string) => {
+    return await manager.loadThemeFromBundle(themeName);
+  };
+
+  const shikiInstance = {
+    getHighlighter,
+    highlight,
+    getLoadedLanguages: () => manager.getLoadedLanguages(),
+    getLoadedThemes: () => manager.getLoadedThemes(),
+    loadLanguageLazily,
+    loadThemeLazily,
+    loadLanguageFromBundle,
+    loadThemeFromBundle
+  };
+
+  provide(GLOBAL_SHIKI_KEY, shikiInstance);
+
+  return shikiInstance;
 }
