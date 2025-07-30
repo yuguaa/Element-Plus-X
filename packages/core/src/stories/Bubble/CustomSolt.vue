@@ -9,7 +9,7 @@ const props = defineProps<BubbleProps>();
 
 const mdPlugins = [
   markdownItMermaid({
-    forceLegacyMathML: true,
+    legacyMathML: true,
     delay: 100
   })
 ];

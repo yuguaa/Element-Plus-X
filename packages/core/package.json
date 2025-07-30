@@ -67,11 +67,10 @@
     "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js"
   },
   "peerDependencies": {
-    "@element-plus/icons-vue": "^2.3.1",
-    "element-plus": "^2.9.7",
-    "typescript-api-pro": "^0.0.6"
+    "vue": "^3.5.17"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
     "@shikijs/transformers": "^3.7.0",
     "@vueuse/core": "^13.4.0",
     "chatarea": "^5.5.3",
@@ -80,6 +79,7 @@
     "github-markdown-css": "^5.8.1",
     "highlight.js": "^11.11.1",
     "markdown-it-async": "^2.2.0",
+    "mermaid": "^10.0.0",
     "prismjs": "^1.30.0",
     "property-information": "^7.1.0",
     "radash": "^12.1.1",
@@ -91,12 +91,14 @@
     "remark-math": "^6.0.0",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.2",
+    "shiki": "^3.7.0",
     "swrv": "^1.1.0",
     "ts-md5": "^2.0.1",
-    "unified": "^11.0.5",
-    "vue": "^3.5.17"
+    "typescript-api-pro": "^0.0.6",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
+    "element-plus": "^2.9.7",
     "@antfu/eslint-config": "^4.16.1",
     "@chromatic-com/storybook": "^3.2.7",
     "@jsonlee_12138/markdown-it-mermaid": "0.0.6",
@@ -124,8 +126,8 @@
     "fast-glob": "^3.3.3",
     "playwright": "^1.53.2",
     "rimraf": "^6.0.1",
+    "rollup-plugin-visualizer": "^6.0.3",
     "sass": "^1.89.2",
-    "shiki": "^3.7.0",
     "storybook": "^8.6.14",
     "storybook-dark-mode": "^4.0.2",
     "terser": "^5.43.1",

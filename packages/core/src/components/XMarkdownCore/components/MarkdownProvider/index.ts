@@ -2,9 +2,18 @@ import type { Ref } from 'vue';
 import type { MarkdownContext } from './types';
 
 import deepmerge from 'deepmerge';
-import { computed, defineComponent, h, inject, provide } from 'vue';
-import { usePlugins } from '../../hooks';
-import { useGlobalShikiHighlighter } from '../../hooks/useShikiColors';
+import {
+  computed,
+  defineComponent,
+  h,
+  inject,
+  onMounted,
+  onUnmounted,
+  provide,
+  toValue,
+  watch
+} from 'vue';
+import { usePlugins, useShiki } from '../../hooks';
 
 import { MARKDOWN_PROVIDER_KEY } from '../../shared';
 import { MARKDOWN_CORE_PROPS } from '../../shared/constants';
@@ -26,10 +35,9 @@ const MarkdownProvider = defineComponent({
       },
       { immediate: true }
     );
-    const { shikiThemeColor, init, destroy, isDark } =
-      useGlobalShikiHighlighter({
-        themes: props.themes
-      });
+    const { shikiThemeColor, init, destroy, isDark } = useShiki({
+      themes: props.themes
+    });
 
     onMounted(() => {
       init();
