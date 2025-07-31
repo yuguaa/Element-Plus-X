@@ -52,7 +52,6 @@ const buildConfig: BuildEnvironmentOptions = {
       '@element-plus/icons-vue', // Element Plus 图标库
       '@shikijs/transformers', // Shiki 代码转换器
       'shiki', // Shiki 代码高亮库
-      'mermaid', // 流程图库
       'chatarea', // 聊天区域组件
       'dompurify', // DOM 净化库
       'element-plus', // Element Plus 组件库
