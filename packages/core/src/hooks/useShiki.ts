@@ -15,7 +15,8 @@ import type {
 import { GLOBAL_SHIKI_KEY } from '@components/XMarkdownCore/shared';
 import {
   createdBundledHighlighter,
-  createJavaScriptRegexEngine,
+  // createJavaScriptRegexEngine,
+  createOnigurumaEngine,
   createSingletonShorthands
 } from 'shiki';
 import { provide } from 'vue';
@@ -82,7 +83,7 @@ class ShikiManager {
     const highlighterFactory = createdBundledHighlighter({
       langs: languageLoaders,
       themes: themeLoaders,
-      engine: () => createJavaScriptRegexEngine()
+      engine: () => createOnigurumaEngine(import('shiki/wasm'))
     });
 
     const {
