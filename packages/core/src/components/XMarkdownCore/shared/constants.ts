@@ -142,7 +142,7 @@ export const MARKDOWN_CORE_PROPS = {
     type: Boolean,
     default: false
   },
-  globalShikiL: {
+  globalShiki: {
     type: Object as PropType<GlobalShiki>,
     default: () => ({})
   }

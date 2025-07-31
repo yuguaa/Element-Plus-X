@@ -15,11 +15,10 @@ import type {
 import { GLOBAL_SHIKI_KEY } from '@components/XMarkdownCore/shared';
 import {
   createdBundledHighlighter,
-  // createJavaScriptRegexEngine,
   createOnigurumaEngine,
   createSingletonShorthands
 } from 'shiki';
-import { provide } from 'vue';
+import { onUnmounted, provide } from 'vue';
 import { languageLoaders, themeLoaders } from './shiki-loader';
 
 export interface GlobalShiki {
