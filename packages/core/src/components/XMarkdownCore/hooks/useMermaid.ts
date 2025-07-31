@@ -9,11 +9,12 @@ interface UseMermaidOptions {
   theme?: 'default' | 'dark' | 'forest' | 'neutral' | string;
   config?: any;
 }
-function loadMermaid() {
-  if (typeof window === 'undefined') return Promise.resolve(null);
-  return import('mermaid').then(mod => mod.default);
+
+async function loadMermaid() {
+  if (typeof window === 'undefined') return null;
+  const mermaidModule = await import('mermaid');
+  return mermaidModule.default;
 }
-const mermaidPromise = loadMermaid();
 
 let mermaidContainer: HTMLElement | null = null;
 
@@ -72,7 +73,7 @@ export function useMermaid(
       if (!contentValue?.trim()) return '';
 
       try {
-        const mermaidInstance = await mermaidPromise;
+        const mermaidInstance = await loadMermaid();
         if (!mermaidInstance) return contentValue;
         const isValid = await mermaidInstance.parse(contentValue);
         if (!isValid) {
