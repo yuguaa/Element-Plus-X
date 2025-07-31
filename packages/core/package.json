@@ -73,6 +73,9 @@
     "aeac": "rimraf src/index.ts && rimraf src/install.ts && esno .build/scripts/auto-export-all-components.js"
   },
   "peerDependencies": {
+    "vue": "^3.5.17"
+  },
+  "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
     "@shikijs/transformers": "^3.7.0",
     "chatarea": "^5.5.3",
@@ -94,9 +97,6 @@
     "ts-md5": "^2.0.1",
     "typescript-api-pro": "^0.0.6",
     "unified": "^11.0.5",
-    "vue": "^3.5.17"
-  },
-  "dependencies": {
     "@vueuse/core": "^13.4.0",
     "deepmerge": "^4.3.1",
     "github-markdown-css": "^5.8.1",
