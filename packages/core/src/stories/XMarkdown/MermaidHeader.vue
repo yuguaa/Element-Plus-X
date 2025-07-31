@@ -24,10 +24,7 @@ const attrs = useAttrs();
 console.log('attrs', attrs);
 
 // 得全局注册最好是在app vue中
-useShiki({
-  langs: ['html'],
-  themes: ['vitesse-light', 'vitesse-dark']
-});
+useShiki();
 
 // 🎯 用户自定义复制逻辑演示
 async function handleCustomCopy() {

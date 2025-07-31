@@ -296,23 +296,3 @@ export const themeLoaders: Record<string, () => Promise<any>> = {
   'vitesse-dark': () => import('shiki/dist/themes/vitesse-dark.mjs'),
   'vitesse-light': () => import('shiki/dist/themes/vitesse-light.mjs')
 };
-
-export async function loadLanguageLoader(language: string) {
-  const loader = languageLoaders[language];
-  if (!loader) {
-    console.warn(`Unsupported language: "${language}"`);
-    return null;
-  }
-  const mod = await loader();
-  return mod.default ?? mod;
-}
-
-export async function loadThemeLoader(theme: string) {
-  const loader = themeLoaders[theme];
-  if (!loader) {
-    console.warn(`Unsupported theme: "${theme}"`);
-    return null;
-  }
-  const mod = await loader();
-  return mod.default ?? mod;
-}

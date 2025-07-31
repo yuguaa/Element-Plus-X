@@ -66,7 +66,7 @@ const shikiTransformers = [
   transformerNotationWordHighlight()
 ];
 
-const { highlight } = globalShiki as GlobalShiki;
+const { codeToHtml } = globalShiki as GlobalShiki;
 // 生成高亮HTML
 async function generateHtml() {
   let { language = 'text', content = '' } = props.raw || {};
@@ -74,15 +74,12 @@ async function generateHtml() {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await highlight(
-    content.trim(),
-    language as BundledLanguage,
-    themes.value,
-    {
-      colorReplacements: colorReplacements.value,
-      transformers: shikiTransformers
-    }
-  );
+  const html = await codeToHtml(content.trim(), {
+    lang: language as BundledLanguage,
+    themes: themes.value,
+    colorReplacements: colorReplacements.value,
+    transformers: shikiTransformers
+  });
   const parse = new DOMParser();
   const doc = parse.parseFromString(html, 'text/html');
   const preElement = doc.querySelector('pre');

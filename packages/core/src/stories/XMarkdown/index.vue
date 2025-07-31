@@ -36,10 +36,7 @@ function redo() {
   start();
 }
 // 得全局注册最好是在app vue中
-useShiki({
-  langs: ['html'],
-  themes: ['vitesse-light', 'vitesse-dark']
-});
+useShiki();
 onMounted(() => {
   start();
 });
