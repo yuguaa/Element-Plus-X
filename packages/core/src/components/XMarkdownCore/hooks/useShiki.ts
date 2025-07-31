@@ -1,4 +1,4 @@
-import type { BundledLanguage, ThemeRegistrationResolved } from 'shiki';
+import type { HighlighterCore, ThemeRegistrationResolved } from 'shiki/core';
 import type { InitShikiOptions } from '../shared';
 import { computed, ref, shallowRef, watch } from 'vue';
 import { shikiThemeDefault } from '../shared';
@@ -8,12 +8,30 @@ interface UseShikiOptions {
   themes?: InitShikiOptions['themes'];
 }
 
-function loadShiki(): Promise<typeof import('shiki').codeToHtml | null> {
-  if (typeof window === 'undefined') return Promise.resolve(null);
-  return import('shiki').then(mod => mod.codeToHtml).catch(() => null);
+async function createShikiHighlighter(): Promise<HighlighterCore | null> {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    const [{ createHighlighterCore }, { createOnigurumaEngine }] =
+      await Promise.all([
+        import('shiki/core'),
+        import('shiki/engine/oniguruma')
+      ]);
+
+    const highlighter = await createHighlighterCore({
+      themes: [],
+      langs: [],
+      engine: createOnigurumaEngine(import('shiki/wasm'))
+    });
+
+    return highlighter;
+  } catch (error) {
+    console.warn('Failed to create Shiki highlighter:', error);
+    return null;
+  }
 }
 
-const shikiPromise = loadShiki();
+let shikiHighlighterPromise: Promise<HighlighterCore | null> | null = null;
 
 const shikiThemeColor = ref<ThemeRegistrationResolved>();
 const hasCreated = ref(false);
@@ -35,6 +53,47 @@ export function useShiki(options?: UseShikiOptions) {
     }
     return isDark.value ? themes[1] || themes[0] : themes[0] || themes[1];
   });
+  const loadLanguageIfNeeded = async (
+    highlighter: HighlighterCore,
+    lang: string
+  ) => {
+    if (lang === 'text' || highlighter.getLoadedLanguages().includes(lang)) {
+      return;
+    }
+
+    try {
+      const { bundledLanguages } = await import('shiki/langs');
+      const langLoader = (bundledLanguages as any)[lang];
+      if (langLoader) {
+        await highlighter.loadLanguage(await langLoader());
+      }
+    } catch (error) {
+      console.warn(`Failed to load language ${lang}:`, error);
+    }
+  };
+
+  const loadThemeIfNeeded = async (
+    highlighter: HighlighterCore,
+    themeName: string
+  ) => {
+    if (highlighter.getLoadedThemes().includes(themeName)) {
+      return;
+    }
+
+    try {
+      const { bundledThemes } = await import('shiki/themes');
+      const themeLoader = (bundledThemes as any)[themeName];
+      if (themeLoader) {
+        await highlighter.loadTheme(await themeLoader());
+      } else {
+        const themeModule = await import(`@shikijs/themes/${themeName}`);
+        await highlighter.loadTheme(themeModule);
+      }
+    } catch (error) {
+      console.warn(`Failed to load theme ${themeName}:`, error);
+    }
+  };
+
   const highlight = async (
     code: string,
     language?: string,
@@ -43,17 +102,37 @@ export function useShiki(options?: UseShikiOptions) {
     if (!code.trim()) return '';
 
     try {
-      const codeToHtml = await shikiPromise;
-      if (!codeToHtml) {
+      if (!shikiHighlighterPromise) {
+        shikiHighlighterPromise = createShikiHighlighter();
+      }
+
+      const highlighter = await shikiHighlighterPromise;
+      if (!highlighter) {
         return `<pre><code>${escapeHtml(code)}</code></pre>`;
       }
 
-      const html = await codeToHtml(code, {
-        lang: (language as BundledLanguage) || 'text',
-        theme: theme || (currentTheme.value as string)
-      });
+      const lang = language || 'text';
+      const themeName = theme || (currentTheme.value as string);
 
-      return html;
+      // 动态加载语言和主题
+      await Promise.all([
+        loadLanguageIfNeeded(highlighter, lang),
+        loadThemeIfNeeded(highlighter, themeName)
+      ]);
+
+      // 检查是否成功加载，如果失败使用fallback
+      const finalLang = highlighter.getLoadedLanguages().includes(lang)
+        ? lang
+        : 'plaintext';
+      const loadedThemes = highlighter.getLoadedThemes();
+      const finalTheme = loadedThemes.includes(themeName)
+        ? themeName
+        : loadedThemes[0] || 'vitesse-light';
+
+      return highlighter.codeToHtml(code, {
+        lang: finalLang,
+        theme: finalTheme
+      });
     } catch (error) {
       console.warn('代码高亮失败:', error);
       return `<pre><code>${escapeHtml(code)}</code></pre>`;

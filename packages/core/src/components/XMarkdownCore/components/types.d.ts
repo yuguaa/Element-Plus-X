@@ -1,7 +1,6 @@
 // import type { CustomAttrs } from './core'
 
 // export type * from './core/types'
-import type { BuiltinTheme } from 'shiki';
 import type { Component } from 'vue';
 
 export interface MdComponent {
@@ -12,7 +11,7 @@ export type codeXRenderer =
   | Component;
 export type codeXSlot = ((params: any) => VNodeChild) | Component;
 export interface HighlightProps {
-  theme?: BuiltinTheme | null;
+  theme?: any | null;
   isDark?: boolean;
   language?: string;
   content?: string;

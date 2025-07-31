@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import type { BundledLanguage } from 'shiki';
 import type { ElxRunCodeProps } from '../RunCode/type';
 import type { CodeBlockExpose } from './shiki-header';
 import type { RawProps } from './types';
@@ -46,7 +45,7 @@ const viewCodeModalOptions = computed(
   () => context?.value?.viewCodeModalOptions
 );
 const isExpand = ref(true);
-const nowCodeLanguage = ref<BundledLanguage>();
+const nowCodeLanguage = ref<string>();
 const codeAttrs =
   typeof customAttrs?.code === 'function'
     ? customAttrs.code(props.raw)
@@ -57,7 +56,7 @@ async function generateHtml() {
   if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
     language = 'text';
   }
-  nowCodeLanguage.value = language as BundledLanguage;
+  nowCodeLanguage.value = language as string;
 
   const html = await highlight(
     content.trim(),

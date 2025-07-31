@@ -1,4 +1,3 @@
-import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
 import type { CustomAttrs, SanitizeOptions } from '../core';
@@ -35,7 +34,7 @@ const MarkdownProps = {
     default: () => ({})
   },
   codeHighlightTheme: {
-    type: Object as PropType<BuiltinTheme | null>,
+    type: Object as PropType<any | null>,
     default: () => null
   },
   customAttrs: {

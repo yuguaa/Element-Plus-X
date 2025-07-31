@@ -158,9 +158,6 @@ const exposedMethods = computed(() => {
     ref="containerRef"
     :key="props.raw.key"
     class="markdown-mermaid unselectable"
-    unselectable="on"
-    onselectstart="return false"
-    ondragstart="return false"
   >
     <!-- 工具栏 -->
     <Transition name="toolbar" appear>

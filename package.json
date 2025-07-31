@@ -52,10 +52,12 @@
   },
   "pnpm": {
     "overrides": {
-      "vue-element-plus-x": "link:packages/core"
+      "vue-element-plus-x": "link:packages/core",
+      "vue-element-plus-x-test": "link:packages/core"
     }
   },
   "dependencies": {
-    "vue-element-plus-x": "link:packages/core"
+    "vue-element-plus-x": "link:packages/core",
+    "vue-element-plus-x-test": "link:packages/core"
   }
 }

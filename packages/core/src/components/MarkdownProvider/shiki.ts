@@ -1,22 +1,11 @@
-import type {
-  BundledLanguage,
-  BundledTheme,
-  LanguageInput,
-  StringLiteralUnion,
-  ThemeRegistrationAny
-} from 'shiki';
+import type { ThemeRegistrationAny } from 'shiki/core';
 
 // 初始化Shiki 高亮器配置
 export interface InitShikiOptions {
   // 语言列表
-  langs: Array<LanguageInput | BundledLanguage> | undefined;
+  langs: Array<any> | undefined;
   // 主题列表
-  themes: Partial<
-    Record<
-      string,
-      ThemeRegistrationAny | StringLiteralUnion<BundledTheme, string>
-    >
-  >;
+  themes: Partial<Record<string, ThemeRegistrationAny | string>>;
   /**
    * 自定义当前主题下的代码颜色配置
    *

@@ -1,4 +1,4 @@
-import type { ThemeRegistrationResolved } from 'shiki';
+import type { ThemeRegistrationResolved } from 'shiki/core';
 import type { InitShikiOptions } from '../../shared';
 import type { ElxRunCodeOptions } from '../RunCode/type';
 

@@ -1,4 +1,3 @@
-import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
 import type { ElxRunCodeOptions } from '../components/RunCode/type';
@@ -67,7 +66,7 @@ export const MARKDOWN_CORE_PROPS = {
     default: () => ({})
   },
   codeHighlightTheme: {
-    type: Object as PropType<BuiltinTheme | null>,
+    type: Object as PropType<any | null>,
     default: () => null
   },
   customAttrs: {

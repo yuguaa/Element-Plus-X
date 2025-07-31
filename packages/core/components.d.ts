@@ -53,7 +53,7 @@ declare module 'vue' {
     Index_a: typeof import('./src/components/MarkdownProvider/index_a.vue')['default']
     IndexAttachments: typeof import('./src/components/Attachments/index-attachments.vue')['default']
     IndexFileList: typeof import('./src/components/Attachments/index-file-list.vue')['default']
-    IndexOri: typeof import('./src/components/XMarkdownCore/components/CodeBlock/index-ori.vue')['default']
+    IndexWithHook: typeof import('./src/components/XMarkdownCore/components/CodeBlock/index-with-hook.vue')['default']
     Item: typeof import('./src/components/Conversations/components/item.vue')['default']
     Link: typeof import('./src/components/FilesCard/fileSvg/link.vue')['default']
     Loading: typeof import('./src/components/BubbleList/loading.vue')['default']
