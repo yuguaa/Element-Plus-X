@@ -30,7 +30,6 @@ const meta: Meta<typeof EditorSenderSource> = {
     disabled: false,
     headerAnimationTimer: 300,
     customStyle: {
-      minHeight: '60px',
       maxHeight: '240px'
     },
     selectList: [

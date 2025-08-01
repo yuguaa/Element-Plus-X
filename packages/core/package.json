@@ -71,7 +71,7 @@
   "dependencies": {
     "@shikijs/transformers": "^3.7.0",
     "@vueuse/core": "^13.4.0",
-    "chatarea": "^5.6.4",
+    "chatarea": "^5.6.6",
     "deepmerge": "^4.3.1",
     "dompurify": "^3.2.6",
     "github-markdown-css": "^5.8.1",
