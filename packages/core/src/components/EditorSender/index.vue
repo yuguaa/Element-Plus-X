@@ -72,7 +72,7 @@ function createChat() {
     needDialog: !props.customDialog && props.device === 'pc',
     copyType: ['text'],
     asyncMatch: Boolean(props.asyncMatchFun),
-    needDebounce: false,
+    needDebounce: true,
     needCallSpace: false,
     sendKeyFun:
       props.submitType === 'enter'
@@ -653,6 +653,7 @@ defineExpose({
         flex-shrink: 0;
         width: 100%;
         font-size: 14px;
+        min-height: 26px; /** 这个是给前置标签进行预留区域 **/
         line-height: var(--el-font-line-height-primary);
         box-sizing: border-box;
         overflow-y: auto;
@@ -681,7 +682,11 @@ defineExpose({
         }
         :deep(.chat-tip-wrap) {
           transform: translateY(-2px);
-          padding: 0 8px 0 0;
+          padding: 0 6px 0 0;
+          .chat-tip-tag-txt {
+            font-size: 16px;
+            font-family: inherit;
+          }
         }
       }
       :deep(.chat-tip-popover) {
