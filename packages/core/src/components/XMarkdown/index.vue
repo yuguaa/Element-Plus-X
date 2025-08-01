@@ -15,7 +15,6 @@ const colorReplacementsComputed = computed(() => {
 const needViewCodeBtnComputed = computed(() => {
   return props.needViewCodeBtn;
 });
-
 useShiki();
 </script>
 
