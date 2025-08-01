@@ -12,7 +12,7 @@ const MarkdownProps = {
   },
   allowHtml: {
     type: Boolean,
-    default: true
+    default: false
   },
   enableCodeLineNumber: {
     type: Boolean,

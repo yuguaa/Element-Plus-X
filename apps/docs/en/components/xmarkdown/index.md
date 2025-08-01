@@ -258,7 +258,7 @@ If you just want to modify the content of our built-in code block top, you can u
 | Property Name   | Type   | Required | Default  | Description                          |
 | --------------- | ------ | -------- | -------- | ------------------------------------ |
 | `markdown`      | string | Yes      | ''       | markdown content                     |
-| `allowHtml`     | bool   | No       | `true`   | Whether to render html               |
+| `allowHtml`     | bool   | No       | `false`  | Whether to render html               |
 | `enableLatex`   | bool   | No       | `true`   | Whether to render latex              |
 | `enableBreaks`  | bool   | No       | `true`   | Whether to render breaks             |
 | `codeXRender`   | Object | No       | `()=>{}` | Custom code block rendering          |
