@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { GlobalShiki } from '@hooks/useShiki';
+import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import type { BundledLanguage } from 'shiki';
 import type { ElxRunCodeProps } from '../RunCode/type';
 import type { CodeBlockExpose } from './shiki-header';

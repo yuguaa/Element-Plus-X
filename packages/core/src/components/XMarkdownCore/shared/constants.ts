@@ -1,4 +1,4 @@
-import type { GlobalShiki } from '@hooks/useShiki';
+import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';

@@ -18,8 +18,8 @@ import {
   createOnigurumaEngine,
   createSingletonShorthands
 } from 'shiki';
-import { onUnmounted, provide } from 'vue';
-import { languageLoaders, themeLoaders } from './shiki-loader';
+import { onUnmounted, provide, ref } from 'vue';
+import { languageLoaders, themeLoaders } from '../../../hooks/shiki-loader';
 
 export interface GlobalShiki {
   codeToHtml: (
@@ -104,30 +104,65 @@ class ShikiManager {
       getSingletonHighlighter,
       getLastGrammarState
     };
-    console.log('shiki run');
     return this.shikiInstance;
   }
 
   public dispose() {
-    console.log('shiki disposed');
     this.shikiInstance = null;
     ShikiManager.instance = null;
   }
 }
 
+// 全局状态管理
+let globalShikiInstance: GlobalShiki | undefined;
+let globalShikiManager: ShikiManager | undefined;
+let referenceCount = 0;
+
+const shikiIsCreated = ref(false);
+const shikiInstance = ref<GlobalShiki>();
+const shikiManager = ref<ShikiManager>();
+
 /**
- * @description 在 Vue 中提供 Shiki 实例
+ * @description 在 Vue 中提供 Shiki 实例（支持多组件实例）
  */
 export function useShiki(): GlobalShiki {
-  const manager = ShikiManager.getInstance();
-  const instance = manager.getShiki();
+  // 增加引用计数
+  referenceCount++;
 
-  provide(GLOBAL_SHIKI_KEY, instance);
-
+  // ✅ 注册 onUnmounted 钩子
   onUnmounted(() => {
-    console.log('dispose');
-    manager.dispose();
+    referenceCount--;
+    console.log(`shiki reference count: ${referenceCount}`);
+
+    // 只有当所有组件都卸载时才清理
+    if (referenceCount === 0) {
+      console.log('shiki destroyed - all references removed');
+      shikiIsCreated.value = false;
+      shikiInstance.value = undefined;
+      shikiManager.value?.dispose();
+      globalShikiManager?.dispose();
+      globalShikiInstance = undefined;
+      globalShikiManager = undefined;
+    }
   });
 
-  return instance;
+  // ✅ 仅在首次时初始化
+  if (!globalShikiInstance) {
+    console.log('shiki created');
+    globalShikiManager = ShikiManager.getInstance();
+    globalShikiInstance = globalShikiManager.getShiki();
+
+    shikiManager.value = globalShikiManager;
+    shikiInstance.value = globalShikiInstance;
+
+    provide(GLOBAL_SHIKI_KEY, shikiInstance);
+    shikiIsCreated.value = true;
+  } else {
+    // 为后续组件实例提供相同的实例
+    shikiManager.value = globalShikiManager;
+    shikiInstance.value = globalShikiInstance;
+    provide(GLOBAL_SHIKI_KEY, shikiInstance);
+  }
+
+  return globalShikiInstance;
 }

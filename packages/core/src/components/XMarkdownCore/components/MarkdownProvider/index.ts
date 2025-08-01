@@ -1,4 +1,4 @@
-import type { GlobalShiki } from '@hooks/useShiki';
+import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import type { Ref } from 'vue';
 
 import type { MarkdownContext } from './types';

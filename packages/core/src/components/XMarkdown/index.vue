@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { MarkdownProps } from '../XMarkdownCore/shared/types';
+import { useShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import { MarkdownRenderer } from '../XMarkdownCore';
 import { useMarkdownContext } from '../XMarkdownCore/components/MarkdownProvider';
 import { DEFAULT_PROPS } from '../XMarkdownCore/shared/constants';
@@ -14,6 +15,8 @@ const colorReplacementsComputed = computed(() => {
 const needViewCodeBtnComputed = computed(() => {
   return props.needViewCodeBtn;
 });
+
+useShiki();
 </script>
 
 <template>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useShiki } from '@hooks/useShiki';
 import { ElMessage } from 'element-plus';
 // 定义组件接收的 props，这些是从 Mermaid 组件暴露的方法和状态
 // const props = defineProps<{
@@ -22,9 +21,6 @@ import { ElMessage } from 'element-plus';
 const attrs = useAttrs();
 
 console.log('attrs', attrs);
-
-// 得全局注册最好是在app vue中
-useShiki();
 
 // 🎯 用户自定义复制逻辑演示
 async function handleCustomCopy() {
