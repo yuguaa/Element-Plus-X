@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
-import type { MermaidToolbarConfig } from './types';
+import type { MermaidExposeProps, MermaidToolbarConfig } from './types';
 import { debounce } from 'radash';
 import { computed, nextTick, ref, toValue, watch } from 'vue';
 import { useMermaid, useMermaidZoom } from '../../hooks';
@@ -149,16 +149,12 @@ const exposedMethods = computed(() => {
 
     // 原始 props（除了重复的 toolbarConfig）
     raw: props.raw
-  };
+  } satisfies MermaidExposeProps;
 });
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    :key="props.raw.key"
-    class="markdown-mermaid"
-  >
+  <div ref="containerRef" :key="props.raw.key" class="markdown-mermaid">
     <!-- 工具栏 -->
     <Transition name="toolbar" appear>
       <div class="toolbar-container">
