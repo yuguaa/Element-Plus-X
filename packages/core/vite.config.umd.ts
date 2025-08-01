@@ -1,11 +1,22 @@
 import path, { resolve } from 'node:path';
 import process from 'node:process';
+import { visualizer } from 'rollup-plugin-visualizer'; // 打包分析插件
 import { defineConfig } from 'vite';
 import plugins from './.build/plugins';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins,
+  plugins: [
+    ...plugins, // 基础插件配置
+    // 打包分析插件，生成可视化的打包分析报告
+    visualizer({
+      filename: 'dist/stats.html', // 分析报告输出文件名
+      open: true, // 构建完成后自动打开分析报告
+      gzipSize: true, // 显示 gzip 压缩后的大小
+      brotliSize: true, // 显示 brotli 压缩后的大小
+      template: 'treemap' // 使用树状图模板，可选：treemap、sunburst、network
+    })
+  ],
   define: {
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
   },
@@ -27,7 +38,12 @@ export default defineConfig({
       cssFileName: 'styles.css'
     },
     rollupOptions: {
-      external: ['vue', 'vue/jsx-runtime'],
+      // 外部依赖配置，这些依赖不会被打包，需要用户自行提供
+      external: [
+        'vue', // Vue 3 核心库
+        'vue/jsx-runtime', // Vue JSX 运行时
+        '@element-plus/icons-vue' // Element Plus 图标库
+      ],
       output: {
         globals: {
           vue: 'Vue'

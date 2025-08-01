@@ -28,3 +28,6 @@ storybook-static
 .idea
 */**/auto-import.d.ts
 */**/components.d.ts
+
+
+*.tgz

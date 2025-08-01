@@ -31,6 +31,8 @@
   }
 
   .view-code-close-btn {
+    background-color: transparent;
+    border: none;
     span {
       color: var(--shiki-code-header-span-color);
       width: 32px;

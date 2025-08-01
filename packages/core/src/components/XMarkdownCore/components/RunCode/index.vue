@@ -93,7 +93,7 @@ const RunCodeContentComputed = computed(() => {
   >
     <template #header>
       <component :is="RunCodeHeaderComputed" v-model:value="selectValue" />
-      <el-button class="view-code-close-btn" type="text" @click="close">
+      <el-button class="view-code-close-btn" @click="close">
         <component :is="RunCodeCloseBtnComputed" />
       </el-button>
     </template>
@@ -120,7 +120,6 @@ const RunCodeContentComputed = computed(() => {
       <el-button
         class="view-code-close-btn"
         :class="{ customCloseBtn: !!codeXSlot?.viewCodeCloseBtn }"
-        type="text"
         @click="close"
       >
         <component :is="RunCodeCloseBtnComputed" />

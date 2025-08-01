@@ -1,4 +1,5 @@
 import type { Component, Ref, VNode } from 'vue';
+import type { MermaidExposeProps } from '../Mermaid/types';
 import type {
   ElxRunCodeCloseBtnExposeProps,
   ElxRunCodeContentExposeProps,
@@ -85,6 +86,12 @@ export type ViewCodeContentRender =
   ComponentRenderer<ElxRunCodeContentExposeProps>;
 export type ViewCodeContentFunctionRender =
   ComponentFunctionRenderer<ElxRunCodeContentExposeProps>;
+/**
+ * @description Mermaid头部插槽渲染器
+ */
+export type MermaidHeaderControlRender = ComponentRenderer<MermaidExposeProps>;
+export type MermaidHeaderControlFunctionRender =
+  ComponentFunctionRenderer<MermaidExposeProps>;
 
 export interface CodeBlockHeaderExpose {
   /**
@@ -112,6 +119,10 @@ export interface CodeBlockHeaderExpose {
    * 代码块查看代码弹窗的代码内容插槽
    */
   viewCodeContent?: ViewCodeContentRender;
+  /**
+   * 代码块mermaid头部插槽
+   */
+  codeMermaidHeaderControl?: MermaidHeaderControlRender;
 }
 
 export interface CodeBlockHeaderFunctionExpose {
@@ -140,6 +151,10 @@ export interface CodeBlockHeaderFunctionExpose {
    * 代码块查看代码弹窗的代码内容插槽
    */
   viewCodeContent?: ViewCodeContentFunctionRender;
+  /**
+   * 代码块mermaid头部插槽
+   */
+  codeMermaidHeaderControl?: MermaidHeaderControlFunctionRender;
 }
 
 let copyCodeTimer: ReturnType<typeof setTimeout> | null = null;

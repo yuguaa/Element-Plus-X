@@ -181,6 +181,7 @@ function redo() {
   }
   start();
 }
+
 onMounted(() => {
   start();
 });

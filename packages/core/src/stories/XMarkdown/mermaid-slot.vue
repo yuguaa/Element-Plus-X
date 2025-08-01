@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import type {
+  CodeBlockHeaderExpose,
+  CodeBlockHeaderFunctionExpose
+} from '@components/XMarkdownCore/components/CodeBlock/shiki-header';
 import type { MermaidToolbarConfig } from '../../components/XMarkdownCore/components/Mermaid/types';
 import XMarkdown from '@components/XMarkdown/index.vue';
 import { ElButton, ElMessage, ElTooltip } from 'element-plus';
@@ -19,8 +23,8 @@ const mermaidConfig = computed(() => {
 });
 
 // 函数式插槽配置演示
-const slotRenderConfig = {
-  codeMermaidHeaderControl: (props: any) => {
+const slotRenderConfig: CodeBlockHeaderFunctionExpose = {
+  codeMermaidHeaderControl: props => {
     return h(
       'div',
       {
@@ -206,7 +210,7 @@ const slotRenderConfig = {
 };
 
 // 组件插槽配置演示
-const slotComponentsConfig = {
+const slotComponentsConfig: CodeBlockHeaderExpose = {
   codeMermaidHeaderControl: MermaidHeader
 };
 const timer = ref();
@@ -238,6 +242,7 @@ function redo() {
   }
   start();
 }
+
 onMounted(() => {
   start();
 });

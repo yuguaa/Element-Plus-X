@@ -1,14 +1,7 @@
 import type TypewriterSource from '@components/Typewriter/index.vue';
 // import { fn } from '@storybook/test';
 import type { Meta, StoryObj } from '@storybook/vue3';
-import {
-  // highlightMdContent,
-  mathMdContent,
-  mdContent
-  // mermaidMdContent
-} from '@assets/mock';
-// import PrismDemo from './CustomPrismDemo.vue';
-// import ShikiDemo from './CustomShikiDemo.vue';
+import { mathMdContent, mdContent } from '@assets/mock';
 import Typewriter from './index.vue';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories

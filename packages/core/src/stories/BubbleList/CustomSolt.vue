@@ -121,7 +121,7 @@ onMounted(() => {
             <XMarkdown
               v-if="item.role === 'ai'"
               :markdown="item.content ?? ''"
-              default-them-mode="'dark'"
+              default-theme-mode="dark"
             />
             <span v-else>{{ item.content }} </span>
           </div>
