@@ -13,7 +13,7 @@ export const shikiThemeDefault: InitShikiOptions['themes'] = {
 
 export const DEFAULT_PROPS = {
   markdown: '',
-  allowHtml: true,
+  allowHtml: false,
   enableLatex: true,
   enableBreaks: true,
   enableCodeLineNumber: false,
@@ -45,7 +45,7 @@ export const MARKDOWN_CORE_PROPS = {
   },
   allowHtml: {
     type: Boolean,
-    default: true
+    default: false
   },
   enableCodeLineNumber: {
     type: Boolean,

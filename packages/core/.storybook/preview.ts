@@ -25,4 +25,16 @@ const preview: Preview = {
   }
 };
 
+const cdnAssets = [
+  {
+    url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
+  }
+];
+cdnAssets.forEach(assets => {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = assets.url;
+  document.head.appendChild(link);
+});
+
 export default preview;

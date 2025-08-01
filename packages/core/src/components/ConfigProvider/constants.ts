@@ -13,10 +13,5 @@ export const DEFAULT_MD_CONFIG: Options = {
 
 export const DEFAULT_APP_CONFIG: ConfigProviderProps = {
   mdPlugins: [],
-  md: new MarkdownIt(DEFAULT_MD_CONFIG),
-  cdnAssets: [
-    {
-      url: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css'
-    }
-  ]
+  md: new MarkdownIt(DEFAULT_MD_CONFIG)
 };

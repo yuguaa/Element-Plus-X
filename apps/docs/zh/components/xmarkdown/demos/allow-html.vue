@@ -3,12 +3,12 @@
 title: 是否开启 html 标签渲染
 ---
 
-支持 html 标签渲染，使用 `allowHtml` 属性开启，默认开启。
+支持 html 标签渲染，使用 `allowHtml` 属性开启，默认关闭。
 </docs>
 
 <script setup lang="ts">
 const markdown = `<div style="color: red;">这是一个 html 标签测试。</div>`;
-const value1 = ref(true);
+const value1 = ref(false);
 </script>
 
 <template>
