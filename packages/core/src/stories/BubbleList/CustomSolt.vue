@@ -5,6 +5,7 @@ import { avatar1, avatar2 } from '@assets/mock';
 import BubbleList from '@components/BubbleList/index.vue';
 import { DocumentCopy, Refresh, Search, Star } from '@element-plus/icons-vue';
 import { ElMessage } from 'element-plus';
+import { XMarkdown } from '../../components';
 
 const props = defineProps<Pick<BubbleListProps, 'list'>>();
 
@@ -20,7 +21,11 @@ function addMessage() {
   const isUser = !!(i % 2);
   const content = isUser
     ? 'Mock user content.'
-    : '欢迎使用 Element Plus X .'.repeat(5);
+    : `
+\`\`\`javascript
+console.log('Hello, world!');
+\`\`\`
+`.repeat(1);
   const placement = isUser ? 'end' : 'start';
   const typing = isUser ? false : { step: 2, suffix: '...' };
   const obj = {
@@ -113,7 +118,12 @@ onMounted(() => {
         <!-- 自定义 content -->
         <template #content="{ item }">
           <div class="content">
-            {{ item.content }}
+            <XMarkdown
+              v-if="item.role === 'ai'"
+              :markdown="item.content ?? ''"
+              default-them-mode="'dark'"
+            />
+            <span v-else>{{ item.content }} </span>
           </div>
         </template>
 

@@ -157,10 +157,7 @@ const exposedMethods = computed(() => {
   <div
     ref="containerRef"
     :key="props.raw.key"
-    class="markdown-mermaid unselectable"
-    unselectable="on"
-    onselectstart="return false"
-    ondragstart="return false"
+    class="markdown-mermaid"
   >
     <!-- 工具栏 -->
     <Transition name="toolbar" appear>
@@ -202,9 +199,8 @@ const exposedMethods = computed(() => {
       @after-enter="onContentTransitionEnter"
     >
       <pre v-if="showSourceCode" key="source" class="mermaid-source-code">
-    {{ props.raw.content }}
-  </pre
-      >
+        {{ props.raw.content }}
+      </pre>
       <div v-else class="mermaid-content" v-html="svg" />
     </Transition>
   </div>

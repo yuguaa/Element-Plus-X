@@ -11,6 +11,12 @@ import {
 } from '@element-plus/icons-vue';
 import { computed, ref } from 'vue';
 
+interface MermaidToolbarInternalProps {
+  toolbarConfig?: MermaidToolbarConfig;
+  isSourceCodeMode?: boolean;
+  sourceCode?: string;
+}
+
 const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
   toolbarConfig: () => ({}),
   isSourceCodeMode: false,
@@ -18,12 +24,6 @@ const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
 });
 
 const emit = defineEmits<MermaidToolbarEmits>();
-
-interface MermaidToolbarInternalProps {
-  toolbarConfig?: MermaidToolbarConfig;
-  isSourceCodeMode?: boolean;
-  sourceCode?: string;
-}
 
 // 复制成功状态
 const isCopySuccess = ref(false);
@@ -317,7 +317,6 @@ function handleTabClickEvent(pane: TabClickEvent) {
   border-radius: 3px 3px 0 0;
   padding: 0 12px;
   pointer-events: auto;
-  user-select: none !important;
   position: relative;
   z-index: 10;
 
