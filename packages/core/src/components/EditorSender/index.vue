@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import type { ChatOperateNode, TagInfo, TipOptions, UserInfo } from 'chatarea';
+import type {
+  ChatNode,
+  ChatNodeType,
+  ChatOperateNode,
+  DatasetByType,
+  TagInfo,
+  TipOptions,
+  UserInfo
+} from 'chatarea';
 import type {
   ChatState,
   EditorProps,
@@ -189,7 +197,7 @@ function focusToStart() {
     opNode.value.setCursorNode(
       opNode.value.getNodeByRank(
         opNode.value.getRank(0) + opNode.value.getRank(0)
-      ),
+      )!,
       0
     );
   }
@@ -200,7 +208,7 @@ function focusToEnd() {
     opNode.value.setCursorNode(
       opNode.value.getNodeByRank(
         opNode.value.getRank(-1) + opNode.value.getRank(-1)
-      )
+      )!
     );
   }
 }
@@ -221,7 +229,7 @@ function selectAll() {
     const lastNode = opNode.value.getNodeByRank(
       opNode.value.getRank(-1) + opNode.value.getRank(-1)
     );
-    opNode.value.setSelectNodes(firstNode, lastNode);
+    opNode.value.setSelectNodes(firstNode!, lastNode!);
   }
 }
 // 插入一个选择标签
@@ -278,7 +286,7 @@ function setMixTags(tags: MixTag[][]) {
       })
     };
   });
-  opNode.value?.coverNodes(chatNodes);
+  opNode.value?.coverNodes(chatNodes as ChatNode<ChatNodeType>[]);
 }
 // 根据id和类型捕获目标name
 function getNameByTypeId(mixTag: MixTag): string {
@@ -355,8 +363,12 @@ function updateSelectTag(elm: HTMLElement, tag: TagInfo) {
   if (!chatNode) {
     return;
   }
-  chatNode.dataset.id = tag.id;
-  chatNode.dataset.name = tag.name;
+  const dataset = chatNode.dataset as Pick<
+    DatasetByType,
+    'selectTag'
+  >['selectTag'];
+  dataset.id = tag.id;
+  dataset.name = tag.name;
   opNode.value?.updateNode(chatNode);
 }
 
