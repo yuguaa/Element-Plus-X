@@ -55,7 +55,7 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
             <div
               class="sponsor-avatar text-3xl w-12.5 h-12.5 flex-center rounded-full border border-white/20"
             >
-              <el-icon class="text-4xl text-red-500">
+              <el-icon class="text-4xl text-white!">
                 <Plus />
               </el-icon>
             </div>
