@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
+import type { Element, Root } from 'hast';
 import type { BundledLanguage } from 'shiki';
+import type { VNode } from 'vue';
 import type { ElxRunCodeProps } from '../RunCode/type';
 import type { CodeBlockExpose } from './shiki-header';
 import type { RawProps } from './types';
@@ -12,7 +14,7 @@ import {
   transformerNotationWordHighlight
 } from '@shikijs/transformers';
 import { computed, h, reactive, ref, toValue, watch } from 'vue';
-import HighLightCode from '../../components/HighLightCode/index.vue';
+// import HighLightCode from '../../components/HighLightCode/index.vue';
 import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
@@ -40,7 +42,7 @@ const context = useMarkdownContext();
 const {
   codeXSlot,
   customAttrs,
-  enableCodeLineNumber = false,
+  // enableCodeLineNumber = false,
   globalShiki
 } = toValue(context) || {};
 const renderLines = ref<string[]>([]);
@@ -65,8 +67,8 @@ const shikiTransformers = [
   transformerNotationHighlight(),
   transformerNotationWordHighlight()
 ];
-
-const { codeToHtml } = globalShiki as GlobalShiki;
+const vNodes = ref<VNode>();
+const { codeToHast } = globalShiki as GlobalShiki;
 // 生成高亮HTML
 async function generateHtml() {
   let { language = 'text', content = '' } = props.raw || {};
@@ -74,22 +76,48 @@ async function generateHtml() {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content.trim(), {
+  const hast = await codeToHast(content.trim(), {
     lang: language as BundledLanguage,
     themes: themes.value,
     colorReplacements: colorReplacements.value,
     transformers: shikiTransformers
   });
-  const parse = new DOMParser();
-  const doc = parse.parseFromString(html, 'text/html');
-  const preElement = doc.querySelector('pre');
-  preStyle.value = preElement?.getAttribute('style');
-  const preClassNames = preElement?.className;
-  preClass.value = preClassNames ?? '';
-  const codeElement = doc.querySelector('pre code');
-  if (codeElement) {
-    const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
-    renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
+  console.log('hast', hast);
+  vNodes.value = renderCodeLine(hast as Root);
+  // console.log('lines', lines);
+}
+
+function renderCodeLine(hast: any) {
+  if (hast.type !== 'root') {
+    if (hast.tagName === 'pre') {
+      console.log('pre', hast.type);
+      return h(
+        'div',
+        hast.properties,
+        hast.children.map((node: any) => renderCodeLine(node))
+      );
+    } else {
+      if (hast.children && hast.children.length > 0) {
+        return h(
+          'span',
+          hast.properties,
+          hast.children.map((node: any) => renderCodeLine(node))
+        );
+      }
+      return h(
+        'span',
+        {
+          ...hast.properties,
+          class: {
+            ...hast.properties?.class,
+            'elx-code-animate': true
+          }
+        },
+        hast.value
+      );
+    }
+  } else {
+    return renderCodeLine(hast.children[0] as Element);
   }
 }
 
@@ -239,11 +267,13 @@ watch(
       }"
       v-bind="codeAttrs"
     >
-      <HighLightCode
+      <!-- <HighLightCode
         :enable-code-line-number="enableCodeLineNumber"
         :lang="props.raw?.language ?? 'text'"
         :code="renderLines"
-      />
+        :vNodes="vNodes"
+      /> -->
+      <component :is="vNodes" />
     </code>
     <!-- run-code -->
     <component
@@ -253,3 +283,18 @@ watch(
     />
   </div>
 </template>
+
+<style>
+.elx-code-animate {
+  animation: elx-code-animate 0.3s ease-in-out;
+  position: relative;
+}
+@keyframes elx-code-animate {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+</style>
