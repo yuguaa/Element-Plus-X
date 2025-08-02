@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { gsap } from 'gsap';
+import { SplitText } from 'gsap/SplitText';
 import { ref } from 'vue';
+
+gsap.registerPlugin(SplitText);
 
 // 复制状态和安装命令
 const copied = ref(false);
@@ -13,6 +17,45 @@ const subtitle =
 const getStartedText = '快速开始';
 const previewText = '组件预览';
 const githubText = 'GitHub';
+
+onMounted(() => {
+  textAnimation();
+});
+
+// 字体随机动画
+function textAnimation() {
+  gsap.set('.title-line-split', { opacity: 1 });
+  gsap.set('.title-line-split-2', { opacity: 1 });
+  gsap.set('.title-line-split-3', { opacity: 1 });
+  const titleLine1Split = SplitText.create('.title-line-split', {
+    type: 'chars',
+    charsClass: 'title-line'
+  });
+  const titleLine2Split = SplitText.create('.title-line-split-2', {
+    type: 'chars',
+    charsClass: 'title-line2++'
+  });
+  const titleLine3Split = SplitText.create('.title-line-split-3', {
+    type: 'chars',
+    charsClass: 'text-media'
+  });
+  const options: gsap.TweenVars = {
+    y: 100,
+    opacity: 0,
+    delay: 0.6,
+    duration: 1.3,
+    yPercent: 'random([-150, 150])',
+    xPercent: 'random([-150, 150])',
+    stagger: {
+      from: 'random',
+      amount: 0.6
+    },
+    ease: 'power3.out'
+  };
+  gsap.from(titleLine1Split.chars, options);
+  gsap.from(titleLine2Split.chars, options);
+  gsap.from(titleLine3Split.chars, options);
+}
 
 // 复制命令方法
 async function copyInstallCommand() {
@@ -53,19 +96,19 @@ function handleGithub() {
       <div class="mt-8 mb-4">
         <h1 class="text-align-left! p-0!">
           <div
-            class="title-line text-5xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tight"
+            class="title-line-split text-5xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tight"
           >
             {{ titleLine1 }}
           </div>
           <div
-            class="title-line2 text-2xl md:text-2xl lg:text-4xl font-medium mt-2 mb-0"
+            class="title-line-split-2 text-2xl md:text-2xl lg:text-4xl font-medium mt-4 mb-0"
           >
             {{ titleLine2 }}
           </div>
         </h1>
 
         <p
-          class="text-media md:py-5 text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed max-w-2xl"
+          class="title-line-split-3 md:py-5 text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed max-w-2xl"
         >
           {{ subtitle }}
         </p>
@@ -159,13 +202,14 @@ function handleGithub() {
   </section>
 </template>
 
-<style scoped>
-.title-line {
+<style scoped lang="less">
+:deep(.title-line) {
+  will-change: transform;
   background: linear-gradient(
     135deg,
     #98ff53 0%,
     #ff1381 25%,
-    #8b5cf6 50%,
+    #f65c5c 50%,
     #ff1381 75%,
     #f5ff69 100%
   );
@@ -175,14 +219,173 @@ function handleGithub() {
   -webkit-text-fill-color: transparent;
   animation: titleGradient 4s ease-in-out infinite;
   display: inline-block;
+
+  & * {
+    will-change: transform;
+  }
 }
 
-.title-line2 {
-  background-size: 100% 100%;
-  background: linear-gradient(135deg, #7eff28 0%, #ff1381 35%, #8b5cf6 100%);
+:deep(.title-line2) {
+  will-change: transform;
+  background-size: 300% 300%;
+  background: linear-gradient(135deg, #ff4d88 0%, #ff0077 55%, #ff5e86 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  & * {
+    will-change: transform;
+  }
+}
+
+.title-line-split-3 {
+  text-align: left;
+}
+
+:deep(.title-line21),
+:deep(.title-line22),
+:deep(.title-line23),
+:deep(.title-line24) {
+  background: linear-gradient(135deg, #4fffadb6 0%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  // 字体阴影光晕
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+:deep(.title-line28) {
+  margin-left: 0.625rem;
+  margin-right: 0.25rem;
+}
+
+:deep(.title-line29) {
+  margin-right: 0.625rem;
+}
+
+:deep(.title-line28),
+:deep(.title-line29) {
+  position: relative; /* 为伪元素提供定位基准 */
+  background: linear-gradient(135deg, #4fffadb6 0%, #4fffa0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  /* 光晕闪烁动画：随机变化光晕大小和透明度 */
+  animation: pulse-glow 0.8s infinite ease-in-out;
+}
+
+:deep(.title-line28)::before,
+:deep(.title-line28)::after,
+:deep(.title-line29)::before,
+:deep(.title-line29)::after {
+  content: 'A';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit; /* 继承渐变背景 */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0; /* 默认隐藏，通过动画显示 */
+}
+
+:deep(.title-line29)::before,
+:deep(.title-line29)::after {
+  content: 'I';
+}
+
+/* 左侧故障副本：红色偏移 */
+:deep(.title-line28)::before,
+:deep(.title-line29)::before {
+  left: -2px;
+  text-shadow: 2px 0 rgba(255, 0, 0, 0.4); /* 红色错位阴影 */
+  animation: glitch-left 1.3s infinite alternate-reverse;
+}
+
+/* 右侧故障副本：蓝色偏移 */
+:deep(.title-line28)::after,
+:deep(.title-line29)::after {
+  left: 2px;
+  text-shadow: -2px 0 rgba(0, 0, 255, 0.4); /* 蓝色错位阴影 */
+  animation: glitch-right 1.3s infinite alternate-reverse;
+}
+
+/* 位置微调保持原有布局 */
+:deep(.title-line28) {
+  margin-left: 0.625rem;
+}
+:deep(.title-line29) {
+  margin-right: 0.625rem;
+}
+
+/* 光晕闪烁动画 */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  20% {
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+  }
+  40% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+  60% {
+    text-shadow: 0 0 22px rgba(255, 255, 255, 0.9);
+  }
+  80% {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* 左侧故障动画 */
+@keyframes glitch-left {
+  0%,
+  80%,
+  100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+  20% {
+    opacity: 0.6;
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    opacity: 0.4;
+    transform: translate(-2px, -1px);
+  }
+  60% {
+    opacity: 0.5;
+    transform: translate(-1px, -2px);
+  }
+}
+
+/* 右侧故障动画 */
+@keyframes glitch-right {
+  0%,
+  70%,
+  100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+  10% {
+    opacity: 0.5;
+    transform: translate(1px, 1px);
+  }
+  30% {
+    opacity: 0.3;
+    transform: translate(2px, 1px);
+  }
+  50% {
+    opacity: 0.6;
+    transform: translate(1px, -1px);
+  }
+  70% {
+    opacity: 0.4;
+    transform: translate(2px, -2px);
+  }
 }
 
 @keyframes titleGradient {
@@ -244,6 +447,10 @@ function handleGithub() {
   animation: glowFlow 4s ease-in-out infinite;
 }
 
+:deep(.text-media) {
+  line-height: 0.625rem;
+}
+
 @keyframes glowPulse {
   0%,
   100% {
@@ -294,8 +501,10 @@ function handleGithub() {
     display: none;
   }
   /* 居中展示 */
-  .text-media {
-    padding: 0 24px;
+  :deep(.text-media) {
+    line-height: 0.625rem;
+  }
+  .title-line-split-3 {
     text-align: center;
   }
   .btn-container {
