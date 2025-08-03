@@ -10,6 +10,10 @@
     flex-direction: column;
     align-items: flex-end;
     margin-right: 1rem;
+    // 添加背景色以与代码区域保持一致
+    background-color: var(--shiki-bg);
+    padding: 0 0.5rem;
+
     .line-number {
       display: inline-block;
       text-align: right;
@@ -17,25 +21,79 @@
       -webkit-user-select: none;
       user-select: none;
       flex-shrink: 0;
-      color: var(--el-text-color-secondary);
+      color: var(--shiki-token-comment) !important;
+      line-height: 1.5rem; // 与代码行高保持一致
     }
   }
 
   .elx-highlight-code-scrollbar {
-    .code-lines {
+    flex: 1;
+
+    .elx-highlight-code-content {
       white-space: pre;
-      & > span {
-        width: max-content;
-        display: block;
-        .line {
+
+      // VNode 渲染的代码块样式
+      > div {
+        white-space: pre;
+
+        > span {
           width: max-content;
-          display: inline-block;
-          white-space: pre;
-          span {
+          display: block;
+
+          .line {
+            width: max-content;
             display: inline-block;
+            white-space: pre;
+
+            span {
+              display: inline-block;
+            }
+          }
+        }
+      }
+
+      // 原有的 code-lines 样式保持兼容
+      .code-lines {
+        white-space: pre;
+        & > span {
+          width: max-content;
+          display: block;
+          .line {
+            width: max-content;
+            display: inline-block;
+            white-space: pre;
+            span {
+              display: inline-block;
+            }
           }
         }
       }
     }
+  }
+}
+
+// 暗色主题下的行号样式
+body.dark .elx-highlight-code-wrapper {
+  .line-numbers {
+    background-color: var(--shiki-dark-bg);
+
+    .line-number {
+      color: var(--shiki-dark-token-comment) !important;
+    }
+  }
+}
+
+// 代码动画效果
+.elx-code-animate {
+  animation: elx-code-animate 0.3s ease-in-out;
+  position: relative;
+}
+
+@keyframes elx-code-animate {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

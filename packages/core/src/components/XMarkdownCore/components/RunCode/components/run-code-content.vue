@@ -154,7 +154,7 @@ onMounted(() => {
               <HighLightCode
               :enable-code-line-number="enableCodeLineNumber"
               :lang="props.lang"
-              :code="props.code"
+              :code="props.content"
               />
             </code>
         </div>
