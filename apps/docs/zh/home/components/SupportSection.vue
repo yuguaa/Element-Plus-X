@@ -1,19 +1,82 @@
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue';
-import { ref } from 'vue';
+import { gsap } from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { onMounted, ref } from 'vue';
 import { sponsors } from './reviews';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
+
+onMounted(() => {
+  scrollTriggerAnimation();
+});
+
+// 滚动触发动画 - 优化版
+function scrollTriggerAnimation() {
+  // 容器引用
+  const supportSection = document.querySelector('.support-section');
+  if (!supportSection) return;
+
+  // 容器渐显动画 - 使用更平滑的缓动
+  gsap.from('.sponsors-glass-card', {
+    opacity: 0,
+    y: 30, // 减少初始偏移
+    duration: 1.2, // 稍长的持续时间让动画更平滑
+    scrollTrigger: {
+      trigger: '.support-section',
+      start: 'top 90%',
+      end: 'bottom 50%',
+      scrub: true, // 添加轻微延迟让滚动更跟手
+      markers: false, // 调试用
+      once: false // 允许动画来回触发
+    }
+  });
+
+  // 获取所有赞助商卡片
+  const sponsorItems = gsap.utils.toArray('.sponsor-compact');
+
+  // 为每个卡片设置依次出现的动画
+  sponsorItems.forEach((item, index) => {
+    // 计算每个卡片的延迟，使动画更有层次感
+    const delayFactor = index * 0.15;
+
+    gsap.from(item as HTMLElement, {
+      opacity: 0,
+      y: 25, // 减少初始偏移
+      duration: 0.8, // 稍长的持续时间
+      scrollTrigger: {
+        trigger: '.support-section',
+        start: () => `top ${90 - index * 30}%`, // 调整起始位置计算方式
+        end: () => `top ${50 - index * 30}%`,
+        scrub: true, // 平滑滚动响应
+        markers: false // 调试用
+      },
+      delay: delayFactor // 依次延迟出现
+    });
+  });
+
+  // 优化区域固定设置 - 避免与其他动画冲突
+  ScrollTrigger.create({
+    trigger: '.support-section',
+    start: '-=200', // 更明确的起始点
+    end: '+=900',
+    scrub: true,
+    markers: false,
+    pin: true,
+    pinSpacing: false // 避免自动添加间距导致的抖动
+  });
+}
 </script>
 
 <template>
   <!-- 赞助与支持区域 - 紧凑设计 -->
-  <section class="support-section py-24 relative">
+  <section class="support-section relative">
     <div class="support-container max-w-4xl mx-auto px-8 flex flex-col gap-8">
       <!-- 紧凑的标题区域 -->
       <div class="support-header text-center">
         <h2 class="support-title text-3xl font-extrabold m-0 mb-2">
-          <!-- Platinum Sponsors -->
           白金赞助商
         </h2>
       </div>
@@ -45,7 +108,6 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
             >
               {{ sponsor.company }}
             </div>
-            <!-- </div> -->
           </a>
           <a
             :href="toBeSponsor"
@@ -75,6 +137,10 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
 /* 背景渐变 */
 .support-section {
   z-index: 10;
+  height: 150vh;
+  will-change: transform;
+  /* 提示浏览器优化 */
+  /* background: red; */
 }
 
 @keyframes titleGradient {
@@ -90,7 +156,6 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
 
 /* 标题渐变 */
 .support-title {
-  /* background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%); */
   background: linear-gradient(
     135deg,
     #ffffff 0%,
@@ -113,6 +178,8 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
     rgba(255, 255, 255, 0.1) 0%,
     rgba(255, 255, 255, 0.05) 100%
   );
+  will-change: opacity, transform;
+  /* 硬件加速 */
 }
 
 .background-point {
@@ -157,7 +224,14 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
   );
 }
 
-/* CTA区域背景 */
+/* 赞助商卡片添加硬件加速 */
+.sponsor-compact {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  /* 优化3D变换渲染 */
+}
+
+/* 其他样式保持不变 */
 .sponsor-cta-compact {
   background: linear-gradient(
     135deg,
@@ -166,7 +240,6 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
   );
 }
 
-/* CTA图标背景 */
 .cta-icon {
   background: linear-gradient(
     135deg,
@@ -175,7 +248,6 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
   );
 }
 
-/* 按钮样式 */
 .sponsor-btn-compact {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
@@ -209,7 +281,7 @@ const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
   }
 
   .sponsors-list {
-    @apply grid-cols-[repeat(auto-fit,minmax(120px,1fr))];
+    @apply grid-cols-3;
   }
 
   .cta-content {

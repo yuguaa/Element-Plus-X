@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { gsap } from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
 import { SplitText } from 'gsap/SplitText';
 import { ref } from 'vue';
 
 gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 // 复制状态和安装命令
 const copied = ref(false);
@@ -20,6 +22,7 @@ const githubText = 'GitHub';
 
 onMounted(() => {
   textAnimation();
+  scrollTriggerAnimation();
 });
 
 // 字体随机动画
@@ -57,6 +60,22 @@ function textAnimation() {
   gsap.from(titleLine3Split.chars, options);
 }
 
+// 滚动触发动画
+function scrollTriggerAnimation() {
+  ScrollTrigger.create({
+    trigger: '.hero-section',
+    start: '-=220',
+    end: '+=900',
+    scrub: true,
+    markers: false,
+    pin: true,
+    animation: gsap
+      .timeline()
+      .to('.left-container', { x: 100, y: -100 }, 0)
+      .to('.right-container', { x: -100, y: -100 }, 0)
+  });
+}
+
 // 复制命令方法
 async function copyInstallCommand() {
   try {
@@ -89,7 +108,7 @@ function handleGithub() {
 <template>
   <!-- 首屏英雄区 -->
   <section
-    class="relative items-center z-10 max-w-[1200px] mx-auto mt-30 mb-30 flex justify-between"
+    class="relative items-center z-10 max-w-[1200px] mx-auto mt-30 mb-30 flex justify-between hero-section"
   >
     <div class="left-container">
       <!-- 标题区域 - 突出主标题 -->
@@ -232,6 +251,7 @@ function handleGithub() {
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
   & * {
     will-change: transform;
   }
@@ -264,7 +284,8 @@ function handleGithub() {
 
 :deep(.title-line28),
 :deep(.title-line29) {
-  position: relative; /* 为伪元素提供定位基准 */
+  position: relative;
+  /* 为伪元素提供定位基准 */
   background: linear-gradient(135deg, #4fffadb6 0%, #4fffa0 100%);
   background-clip: text;
   -webkit-background-clip: text;
@@ -284,11 +305,13 @@ function handleGithub() {
   left: 0;
   width: 100%;
   height: 100%;
-  background: inherit; /* 继承渐变背景 */
+  background: inherit;
+  /* 继承渐变背景 */
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  opacity: 0; /* 默认隐藏，通过动画显示 */
+  opacity: 0;
+  /* 默认隐藏，通过动画显示 */
 }
 
 :deep(.title-line29)::before,
@@ -300,7 +323,8 @@ function handleGithub() {
 :deep(.title-line28)::before,
 :deep(.title-line29)::before {
   left: -2px;
-  text-shadow: 2px 0 rgba(255, 0, 0, 0.4); /* 红色错位阴影 */
+  text-shadow: 2px 0 rgba(255, 0, 0, 0.4);
+  /* 红色错位阴影 */
   animation: glitch-left 1.3s infinite alternate-reverse;
 }
 
@@ -308,7 +332,8 @@ function handleGithub() {
 :deep(.title-line28)::after,
 :deep(.title-line29)::after {
   left: 2px;
-  text-shadow: -2px 0 rgba(0, 0, 255, 0.4); /* 蓝色错位阴影 */
+  text-shadow: -2px 0 rgba(0, 0, 255, 0.4);
+  /* 蓝色错位阴影 */
   animation: glitch-right 1.3s infinite alternate-reverse;
 }
 
@@ -316,6 +341,7 @@ function handleGithub() {
 :deep(.title-line28) {
   margin-left: 0.625rem;
 }
+
 :deep(.title-line29) {
   margin-right: 0.625rem;
 }
@@ -326,15 +352,19 @@ function handleGithub() {
   100% {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   }
+
   20% {
     text-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
   }
+
   40% {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
   }
+
   60% {
     text-shadow: 0 0 22px rgba(255, 255, 255, 0.9);
   }
+
   80% {
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
   }
@@ -348,14 +378,17 @@ function handleGithub() {
     opacity: 0;
     transform: translate(0);
   }
+
   20% {
     opacity: 0.6;
     transform: translate(-1px, 1px);
   }
+
   40% {
     opacity: 0.4;
     transform: translate(-2px, -1px);
   }
+
   60% {
     opacity: 0.5;
     transform: translate(-1px, -2px);
@@ -370,18 +403,22 @@ function handleGithub() {
     opacity: 0;
     transform: translate(0);
   }
+
   10% {
     opacity: 0.5;
     transform: translate(1px, 1px);
   }
+
   30% {
     opacity: 0.3;
     transform: translate(2px, 1px);
   }
+
   50% {
     opacity: 0.6;
     transform: translate(1px, -1px);
   }
+
   70% {
     opacity: 0.4;
     transform: translate(2px, -2px);
@@ -457,6 +494,7 @@ function handleGithub() {
     transform: scale(1);
     opacity: 0.7;
   }
+
   50% {
     transform: scale(1.1);
     opacity: 1;
@@ -468,10 +506,12 @@ function handleGithub() {
     transform: scale(1) rotate(0deg);
     opacity: 0.5;
   }
+
   50% {
     transform: scale(1.2) rotate(180deg);
     opacity: 0.8;
   }
+
   100% {
     transform: scale(1) rotate(360deg);
     opacity: 0.5;
@@ -497,19 +537,24 @@ function handleGithub() {
       margin-bottom: 1.875rem;
     }
   }
+
   .right-container {
     display: none;
   }
+
   /* 居中展示 */
   :deep(.text-media) {
     line-height: 0.625rem;
   }
+
   .title-line-split-3 {
     text-align: center;
   }
+
   .btn-container {
     justify-content: center;
   }
+
   .install-container {
     justify-content: center;
     width: calc(100% - 48px);

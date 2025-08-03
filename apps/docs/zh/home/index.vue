@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import gsap from 'gsap';
-// import ScrollTrigger from 'gsap/ScrollTrigger';
 // import { nextTick, onMounted } from 'vue';
 import {
   Contributors,
@@ -11,50 +9,6 @@ import {
   ReviewsSection,
   SupportSection
 } from './components';
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// onMounted(async () => {
-//   await nextTick();
-
-//   // 创建主时间线
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: '.page-container',
-//       start: 'top center',
-//       end: 'bottom center',
-//       toggleActions: 'play none none reverse'
-//     }
-//   });
-
-//   // 添加入场动画
-//   tl.from('.hero-banner', {
-//     y: -50,
-//     opacity: 0,
-//     duration: 0.8,
-//     ease: 'power2.out'
-//   })
-//     .from(
-//       '.hero-section',
-//       {
-//         y: 50,
-//         opacity: 0,
-//         duration: 1,
-//         ease: 'power2.out'
-//       },
-//       '-=0.4'
-//     )
-//     .from(
-//       '.quickstart-section',
-//       {
-//         y: 30,
-//         opacity: 0,
-//         duration: 0.8,
-//         ease: 'power2.out'
-//       },
-//       '-=0.2'
-//     );
-// });
 </script>
 
 <template>
@@ -63,10 +17,10 @@ import {
     <HeroSection />
 
     <!-- 赞助与支持区域 -->
-    <SupportSection />
+    <SupportSection class="mt-[-100px]" />
 
     <!-- 特性区域 -->
-    <FeaturesSection />
+    <FeaturesSection class="mt-[500px]" />
 
     <!-- 产品展示区域 -->
     <ProductDisplayArea />

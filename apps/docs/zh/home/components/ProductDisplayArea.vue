@@ -13,10 +13,10 @@ function checkScreenSize() {
 onMounted(() => {
   checkScreenSize();
   window.addEventListener('resize', checkScreenSize);
+});
 
-  return () => {
-    window.removeEventListener('resize', checkScreenSize);
-  };
+onUnmounted(() => {
+  window.removeEventListener('resize', checkScreenSize);
 });
 
 // 为每张张张图片设置独特的阴影参数
@@ -81,7 +81,9 @@ const chatImgs = ref([
 </script>
 
 <template>
-  <div class="outer-container">
+  <div class="outer-container flex flex-col gap-y-120px">
+    <h2 class="reviews-title max-w-[1200px] mx-auto">产品展示</h2>
+
     <div
       class="rotation-container"
       :class="{ 'mobile-view': responsive.isMobile }"
@@ -125,6 +127,23 @@ const chatImgs = ref([
   width: 100vw;
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+/* 标题渐变动画 */
+.reviews-title {
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #6366f1 50%,
+    #8b5cf6 75%,
+    #ffffff 100%
+  );
+  background-size: 200% 200%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: titleGradient 4s ease-in-out infinite;
 }
 
 .rotation-container {
@@ -231,6 +250,17 @@ const chatImgs = ref([
     transform: translateX(-50%)
       scale(calc(1.1 + var(--self-shadow-shade) / 100 * 0.2));
     opacity: calc(0.8 + var(--self-shadow-shade) / 100 * 0.2);
+  }
+}
+
+@keyframes titleGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
   }
 }
 </style>
