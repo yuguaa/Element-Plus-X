@@ -7,7 +7,8 @@ async function copyInstallCommand() {
   try {
     await navigator.clipboard.writeText(installCommand.value);
     // 可以添加复制成功的提示
-  } catch (err) {
+  }
+  catch (err) {
     console.error('复制失败:', err);
   }
 }
@@ -32,9 +33,7 @@ async function copyInstallCommand() {
           <div
             class="install-command flex items-center bg-black/30 border border-white/20 rounded-3 px-6 py-4 font-mono text-sm backdrop-blur-[10px] transition-all duration-300 gap-4 min-w-75"
           >
-            <span class="command-prefix text-indigo-400/80 font-semibold mr-2"
-              >$</span
-            >
+            <span class="command-prefix text-indigo-400/80 font-semibold mr-2">$</span>
             <span class="command-text text-white/90 flex-1 text-left">{{
               installCommand
             }}</span>
@@ -117,7 +116,7 @@ async function copyInstallCommand() {
   }
 
   .install-command {
-    @apply min-w-auto w-full px-4 py-3 text-sm;
+    @apply w-full px-4 py-3 text-sm;
   }
 }
 

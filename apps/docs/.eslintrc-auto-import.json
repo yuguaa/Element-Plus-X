@@ -69,6 +69,7 @@
     "useId": true,
     "useModel": true,
     "useSlots": true,
+    "useTemplateRef": true,
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,

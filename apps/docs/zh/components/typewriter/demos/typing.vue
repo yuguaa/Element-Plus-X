@@ -32,7 +32,8 @@ function setContents(type: string) {
       content1.value =
         'typing 属性也可以是对象，来控制打每次打字吐字、每次打字间隔、和打字器后缀';
     }, 800);
-  } else if (type === 'markdown') {
+  }
+  else if (type === 'markdown') {
     markdownText.value = '';
     setTimeout(() => {
       markdownText.value = ` ### 🐒 is-markdown 和 typing 结合使用 \n 这是一个 Markdown 示例。\n - 列表项 1 \n - 列表项 2 **粗体文本** 和 *斜体文本* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` `;

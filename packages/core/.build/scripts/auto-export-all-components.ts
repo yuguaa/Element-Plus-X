@@ -22,8 +22,7 @@ async function generateAutoEntry() {
       const compPath = path.join(componentsDir, dir, 'index.vue');
       if (await fs.exists(compPath)) {
         const compName = dir.replace(/(^\w|-\w)/g, (m: string) =>
-          m.replace('-', '').toUpperCase()
-        );
+          m.replace('-', '').toUpperCase());
 
         components.push({
           name: compName,
@@ -76,10 +75,12 @@ async function generateAutoEntry() {
         `npx eslint --fix "${componentsFilePath}" "${indexFilePath}"`
       );
       console.log('✅ Files formatted with eslint');
-    } catch (error) {
+    }
+    catch (error) {
       console.warn('⚠️ Eslint formatting failed:', error);
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('❌ Error generating auto-entry files:', error);
     exit(1);
   }

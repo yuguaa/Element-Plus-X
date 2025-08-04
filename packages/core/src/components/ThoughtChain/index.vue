@@ -102,7 +102,8 @@ function setRadialGradient(
         width:2px;
         background: linear-gradient(to bottom, ${colors[index]} 0% , ${colors[index < length ? index + 1 : index]} 100%);`
         );
-      } else {
+      }
+      else {
         line.setAttribute('style', ``);
       }
     }
@@ -113,7 +114,8 @@ function getEle() {
   if (getLineColor.value && timelineRef.value && props.lineGradient) {
     const ele = timelineRef.value.$el.children[0].children;
     setRadialGradient(getLineColor.value, ele);
-  } else if (getLineColor.value && timelineRef.value && !props.lineGradient) {
+  }
+  else if (getLineColor.value && timelineRef.value && !props.lineGradient) {
     const ele = timelineRef.value.$el.children[0].children;
     setRadialGradient([], ele);
   }

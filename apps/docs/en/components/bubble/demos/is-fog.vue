@@ -20,7 +20,8 @@ function changeContent(type: number) {
   setTimeout(() => {
     if (type === 1) {
       content.value = `## 🔥Element-Plus-X \n 🥰 Thank you for using Element-Plus-X! \n - List item 1 \n - List item 2 **bold text** and *italic text* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` \n`;
-    } else if (type === 2) {
+    }
+    else if (type === 2) {
       content.value = `🔥Element-Plus-X `.repeat(10);
     }
   }, 80);

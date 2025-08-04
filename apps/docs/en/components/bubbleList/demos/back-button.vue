@@ -101,20 +101,18 @@ function generateFakeItems(count: number): listType[] {
         flex-direction: column;
       "
     >
-      <span
-        >Scrollbar display:
+      <span>Scrollbar display:
         <el-switch
           v-model="alwaysShowScrollbar"
           inactive-text="Show on hover"
           active-text="Always show"
-      /></span>
-      <span
-        >Bottom button loading state:
+        /></span>
+      <span>Bottom button loading state:
         <el-switch
           v-model="btnLoading"
           inactive-text="false"
           active-text="true"
-      /></span>
+        /></span>
       <span>Bottom button color: <el-color-picker v-model="btnColor" /></span>
 
       <span>Bottom button position</span>

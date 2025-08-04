@@ -112,6 +112,7 @@ app.mount('#app');
 <!-- This method is still under testing -->
 <!-- CDN Import -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
+
 ```
 
 ## 🌟 Implemented Components and Hooks

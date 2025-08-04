@@ -74,10 +74,8 @@ function onTrigger1(event: TriggerEvent) {
       title="💖 Welcome to Element-Plus-X"
       width="500"
     >
-      <span
-        >Trigger event has been executed, can be opening popover, opening
-        drawer, any event you need ~</span
-      >
+      <span>Trigger event has been executed, can be opening popover, opening
+        drawer, any event you need ~</span>
     </el-dialog>
   </div>
 </template>

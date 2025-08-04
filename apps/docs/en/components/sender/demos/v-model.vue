@@ -44,7 +44,8 @@ function handleSubmit(value: string) {
 
 function handleCancel() {
   senderLoading.value = false;
-  if (timeValue.value) clearTimeout(timeValue.value);
+  if (timeValue.value)
+    clearTimeout(timeValue.value);
   timeValue.value = null;
   ElMessage.info(`Cancel sending`);
 }

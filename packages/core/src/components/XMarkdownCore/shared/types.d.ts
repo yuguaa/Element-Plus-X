@@ -19,7 +19,7 @@ export type MarkdownProps = {
   viewCodeModalOptions?: ElxRunCodeOptions;
   mermaidConfig?: Partial<MermaidToolbarConfig>;
 } & Partial<Pick<InitShikiOptions, 'langs' | 'themes' | 'colorReplacements'>> &
-  Pick<
+Pick<
     TVueMarkdownProps,
     | 'markdown'
     | 'customAttrs'

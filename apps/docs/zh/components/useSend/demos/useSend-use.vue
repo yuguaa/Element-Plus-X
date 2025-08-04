@@ -69,11 +69,14 @@ function startFn() {
   if (type.value === 'voice') {
     // 在这里做一个 异步操作，可以是发请求
     ElMessage.success('自定义语音按钮，开始录音！');
-  } else if (type.value === 'sender') {
+  }
+  else if (type.value === 'sender') {
     ElMessage.success('自定义发送按钮，开始发送文本！');
-  } else if (type.value === 'read') {
+  }
+  else if (type.value === 'read') {
     ElMessage.success('自定义播放，开始播放啦！');
-  } else if (type.value === 'record') {
+  }
+  else if (type.value === 'record') {
     ElMessage.success('自定义录制，开始录制啦！');
   }
 }

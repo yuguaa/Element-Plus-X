@@ -76,7 +76,8 @@ const mergedConfig: ComputedRef<TypingConfig> = computed(() => {
 });
 // 修改内容处理逻辑
 const processedContent = computed(() => {
-  if (!props.content) return '';
+  if (!props.content)
+    return '';
 
   // 非打字模式直接渲染完整内容
   if (!props.typing) {
@@ -129,7 +130,8 @@ watch(
     if (shouldReset) {
       typingIndex.value = 0;
       contentCache.value = newVal || '';
-    } else {
+    }
+    else {
       contentCache.value = newVal || '';
     }
 
@@ -142,7 +144,8 @@ watch(
 
 function startTyping() {
   clearTimeout(timer!);
-  if (!props.typing || !contentCache.value) return;
+  if (!props.typing || !contentCache.value)
+    return;
 
   isTyping.value = true;
   emits('start', instance);

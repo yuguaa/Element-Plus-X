@@ -251,7 +251,7 @@ import 'self-markdown.css'
   <div style="display: flex; flex-direction: column; gap: 12px">
     <XMarkdown :markdown="markdown">
       <template #img="{ ...props }">
-        <img :key="props.key" :src="props.src" style="border-radius: 30px" />
+        <img :key="props.key" :src="props.src" style="border-radius: 30px">
       </template>
 
       <template #self-btn="{ ...props }">

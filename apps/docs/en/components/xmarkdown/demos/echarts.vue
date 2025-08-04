@@ -25,7 +25,8 @@ function parseEChartsOption(str: string): any {
 
     // Step 4: Parse the transformed string into JSON object
     return JSON.parse(cleanedStr);
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Failed to parse ECharts option:', error);
     return null;
   }
@@ -33,7 +34,8 @@ function parseEChartsOption(str: string): any {
 
 // 核心渲染逻辑（保留原始解析流程）
 function renderChart() {
-  if (!refEle.value) return;
+  if (!refEle.value)
+    return;
 
   try {
     // 解析JSON配置（保留原有逻辑）
@@ -44,7 +46,8 @@ function renderChart() {
       myChart = echarts.init(refEle.value, props.theme);
     }
     myChart.setOption(cleanedStr);
-  } catch (error) {
+  }
+  catch (error) {
     console.error('图表配置解析失败:', error);
   }
 }

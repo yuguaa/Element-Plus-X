@@ -32,7 +32,8 @@ function setContents(type: string) {
       content1.value =
         'typing attribute can also be an object to control how many characters to type each time, typing interval, and typewriter suffix';
     }, 800);
-  } else if (type === 'markdown') {
+  }
+  else if (type === 'markdown') {
     markdownText.value = '';
     setTimeout(() => {
       markdownText.value = ` ### 🐒 Combining is-markdown and typing \n This is a Markdown example.\n - List item 1 \n - List item 2 **bold text** and *italic text* \n \`\`\`javascript \n console.log('Hello, world!'); \n \`\`\` `;

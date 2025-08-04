@@ -35,10 +35,18 @@ function handleSubmit(value: string) {
 <template>
   <div style="display: flex; flex-direction: column; gap: 12px">
     <el-radio-group v-model="activeName">
-      <el-radio-button value="enter"> enter </el-radio-button>
-      <el-radio-button value="shiftEnter"> shiftEnter </el-radio-button>
-      <el-radio-button value="cmdOrCtrlEnter"> cmdOrCtrlEnter </el-radio-button>
-      <el-radio-button value="altEnter"> altEnter </el-radio-button>
+      <el-radio-button value="enter">
+        enter
+      </el-radio-button>
+      <el-radio-button value="shiftEnter">
+        shiftEnter
+      </el-radio-button>
+      <el-radio-button value="cmdOrCtrlEnter">
+        cmdOrCtrlEnter
+      </el-radio-button>
+      <el-radio-button value="altEnter">
+        altEnter
+      </el-radio-button>
     </el-radio-group>
     <MentionSender
       v-model="senderValue"

@@ -36,7 +36,8 @@ function handleSearch(searchValue: string, prefix: string) {
     // So we need to check if it contains the input content
     if (searchValue) {
       return option.value.includes(searchValue);
-    } else {
+    }
+    else {
       // If there's no input content, show all options
       return option;
     }

@@ -31,7 +31,8 @@ function filterFunc(_: string, option: MentionOption): any {
   // 这里打印 option 每次触发指令，会遍历 options 触发 filterFunc。
   if (option.value === 'ageerle' || option.value === 'JsonLee12138') {
     return true;
-  } else if (option.value === 'HeJiaYue520') {
+  }
+  else if (option.value === 'HeJiaYue520') {
     return false;
   }
 }

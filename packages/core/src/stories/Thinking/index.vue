@@ -59,7 +59,8 @@ function handleDataChunk(chunk: string) {
         bubbleItems.value[bubbleItems.value.length - 1].content += parsedChunk;
       }
     }
-  } catch (err) {
+  }
+  catch (err) {
     console.error('解析数据时出错:', err);
   }
 }
@@ -113,7 +114,8 @@ async function startSSE() {
     // 重置状态
     processedIndex.value = 0;
     await startStream({ readableStream });
-  } catch (err) {
+  }
+  catch (err) {
     handleError(err);
   }
 }
@@ -198,7 +200,9 @@ function handleChange(payload: { value: boolean; status: ThinkingStatus }) {
               <span v-if="status === 'error'">想不出来 🥵</span>
             </template>
 
-            <template #arrow> 👇 </template>
+            <template #arrow>
+              👇
+            </template>
 
             <template #error>
               <span class="error-color">思考报错</span>

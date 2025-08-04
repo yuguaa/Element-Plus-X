@@ -30,6 +30,7 @@ yarn add vue-element-plus-x --save
 <!-- This method needs testing -->
 <!-- CDN Import -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
+
 ```
 
 #### **III. Verify Installation**

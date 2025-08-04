@@ -40,7 +40,8 @@ export function useAttachmentStubs(initValue: SelfFilesCardProps[] = []) {
   }
   function handleUploadDrop(dropped: File[], props: FileListProps) {
     console.log(dropped, props);
-    if (!dropped.length) return;
+    if (!dropped.length)
+      return;
     if (dropped[0].type === '') {
       ElMessage.error('禁止上传文件夹！');
       return false;
