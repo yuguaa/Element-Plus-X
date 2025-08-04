@@ -19,6 +19,7 @@ export default defineConfig({
   // 全局主题配置（会被 locales 中的配置覆盖）
   themeConfig: {
     logo: '/logo.png',
+    logoLink: 'https://element-plus-x.com/zh/',
     socialLinks: [
       { icon: 'github', link: 'https://github.com/HeJiaYue520/Element-Plus-X' },
       {
