@@ -7,7 +7,13 @@ import { sponsors } from './reviews';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const toBeSponsor = ref<string>('https://chat.element-plus-x.com/chat');
+const toBeSponsorUrl = ref<string>('https://chat.element-plus-x.com/chat');
+
+function toBeSponsor() {
+  ElMessage.warning('暂不开放');
+  return;
+  window.open(toBeSponsorUrl.value, '_blank');
+}
 
 onMounted(() => {
   scrollTriggerAnimation();
@@ -109,10 +115,9 @@ function scrollTriggerAnimation() {
               {{ sponsor.company }}
             </div>
           </a>
-          <a
-            :href="toBeSponsor"
-            target="_blank"
+          <div
             class="background-scale banner-cta no-underline sponsor-compact flex flex-col items-center gap-2 p-4 bg-white/5 border border-white/10 rounded-3 transition-all duration-300 cursor-pointer"
+            @click="toBeSponsor"
           >
             <div
               class="sponsor-avatar text-3xl w-12.5 h-12.5 flex-center rounded-full border border-white/20"
@@ -126,7 +131,7 @@ function scrollTriggerAnimation() {
             >
               成为赞助商
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>

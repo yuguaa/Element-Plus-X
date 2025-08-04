@@ -13,11 +13,15 @@ function checkScreenSize() {
 onMounted(() => {
   checkScreenSize();
   window.addEventListener('resize', checkScreenSize);
+
+  return () => {
+    window.removeEventListener('resize', checkScreenSize);
+  };
 });
 
-onUnmounted(() => {
-  window.removeEventListener('resize', checkScreenSize);
-});
+// onUnmounted(() => {
+//   window.removeEventListener('resize', checkScreenSize);
+// });
 
 // 为每张张张图片设置独特的阴影参数
 const chatImgs = ref([
@@ -111,7 +115,11 @@ const chatImgs = ref([
           }"
         >
           <div class="img-wrapper">
-            <img :src="img.src" class="chat-img" :alt="`聊天图片 ${img.id}`" />
+            <img
+              :src="img.src"
+              class="chat-project-img"
+              :alt="`聊天图片 ${img.id}`"
+            />
             <div class="glow-shadow" />
           </div>
         </div>
@@ -202,7 +210,7 @@ const chatImgs = ref([
   transform: translateY(-8px) scale(1.02);
 }
 
-.chat-img {
+.chat-project-img {
   width: 100%;
   object-fit: cover;
   border-radius: 30px;
@@ -213,7 +221,7 @@ const chatImgs = ref([
   box-shadow: 0 5px 20px rgba(0, 30, 60, 0.3);
 }
 
-.product-display-area.mobile-layout .chat-img {
+.product-display-area.mobile-layout .chat-project-img {
   width: calc(100% - 20px);
   margin: 0 auto;
 }

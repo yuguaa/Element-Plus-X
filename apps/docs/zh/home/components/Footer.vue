@@ -40,7 +40,7 @@ const siteList = ref([
         icon: '/sq/qq.png',
         name: 'QQ频道',
         subName: '二维码',
-        url: 'https://pro.ant.design'
+        url: 'https://element-plus-x.com/introduce.html'
       },
       {
         icon: '/sq/bsky.png',

@@ -89,7 +89,7 @@ async function copyInstallCommand() {
 
 // 页面跳转
 function handleClick() {
-  location.href = '/zh/components/bubbleList';
+  location.href = '/zh/components/XMarkdown';
 }
 
 // 在线预览

@@ -14,6 +14,6 @@ import { useRouter } from 'vitepress'
 const router = useRouter()
 
 onBeforeMount(() => {
-  router.go('/en/')
+  router.go('/zh/')
 })
 </script>
