@@ -89,7 +89,7 @@ async function copyInstallCommand() {
 
 // 页面跳转
 function handleClick() {
-  location.href = '/zh/components/XMarkdown';
+  location.href = '/zh/components/xmarkdown/';
 }
 
 // 在线预览

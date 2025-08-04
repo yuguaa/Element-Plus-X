@@ -17,10 +17,14 @@ import {
     <HeroSection />
 
     <!-- 赞助与支持区域 -->
-    <SupportSection class="mt-[-100px]" />
+    <div class="mt-[-100px]">
+      <SupportSection />
+    </div>
 
     <!-- 特性区域 -->
-    <FeaturesSection class="mt-[500px]" />
+    <div class="mt-[500px]">
+      <FeaturesSection />
+    </div>
 
     <!-- 产品展示区域 -->
     <ProductDisplayArea />
