@@ -34,21 +34,16 @@ function redo() {
   }
   start();
 }
+
 onMounted(() => {
   start();
 });
 </script>
 
 <template>
-  <el-button @click="start">
-    开始
-  </el-button>
-  <el-button @click="pause">
-    暂停
-  </el-button>
-  <el-button @click="redo">
-    重新开始
-  </el-button>
+  <el-button @click="start"> 开始 </el-button>
+  <el-button @click="pause"> 暂停 </el-button>
+  <el-button @click="redo"> 重新开始 </el-button>
   <div class="component-container">
     <!-- <MarkdownRenderer v-bind="$attrs" :markdown="content" /> -->
     <ConfigProvider>

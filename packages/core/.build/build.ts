@@ -47,10 +47,9 @@ const buildConfig: BuildEnvironmentOptions = {
   rollupOptions: {
     // 确保外部化处理那些你不想打包进库的依赖
     external: [
-      'vue',
-      'vue/jsx-runtime',
-      'element-plus',
-      '@element-plus/icons-vue'
+      'vue', // Vue 3 核心库
+      'vue/jsx-runtime', // Vue JSX 运行时
+      '@element-plus/icons-vue' // Element Plus 图标库
     ],
     output: {
       // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量

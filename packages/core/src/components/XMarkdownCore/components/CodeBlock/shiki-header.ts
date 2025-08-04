@@ -1,4 +1,5 @@
 import type { Component, Ref, VNode } from 'vue';
+import type { MermaidExposeProps } from '../Mermaid/types';
 import type {
   ElxRunCodeCloseBtnExposeProps,
   ElxRunCodeContentExposeProps,
@@ -85,6 +86,12 @@ export type ViewCodeContentRender =
   ComponentRenderer<ElxRunCodeContentExposeProps>;
 export type ViewCodeContentFunctionRender =
   ComponentFunctionRenderer<ElxRunCodeContentExposeProps>;
+/**
+ * @description Mermaid头部插槽渲染器
+ */
+export type MermaidHeaderControlRender = ComponentRenderer<MermaidExposeProps>;
+export type MermaidHeaderControlFunctionRender =
+  ComponentFunctionRenderer<MermaidExposeProps>;
 
 export interface CodeBlockHeaderExpose {
   /**
@@ -112,6 +119,10 @@ export interface CodeBlockHeaderExpose {
    * 代码块查看代码弹窗的代码内容插槽
    */
   viewCodeContent?: ViewCodeContentRender;
+  /**
+   * 代码块mermaid头部插槽
+   */
+  codeMermaidHeaderControl?: MermaidHeaderControlRender;
 }
 
 export interface CodeBlockHeaderFunctionExpose {
@@ -140,6 +151,10 @@ export interface CodeBlockHeaderFunctionExpose {
    * 代码块查看代码弹窗的代码内容插槽
    */
   viewCodeContent?: ViewCodeContentFunctionRender;
+  /**
+   * 代码块mermaid头部插槽
+   */
+  codeMermaidHeaderControl?: MermaidHeaderControlFunctionRender;
 }
 
 let copyCodeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -336,8 +351,7 @@ async function copy(v: string) {
     if (!success) {
       throw new Error('复制失败，请检查浏览器权限');
     }
-  }
-  catch (err) {
+  } catch (err) {
     throw new Error(
       `复制失败: ${err instanceof Error ? err.message : String(err)}`
     );
@@ -380,8 +394,7 @@ let isToggling = false;
  * @param ev
  */
 export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
-  if (isToggling)
-    return { isExpand: false }; // 防抖保护
+  if (isToggling) return { isExpand: false }; // 防抖保护
   isToggling = true;
 
   const ele = ev.currentTarget as HTMLElement;
@@ -395,8 +408,7 @@ export function toggleExpand(ev: MouseEvent): { isExpand: boolean } {
     if (preMd.classList.contains('is-expanded')) {
       collapse(preMd);
       return { isExpand: false };
-    }
-    else {
+    } else {
       expand(preMd);
       return { isExpand: true };
     }
@@ -418,8 +430,7 @@ export function toggleTheme() {
   isDark.value = theme === 'dark';
   if (isDark.value) {
     document.body.classList.add('dark');
-  }
-  else {
+  } else {
     document.body.classList.remove('dark');
   }
   return isDark.value;
@@ -439,8 +450,7 @@ export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
     isDark.value = defaultThemeMode === 'dark';
     if (defaultThemeMode === 'dark') {
       document.body.classList.add('dark');
-    }
-    else {
+    } else {
       document.body.classList.remove('dark');
     }
   }
@@ -456,14 +466,12 @@ export function initThemeMode(defaultThemeMode: 'light' | 'dark') {
  */
 export function copyCode(codeText: string | string[]) {
   try {
-    if (copyCodeTimer)
-      return false; // 阻止重复点击
+    if (copyCodeTimer) return false; // 阻止重复点击
 
     if (Array.isArray(codeText)) {
       const code = extractCodeFromHtmlLines(codeText);
       copy(code);
-    }
-    else {
+    } else {
       copy(codeText);
     }
 
@@ -472,8 +480,7 @@ export function copyCode(codeText: string | string[]) {
     }, 800);
 
     return true;
-  }
-  catch (error) {
+  } catch (error) {
     console.log('🚀 ~ copyCode ~ error:', error);
     return false;
   }

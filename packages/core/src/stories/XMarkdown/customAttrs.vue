@@ -40,18 +40,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <el-button @click="start">
-    开始
-  </el-button>
-  <el-button @click="pause">
-    暂停
-  </el-button>
-  <el-button @click="redo">
-    重新开始
-  </el-button>
+  <el-button @click="start"> 开始 </el-button>
+  <el-button @click="pause"> 暂停 </el-button>
+  <el-button @click="redo"> 重新开始 </el-button>
   <div class="component-container">
     <h4>自定义属性</h4>
-    <XMarkdown v-bind="$attrs" :markdown="content" />
+    <XMarkdown v-bind="$attrs" :markdown="content" :allow-html="true" />
   </div>
 </template>
 

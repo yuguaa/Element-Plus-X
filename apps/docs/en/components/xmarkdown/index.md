@@ -142,8 +142,7 @@ function parseEChartsOption(str: string): any {
     cleanedStr = cleanedStr.replace(/'/g, '"');
     cleanedStr = cleanedStr.replace(/(\w+)\s*:/g, '"$1":');
     return JSON.parse(cleanedStr);
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Failed to parse ECharts option:', error);
     return null;
   }
@@ -151,8 +150,7 @@ function parseEChartsOption(str: string): any {
 
 // Core rendering logic (keep original parsing process)
 function renderChart() {
-  if (!refEle.value)
-    return;
+  if (!refEle.value) return;
 
   try {
     // Parse JSON configuration (keep original logic)
@@ -163,8 +161,7 @@ function renderChart() {
       myChart = echarts.init(refEle.value, props.theme);
     }
     myChart.setOption(cleanedStr);
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Chart configuration parsing failed:', error);
   }
 }
@@ -261,7 +258,7 @@ If you just want to modify the content of our built-in code block top, you can u
 | Property Name   | Type   | Required | Default  | Description                          |
 | --------------- | ------ | -------- | -------- | ------------------------------------ |
 | `markdown`      | string | Yes      | ''       | markdown content                     |
-| `allowHtml`     | bool   | No       | `true`   | Whether to render html               |
+| `allowHtml`     | bool   | No       | `false`  | Whether to render html               |
 | `enableLatex`   | bool   | No       | `true`   | Whether to render latex              |
 | `enableBreaks`  | bool   | No       | `true`   | Whether to render breaks             |
 | `codeXRender`   | Object | No       | `()=>{}` | Custom code block rendering          |

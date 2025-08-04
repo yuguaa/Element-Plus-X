@@ -1,4 +1,4 @@
-import type { ThemeRegistrationResolved } from 'shiki';
+import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import type { InitShikiOptions } from '../../shared';
 import type { ElxRunCodeOptions } from '../RunCode/type';
 
@@ -41,8 +41,6 @@ export interface MarkdownContext {
   defaultThemeMode?: 'light' | 'dark';
   // 是否是暗黑模式(代码高亮块)
   isDarkMode?: boolean;
-  // 代码高亮主题颜色的配置
-  themeColors?: ThemeRegistrationResolved;
   // 自定义当前主题下的代码颜色配置
   colorReplacements?: InitShikiOptions['colorReplacements'];
   // 是否显示查看代码按钮
@@ -51,4 +49,6 @@ export interface MarkdownContext {
   secureViewCode?: boolean;
   // 预览代码弹窗部分配置
   viewCodeModalOptions?: ElxRunCodeOptions;
+  // 全局shiki
+  globalShiki?: GlobalShiki;
 }

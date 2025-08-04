@@ -1,3 +1,4 @@
+import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
@@ -12,7 +13,7 @@ export const shikiThemeDefault: InitShikiOptions['themes'] = {
 
 export const DEFAULT_PROPS = {
   markdown: '',
-  allowHtml: true,
+  allowHtml: false,
   enableLatex: true,
   enableBreaks: true,
   enableCodeLineNumber: false,
@@ -44,7 +45,7 @@ export const MARKDOWN_CORE_PROPS = {
   },
   allowHtml: {
     type: Boolean,
-    default: true
+    default: false
   },
   enableCodeLineNumber: {
     type: Boolean,
@@ -135,6 +136,14 @@ export const MARKDOWN_CORE_PROPS = {
   },
   viewCodeModalOptions: {
     type: Object as PropType<ElxRunCodeOptions>,
+    default: () => ({})
+  },
+  isDark: {
+    type: Boolean,
+    default: false
+  },
+  globalShiki: {
+    type: Object as PropType<GlobalShiki>,
     default: () => ({})
   }
 };

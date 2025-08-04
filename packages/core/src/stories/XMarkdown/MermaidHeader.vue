@@ -1,35 +1,16 @@
 <script setup lang="ts">
+import type { MermaidExposeProps } from '@components/XMarkdownCore/components/Mermaid/types';
 import { ElMessage } from 'element-plus';
 // 定义组件接收的 props，这些是从 Mermaid 组件暴露的方法和状态
-// const props = defineProps<{
-//   // 暴露的方法
-//   zoomIn: () => void;
-//   zoomOut: () => void;
-//   reset: () => void;
-//   fullscreen: () => void;
-//   toggleCode: () => void;
-//   copyCode: () => void;
-//   download: () => void;
-
-//   // 暴露的状态
-//   showSourceCode: boolean;
-//   svg?: string;
-//   rawContent?: string;
-//   toolbarConfig?: any;
-// }>();
-
-const attrs = useAttrs();
-
-console.log('attrs', attrs);
+const props = defineProps<MermaidExposeProps>();
 
 // 🎯 用户自定义复制逻辑演示
 async function handleCustomCopy() {
   try {
-    const customContent = `🧩 组件插槽自定义：\n\n${attrs.rawContent}\n\n✨ 使用 Element Plus X 组件`;
+    const customContent = `🧩 组件插槽自定义：\n\n${props.rawContent}\n\n✨ 使用 Element Plus X 组件`;
     await navigator.clipboard.writeText(customContent);
     ElMessage.success('🎉 组件插槽自定义复制成功！');
-  }
-  catch (err) {
+  } catch (err) {
     console.error('❌ 自定义复制失败:', err);
   }
 }
@@ -41,7 +22,7 @@ async function handleCustomCopy() {
       <span class="icon">🧩</span>
       <span class="title">组件插槽</span>
       <span class="mode-badge">
-        {{ $attrs.showSourceCode ? '📝 源码' : '📊 图表' }}
+        {{ props.showSourceCode ? '📝 源码' : '📊 图表' }}
       </span>
     </div>
 
@@ -51,7 +32,7 @@ async function handleCustomCopy() {
           class="header-btn zoom-btn"
           size="small"
           type="primary"
-          @click="$attrs.zoomIn"
+          @click="props.zoomIn"
         >
           🔍
         </el-button>
@@ -62,7 +43,7 @@ async function handleCustomCopy() {
           class="header-btn zoom-btn"
           size="small"
           type="primary"
-          @click="$attrs.zoomOut"
+          @click="props.zoomOut"
         >
           🔍-
         </el-button>
@@ -73,7 +54,7 @@ async function handleCustomCopy() {
           class="header-btn reset-btn"
           size="small"
           type="warning"
-          @click="$attrs.reset"
+          @click="props.reset"
         >
           🔄
         </el-button>
@@ -84,9 +65,9 @@ async function handleCustomCopy() {
           class="header-btn toggle-btn"
           size="small"
           type="info"
-          @click="$attrs.toggleCode"
+          @click="props.toggleCode"
         >
-          {{ $attrs.showSourceCode ? '👁️' : '📝' }}
+          {{ props.showSourceCode ? '👁️' : '📝' }}
         </el-button>
       </el-tooltip>
 
@@ -106,7 +87,7 @@ async function handleCustomCopy() {
           class="header-btn download-btn"
           size="small"
           type="success"
-          @click="$attrs.download"
+          @click="props.download"
         >
           💾
         </el-button>

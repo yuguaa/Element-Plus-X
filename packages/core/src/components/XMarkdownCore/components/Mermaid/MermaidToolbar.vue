@@ -11,6 +11,12 @@ import {
 } from '@element-plus/icons-vue';
 import { computed, ref } from 'vue';
 
+interface MermaidToolbarInternalProps {
+  toolbarConfig?: MermaidToolbarConfig;
+  isSourceCodeMode?: boolean;
+  sourceCode?: string;
+}
+
 const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
   toolbarConfig: () => ({}),
   isSourceCodeMode: false,
@@ -18,12 +24,6 @@ const props = withDefaults(defineProps<MermaidToolbarInternalProps>(), {
 });
 
 const emit = defineEmits<MermaidToolbarEmits>();
-
-interface MermaidToolbarInternalProps {
-  toolbarConfig?: MermaidToolbarConfig;
-  isSourceCodeMode?: boolean;
-  sourceCode?: string;
-}
 
 // 复制成功状态
 const isCopySuccess = ref(false);
@@ -34,8 +34,7 @@ const activeTab = computed({
   set: (value: string) => {
     if (value === 'code' && !props.isSourceCodeMode) {
       handleToggleCode();
-    }
-    else if (value === 'diagram' && props.isSourceCodeMode) {
+    } else if (value === 'diagram' && props.isSourceCodeMode) {
       handleToggleCode();
     }
   }
@@ -72,8 +71,7 @@ const iconColorStyle = computed(() => {
   // 设置hover背景色
   if (config.value.hoverBackgroundColor) {
     style['--custom-hover-bg'] = config.value.hoverBackgroundColor;
-  }
-  else if (config.value.iconColor) {
+  } else if (config.value.iconColor) {
     // 如果设置了图标颜色但没有设置hover背景色，使用稍暗的背景
     style['--custom-hover-bg'] = 'rgba(0, 0, 0, 0.1)';
   }
@@ -92,8 +90,7 @@ const tabTextColorStyle = computed(() => {
   // 设置tab激活状态背景色
   if (config.value.tabActiveBackgroundColor) {
     style['--tab-active-bg'] = config.value.tabActiveBackgroundColor;
-  }
-  else if (config.value.tabTextColor) {
+  } else if (config.value.tabTextColor) {
     // 如果设置了文字颜色但没有设置激活背景色，使用稍暗的背景
     style['--tab-active-bg'] = 'rgba(0, 0, 0, 0.1)';
   }
@@ -157,8 +154,7 @@ async function handleCopyCode(event: Event) {
     // 使用现代剪贴板 API
     if (navigator.clipboard && window.isSecureContext) {
       await navigator.clipboard.writeText(props.sourceCode);
-    }
-    else {
+    } else {
       // 降级方案：使用传统方法
       const textArea = document.createElement('textarea');
       textArea.value = props.sourceCode;
@@ -180,8 +176,7 @@ async function handleCopyCode(event: Event) {
     }, 1500);
 
     emit('onCopyCode');
-  }
-  catch (err) {
+  } catch (err) {
     console.error('Failed to copy code: ', err);
     // 如果复制失败，也通知父组件，让父组件决定如何处理
     emit('onCopyCode');
@@ -322,7 +317,6 @@ function handleTabClickEvent(pane: TabClickEvent) {
   border-radius: 3px 3px 0 0;
   padding: 0 12px;
   pointer-events: auto;
-  user-select: none !important;
   position: relative;
   z-index: 10;
 

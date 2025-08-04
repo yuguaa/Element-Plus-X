@@ -142,8 +142,7 @@ function parseEChartsOption(str: string): any {
     cleanedStr = cleanedStr.replace(/'/g, '"');
     cleanedStr = cleanedStr.replace(/(\w+)\s*:/g, '"$1":');
     return JSON.parse(cleanedStr);
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Failed to parse ECharts option:', error);
     return null;
   }
@@ -151,8 +150,7 @@ function parseEChartsOption(str: string): any {
 
 // 核心渲染逻辑（保留原始解析流程）
 function renderChart() {
-  if (!refEle.value)
-    return;
+  if (!refEle.value) return;
 
   try {
     // 解析JSON配置（保留原有逻辑）
@@ -163,8 +161,7 @@ function renderChart() {
       myChart = echarts.init(refEle.value, props.theme);
     }
     myChart.setOption(cleanedStr);
-  }
-  catch (error) {
+  } catch (error) {
     console.error('图表配置解析失败:', error);
   }
 }
@@ -261,7 +258,7 @@ onUnmounted(() => {
 | 属性名          | 类型   | 是否必填 | 默认值   | 描述                     |
 | --------------- | ------ | -------- | -------- | ------------------------ |
 | `markdown`      | string | 是       | ''       | markdown 内容            |
-| `allowHtml`     | bool   | 否       | `true`   | 是否渲染 html            |
+| `allowHtml`     | bool   | 否       | `false`  | 是否渲染 html            |
 | `enableLatex`   | bool   | 否       | `true`   | 是否渲染 latex           |
 | `enableBreaks`  | bool   | 否       | `true`   | 是否渲染 breaks          |
 | `codeXRender`   | Object | 否       | `()=>{}` | 自定义代码块渲染         |

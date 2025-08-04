@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import type { MdComponent } from '../types';
-import type { MermaidToolbarConfig } from './types';
-import { MERMAID_CACHE_KEY_LENGTH } from '@components/XMarkdownCore/shared';
-import mermaid from 'mermaid';
+import type { MermaidExposeProps, MermaidToolbarConfig } from './types';
 import { debounce } from 'radash';
-import useSWRV from 'swrv';
-import { Md5 } from 'ts-md5';
 import { computed, nextTick, ref, toValue, watch } from 'vue';
-import { useMermaidZoom } from '../../hooks';
+import { useMermaid, useMermaidZoom } from '../../hooks';
 import { useMarkdownContext } from '../MarkdownProvider';
 import { copyToClipboard, downloadSvgAsPng } from './composables';
 import MermaidToolbar from './MermaidToolbar.vue';
@@ -20,19 +16,18 @@ const props = withDefaults(defineProps<MermaidProps>(), {
   raw: () => ({}),
   toolbarConfig: () => ({})
 });
-// should provide a element with class `elx-markdown-mermaid-container` for mermaid to render?
-let merMaindContainer = document.querySelector(
-  '.elx-markdown-mermaid-container'
-) as HTMLElement;
-if (!merMaindContainer) {
-  merMaindContainer = document.createElement('div') as HTMLElement;
-  merMaindContainer.ariaHidden = 'true';
-  merMaindContainer.style.maxHeight = '0';
-  merMaindContainer.style.opacity = '0';
-  merMaindContainer.style.overflow = 'hidden';
-  merMaindContainer.classList.add('elx-markdown-mermaid-container');
-  document.body.append(merMaindContainer);
-}
+
+const mermaidContent = computed(() => props.raw?.content || '');
+const mermaidResult = useMermaid(mermaidContent, {
+  id: `mermaid-${props.raw?.key || 'default'}`
+});
+
+// 使用独立的 ref 存储 SVG 内容，避免闪烁
+const svg = ref('');
+const isLoading = computed(
+  () => !mermaidResult.data.value && !mermaidResult.error.value
+);
+
 // 获取插槽上下文
 const context = useMarkdownContext();
 const { codeXSlot } = toValue(context);
@@ -51,7 +46,6 @@ const toolbarConfig = computed(() => {
   };
 });
 
-const svg = ref('');
 const containerRef = ref<HTMLElement | null>(null);
 const showSourceCode = ref(false);
 
@@ -62,51 +56,19 @@ const zoomControls = useMermaidZoom({
   minScale: 0.1,
   maxScale: 5
 });
-const cacheKey = computed(() => {
-  const content = props.raw?.content ?? '';
-  return content.length > MERMAID_CACHE_KEY_LENGTH
-    ? `mermaid-${Md5.hashStr(content)}`
-    : `mermaid-${content}`;
-});
-const { data: cachedSvg } = useSWRV<string>(
-  cacheKey,
-  async () => {
-    try {
-      const valid = await mermaid.parse(props.raw.content);
-      if (valid) {
-        mermaid.initialize({
-          suppressErrorRendering: true,
-          startOnLoad: false,
-          securityLevel: 'loose'
-        });
-        const key = `mermaid-${Math.random().toString(36).substr(2, 9)}`;
-        const { svg } = await mermaid.render(
-          key,
-          props.raw.content,
-          merMaindContainer
-        );
-        return svg;
-      }
+
+const debouncedInitialize = debounce({ delay: 500 }, onContentTransitionEnter);
+watch(
+  () => mermaidResult.data.value,
+  newSvg => {
+    if (newSvg) {
+      svg.value = newSvg;
+      debouncedInitialize();
     }
-    catch (error) {
-      console.log('Mermaid parse error:', error);
-    }
-    return '';
-  },
-  {
-    dedupingInterval: 3000,
-    errorRetryCount: 2,
-    revalidateOnFocus: false,
-    revalidateDebounce: 300
   }
 );
-
-// 使用 radash 防抖函数，确保只在最后一次更新后初始化
-const debouncedInitialize = debounce({ delay: 500 }, onContentTransitionEnter);
-
-watch(cachedSvg, newSvg => {
+watch(svg, newSvg => {
   if (newSvg) {
-    svg.value = newSvg as string;
     debouncedInitialize();
   }
 });
@@ -172,6 +134,7 @@ const exposedMethods = computed(() => {
     svg: svg.value,
     rawContent: props.raw.content || '',
     toolbarConfig: toolbarConfig.value,
+    isLoading: isLoading.value,
 
     // 缩放控制方法
     zoomIn: handleZoomIn,
@@ -186,19 +149,12 @@ const exposedMethods = computed(() => {
 
     // 原始 props（除了重复的 toolbarConfig）
     raw: props.raw
-  };
+  } satisfies MermaidExposeProps;
 });
 </script>
 
 <template>
-  <div
-    ref="containerRef"
-    :key="props.raw.key"
-    class="markdown-mermaid unselectable"
-    unselectable="on"
-    onselectstart="return false"
-    ondragstart="return false"
-  >
+  <div ref="containerRef" :key="props.raw.key" class="markdown-mermaid">
     <!-- 工具栏 -->
     <Transition name="toolbar" appear>
       <div class="toolbar-container">
@@ -239,8 +195,8 @@ const exposedMethods = computed(() => {
       @after-enter="onContentTransitionEnter"
     >
       <pre v-if="showSourceCode" key="source" class="mermaid-source-code">
-    {{ props.raw.content }}
-  </pre>
+        {{ props.raw.content }}
+      </pre>
       <div v-else class="mermaid-content" v-html="svg" />
     </Transition>
   </div>

@@ -56,3 +56,25 @@ export interface MermaidExposedMethods {
   toolbarConfig: import('vue').ComputedRef<MermaidToolbarConfig>;
   rawContent: string;
 }
+
+export interface MermaidExposeProps {
+  showSourceCode: boolean;
+  svg: string;
+  rawContent: any;
+  toolbarConfig: MermaidToolbarConfig;
+  isLoading: boolean;
+
+  // 缩放控制方法
+  zoomIn: () => void;
+  zoomOut: () => void;
+  reset: () => void;
+  fullscreen: () => void;
+
+  // 其他操作方法
+  toggleCode: () => void;
+  copyCode: () => Promise<void>;
+  download: () => void;
+
+  // 原始 props（除了重复的 toolbarConfig）
+  raw: any;
+}
