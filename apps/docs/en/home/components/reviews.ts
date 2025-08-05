@@ -197,6 +197,17 @@ export const reviews: Review[] = [
     userInfoUrl: 'https://github.com/worryzyy',
     date: '2025-08-05',
     likes: 42
+  },
+  {
+    id: 14,
+    name: 'tydumpling',
+    avatar: 'https://avatars.githubusercontent.com/u/113790204?s=64&v=4',
+    company: '中科星图',
+    content: 'Element-Plus-X是帮助个人和团队开发AI相关项目组件库的首选组件库,模板项目也很有参考性',
+    role: '前端工程师',
+    userInfoUrl: 'https://github.com/tydumpling',
+    date: '2025-08-05',
+    likes: 42
   }
 ];
 
