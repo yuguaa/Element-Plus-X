@@ -1,7 +1,7 @@
 <script setup lang="ts">
-// import { Loading, Warning } from '@element-plus/icons-vue';
-// import { ref } from 'vue';
 import _repo_contributors from 'element-plus-x-metadata/dist/component-contributors.json';
+// import { Loading, Warning } from '@element-plus/icons-vue';
+import { ref } from 'vue';
 
 interface RepoContributor {
   login: string;
@@ -11,6 +11,8 @@ interface RepoContributor {
 }
 
 const repo = 'Element-Plus-X';
+
+const targetElement = ref();
 
 const contributors: RepoContributor[] = _repo_contributors[
   repo as keyof typeof _repo_contributors
@@ -23,6 +25,10 @@ function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   img.src = `https://ui-avatars.com/api/?name=${img.alt}&background=6366f1&color=fff&size=64`;
 }
+
+onMounted(() => {
+  targetElement.value = '.contributor-item-wrap';
+});
 </script>
 
 <template>
@@ -95,7 +101,7 @@ function handleImageError(event: Event) {
           </p>
 
           <div
-            v-if="contributors.length > 0"
+            v-show="contributors.length > 0"
             class="inline-flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-full backdrop-blur-sm"
           >
             <span
@@ -108,8 +114,8 @@ function handleImageError(event: Event) {
 
         <!-- 贡献者网格 -->
         <div
-          v-if="contributors.length > 0"
-          class="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-6 mb-16 max-w-4xl mx-auto"
+          v-show="contributors.length > 0"
+          class="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-6 mb-16 max-w-4xl mx-auto contributor-item-wrap"
         >
           <div
             v-for="(contributor, index) in contributors"
@@ -118,10 +124,12 @@ function handleImageError(event: Event) {
             :style="{ animationDelay: `${index * 0.05}s` }"
           >
             <el-tooltip
+              :key="contributor.login"
               :content="`${contributor.login} - ${contributor.contributions} 次贡献`"
               placement="top"
               effect="dark"
               :show-after="300"
+              :append-to="targetElement"
             >
               <a
                 :href="contributor.html_url"
@@ -140,9 +148,9 @@ function handleImageError(event: Event) {
                   <div
                     class="avatar-overlay absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-2xl px-2 py-1 text-xs font-semibold opacity-0 transition-all duration-300 border-2 border-white/20 hover:opacity-100 hover:-translate-y-1"
                   >
-                    <span class="whitespace-nowrap">{{
-                      contributor.contributions
-                    }}</span>
+                    <span class="whitespace-nowrap">
+                      {{ contributor.contributions }}
+                    </span>
                   </div>
                 </div>
               </a>
@@ -195,6 +203,7 @@ function handleImageError(event: Event) {
   100% {
     transform: translate(0, 0) scale(1);
   }
+
   50% {
     transform: translate(30px, -30px) scale(1.1);
   }
@@ -214,6 +223,7 @@ function handleImageError(event: Event) {
   0% {
     transform: translate(0, 0);
   }
+
   100% {
     transform: translate(60px, 60px);
   }
@@ -225,6 +235,7 @@ function handleImageError(event: Event) {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -240,6 +251,7 @@ function handleImageError(event: Event) {
   100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }

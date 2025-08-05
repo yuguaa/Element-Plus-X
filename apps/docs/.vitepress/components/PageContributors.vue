@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import _contributors from 'element-plus-x-metadata/dist/component-contributors.json';
 import { useData } from 'vitepress';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 interface Contributor {
   login: string;
@@ -9,6 +9,7 @@ interface Contributor {
   html_url: string;
 }
 
+const targetElement = ref();
 const { page, lang } = useData();
 const contributorTitle = computed(() => {
   return lang.value === 'zh-CN' ? '贡献者' : 'Contributors';
@@ -33,10 +34,17 @@ function handleImageError(event: Event) {
   const img = event.target as HTMLImageElement;
   img.src = `https://ui-avatars.com/api/?name=${img.alt}&background=6366f1&color=fff&size=64`;
 }
+
+onMounted(() => {
+  targetElement.value = '.page-contributors';
+});
 </script>
 
 <template>
-  <div v-if="isComponentPage && contributors.length">
+  <div
+    v-show="isComponentPage && contributors.length"
+    class="page-contributors"
+  >
     <div class="page-contributors-title">
       {{ contributorTitle }}
     </div>
@@ -48,7 +56,12 @@ function handleImageError(event: Event) {
         :href="contributor.html_url"
         target="_blank"
       >
-        <el-tooltip :content="contributor.login" placement="top-start">
+        <el-tooltip
+          :key="contributor.login"
+          :content="contributor.login"
+          placement="top-start"
+          :append-to="targetElement"
+        >
           <el-avatar
             :size="24"
             :src="contributor.avatar_url"
