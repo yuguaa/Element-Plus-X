@@ -118,13 +118,12 @@ app.mount('#app');
 <!-- 该方法 有待测试 -->
 <!-- CDN 引入 -->
 <script src="https://unpkg.com/vue-element-plus-x@1.3.0/dist/umd/index.js"></script>
-
 ```
 
 ## 🌟 已实现 组件 和 Hooks
 
 | 组件名               | 描述                                   | 文档链接                                                           |
-| -------------------- | -------------------------------------- |------------------------------------------------------------------ |
+| -------------------- | -------------------------------------- | ------------------------------------------------------------------ |
 | `Typewriter`         | 打字动画组件                           | [📄 文档](https://element-plus-x.com/zh/components/typewriter/)    |
 | `Bubble`             | 气泡消息组件 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/bubble/)        |
 | `BubbleList`         | 气泡消息列表 （拓展）                  | [📄 文档](https://element-plus-x.com/zh/components/bubbleList/)    |
@@ -157,6 +156,16 @@ app.mount('#app');
 - 💡 新功能提案
 - 📝 文档完善
 - 🎨 样式优化
+
+## 👥 贡献者
+
+<a href="https://openomy.app/github/element-plus-x/Element-Plus-X" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://openomy.app/svg?repo=element-plus-x/Element-Plus-X&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
+<a href="https://github.com/element-plus-x/Element-Plus-X/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=element-plus-x/Element-Plus-X" />
+</a>
 
 ## 👥 社区支持
 
