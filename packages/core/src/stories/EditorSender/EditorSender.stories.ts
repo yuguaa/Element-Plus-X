@@ -5,7 +5,7 @@ import EditorSender from './index.vue';
 import OtherEditorSender from './other.vue';
 
 const meta: Meta<typeof EditorSenderSource> = {
-  title: 'Example/EditorSender',
+  title: 'Example/EditorSender 🍑',
   argTypes: {
     placeholder: { control: 'text' },
     autoFocus: { control: 'boolean' },
@@ -16,6 +16,7 @@ const meta: Meta<typeof EditorSenderSource> = {
     },
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
+    clearable: { control: 'boolean' },
     headerAnimationTimer: { control: 'number' },
     selectList: { control: 'object' },
     userList: { control: 'object' },
@@ -28,6 +29,7 @@ const meta: Meta<typeof EditorSenderSource> = {
     submitType: 'enter',
     loading: false,
     disabled: false,
+    clearable: true,
     headerAnimationTimer: 300,
     customStyle: {
       maxHeight: '240px'

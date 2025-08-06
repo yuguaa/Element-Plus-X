@@ -8,13 +8,7 @@
 他和 `Sender` 组件的功能基本一样，唯一的区别就是 `指令的弹框` **相关的属性和方法** 不同。点击此处快速了解区别 👉 [**指令区别**](https://element-plus-x.com/components/mentionSender/#packages-vue-element-plus-x-src-mentionSender-demos-options)
 :::
 
-我们暂时没有考虑将 `MentionSender` 和 `Sender` 两个 **指令功能** 放到一起，仅仅通过组件进行区分。后续我们会在考虑将两个功能合并到另一个新的组件中： `EditorSender` 富文本输入框组件，去支持更多的输入框需求。
-
-::: tip
-`EditorSender` 富文本框输入组件，将参考豆包的输入框，在未来和大家见面：
-
-<img src="./image1.png" width="100%">
-:::
+我们暂时没有考虑将 `MentionSender` 和 `Sender` 两个 **指令功能** 放到一起，仅仅通过组件进行区分。
 
 ## 代码演示
 

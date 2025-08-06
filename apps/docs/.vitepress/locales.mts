@@ -45,6 +45,7 @@ const config = {
           {
             text: '上新',
             items: [
+              { text: 'EditorSender 编辑输入框 🍑', link: '/zh/components/editorSender/' },
               { text: 'XMarkdown 渲染组件 📜', link: '/zh/components/xmarkdown/' },
             ],
           },
@@ -181,6 +182,7 @@ const config = {
           {
             text: 'New',
             items: [
+              { text: 'EditorSender 🍑', link: '/en/components/editorSender/' },
               { text: 'XMarkdown Render 📜', link: '/en/components/xmarkdown/' },
             ],
           },

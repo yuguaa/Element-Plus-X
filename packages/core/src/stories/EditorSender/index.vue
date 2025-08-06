@@ -208,7 +208,7 @@ onMounted(() => {
               dark
               type="primary"
               plain
-              @click="editorRef?.setInputTag('jop', '请输入你的职业')"
+              @click="editorRef?.setInputTag('job', '请输入你的职业')"
             >
               插入输入标签
             </el-button>
@@ -216,7 +216,7 @@ onMounted(() => {
               dark
               type="primary"
               plain
-              @click="editorRef?.setInputTag('jop', '请输入你的职业', '开发者')"
+              @click="editorRef?.setInputTag('job', '请输入你的职业', '开发者')"
             >
               插入一个默认值的输入标签
             </el-button>
@@ -232,7 +232,7 @@ onMounted(() => {
               dark
               type="primary"
               plain
-              @click="editorRef?.setUserTag('5')"
+              @click="editorRef?.setCustomTag('#', 'ht1')"
             >
               插入自定义标签
             </el-button>

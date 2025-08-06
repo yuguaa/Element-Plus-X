@@ -1,4 +1,14 @@
-import type { CustomTag, SelectTag, TagInfo, UserInfo } from 'chatarea';
+import type {
+  CustomTag as CustomTagType,
+  SelectTag as SelectTagType,
+  TagInfo as TagInfoType,
+  UserInfo as UserInfoType
+} from 'chatarea';
+
+export type SelectTag = SelectTagType;
+export type TagInfo = TagInfoType;
+export type UserInfo = UserInfoType;
+export type CustomTag = CustomTagType;
 
 export interface EditorProps {
   placeholder?: string;
@@ -58,4 +68,13 @@ export interface SelectDialogOption {
   elm: HTMLElement;
   beforeText?: string;
   afterText?: string;
+}
+
+export interface EditorSenderEmits {
+  (e: 'submit', payload: SubmitResult): void;
+  (e: 'change'): void;
+  (e: 'cancel'): void;
+  (e: 'showAtDialog'): void;
+  (e: 'showSelectDialog', key: string, elm: HTMLElement): void;
+  (e: 'showTagDialog', prefix: string): void;
 }

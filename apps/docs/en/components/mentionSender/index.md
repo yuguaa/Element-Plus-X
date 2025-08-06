@@ -8,13 +8,7 @@
 Its functionality is basically the same as the `Sender` component. The only difference is the **properties and methods related to the directive popover**. Click here to quickly understand the difference 👉 [**Directive Difference**](https://element-plus-x.com/components/mentionSender/#packages-vue-element-plus-x-src-mentionSender-demos-options)
 :::
 
-Currently, we do not plan to combine the **directive features** of `MentionSender` and `Sender` into one, and we distinguish them only by component. In the future, we will consider merging the two features into a new component: `EditorSender` rich text input box component, to support more input box requirements.
-
-::: tip
-The `EditorSender` rich text input component will be inspired by Doubao's input box and will be available in the future:
-
-<img src="./image1.png" width="100%">
-:::
+Currently, we do not plan to combine the **directive features** of `MentionSender` and `Sender` into one, and we distinguish them only by component.
 
 ## Code Examples
 

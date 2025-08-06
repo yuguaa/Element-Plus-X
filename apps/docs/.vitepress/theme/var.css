@@ -147,3 +147,8 @@
     background: var(--vp-c-default-4) !important;
   }
 }
+
+.vp-doc p {
+  margin: 0;
+  line-height: inherit;
+}

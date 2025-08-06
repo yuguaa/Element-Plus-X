@@ -4,7 +4,8 @@ import { fileURLToPath } from 'node:url';
 
 const owner = 'element-plus-x';
 const repo = 'Element-Plus-X';
-const githubToken = ''; // 推荐设置token防止被限流
+const githubToken =
+  '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'; // 推荐设置token防止被限流
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const componentsDir = path.resolve(

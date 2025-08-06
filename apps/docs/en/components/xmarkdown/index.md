@@ -19,8 +19,6 @@ pnpm add vue-element-plus-x@1.3.0
 
 :::warning
 
-💖Friendly Reminder💖
-
 All `h function` demonstrations in the documentation demos mean you can use the `h` function for component rendering, or use `custom Vue components` for rendering.
 
 **For example:**
