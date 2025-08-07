@@ -22,7 +22,9 @@ const bgColor =
       description="用 vue3 对 ant-design-x 的复刻。后续将会集成 AI 工作流编排组件 和 md 多功能渲染组件，给 Vue 开发社区 一个好用的 AI 组件库"
     >
       <template #extra>
-        <el-button link type="primary"> 关于我 </el-button>
+        <el-button link type="primary">
+          关于我
+        </el-button>
       </template>
     </Welcome>
   </div>

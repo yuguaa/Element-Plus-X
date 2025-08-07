@@ -1,5 +1,4 @@
 ---
-title: Element Plus X
 pageClass: landing dark
 
 layout: home
@@ -15,6 +14,6 @@ import { useRouter } from 'vitepress'
 const router = useRouter()
 
 onBeforeMount(() => {
-  router.go('/en/')
+  router.go('/zh/')
 })
 </script>

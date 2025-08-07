@@ -1,0 +1,19 @@
+{
+  "name": "element-plus-x-metadata",
+  "version": "1.0.0",
+  "license": "ISC",
+  "keywords": [
+    "element-plus-x",
+    "metadata"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsx src/contributor.ts",
+    "dev": "tsx src/contributor.ts"
+  },
+  "dependencies": {
+    "tsx": "^4.20.3"
+  }
+}

@@ -102,8 +102,9 @@ export function getSize(size: number) {
 
 // 通过文件流，生成图片预览
 // Follow code is copy from `antd/components/upload/utils.ts`:
-export const isImageFileType = (type: string): boolean =>
-  type.indexOf('image/') === 0;
+export function isImageFileType(type: string): boolean {
+  return type.indexOf('image/') === 0;
+}
 const MEASURE_SIZE = 200;
 export function previewImage(file: File | Blob): Promise<string> {
   return new Promise<string>(resolve => {
@@ -144,7 +145,8 @@ export function previewImage(file: File | Blob): Promise<string> {
         }
       };
       reader.readAsDataURL(file);
-    } else if (file.type.startsWith('image/gif')) {
+    }
+    else if (file.type.startsWith('image/gif')) {
       const reader = new FileReader();
       reader.onload = () => {
         if (reader.result) {
@@ -152,7 +154,8 @@ export function previewImage(file: File | Blob): Promise<string> {
         }
       };
       reader.readAsDataURL(file);
-    } else {
+    }
+    else {
       img.src = window.URL.createObjectURL(file);
     }
   });
@@ -210,7 +213,8 @@ export const zoomMermaid = (() => {
         isDragging = true;
         startX = event.touches[0].clientX - posX;
         startY = event.touches[0].clientY - posY;
-      } else if (event.touches.length === 2) {
+      }
+      else if (event.touches.length === 2) {
         initialDistance = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
           event.touches[0].clientY - event.touches[1].clientY
@@ -226,7 +230,8 @@ export const zoomMermaid = (() => {
         posX = event.touches[0].clientX - startX;
         posY = event.touches[0].clientY - startY;
         updateTransform();
-      } else if (event.touches.length === 2) {
+      }
+      else if (event.touches.length === 2) {
         const newDistance = Math.hypot(
           event.touches[0].clientX - event.touches[1].clientX,
           event.touches[0].clientY - event.touches[1].clientY
@@ -267,7 +272,8 @@ export const zoomMermaid = (() => {
 
       if (event.deltaY < 0) {
         scale += scaleAmount;
-      } else {
+      }
+      else {
         scale = Math.max(0.1, scale - scaleAmount);
       }
 

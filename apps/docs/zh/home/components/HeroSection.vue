@@ -1,434 +1,589 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { gsap } from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
+import { ref } from 'vue';
 
-// 简单的语言检测（可以从 URL 或者其他地方获取）
-const currentLang = ref<'zh' | 'en'>('zh');
+gsap.registerPlugin(SplitText);
+gsap.registerPlugin(ScrollTrigger);
 
-// 国际化文本
-const i18n = {
-  zh: {
-    badge: 'ELEMENT PLUS X',
-    version: 'v2.0',
-    title: {
-      line1: '构建未来',
-      line2: 'UI 体验'
-    },
-    subtitle:
-      '基于 Vue 3 的下一代组件库，融合 Linear 设计语言与玻璃拟态美学，为现代 Web 应用提供极致的用户体验',
-    features: {
-      fast: '极速开发',
-      modern: '现代设计',
-      safe: '类型安全'
-    },
-    stats: {
-      components: '组件',
-      downloads: '下载量',
-      satisfaction: '满意度'
-    },
-    buttons: {
-      getStarted: '立即开始',
-      viewDocs: '查看文档'
-    },
-    quickStart: {
-      description: '立即开始使用 Element Plus X，只需一行命令即可安装',
-      command: 'npm install element-plus-x'
-    }
-  },
-  en: {
-    badge: 'ELEMENT PLUS X',
-    version: 'v2.0',
-    title: {
-      line1: 'Build Future',
-      line2: 'UI Experience'
-    },
-    subtitle:
-      'Next-generation Vue 3 component library, combining Linear design language with glassmorphism aesthetics to provide ultimate user experience for modern Web applications',
-    features: {
-      fast: 'Fast Development',
-      modern: 'Modern Design',
-      safe: 'Type Safe'
-    },
-    stats: {
-      components: 'Components',
-      downloads: 'Downloads',
-      satisfaction: 'Satisfaction'
-    },
-    buttons: {
-      getStarted: 'Get Started',
-      viewDocs: 'View Docs'
-    },
-    quickStart: {
-      description:
-        'Get started with Element Plus X immediately, just one command to install',
-      command: 'npm install element-plus-x'
-    }
-  }
-} as const;
+// 复制状态和安装命令
+const copied = ref(false);
+const installCommand = 'pnpm install vue-element-plus-x';
 
-const t = computed(() => i18n[currentLang.value]);
-const installCommand = computed(() => t.value.quickStart.command);
+// 文本内容
+const titleLine1 = 'Element Plus X';
+const titleLine2 = 'Vue3 生成式AI组件库';
+const subtitle =
+  '💖开箱即用的 企业级 AI 交互组件库，让开发者 构建 AIGC 智能界面像搭积木一样简单。';
+const getStartedText = '快速开始';
+const previewText = '组件预览';
+const githubText = 'GitHub';
 
+onMounted(() => {
+  textAnimation();
+  scrollTriggerAnimation();
+});
+
+// 字体随机动画
+function textAnimation() {
+  gsap.set('.title-line-split', { opacity: 1 });
+  gsap.set('.title-line-split-2', { opacity: 1 });
+  gsap.set('.title-line-split-3', { opacity: 1 });
+  const titleLine1Split = SplitText.create('.title-line-split', {
+    type: 'chars',
+    charsClass: 'title-line'
+  });
+  const titleLine2Split = SplitText.create('.title-line-split-2', {
+    type: 'chars',
+    charsClass: 'title-line2++'
+  });
+  const titleLine3Split = SplitText.create('.title-line-split-3', {
+    type: 'chars',
+    charsClass: 'text-media'
+  });
+  const options: gsap.TweenVars = {
+    y: 100,
+    opacity: 0,
+    delay: 0.6,
+    duration: 1.3,
+    yPercent: 'random([-150, 150])',
+    xPercent: 'random([-150, 150])',
+    stagger: {
+      from: 'random',
+      amount: 0.6
+    },
+    ease: 'power3.out'
+  };
+  gsap.from(titleLine1Split.chars, options);
+  gsap.from(titleLine2Split.chars, options);
+  gsap.from(titleLine3Split.chars, options);
+}
+
+// 滚动触发动画
+function scrollTriggerAnimation() {
+  ScrollTrigger.create({
+    trigger: '.hero-section',
+    start: '-=220',
+    end: '+=900',
+    scrub: true,
+    markers: false,
+    pin: true,
+    animation: gsap
+      .timeline()
+      .to('.left-container', { x: 100, y: -100 }, 0)
+      .to('.right-container', { x: -100, y: -100 }, 0)
+  });
+}
+
+// 复制命令方法
 async function copyInstallCommand() {
   try {
-    await navigator.clipboard.writeText(installCommand.value);
-    // 可以添加复制成功的提示
+    await navigator.clipboard.writeText(installCommand);
+    copied.value = true;
+    setTimeout(() => (copied.value = false), 2000);
   } catch (err) {
     console.error('复制失败:', err);
   }
 }
 
-// 监听语言变化（可以通过事件总线或者其他方式）
-if (typeof window !== 'undefined') {
-  // 简单的语言检测
-  const browserLang = navigator.language.toLowerCase();
-  if (browserLang.includes('zh')) {
-    currentLang.value = 'zh';
-  } else {
-    currentLang.value = 'en';
-  }
-}
-
 // 页面跳转
 function handleClick() {
-  location.href = '/components/bubbleList';
+  location.href = '/zh/components/xmarkdown/';
+}
+
+// 在线预览
+function handlePreview() {
+  // 在线预览链接
+  window.open('https://v.element-plus-x.com', '_blank');
+}
+
+// GitHub链接
+function handleGithub() {
+  // GitHub仓库链接
+  window.open('https://github.com/element-plus-x/Element-Plus-X', '_blank');
 }
 </script>
 
 <template>
-  <!-- 首屏英雄区 - 根据设计图重新布局 -->
+  <!-- 首屏英雄区 -->
   <section
-    class="relative min-h-screen flex items-center justify-center overflow-hidden py-16 px-4"
+    class="relative items-center z-10 max-w-[1200px] mx-auto mt-30 mb-30 flex justify-between hero-section"
   >
-    <!-- 背景装饰 -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="gradient-orb orb-1" />
-      <div class="gradient-orb orb-2" />
-      <div class="grid-pattern" />
-    </div>
-
-    <!-- 主容器 - 居中布局 -->
-    <div class="relative z-10 w-full max-w-5xl mx-auto text-center">
-      <!-- 顶部徽章 -->
-      <div class="mb-12">
-        <div
-          class="hero-badge inline-flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-[15px] border border-white/10 text-sm font-semibold shadow-lg"
-        >
-          <span class="text-xl">✨</span>
-          <span class="text-white">{{ t.badge }}</span>
-          <span
-            class="badge-version px-3 py-1 rounded-full text-xs font-bold"
-            >{{ t.version }}</span
+    <div class="left-container">
+      <!-- 标题区域 - 突出主标题 -->
+      <div class="mt-8 mb-4">
+        <h1 class="text-align-left! p-0!">
+          <div
+            class="title-line-split text-5xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tight"
           >
-        </div>
-      </div>
-
-      <!-- 主标题 -->
-      <div class="mb-8">
-        <h1
-          class="text-6xl md:text-8xl lg:text-9xl font-black leading-none tracking-tight mb-6"
-        >
-          <div class="title-line">
-            {{ t.title.line1 }}
+            {{ titleLine1 }}
           </div>
-          <div class="title-line">
-            {{ t.title.line2 }}
+          <div
+            class="title-line-split-2 text-2xl md:text-2xl lg:text-4xl font-medium mt-4 mb-0"
+          >
+            {{ titleLine2 }}
           </div>
         </h1>
 
-        <!-- 副标题 -->
         <p
-          class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed"
+          class="title-line-split-3 md:py-5 text-lg md:text-xl lg:text-2xl text-white/80 leading-relaxed max-w-2xl"
         >
-          {{ t.subtitle }}
+          {{ subtitle }}
         </p>
       </div>
 
-      <!-- 特性标签 -->
-      <div class="flex flex-wrap justify-center gap-4 mb-12">
-        <div
-          class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
-        >
-          <span class="text-base">⚡</span>
-          <span>{{ t.features.fast }}</span>
-        </div>
-        <div
-          class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
-        >
-          <span class="text-base">🎨</span>
-          <span>{{ t.features.modern }}</span>
-        </div>
-        <div
-          class="feature-tag flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full backdrop-blur-[10px] text-sm font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1"
-        >
-          <span class="text-base">🔒</span>
-          <span>{{ t.features.safe }}</span>
-        </div>
-      </div>
-
-      <!-- 统计数据 -->
-      <div class="flex flex-wrap justify-center gap-12 md:gap-20 mb-12">
-        <div class="text-center">
-          <div class="stat-number text-5xl md:text-6xl font-black mb-2">
-            50+
-          </div>
-          <div
-            class="text-sm md:text-base text-white/70 font-medium uppercase tracking-wider"
-          >
-            {{ t.stats.components }}
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="stat-number text-5xl md:text-6xl font-black mb-2">
-            10K+
-          </div>
-          <div
-            class="text-sm md:text-base text-white/70 font-medium uppercase tracking-wider"
-          >
-            {{ t.stats.downloads }}
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="stat-number text-5xl md:text-6xl font-black mb-2">
-            99%
-          </div>
-          <div
-            class="text-sm md:text-base text-white/70 font-medium uppercase tracking-wider"
-          >
-            {{ t.stats.satisfaction }}
-          </div>
-        </div>
-      </div>
-
-      <!-- 行动按钮 -->
-      <div
-        class="flex flex-col sm:flex-row justify-center gap-4 mb-12 max-w-md mx-auto"
-      >
+      <!-- 按钮区域 - 增加两个按钮 -->
+      <div class="pt-4 md:pt-0 flex flex-wrap gap-4 btn-container">
         <button
-          class="btn-primary flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold transition-all duration-300 backdrop-blur-[10px] text-white border-none cursor-pointer hover:-translate-y-1 flex-1"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white text-[1.15rem] font-semibold rounded-full cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/20"
           @click="handleClick"
         >
-          <span class="text-xl">🚀</span>
-          <span>{{ t.buttons.getStarted }}</span>
+          <span class="text-xl">✨</span>
+          <span>{{ getStartedText }}</span>
         </button>
+
         <button
-          class="btn-secondary flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-base font-semibold transition-all duration-300 backdrop-blur-[10px] text-white border border-white/20 cursor-pointer hover:-translate-y-1 flex-1"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white text-[1.15rem] font-semibold rounded-full cursor-pointer transition-all duration-300 border border-white/20"
+          @click="handlePreview"
         >
-          <span class="text-xl">📖</span>
-          <span>{{ t.buttons.viewDocs }}</span>
+          <span class="text-xl">🐳</span>
+          <span>{{ previewText }}</span>
+        </button>
+
+        <button
+          class="inline-flex items-center gap-2 px-8 py-4 bg-black/50 hover:bg-black/70 text-white text-[1.15rem] font-semibold rounded-full cursor-pointer transition-all duration-300 border border-white/10"
+          @click="handleGithub"
+        >
+          <img
+            src="https://github.githubassets.com/assets/apple-touch-icon-144x144-b882e354c005.png"
+            class="w-6 h-6 rounded-full"
+            alt=""
+          />
+          <span>{{ githubText }}</span>
         </button>
       </div>
 
-      <!-- 快速开始 -->
-      <div class="space-y-4">
-        <p class="text-base text-white/70">
-          {{ t.quickStart.description }}
-        </p>
-
-        <div
-          class="inline-flex items-center bg-black/40 border border-white/20 rounded-2xl p-2 backdrop-blur-[15px] shadow-2xl max-w-md w-full"
+      <!-- 安装命令区域 - 移至底部 -->
+      <div
+        class="flex items-center mt-0 md:mt-10 bg-black/30 border border-white/20 rounded-2xl p-3 backdrop-blur-[15px] shadow-2xl max-w-md install-container"
+      >
+        <span
+          class="text-indigo-400 font-mono font-semibold px-2 text-sm md:text-base select-none"
+          >$</span
         >
-          <span
-            class="text-indigo-400 font-mono font-semibold px-4 text-sm md:text-base"
-            >$</span
+        <span
+          class="flex-1 text-white/90 font-mono md:text-base text-left px-2"
+          >{{ installCommand }}</span
+        >
+        <button
+          class="bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 hover:border-indigo-500/50 rounded-xl p-3 text-white/80 hover:text-white transition-all duration-300 hover:scale-105 mr-auto"
+          @click="copyInstallCommand"
+        >
+          <svg
+            v-if="!copied"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
           >
-          <span
-            class="flex-1 text-white/90 font-mono text-sm md:text-base text-left px-2"
-            >{{ installCommand }}</span
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          <svg
+            v-else
+            class="text-green-500"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
           >
-          <button
-            class="install-command bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-500/30 hover:border-indigo-500/50 rounded-xl p-3 text-white/80 hover:text-white transition-all duration-300 hover:scale-105 flex-shrink-0"
-            @click="copyInstallCommand"
-          >
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-              <path
-                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
-              />
-            </svg>
-          </button>
-        </div>
+            <path
+              fill="currentColor"
+              fill-rule="evenodd"
+              d="M19.633 6.226a1 1 0 0 1 .141 1.407l-9 11a1 1 0 0 1-1.481.074l-5-5a1 1 0 1 1 1.414-1.414l4.219 4.219l8.3-10.145a1 1 0 0 1 1.407-.141"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="right-container">
+      <div class="glow-container">
+        <img
+          src="https://element-plus-x.com/logo.png"
+          class="w-[256px] h-[256px] relative z-10"
+        />
       </div>
     </div>
   </section>
 </template>
 
-<style scoped>
-/* 背景装饰动画 */
-.gradient-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.6;
-  animation: orbFloat 8s ease-in-out infinite;
-}
-
-.orb-1 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(
-    circle,
-    rgba(99, 102, 241, 0.4) 0%,
-    transparent 70%
-  );
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.orb-2 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.3) 0%,
-    transparent 70%
-  );
-  bottom: 20%;
-  right: 10%;
-  animation-delay: -4s;
-}
-
-@keyframes orbFloat {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(20px, -20px) scale(1.1);
-  }
-}
-
-.grid-pattern {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  animation: gridMove 20s linear infinite;
-}
-
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-
-/* 徽章样式 */
-.hero-badge {
+<style scoped lang="less">
+:deep(.title-line) {
+  will-change: transform;
   background: linear-gradient(
     135deg,
-    rgba(99, 102, 241, 0.15) 0%,
-    rgba(139, 92, 246, 0.15) 100%
+    #98ff53 0%,
+    #ff1381 25%,
+    #f65c5c 50%,
+    #ff1381 75%,
+    #f5ff69 100%
   );
-  animation: badgeGlow 3s ease-in-out infinite;
-}
-
-@keyframes badgeGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
-  }
-}
-
-.badge-version {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* 标题渐变动画 */
-.title-line {
-  background: linear-gradient(
-    135deg,
-    #ffffff 0%,
-    #e2e8f0 25%,
-    #6366f1 50%,
-    #8b5cf6 75%,
-    #ffffff 100%
-  );
-  background-size: 200% 200%;
+  background-size: 300% 300%;
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: titleGradient 4s ease-in-out infinite;
+  display: inline-block;
+
+  & * {
+    will-change: transform;
+  }
+}
+
+:deep(.title-line2) {
+  will-change: transform;
+  background-size: 300% 300%;
+  background: linear-gradient(135deg, #ff4d88 0%, #ff0077 55%, #ff5e86 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  & * {
+    will-change: transform;
+  }
+}
+
+.title-line-split-3 {
+  text-align: left;
+}
+
+:deep(.title-line21),
+:deep(.title-line22),
+:deep(.title-line23),
+:deep(.title-line24) {
+  background: linear-gradient(135deg, #4fffadb6 0%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  // 字体阴影光晕
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+:deep(.title-line28) {
+  margin-left: 0.625rem;
+  margin-right: 0.25rem;
+}
+
+:deep(.title-line29) {
+  margin-right: 0.625rem;
+}
+
+:deep(.title-line28),
+:deep(.title-line29) {
+  position: relative;
+  /* 为伪元素提供定位基准 */
+  background: linear-gradient(135deg, #4fffadb6 0%, #4fffa0 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  /* 光晕闪烁动画：随机变化光晕大小和透明度 */
+  animation: pulse-glow 0.8s infinite ease-in-out;
+}
+
+:deep(.title-line28)::before,
+:deep(.title-line28)::after,
+:deep(.title-line29)::before,
+:deep(.title-line29)::after {
+  content: 'A';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  /* 继承渐变背景 */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  /* 默认隐藏，通过动画显示 */
+}
+
+:deep(.title-line29)::before,
+:deep(.title-line29)::after {
+  content: 'I';
+}
+
+/* 左侧故障副本：红色偏移 */
+:deep(.title-line28)::before,
+:deep(.title-line29)::before {
+  left: -2px;
+  text-shadow: 2px 0 rgba(255, 0, 0, 0.4);
+  /* 红色错位阴影 */
+  animation: glitch-left 1.3s infinite alternate-reverse;
+}
+
+/* 右侧故障副本：蓝色偏移 */
+:deep(.title-line28)::after,
+:deep(.title-line29)::after {
+  left: 2px;
+  text-shadow: -2px 0 rgba(0, 0, 255, 0.4);
+  /* 蓝色错位阴影 */
+  animation: glitch-right 1.3s infinite alternate-reverse;
+}
+
+/* 位置微调保持原有布局 */
+:deep(.title-line28) {
+  margin-left: 0.625rem;
+}
+
+:deep(.title-line29) {
+  margin-right: 0.625rem;
+}
+
+/* 光晕闪烁动画 */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  20% {
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.8);
+  }
+
+  40% {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+  }
+
+  60% {
+    text-shadow: 0 0 22px rgba(255, 255, 255, 0.9);
+  }
+
+  80% {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* 左侧故障动画 */
+@keyframes glitch-left {
+  0%,
+  80%,
+  100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+
+  20% {
+    opacity: 0.6;
+    transform: translate(-1px, 1px);
+  }
+
+  40% {
+    opacity: 0.4;
+    transform: translate(-2px, -1px);
+  }
+
+  60% {
+    opacity: 0.5;
+    transform: translate(-1px, -2px);
+  }
+}
+
+/* 右侧故障动画 */
+@keyframes glitch-right {
+  0%,
+  70%,
+  100% {
+    opacity: 0;
+    transform: translate(0);
+  }
+
+  10% {
+    opacity: 0.5;
+    transform: translate(1px, 1px);
+  }
+
+  30% {
+    opacity: 0.3;
+    transform: translate(2px, 1px);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translate(1px, -1px);
+  }
+
+  70% {
+    opacity: 0.4;
+    transform: translate(2px, -2px);
+  }
 }
 
 @keyframes titleGradient {
-  0%,
-  100% {
+  0% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
-/* 按钮样式 */
-.btn-primary {
-  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+/* 发光流动效果 */
+.right-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
 }
 
-.btn-primary:hover {
-  box-shadow: 0 15px 40px rgba(99, 102, 241, 0.4);
+.glow-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* 统计数字渐变 */
-.stat-number {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Logo渐变动画 */
-.linear-logo-x {
-  background: linear-gradient(
-    135deg,
-    #6366f1 0%,
-    #8b5cf6 25%,
-    #3b82f6 50%,
-    #ec4899 75%,
-    #6366f1 100%
+.glow-container::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.5) 0%,
+    rgba(139, 92, 246, 0) 70%
   );
-  background-size: 200% 200%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.6));
-  animation: logoGradientFlow 6s ease-in-out infinite;
+  z-index: 0;
+  animation: glowPulse 3s ease-in-out infinite;
 }
 
-@keyframes logoGradientFlow {
+.glow-container::after {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.6) 0%,
+    rgba(99, 102, 241, 0) 70%
+  );
+  z-index: -1;
+  animation: glowFlow 4s ease-in-out infinite;
+}
+
+:deep(.text-media) {
+  line-height: 0.625rem;
+}
+
+@keyframes glowPulse {
   0%,
   100% {
-    background-position: 0% 50%;
+    transform: scale(1);
+    opacity: 0.7;
   }
+
   50% {
-    background-position: 100% 50%;
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes glowFlow {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1) rotate(360deg);
+    opacity: 0.5;
+  }
+}
+
+/* 增加响应式调整 */
+@media (max-width: 1200px) {
+  .left-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      text-align: center !important;
+      margin-bottom: 30px;
+    }
+
+    p {
+      margin-bottom: 1.875rem;
+    }
+  }
+
+  .right-container {
+    display: none;
+  }
+
+  /* 居中展示 */
+  :deep(.text-media) {
+    line-height: 0.625rem;
+  }
+
+  .title-line-split-3 {
+    text-align: center;
+  }
+
+  .btn-container {
+    justify-content: center;
+  }
+
+  .install-container {
+    justify-content: center;
+    width: calc(100% - 48px);
+    margin: 20px 24px 0;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 840px) {
+  .title-line {
+    font-size: 4rem;
+  }
+
+  .title-line2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-line {
+    font-size: 3rem;
+  }
+
+  .title-line2 {
+    font-size: 1.5rem;
+  }
+
+  .button-group {
+    flex-direction: column;
   }
 }
 </style>

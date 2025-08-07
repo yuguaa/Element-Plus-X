@@ -22,7 +22,9 @@ const bgColor =
       description="A Vue 3 recreation of ant-design-x. Later will integrate AI workflow orchestration components and multi-functional md rendering components, providing the Vue development community with a useful AI component library"
     >
       <template #extra>
-        <el-button link type="primary"> About Me </el-button>
+        <el-button link type="primary">
+          About Me
+        </el-button>
       </template>
     </Welcome>
   </div>

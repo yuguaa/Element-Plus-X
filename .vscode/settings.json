@@ -132,5 +132,8 @@
     { "rule": "*-newline", "severity": "off", "fixable": true },
     { "rule": "*quotes", "severity": "off", "fixable": true },
     { "rule": "*semi", "severity": "off", "fixable": true }
-  ]
+  ],
+  "aide.convertLanguagePairs": {
+    "vue": "vue"
+  }
 }

@@ -32,7 +32,8 @@ const enableCodeLineNumber = computed(() => {
 });
 function doRenderIframe() {
   const iframe = iframeRef.value;
-  if (!iframe) return;
+  if (!iframe)
+    return;
 
   isLoading.value = true;
 
@@ -63,14 +64,16 @@ function doRenderIframe() {
         match => `${match}<meta charset="UTF-8">`
       );
     }
-  } else {
+  }
+  else {
     // 没有 <head>，插入 <head><meta charset="UTF-8"></head> 到 <html> 或最前
     if (/<html[^>]*>/i.test(sanitizedHtml)) {
       finalHtml = sanitizedHtml.replace(
         /<html[^>]*>/i,
         match => `${match}<head><meta charset="UTF-8"></head>`
       );
-    } else {
+    }
+    else {
       // 甚至没有 <html>，包一层完整结构
       finalHtml = `
         <!DOCTYPE html>

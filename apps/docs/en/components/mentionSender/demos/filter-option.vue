@@ -31,7 +31,8 @@ function filterFunc(_: string, option: MentionOption): any {
   // Here we print option, each time the directive is triggered, it will iterate through options and trigger filterFunc.
   if (option.value === 'ageerle' || option.value === 'JsonLee12138') {
     return true;
-  } else if (option.value === 'HeJiaYue520') {
+  }
+  else if (option.value === 'HeJiaYue520') {
     return false;
   }
 }

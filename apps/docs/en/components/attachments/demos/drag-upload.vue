@@ -29,7 +29,8 @@ watch(
 
     if (isFull.value) {
       dragArea.value = document.body;
-    } else {
+    }
+    else {
       dragArea.value = 'drag-area';
     }
   },

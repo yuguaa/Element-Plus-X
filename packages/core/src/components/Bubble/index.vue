@@ -67,9 +67,11 @@ const DEFAULT_TYPING: TypingConfig = {
 const _typing = computed(() => {
   if (typeof props.typing === 'undefined') {
     return false;
-  } else if (typeof props.typing === 'boolean') {
+  }
+  else if (typeof props.typing === 'boolean') {
     return props.typing;
-  } else {
+  }
+  else {
     return Object.assign({}, DEFAULT_TYPING, props.typing);
   }
 }) as boolean | TypingConfig;

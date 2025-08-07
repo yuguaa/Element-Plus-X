@@ -49,7 +49,8 @@ export function useSend(
   const loading = ref<boolean>(false);
 
   const handleSend = (...args: any[]) => {
-    if (loading.value) return;
+    if (loading.value)
+      return;
     sendHandler?.(...args);
     loading.value = true;
   };

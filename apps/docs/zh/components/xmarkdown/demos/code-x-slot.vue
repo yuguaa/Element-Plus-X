@@ -248,7 +248,8 @@ const selfCodeXSlot4 = {
                         const customContent = `🎨 自定义前缀：\n\n${props.rawContent}\n\n📝 来自：Element-Plus-X`;
                         await navigator.clipboard.writeText(customContent);
                         ElMessage.success('🎉 组件插槽自定义复制成功！');
-                      } catch (err) {
+                      }
+                      catch (err) {
                         console.error('❌ 自定义复制失败:', err);
                       }
                     }
