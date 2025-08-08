@@ -36,7 +36,7 @@ const config = {
           { text: 'ChatArea (轻量级聊天框)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '🧭 指南', link: '/zh/guide/install' },
-        { text: '🎨 组件', link: '/zh/components/xmarkdown' },
+        { text: '🎨 组件', link: '/zh/components/editorSender/' },
       ],
 
       // 中文侧边栏
@@ -173,7 +173,7 @@ const config = {
           { text: 'ChatArea (Chat Box)', link: 'https://jianfv.top/ChatAreaDoc/home' },
         ] },
         { text: '🧭 Guide', link: '/en/guide/install' },
-        { text: '🎨 Components', link: '/en/components/xmarkdown' },
+        { text: '🎨 Components', link: '/en/components/editorSender/' },
       ],
 
       // 英文侧边栏
