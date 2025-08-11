@@ -23,7 +23,9 @@ import LoadingButton from './components/LoadingButton/index.vue';
 import SendButton from './components/SendButton/index.vue';
 import 'chatarea/lib/ChatArea.css';
 
-/** 支持的配置属性 */
+/**
+ *  支持的配置属性
+ */
 const props = withDefaults(defineProps<EditorProps>(), {
   placeholder: '请输入内容', // 输入框提示占位语
   device: 'pc', // 使用编辑器设备类型 pc内置了很多丰富的弹出选择功能，如果用户传入了h5，弹出交互需要参考自定义弹出去支持
@@ -42,10 +44,14 @@ const props = withDefaults(defineProps<EditorProps>(), {
   asyncMatchFun: undefined, // 异步加载群成员方法
   customDialog: false // 是否需要自定义弹窗 开启后内部弹窗将不会再创建了
 });
-/** 暴露的事件 */
+/**
+ *  暴露的事件
+ */
 const emits = defineEmits<EditorSenderEmits>();
 
-/** 输入框相关 */
+/**
+ *  输入框相关
+ */
 const chat = ref<ChatArea>();
 const opNode = ref<ChatOperateNode>();
 const container = ref<HTMLElement>();
@@ -367,7 +373,9 @@ function updateSelectTag(elm: HTMLElement, tag: TagInfo) {
   opNode.value?.updateNode(chatNode);
 }
 
-/** 监听响应props的响应式修改 去更新chat示例对象对应的配置 */
+/**
+ *  监听响应props的响应式修改 去更新chat示例对象对应的配置
+ */
 watch(
   () => props.disabled,
   () => {
