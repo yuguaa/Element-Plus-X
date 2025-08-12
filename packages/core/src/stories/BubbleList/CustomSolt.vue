@@ -102,7 +102,7 @@ onMounted(() => {
             :src="item.avatar"
             class="avatar"
             :style="{ width: item.avatarSize, height: item.avatarSize }"
-          />
+          >
         </template>
 
         <template #header="{ item }">
@@ -121,7 +121,6 @@ onMounted(() => {
             <XMarkdown
               v-if="item.role === 'ai'"
               :markdown="item.content ?? ''"
-              default-theme-mode="dark"
             />
             <span v-else>{{ item.content }} </span>
           </div>
