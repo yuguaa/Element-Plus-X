@@ -22,6 +22,10 @@
 
 <demo src="./demos/built-in-menu.vue"></demo>
 
+### 内置下拉菜单按钮展示风格
+
+<demo src="./demos/built-in-menu-type.vue"></demo>
+
 ### 自定义菜单交互
 
 <demo src="./demos/custom-menu.vue"></demo>

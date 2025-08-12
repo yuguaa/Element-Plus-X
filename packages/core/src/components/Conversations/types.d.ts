@@ -70,6 +70,7 @@ export interface Conversation<T extends AnyObject = AnyObject> {
   ungroupedTitle?: string;
   menu?: ConversationMenu[];
   showBuiltInMenu?: boolean;
+  showBuiltInMenuType?: 'hover' | 'always';
   menuPlacement?:
     | 'top'
     | 'bottom'

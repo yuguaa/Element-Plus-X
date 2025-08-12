@@ -22,6 +22,10 @@
 
 <demo src="./demos/built-in-menu.vue"></demo>
 
+### Built-in Dropdown Menu Button Type
+
+<demo src="./demos/built-in-menu-type.vue"></demo>
+
 ### Custom Menu Interaction
 
 <demo src="./demos/custom-menu.vue"></demo>

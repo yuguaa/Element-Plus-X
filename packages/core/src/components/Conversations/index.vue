@@ -30,6 +30,7 @@ const props = withDefaults(defineProps<Conversation<T>>(), {
   labelMaxWidth: undefined,
   labelHeight: 20,
   showBuiltInMenu: false,
+  showBuiltInMenuType: 'hover',
   menu: () => [
     {
       label: '重命名',
@@ -74,6 +75,11 @@ const activeKey = computed({
     emits('update:active', value); // 更新时触发 emit 通知父组件
   }
 });
+
+// 是否总是显示内置菜单按钮
+const alwaysShowBuiltInMenu = computed(
+  () => props.showBuiltInMenuType === 'always' && props.showBuiltInMenu
+);
 
 // const getKey = (item: ConversationItem<T>, index: number) => {
 //   return props.rowKey ? get(item, props.rowKey as string) as string : index.toString()
@@ -133,8 +139,7 @@ const mergedStyle = computed(() => {
 
 function handleClick(item: ConversationItemUseOptions<T>) {
   // 如果是disabled状态，则不允许选中
-  if (item.disabled)
-    return;
+  if (item.disabled) return;
   emits('change', item);
   activeKey.value = item.uniqueKey as string | number;
 }
@@ -153,8 +158,7 @@ const filteredItems = computed(() => {
 // 根据分组方式进行分组
 const groups = computed(() => {
   // 如果不需要分组，则返回空数组
-  if (!shouldUseGrouping.value)
-    return [];
+  if (!shouldUseGrouping.value) return [];
 
   // 检查filteredItems是否有值
   if (!filteredItems.value || filteredItems.value.length === 0) {
@@ -196,10 +200,8 @@ const groups = computed(() => {
   if (typeof props.groupable === 'object' && props.groupable.sort) {
     return groupArray.sort((a, b) => {
       // 确保未分组总是在最后
-      if (a.isUngrouped)
-        return 1;
-      if (b.isUngrouped)
-        return -1;
+      if (a.isUngrouped) return 1;
+      if (b.isUngrouped) return -1;
 
       const sortFn = (props.groupable as GroupableOptions).sort;
       return sortFn ? sortFn(a.key, b.key) : 0;
@@ -209,10 +211,8 @@ const groups = computed(() => {
   // 否则只确保未分组在最后，不做其他排序
   return groupArray.sort((a, b) => {
     // 确保未分组总是在最后
-    if (a.isUngrouped)
-      return 1;
-    if (b.isUngrouped)
-      return -1;
+    if (a.isUngrouped) return 1;
+    if (b.isUngrouped) return -1;
 
     // 不做其他排序
     return 0;
@@ -235,13 +235,11 @@ function handleScroll(e: any) {
 
   // 获取当前滚动容器
   const scrollbar = scrollbarRef.value;
-  if (!scrollbar)
-    return;
+  if (!scrollbar) return;
 
   // 使用scrollbar的wrapRef获取真实DOM以获取正确的尺寸
   const wrap = scrollbar.wrapRef;
-  if (!wrap)
-    return;
+  if (!wrap) return;
 
   // 检查是否需要加载更多
   // 当滚动到距离底部20px时触发加载
@@ -262,16 +260,14 @@ function handleScroll(e: any) {
 
 // 更新标题吸顶状态
 function updateStickyStatus(_e: any) {
-  if (!shouldUseGrouping.value || groups.value.length === 0)
-    return;
+  if (!shouldUseGrouping.value || groups.value.length === 0) return;
 
   // 先清空当前的吸顶组
   stickyGroupKeys.value.clear();
 
   // 获取滚动容器
   const scrollContainer = scrollbarRef.value?.wrapRef;
-  if (!scrollContainer)
-    return;
+  if (!scrollContainer) return;
 
   // 如果只有一个分组，直接设置为吸顶状态
   if (groups.value.length === 1) {
@@ -325,13 +321,11 @@ function updateStickyStatus(_e: any) {
     if (fullyVisibleGroup) {
       // 如果有完全进入视口的分组，选择它
       stickyGroupKeys.value.add(fullyVisibleGroup.group.key);
-    }
-    else {
+    } else {
       // 否则选择第一个部分可见的分组（通常是标题已经滚出但内容还可见的）
       stickyGroupKeys.value.add(visibleGroups[0].group.key);
     }
-  }
-  else if (groups.value.length > 0) {
+  } else if (groups.value.length > 0) {
     // 如果没有可见分组，则选择第一个分组
     stickyGroupKeys.value.add(groups.value[0].key);
   }
@@ -339,8 +333,7 @@ function updateStickyStatus(_e: any) {
 
 // 加载更多数据
 function loadMoreData() {
-  if (!props.loadMore)
-    return;
+  if (!props.loadMore) return;
   props.loadMore();
 }
 
@@ -431,6 +424,7 @@ onMounted(() => {
                     :label-max-width="labelMaxWidth"
                     :menu="menu"
                     :show-built-in-menu="props.showBuiltInMenu"
+                    :always-show-built-in-menu="alwaysShowBuiltInMenu"
                     :menu-placement="props.menuPlacement"
                     :menu-offset="props.menuOffset"
                     :menu-max-height="props.menuMaxHeight"
@@ -480,6 +474,7 @@ onMounted(() => {
                 :label-max-width="labelMaxWidth"
                 :menu="menu"
                 :show-built-in-menu="props.showBuiltInMenu"
+                :always-show-built-in-menu="alwaysShowBuiltInMenu"
                 :menu-placement="props.menuPlacement"
                 :menu-offset="props.menuOffset"
                 :menu-max-height="props.menuMaxHeight"
