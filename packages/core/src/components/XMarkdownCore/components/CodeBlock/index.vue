@@ -1,19 +1,11 @@
 <script lang="ts" setup>
-import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
 import type { BundledLanguage } from 'shiki';
 import type { ElxRunCodeProps } from '../RunCode/type';
 import type { CodeBlockExpose } from './shiki-header';
 import type { RawProps } from './types';
-import {
-  transformerNotationDiff,
-  transformerNotationErrorLevel,
-  transformerNotationFocus,
-  transformerNotationHighlight,
-  transformerNotationWordHighlight
-} from '@shikijs/transformers';
 import { computed, h, reactive, ref, toValue, watch } from 'vue';
 import HighLightCode from '../../components/HighLightCode/index.vue';
-import { SHIKI_SUPPORT_LANGS, shikiThemeDefault } from '../../shared';
+import { SHIKI_SUPPORT_LANGS } from '../../shared';
 import { useMarkdownContext } from '../MarkdownProvider';
 import RunCode from '../RunCode/index.vue';
 import {
@@ -40,14 +32,8 @@ const context = useMarkdownContext();
 const {
   codeXSlot,
   customAttrs,
-  enableCodeLineNumber = false,
-  globalShiki
+  enableCodeLineNumber = false
 } = toValue(context) || {};
-const renderLines = ref<string[]>([]);
-const preStyle = ref<any | null>(null);
-const preClass = ref<string | null>(null);
-const themes = computed(() => context?.value?.themes ?? shikiThemeDefault);
-const colorReplacements = computed(() => context?.value?.colorReplacements);
 const nowViewBtnShow = computed(() => context?.value?.needViewCodeBtn ?? false);
 const viewCodeModalOptions = computed(
   () => context?.value?.viewCodeModalOptions
@@ -58,78 +44,58 @@ const codeAttrs =
   typeof customAttrs?.code === 'function'
     ? customAttrs.code(props.raw)
     : customAttrs?.code || {};
-const shikiTransformers = [
-  transformerNotationDiff(),
-  transformerNotationErrorLevel(),
-  transformerNotationFocus(),
-  transformerNotationHighlight(),
-  transformerNotationWordHighlight()
-];
 
-const { codeToHtml } = globalShiki as GlobalShiki;
-// 生成高亮HTML
-async function generateHtml() {
-  let { language = 'text', content = '' } = props.raw || {};
+// 设置当前代码语言
+function setCodeLanguage() {
+  let { language = 'text' } = props.raw || {};
+  // 如果语言不在支持列表中，默认使用 'text'
   if (!(SHIKI_SUPPORT_LANGS as readonly string[]).includes(language)) {
     language = 'text';
   }
   nowCodeLanguage.value = language as BundledLanguage;
-  const html = await codeToHtml(content.trim(), {
-    lang: language as BundledLanguage,
-    themes: themes.value,
-    colorReplacements: colorReplacements.value,
-    transformers: shikiTransformers
-  });
-  const parse = new DOMParser();
-  const doc = parse.parseFromString(html, 'text/html');
-  const preElement = doc.querySelector('pre');
-  preStyle.value = preElement?.getAttribute('style');
-  const preClassNames = preElement?.className;
-  preClass.value = preClassNames ?? '';
-  const codeElement = doc.querySelector('pre code');
-  if (codeElement) {
-    const lines = codeElement.querySelectorAll('.line'); // 获取所有代码行
-    renderLines.value = Array.from(lines).map(line => line.outerHTML); // 存储每行HTML
-  }
 }
 
+// 监听原始内容变化，设置代码语言
 watch(
   () => props.raw?.content,
-  async content => {
+  content => {
     if (content) {
-      await generateHtml();
+      setCodeLanguage();
     }
   },
   { immediate: true }
 );
 
+// 运行代码的配置项
 const runCodeOptions = reactive<ElxRunCodeProps>({
-  code: [],
-  content: '',
+  content: '', // 只保留原始内容
   visible: false,
   lang: '',
-  preClass: '',
-  preStyle: {}
+  preClass: 'pre-md', // 使用默认类名
+  preStyle: {} // 使用默认空样式
 });
-function viewCode(renderLines: string[]) {
-  if (!renderLines?.length) return;
 
+// 查看代码函数 - 现在直接使用原始内容
+function viewCode() {
+  const content = props.raw?.content ?? '';
+  if (!content) return;
+
+  // 更新运行代码配置
   Object.assign(runCodeOptions, {
-    code: renderLines,
-    content: props.raw?.content ?? '',
+    content,
     lang: nowCodeLanguage.value || 'html',
-    preClass: preClass.value || 'pre-md',
-    preStyle: preStyle.value || {},
+    preClass: 'pre-md',
+    preStyle: {},
     visible: true
   });
 }
 
+// 监听内容变化，同步更新 runCodeOptions
 watch(
-  () => renderLines.value,
+  () => props.raw?.content,
   val => {
-    if (runCodeOptions.visible) {
-      runCodeOptions.code = val;
-      runCodeOptions.content = props.raw.content ?? '';
+    if (runCodeOptions.visible && val) {
+      runCodeOptions.content = val;
     }
   }
 );
@@ -143,7 +109,7 @@ function renderSlot(slotName: string) {
   if (typeof slotFn === 'function') {
     return slotFn({
       ...props,
-      renderLines: renderLines.value,
+      renderLines: [], // 保持接口兼容性，传递空数组
       isDark,
       isExpand,
       nowViewBtnShow: nowViewBtnShow.value,
@@ -156,7 +122,7 @@ function renderSlot(slotName: string) {
 
   return h(slotFn as any, {
     ...props,
-    renderLines: renderLines.value,
+    renderLines: [], // 保持接口兼容性，传递空数组
     isDark,
     isExpand,
     nowViewBtnShow: nowViewBtnShow.value,
@@ -167,31 +133,37 @@ function renderSlot(slotName: string) {
   } satisfies CodeBlockExpose);
 }
 
+// 处理头部语言点击事件
 function handleHeaderLanguageClick() {
   isExpand.value = !isExpand.value;
 }
 
 // 计算属性
-const computedClass = computed(() => `pre-md ${preClass.value} is-expanded`);
+const computedClass = computed(() => `pre-md is-expanded`); // 移除对 preClass 的依赖
 const codeClass = computed(() => `language-${props.raw?.language || 'text'}`);
 const RunCodeComputed = computed(() => {
   return nowCodeLanguage.value === 'html' && nowViewBtnShow.value
     ? RunCode
     : undefined;
 });
+
+// 代码控制器元素计算属性
 const codeControllerEleComputed = computed(() => {
   if (nowCodeLanguage.value === 'html' && nowViewBtnShow.value) {
     return controlHasRunCodeEle(
       () => {
-        copyCode(renderLines.value);
+        // 复制代码时直接使用原始内容
+        copyCode(props.raw?.content ?? '');
       },
       () => {
-        viewCode(renderLines.value);
+        // 查看代码
+        viewCode();
       }
     );
   }
   return controlEle(() => {
-    copyCode(renderLines.value);
+    // 复制代码时直接使用原始内容
+    copyCode(props.raw?.content ?? '');
   });
 });
 
@@ -206,7 +178,7 @@ watch(
 </script>
 
 <template>
-  <div :key="props.raw?.key" :class="computedClass" :style="preStyle">
+  <div :key="props.raw?.key" :class="computedClass">
     <div class="markdown-elxLanguage-header-div is-always-shadow">
       <component
         :is="renderSlot('codeHeader')"
@@ -242,7 +214,7 @@ watch(
       <HighLightCode
         :enable-code-line-number="enableCodeLineNumber"
         :lang="props.raw?.language ?? 'text'"
-        :code="renderLines"
+        :code="props.raw?.content ?? ''"
       />
     </code>
     <!-- run-code -->

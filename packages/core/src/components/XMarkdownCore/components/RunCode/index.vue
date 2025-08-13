@@ -9,7 +9,6 @@ import RunCodeContent from './components/run-code-content.vue';
 import RunCodeHeader from './components/run-code-header.vue';
 
 const props = withDefaults(defineProps<ElxRunCodeProps>(), {
-  code: () => [],
   lang: '',
   mode: 'drawer'
 });

@@ -27,10 +27,6 @@ export interface DrawerOptions extends DialogOptions {
 
 export interface ElxRunCodeProps {
   /**
-   * 代码块内容(高亮后的代码块内容)
-   */
-  code: string[];
-  /**
    * 代码块内容(原文)
    */
   content: string;

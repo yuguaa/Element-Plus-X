@@ -3,7 +3,7 @@ import { ElScrollbar } from 'element-plus';
 import { computed } from 'vue';
 
 export interface HighLightCodeProps {
-  code: string[];
+  code: string;
   lang: string;
   enableCodeLineNumber: boolean;
 }
