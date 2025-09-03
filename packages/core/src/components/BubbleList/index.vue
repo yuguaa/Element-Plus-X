@@ -21,9 +21,8 @@ const props = withDefaults(defineProps<BubbleListProps<T>>(), {
   btnColor: '#409EFF',
   btnIconSize: 24
 });
-
 const emits = defineEmits<BubbleListEmits>();
-
+const TOLERANCE = 30;
 function initStyle() {
   document.documentElement.style.setProperty(
     '--el-bubble-list-max-height',
@@ -45,12 +44,6 @@ const scrollContainer = ref<HTMLElement | null>(null);
 const { hasVertical } = useScrollDetector(scrollContainer);
 // 是否停止自动滚动
 const stopAutoScrollToBottom = ref(false);
-// 上次滚动位置
-const lastScrollTop = ref(0);
-// 累积向上滚动距离
-const accumulatedScrollUpDistance = ref(0);
-// 阈值（像素）
-const threshold = 20;
 const resizeObserver = ref<ResizeObserver | null>(null);
 const showBackToBottom = ref(false); // 控制按钮显示
 
@@ -84,7 +77,7 @@ function scrollToBottom() {
       nextTick(() => {
         scrollContainer.value!.scrollTop = scrollContainer.value!.scrollHeight;
         // 修复清空BubbleList后，再次调用 scrollToBottom()，不触发自动滚动问题
-        stopAutoScrollToBottom.value = false;
+        // stopAutoScrollToBottom.value = false;
       });
     }
   }
@@ -125,10 +118,21 @@ function autoScroll() {
     const listBubbles = scrollContainer.value!.querySelectorAll(
       '.el-bubble-content-wrapper'
     );
+    const secondLastItem = listBubbles[listBubbles.length - 2];
+    const { top, bottom } = secondLastItem.getBoundingClientRect();
+    const { top: containerTop, bottom: containerBottom } = scrollContainer.value!.getBoundingClientRect();
+    // 之前的最后一个是现在的第二个，判断是否可见，如果可见则自动滚动
+    const isVisible = top < containerBottom && bottom > containerTop;
+    if (isVisible) {
+      scrollToBottom();
+      stopAutoScrollToBottom.value = false;
+    }
+
     // 如果页面上有监听节点，先移除
     if (resizeObserver.value) {
       resizeObserver.value.disconnect();
     }
+    // 监听最后一个气泡内容的变化
     const lastItem = listBubbles[listBubbles.length - 1];
     if (lastItem) {
       resizeObserver.value = new ResizeObserver(() => {
@@ -178,43 +182,7 @@ function handleScroll() {
     showBackToBottom.value =
       props.showBackButton && distanceToBottom > props.backButtonThreshold;
 
-    // 判断是否距离底部小于阈值 (这里吸附值大一些会体验更好)
-    const isCloseToBottom = scrollTop + clientHeight >= scrollHeight - 30;
-    // 判断用户是否向上滚动
-    const isScrollingUp = lastScrollTop.value > scrollTop;
-    // 判断用户是否向下滚动
-    const isScrollingDown = lastScrollTop.value < scrollTop;
-    // 计算当前滚动距离的变化
-    const scrollDelta = lastScrollTop.value - scrollTop;
-    // 更新上次滚动位置
-    lastScrollTop.value = scrollTop;
-    // 处理向上滚动逻辑
-    if (isScrollingUp) {
-      // 累积向上滚动距离
-      accumulatedScrollUpDistance.value += scrollDelta;
-      // 如果累积距离超过阈值，触发逻辑并重置累积距离
-      if (accumulatedScrollUpDistance.value >= threshold) {
-        // console.log(`用户向上滚动超过 ${threshold} 像素（累积）${stopAutoScrollToBottom.value}`)
-        // 在这里执行你的操作
-        if (!stopAutoScrollToBottom.value) {
-          stopAutoScrollToBottom.value = true;
-        }
-        // 重置累积距离
-        accumulatedScrollUpDistance.value = 0;
-      }
-    }
-    else {
-      // 如果用户停止向上滚动或开始向下滚动，重置累积距离
-      accumulatedScrollUpDistance.value = 0;
-    }
-    // 处理向下滚动且接近底部的逻辑
-    if (isScrollingDown && isCloseToBottom) {
-      // console.log(`用户向下滚动且距离底部小于 ${threshold} 像素`)
-      // 在这里执行你的操作
-      if (stopAutoScrollToBottom.value) {
-        stopAutoScrollToBottom.value = false;
-      }
-    }
+    stopAutoScrollToBottom.value = scrollHeight - scrollTop - clientHeight > TOLERANCE;
   }
 }
 /* 在底部时候自动滚动 结束 */
@@ -227,53 +195,54 @@ defineExpose({
 </script>
 
 <template>
-  <div
-    ref="scrollContainer"
-    class="el-bubble-list"
-    :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
-    @scroll="handleScroll"
-  >
-    <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->
-    <!-- 否则，则按照 BubbleList 的 md 配置渲染 -->
-    <Bubble
-      v-for="(item, index) in list"
-      :key="index"
-      :content="item.content"
-      :placement="item.placement"
-      :loading="item.loading"
-      :shape="item.shape"
-      :variant="item.variant"
-      :is-markdown="item.isMarkdown"
-      :is-fog="item.isFog"
-      :typing="item.typing"
-      :max-width="item.maxWidth"
-      :avatar="item.avatar"
-      :avatar-size="item.avatarSize"
-      :avatar-gap="item.avatarGap"
-      :avatar-shape="item.avatarShape"
-      :avatar-src-set="item.avatarSrcSet"
-      :avatar-alt="item.avatarAlt"
-      :avatar-fit="item.avatarFit"
-      :no-style="item.noStyle"
-      @finish="instance => handleBubbleComplete(index, instance)"
+  <div class="el-bubble-list-wrapper">
+    <div
+      ref="scrollContainer"
+      class="el-bubble-list"
+      :class="{ 'always-scrollbar': props.alwaysShowScrollbar }"
+      @scroll="handleScroll"
     >
-      <template v-if="$slots.avatar" #avatar>
-        <slot name="avatar" :item="item" />
-      </template>
-      <template v-if="$slots.header" #header>
-        <slot name="header" :item="item" />
-      </template>
-      <template v-if="$slots.content" #content>
-        <slot name="content" :item="item" />
-      </template>
-      <template v-if="$slots.footer" #footer>
-        <slot name="footer" :item="item" />
-      </template>
-      <template v-if="$slots.loading" #loading>
-        <slot name="loading" :item="item" />
-      </template>
-    </Bubble>
-
+      <!-- 如果给 BubbleList 的 item 传入 md 配置，则按照 item 的 md 配置渲染 -->
+      <!-- 否则，则按照 BubbleList 的 md 配置渲染 -->
+      <Bubble
+        v-for="(item, index) in list"
+        :key="index"
+        :content="item.content"
+        :placement="item.placement"
+        :loading="item.loading"
+        :shape="item.shape"
+        :variant="item.variant"
+        :is-markdown="item.isMarkdown"
+        :is-fog="item.isFog"
+        :typing="item.typing"
+        :max-width="item.maxWidth"
+        :avatar="item.avatar"
+        :avatar-size="item.avatarSize"
+        :avatar-gap="item.avatarGap"
+        :avatar-shape="item.avatarShape"
+        :avatar-src-set="item.avatarSrcSet"
+        :avatar-alt="item.avatarAlt"
+        :avatar-fit="item.avatarFit"
+        :no-style="item.noStyle"
+        @finish="instance => handleBubbleComplete(index, instance)"
+      >
+        <template v-if="$slots.avatar" #avatar>
+          <slot name="avatar" :item="item" />
+        </template>
+        <template v-if="$slots.header" #header>
+          <slot name="header" :item="item" />
+        </template>
+        <template v-if="$slots.content" #content>
+          <slot name="content" :item="item" />
+        </template>
+        <template v-if="$slots.footer" #footer>
+          <slot name="footer" :item="item" />
+        </template>
+        <template v-if="$slots.loading" #loading>
+          <slot name="loading" :item="item" />
+        </template>
+      </Bubble>
+    </div>
     <!-- 自定义按钮插槽 默认返回按钮 -->
     <div
       v-if="showBackToBottom && hasVertical"
