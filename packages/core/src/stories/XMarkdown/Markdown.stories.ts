@@ -93,12 +93,9 @@ export const highlightMdContentDemo: Story = {
   args: {
     markdown: highlightMdContent,
     codeXProps: {
-      enableCodePreview: false,
-      enableThemeToggle: false,
-      enableCodeCopy: true,
       enableCodeLineNumber: true
     }
-  },
+  } as any,
   render: args => ({
     components: { HighlightCodeDemo },
     setup() {
