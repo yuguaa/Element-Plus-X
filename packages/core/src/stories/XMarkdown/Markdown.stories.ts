@@ -85,12 +85,19 @@ export const MarkdownDemo: Story = {
 
 export const highlightMdContentDemo: Story = {
   argTypes: {
-    enableCodePreview: { control: 'boolean' },
-    enableThemeToggle: { control: 'boolean' },
-    enableCodeCopy: { control: 'boolean' }
+    codeXProps: {
+      control: 'object',
+      defaultValue: {}
+    }
   } as any,
   args: {
-    markdown: highlightMdContent
+    markdown: highlightMdContent,
+    codeXProps: {
+      enableCodePreview: false,
+      enableThemeToggle: false,
+      enableCodeCopy: true,
+      enableCodeLineNumber: true
+    }
   },
   render: args => ({
     components: { HighlightCodeDemo },

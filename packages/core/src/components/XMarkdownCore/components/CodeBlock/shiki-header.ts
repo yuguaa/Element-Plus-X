@@ -6,7 +6,7 @@ import type {
   ElxRunCodeExposeProps
 } from '../RunCode/type';
 import type { RawProps } from './types';
-import { MARKDOWN_PROVIDER_KEY } from '@components/XMarkdownCore/shared';
+import { useMarkdownContext } from '@components/XMarkdownCore/components/MarkdownProvider';
 import { ArrowDownBold, Moon, Sunny } from '@element-plus/icons-vue';
 import { ElButton, ElMessage, ElSpace } from 'element-plus';
 import { h, ref } from 'vue';
@@ -243,7 +243,8 @@ export function controlEle(copy: () => void) {
  * @param view
  */
 export function controlHasRunCodeEle(copy: () => void, view: () => void) {
-  const contextProps = inject(MARKDOWN_PROVIDER_KEY) as ComputedRef;
+  const context = useMarkdownContext();
+  const { codeXProps } = toValue(context) || {};
   return h(
     ElSpace,
     {
@@ -252,13 +253,11 @@ export function controlHasRunCodeEle(copy: () => void, view: () => void) {
     },
     {
       default: () => [
-        contextProps?.value?.enableCodePreview
+        codeXProps?.enableCodePreview
           ? h(RunCodeButton, { onView: view })
           : null,
-        contextProps?.value?.enableThemeToggle ? toggleThemeEle() : null,
-        contextProps?.value?.enableCodeCopy
-          ? h(CopyCodeButton, { onCopy: copy })
-          : null // ✅ 改为组件形式
+        codeXProps?.enableThemeToggle ? toggleThemeEle() : null,
+        codeXProps?.enableCodeCopy ? h(CopyCodeButton, { onCopy: copy }) : null // ✅ 改为组件形式
       ]
     }
   );

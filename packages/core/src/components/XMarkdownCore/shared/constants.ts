@@ -1,4 +1,5 @@
 import type { GlobalShiki } from '@components/XMarkdownCore/hooks/useShiki';
+import type { CodeXProps } from '@components/XMarkdownCore/shared/types';
 import type { BuiltinTheme } from 'shiki';
 import type { PluggableList } from 'unified';
 import type { MermaidToolbarConfig } from '../components/Mermaid/types';
@@ -17,10 +18,7 @@ export const DEFAULT_PROPS = {
   enableLatex: true,
   enableAnimate: false,
   enableBreaks: true,
-  enableCodePreview: false, // 启动代码预览功能
-  enableCodeCopy: true, // 启动代码复制功能
-  enableThemeToggle: false, // 启动主题切换
-  enableCodeLineNumber: false,
+  codeXProps: () => ({}),
   codeXRender: () => ({}),
   codeXSlot: () => ({}),
   codeHighlightTheme: null,
@@ -51,22 +49,6 @@ export const MARKDOWN_CORE_PROPS = {
     type: Boolean,
     default: false
   },
-  enableCodePreview: {
-    type: Boolean,
-    default: true
-  },
-  enableCodeCopy: {
-    type: Boolean,
-    default: true
-  },
-  enableThemeToggle: {
-    type: Boolean,
-    default: true
-  },
-  enableCodeLineNumber: {
-    type: Boolean,
-    default: false
-  },
   enableLatex: {
     type: Boolean,
     default: true
@@ -78,6 +60,15 @@ export const MARKDOWN_CORE_PROPS = {
   enableBreaks: {
     type: Boolean,
     default: true
+  },
+  codeXProps: {
+    type: Object as PropType<CodeXProps>,
+    default: () => ({
+      enableCodePreview: false, // 启动代码预览功能
+      enableCodeCopy: true, // 启动代码复制功能
+      enableThemeToggle: false, // 启动主题切换
+      enableCodeLineNumber: false
+    })
   },
   codeXRender: {
     type: Object,
